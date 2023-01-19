@@ -2,14 +2,20 @@
 %TAG !u! tag:unity3d.com,2011:
 --- !u!21 &2100000
 Material:
-  serializedVersion: 6
+  serializedVersion: 8
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_Name: SnowURPExample01
   m_Shader: {fileID: 4800000, guid: 06aa19b87b8aa174485b5a0ed989e1cb, type: 3}
-  m_ShaderKeywords: USE_AL USE_RT USE_WC _TESSELLATION_EDGE
+  m_ValidKeywords:
+  - USE_AL
+  - USE_LS
+  - USE_RT
+  - USE_WC
+  - _TESSELLATION_EDGE
+  m_InvalidKeywords: []
   m_LightmapFlags: 4
   m_EnableInstancingVariants: 0
   m_DoubleSidedGI: 0
@@ -52,6 +58,14 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _EmissionMap:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _FlowTex:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _FogTex:
         m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
@@ -215,6 +229,11 @@ Material:
         m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
+    - _UnderWaterFish:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    m_Ints: []
     m_Floats:
     - _AddSnowStrength: 0.3
     - _BumpScale: 3.44
@@ -228,6 +247,14 @@ Material:
     - _DstBlend: 0
     - _EffectDisplacementStrength: 0.5
     - _Emission: 0.25
+    - _FishAngle: 0
+    - _FishIntensity: 1
+    - _FishMaskIntensity: 0.25
+    - _FishScale: 1
+    - _FishSpeed: 1
+    - _FlowMultiplier: 0.3
+    - _FogIntensity: 0.3
+    - _FogScale: 1
     - _GlossMapScale: 1
     - _Glossiness: 0.5
     - _GlossyReflections: 1
@@ -294,11 +321,14 @@ Material:
     - _TessellationUniform: 1
     - _TransitionPower: 0.27
     - _TransitionScale: 0.94
+    - _TransparencyValue: 1
+    - _USEINTER: 0
     - _USERT: 1
     - _USEWC: 1
     - _UVSec: 0
     - _UpVector: 1
     - _UseAmbientLight: 1
+    - _UseSunReflection: 1
     - _UseVR: 0
     - _WireframeSmoothing: 1
     - _WireframeThickness: 1
@@ -309,6 +339,7 @@ Material:
     - _CracksStrength: {r: 0, g: 0.15, b: 0.13, a: -0.15}
     - _Emission: {r: 0, g: 0, b: 0, a: 1}
     - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}
+    - _FogDirection: {r: 1, g: 0.3, b: 2, a: 0}
     - _IceTint: {r: 0.61394286, g: 0.74605715, b: 0.816, a: 0.92941177}
     - _IceTrail: {r: 0.134, g: 0.134, b: 0.07412766, a: 1}
     - _MountColor: {r: 0.120717645, g: 0.121025234, b: 0.12156863, a: 1}
@@ -334,3 +365,4 @@ Material:
     - _TopColor: {r: 1, g: 1, b: 1, a: 1}
     - _TransitionColor: {r: 1, g: 1, b: 1, a: 1}
     - _WireframeColor: {r: 0, g: 0, b: 0, a: 1}
+  m_BuildTextureStacks: []
