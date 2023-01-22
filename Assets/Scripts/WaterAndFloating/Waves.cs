@@ -33,6 +33,11 @@ public class Waves : MonoBehaviour
         transform.localScale = _waterPosition.localScale;
     }
     
+    private void Update()
+    {
+        WaveGeneration();
+    }
+    
     public float GetHeight(Vector3 position)
     {
         //scale factor and position in local space
@@ -139,11 +144,6 @@ public class Waves : MonoBehaviour
     }
 
     #endregion
-    
-    void Update()
-    {
-        WaveGeneration();
-    }
 
     private void WaveGeneration()
     {

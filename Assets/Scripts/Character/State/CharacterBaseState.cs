@@ -1,21 +1,21 @@
 using UnityEngine;
 
-public abstract class CharacterBaseState 
+namespace Character.State
 {
-    public GameplayInputs GameplayInputs;
+    public abstract class CharacterBaseState 
+    {
+        public bool CanCharacterMove = true;
+        public bool CanCharacterMakeActions = true;
 
+        protected Transform PlayerPosition;
 
-    public bool CanCharacterMove = true;
-    public bool CanCharacterMakeActions = true;
+        public abstract void EnterState(CharacterStateManager character);
 
-    public Transform PosPlayer;
+        public abstract void UpdateState(CharacterStateManager character);
 
-    public abstract void EnterState(CharacterStateManager character);
+        public abstract void FixedUpdate(CharacterStateManager character);
 
-    public abstract void UpdateState(CharacterStateManager character);
+        public abstract void SwitchState(CharacterStateManager character);
 
-    public abstract void FixedUpdate(CharacterStateManager character);
-
-    public abstract void SwitchState(CharacterStateManager character);
-
+    }
 }
