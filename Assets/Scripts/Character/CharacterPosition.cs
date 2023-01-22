@@ -13,8 +13,6 @@ public class CharacterPosition : MonoBehaviour
     }
     void Update()
     {
-        /*        transform.position = KayakPos.position;
-                transform.rotation = KayakPos.rotation;*/
         MatchCharacterWithBoat();
     }
 

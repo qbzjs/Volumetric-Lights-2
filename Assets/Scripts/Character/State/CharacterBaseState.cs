@@ -2,7 +2,6 @@ using UnityEngine;
 
 public abstract class CharacterBaseState 
 {
-    public GameplayInputs GameplayInputs;
 
 
     public bool CanCharacterMove = true;

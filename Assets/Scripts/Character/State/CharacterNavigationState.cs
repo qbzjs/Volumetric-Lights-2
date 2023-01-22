@@ -1,4 +1,3 @@
-using Script.Character;
 using System;
 using UnityEngine;
 
@@ -46,21 +45,18 @@ public class CharacterNavigationState : CharacterBaseState
 
     }
 
-    /*private void Move()
-    {
-        _rigidbody.AddForce(_kayakManager.transform.forward * _kayakValues.Speed);
-    }*/
+
     private void PaddleRotate(int value)
     {
+        //c'est de la grosse merde
         Debug.Log("rotate");
+
         var rotate = _kayakManager.transform.rotation;
-        Debug.Log(rotate);
         rotate.y = _kayakManager.transform.rotation.y + value * 10;
 
-        Debug.Log(rotate);
-        //_kayakManager.transform.Rotate(Vector3.up, _kayakValues.Speed * value);
         _kayakManager.transform.rotation = Quaternion.Lerp(_kayakManager.transform.rotation, rotate, Time.deltaTime * 1);
     }
+
     void MaxSpeed()
     {
         var sqrMaxVelocity = _kayakValues.MaximumFrontVelocity * _kayakValues.MaximumFrontVelocity;
