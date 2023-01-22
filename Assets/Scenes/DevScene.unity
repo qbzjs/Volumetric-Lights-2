@@ -674,7 +674,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ad47bb5931a68a34d906b6e2237913f7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _dimension: 20
+  _dimension: 100
   _UVScale: 2
   _waterPosition: {fileID: 1383893021}
   _octaves:
@@ -914,7 +914,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7be024ccb8e2a2048aabfa8fe7abd17e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  KayakPos: {fileID: 995821254}
+  KayakPosition: {fileID: 0}
 --- !u!114 &616867417
 MonoBehaviour:
   m_ObjectHideFlags: 0
