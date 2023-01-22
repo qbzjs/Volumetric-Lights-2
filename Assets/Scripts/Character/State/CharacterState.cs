@@ -2,7 +2,7 @@ using UnityEngine;
 
 namespace Character.State
 {
-    public abstract class CharacterBaseState 
+    public abstract class CharacterState 
     {
         public bool CanCharacterMove = true;
         public bool CanCharacterMakeActions = true;

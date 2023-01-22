@@ -1,39 +1,45 @@
+using System;
+using Kayak;
 using UnityEngine;
+using Object = UnityEngine.Object;
 
 namespace Character.State
 {
-    public class CharacterNavigationState : CharacterBaseState
+    public class CharacterNavigationState : CharacterState
     {
-
         //kayak
-        private KayakManager _kayakManager;
-        private KayakParameters _kayakValues;
-
         private Vector2 _paddleForceValue;
         private float _leftPaddleMovement, _rightPaddleMovement;
         private bool _leftPaddleEngaged, _rightPaddleEngaged;
         private float _currentInputPaddleFrontForce = 30;
 
         //reference
-        private Rigidbody _rigidbody;
-        private MonoBehaviour _monoBehaviour;
+        private KayakController _kayakController;
+        private KayakParameters _kayakValues;
+        private Rigidbody _kayakRigidbody;
         
+        #region Constructor
+
+        public CharacterNavigationState(KayakController kayak)
+        {
+            _kayakController = kayak;
+            _kayakRigidbody = kayak.Rigidbody;
+            _kayakValues = kayak.KayakValues;
+        }
+
+        #endregion
+
         #region CharacterBaseState overrided function
 
         public override void EnterState(CharacterStateManager character)
         {
-            //setup values //TODO tuple referencing
-            _kayakManager = Object.FindObjectOfType<KayakManager>();
-            _kayakValues = _kayakManager.KayakValues;
-            PlayerPosition = Object.FindObjectOfType<CharacterInBoatTransformManager>().transform;
-            _rigidbody = GameObject.Find("KayakFloatingObject").GetComponent<Rigidbody>();
+            
         }
 
         public override void UpdateState(CharacterStateManager character)
         {
             HandlePaddleMovement();
             RotateMovement();
-            MaxSpeedClamp();
         }
 
         public override void FixedUpdate(CharacterStateManager character)
@@ -51,7 +57,7 @@ namespace Character.State
 
         private void RotateKayak(int value)
         {
-            Transform kayakTransform = _kayakManager.transform;
+            Transform kayakTransform = _kayakController.transform;
             const float paddleRotateForce = 10;
 
             Quaternion rotation = kayakTransform.rotation;
@@ -63,19 +69,14 @@ namespace Character.State
         #endregion
         
         #region Paddle Movement
-        
-        private void MaxSpeedClamp()
-        {
-            _kayakManager.Rigidbody.velocity = Vector3.ClampMagnitude(_kayakManager.Rigidbody.velocity, _kayakValues.MaximumFrontVelocity);
-        }
-        
+
         private void Paddle()
         {
             _currentInputPaddleFrontForce += _kayakValues.PaddleInputFrontForceAdding; //TODO value never reset to 0 
             _currentInputPaddleFrontForce = Mathf.Clamp(_currentInputPaddleFrontForce, 0, _kayakValues.PaddleInputFrontForceMaximum);
             
-            Vector3 forceToApply = _kayakManager.transform.forward * _currentInputPaddleFrontForce;
-            _kayakManager.Rigidbody.AddForce(forceToApply);
+            Vector3 forceToApply = _kayakController.transform.forward * _currentInputPaddleFrontForce;
+            _kayakRigidbody.AddForce(forceToApply);
         }
 
         private void HandlePaddleMovement()

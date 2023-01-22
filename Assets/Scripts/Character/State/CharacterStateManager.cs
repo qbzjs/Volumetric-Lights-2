@@ -1,11 +1,21 @@
+using System;
+using Kayak;
 using UnityEngine;
 
 namespace Character.State
 {
     public class CharacterStateManager : MonoBehaviour
     {
-        private CharacterBaseState _currentState;
-        private CharacterNavigationState _navigationState = new CharacterNavigationState();
+
+        [Header("References"), SerializeField] private KayakController _kayakController;
+        
+        private CharacterState _currentState;
+        private CharacterNavigationState _navigationState;
+
+        public CharacterStateManager()
+        {
+            _navigationState = new CharacterNavigationState(_kayakController);
+        }
 
         private void Start()
         {
@@ -21,7 +31,7 @@ namespace Character.State
         {
             _currentState.FixedUpdate(this);
         }
-        public void SwitchState(CharacterBaseState stateCharacter)
+        public void SwitchState(CharacterState stateCharacter)
         {
             _currentState = stateCharacter;
             stateCharacter.EnterState(this);
