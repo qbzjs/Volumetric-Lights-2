@@ -62,6 +62,15 @@ public partial class @GameplayInputs : IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": true
+                },
+                {
+                    ""name"": ""RotateCamera"",
+                    ""type"": ""Value"",
+                    ""id"": ""94bc673f-e28e-491d-987f-4e04c7c7dbad"",
+                    ""expectedControlType"": ""Vector2"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": true
                 }
             ],
             ""bindings"": [
@@ -71,7 +80,7 @@ public partial class @GameplayInputs : IInputActionCollection2, IDisposable
                     ""path"": ""<Keyboard>/q"",
                     ""interactions"": ""Press"",
                     ""processors"": """",
-                    ""groups"": """",
+                    ""groups"": ""KeyboardMouse"",
                     ""action"": ""PaddleLeft"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
@@ -82,7 +91,7 @@ public partial class @GameplayInputs : IInputActionCollection2, IDisposable
                     ""path"": ""<Gamepad>/leftTrigger"",
                     ""interactions"": ""Press"",
                     ""processors"": """",
-                    ""groups"": """",
+                    ""groups"": ""GamePad"",
                     ""action"": ""PaddleLeft"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
@@ -93,7 +102,7 @@ public partial class @GameplayInputs : IInputActionCollection2, IDisposable
                     ""path"": ""<Keyboard>/e"",
                     ""interactions"": ""Press"",
                     ""processors"": """",
-                    ""groups"": """",
+                    ""groups"": ""KeyboardMouse"",
                     ""action"": ""PaddleRight"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
@@ -104,7 +113,7 @@ public partial class @GameplayInputs : IInputActionCollection2, IDisposable
                     ""path"": ""<Gamepad>/rightTrigger"",
                     ""interactions"": ""Press"",
                     ""processors"": """",
-                    ""groups"": """",
+                    ""groups"": ""GamePad"",
                     ""action"": ""PaddleRight"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
@@ -115,7 +124,7 @@ public partial class @GameplayInputs : IInputActionCollection2, IDisposable
                     ""path"": ""<Keyboard>/a"",
                     ""interactions"": """",
                     ""processors"": """",
-                    ""groups"": """",
+                    ""groups"": ""KeyboardMouse"",
                     ""action"": ""StaticRotateLeft"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
@@ -126,7 +135,7 @@ public partial class @GameplayInputs : IInputActionCollection2, IDisposable
                     ""path"": ""<Gamepad>/leftStick/left"",
                     ""interactions"": """",
                     ""processors"": """",
-                    ""groups"": """",
+                    ""groups"": ""GamePad"",
                     ""action"": ""StaticRotateLeft"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
@@ -137,7 +146,7 @@ public partial class @GameplayInputs : IInputActionCollection2, IDisposable
                     ""path"": ""<Keyboard>/d"",
                     ""interactions"": """",
                     ""processors"": """",
-                    ""groups"": """",
+                    ""groups"": ""KeyboardMouse"",
                     ""action"": ""StaticRotateRight"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
@@ -148,15 +157,37 @@ public partial class @GameplayInputs : IInputActionCollection2, IDisposable
                     ""path"": ""<Gamepad>/leftStick/right"",
                     ""interactions"": """",
                     ""processors"": """",
-                    ""groups"": """",
+                    ""groups"": ""GamePad"",
                     ""action"": ""StaticRotateRight"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""18d35e25-5cdb-4bf6-9f72-6016e5884a9a"",
+                    ""path"": ""<Pointer>/delta"",
+                    ""interactions"": """",
+                    ""processors"": ""InvertVector2(invertX=false),ScaleVector2(x=0.05,y=0.05)"",
+                    ""groups"": ""KeyboardMouse"",
+                    ""action"": ""RotateCamera"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 }
             ]
         }
     ],
-    ""controlSchemes"": []
+    ""controlSchemes"": [
+        {
+            ""name"": ""KeyboardMouse"",
+            ""bindingGroup"": ""KeyboardMouse"",
+            ""devices"": []
+        },
+        {
+            ""name"": ""GamePad"",
+            ""bindingGroup"": ""GamePad"",
+            ""devices"": []
+        }
+    ]
 }");
         // Boat
         m_Boat = asset.FindActionMap("Boat", throwIfNotFound: true);
@@ -164,6 +195,7 @@ public partial class @GameplayInputs : IInputActionCollection2, IDisposable
         m_Boat_PaddleRight = m_Boat.FindAction("PaddleRight", throwIfNotFound: true);
         m_Boat_StaticRotateLeft = m_Boat.FindAction("StaticRotateLeft", throwIfNotFound: true);
         m_Boat_StaticRotateRight = m_Boat.FindAction("StaticRotateRight", throwIfNotFound: true);
+        m_Boat_RotateCamera = m_Boat.FindAction("RotateCamera", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -227,6 +259,7 @@ public partial class @GameplayInputs : IInputActionCollection2, IDisposable
     private readonly InputAction m_Boat_PaddleRight;
     private readonly InputAction m_Boat_StaticRotateLeft;
     private readonly InputAction m_Boat_StaticRotateRight;
+    private readonly InputAction m_Boat_RotateCamera;
     public struct BoatActions
     {
         private @GameplayInputs m_Wrapper;
@@ -235,6 +268,7 @@ public partial class @GameplayInputs : IInputActionCollection2, IDisposable
         public InputAction @PaddleRight => m_Wrapper.m_Boat_PaddleRight;
         public InputAction @StaticRotateLeft => m_Wrapper.m_Boat_StaticRotateLeft;
         public InputAction @StaticRotateRight => m_Wrapper.m_Boat_StaticRotateRight;
+        public InputAction @RotateCamera => m_Wrapper.m_Boat_RotateCamera;
         public InputActionMap Get() { return m_Wrapper.m_Boat; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -256,6 +290,9 @@ public partial class @GameplayInputs : IInputActionCollection2, IDisposable
                 @StaticRotateRight.started -= m_Wrapper.m_BoatActionsCallbackInterface.OnStaticRotateRight;
                 @StaticRotateRight.performed -= m_Wrapper.m_BoatActionsCallbackInterface.OnStaticRotateRight;
                 @StaticRotateRight.canceled -= m_Wrapper.m_BoatActionsCallbackInterface.OnStaticRotateRight;
+                @RotateCamera.started -= m_Wrapper.m_BoatActionsCallbackInterface.OnRotateCamera;
+                @RotateCamera.performed -= m_Wrapper.m_BoatActionsCallbackInterface.OnRotateCamera;
+                @RotateCamera.canceled -= m_Wrapper.m_BoatActionsCallbackInterface.OnRotateCamera;
             }
             m_Wrapper.m_BoatActionsCallbackInterface = instance;
             if (instance != null)
@@ -272,15 +309,37 @@ public partial class @GameplayInputs : IInputActionCollection2, IDisposable
                 @StaticRotateRight.started += instance.OnStaticRotateRight;
                 @StaticRotateRight.performed += instance.OnStaticRotateRight;
                 @StaticRotateRight.canceled += instance.OnStaticRotateRight;
+                @RotateCamera.started += instance.OnRotateCamera;
+                @RotateCamera.performed += instance.OnRotateCamera;
+                @RotateCamera.canceled += instance.OnRotateCamera;
             }
         }
     }
     public BoatActions @Boat => new BoatActions(this);
+    private int m_KeyboardMouseSchemeIndex = -1;
+    public InputControlScheme KeyboardMouseScheme
+    {
+        get
+        {
+            if (m_KeyboardMouseSchemeIndex == -1) m_KeyboardMouseSchemeIndex = asset.FindControlSchemeIndex("KeyboardMouse");
+            return asset.controlSchemes[m_KeyboardMouseSchemeIndex];
+        }
+    }
+    private int m_GamePadSchemeIndex = -1;
+    public InputControlScheme GamePadScheme
+    {
+        get
+        {
+            if (m_GamePadSchemeIndex == -1) m_GamePadSchemeIndex = asset.FindControlSchemeIndex("GamePad");
+            return asset.controlSchemes[m_GamePadSchemeIndex];
+        }
+    }
     public interface IBoatActions
     {
         void OnPaddleLeft(InputAction.CallbackContext context);
         void OnPaddleRight(InputAction.CallbackContext context);
         void OnStaticRotateLeft(InputAction.CallbackContext context);
         void OnStaticRotateRight(InputAction.CallbackContext context);
+        void OnRotateCamera(InputAction.CallbackContext context);
     }
 }
