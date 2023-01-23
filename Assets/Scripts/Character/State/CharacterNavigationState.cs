@@ -70,9 +70,7 @@ namespace Character.State
             _inputs.PaddleRight = GameplayInputs.Boat.PaddleRight.triggered;
 
             _inputs.RotateLeft = GameplayInputs.Boat.StaticRotateLeft.ReadValue<float>();       
-            MonoBehaviour.print($"paddle left : {_inputs.RotateLeft}");
             _inputs.RotateRight = GameplayInputs.Boat.StaticRotateRight.ReadValue<float>();       
-            MonoBehaviour.print($"paddle right : {_inputs.RotateRight}");
         }
 
         private void RotateKayak(int value)
