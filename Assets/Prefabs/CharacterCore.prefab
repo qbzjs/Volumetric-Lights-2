@@ -131,8 +131,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2610664555048439495}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 1.5, y: 0.100000024, z: 0.21000004}
-  m_LocalScale: {x: 1, y: 1, z: 3}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1.5646, y: 1, z: 3.514221}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 2610664555456840930}
@@ -235,7 +235,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d0e0857b45e56e14f88336079beaccaf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  PlayerPosition: {fileID: 7217796708645996681}
   KayakValues:
     Acceleration: 0.02
     Deceleration: 0.02
@@ -248,8 +247,7 @@ MonoBehaviour:
     PaddleInputSideForce: 0.025
     PaddleInputSideForceResetLerp: 0.01
     RotationMultiplier: 10
-  Rigidbody: {fileID: 0}
-  Balance: 0
+  Rigidbody: {fileID: 2610664555048439513}
   CurrentSideRotationForce: 0
 --- !u!1 &2610664555456840931
 GameObject:
@@ -510,7 +508,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7217796707964902280}
   m_LocalRotation: {x: 0.09608335, y: -0.047564615, z: 0.0045967107, w: 0.9942256}
-  m_LocalPosition: {x: 1.9923645, y: 2.2287955, z: -2.3923185}
+  m_LocalPosition: {x: 0.51926255, y: 2.1287956, z: -2.7445548}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -694,7 +692,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7217796707998912109}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 1.9923645, y: 2.2287955, z: -2.3923185}
+  m_LocalPosition: {x: 0.51926255, y: 2.1287956, z: -2.7445548}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -894,7 +892,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7217796708653836314}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 1.5, y: 1.5, z: 0.21}
+  m_LocalPosition: {x: 0, y: 0.89, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -931,6 +929,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5c9ad99accd13d042bb402174874e832, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _kayakController: {fileID: 7217796708516857175}
 --- !u!114 &7217796708653836311
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -943,7 +942,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7be024ccb8e2a2048aabfa8fe7abd17e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  KayakPosition: {fileID: 2610664555048439514}
+  KayakTransform: {fileID: 2610664555048439514}
 --- !u!1 &7217796708746400579
 GameObject:
   m_ObjectHideFlags: 0

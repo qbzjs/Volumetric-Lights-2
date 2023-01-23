@@ -1,23 +1,41 @@
 {
-    "name": "GameplayInput",
+    "name": "GameplayInputs",
     "maps": [
         {
-            "name": "BoatState",
+            "name": "Boat",
             "id": "be6c4bf5-cce8-4353-ac99-d5a013e6256a",
             "actions": [
                 {
-                    "name": "Paddle",
-                    "type": "Value",
-                    "id": "1c48af0d-efa6-43bd-89f4-64759ad57055",
-                    "expectedControlType": "",
+                    "name": "PaddleLeft",
+                    "type": "PassThrough",
+                    "id": "ec7d4462-88fd-4f43-8928-11e27232ea53",
+                    "expectedControlType": "Button",
                     "processors": "",
                     "interactions": "",
-                    "initialStateCheck": true
+                    "initialStateCheck": false
                 },
                 {
-                    "name": "StaticMovement",
+                    "name": "PaddleRight",
                     "type": "Button",
-                    "id": "6f42c858-f8cf-46d5-8404-78c25deeb4a0",
+                    "id": "90c3aca1-1a2b-4b05-a9a6-0ecf98f6952b",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "StaticRotateLeft",
+                    "type": "Button",
+                    "id": "31fcf997-f244-4d71-9596-0801daf74d3f",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "StaticRotateRight",
+                    "type": "Button",
+                    "id": "68f74b2f-e772-4377-9710-58135b74f550",
                     "expectedControlType": "Button",
                     "processors": "",
                     "interactions": "",
@@ -26,136 +44,92 @@
             ],
             "bindings": [
                 {
-                    "name": "Keyboard",
-                    "id": "afee3264-3b0f-4789-a98d-4234e7f6dbed",
-                    "path": "1DAxis",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "",
-                    "action": "Paddle",
-                    "isComposite": true,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "negative",
-                    "id": "e73e24f7-aeb9-408d-a8c3-25a5bddf1034",
-                    "path": "<Keyboard>/q",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "",
-                    "action": "Paddle",
-                    "isComposite": false,
-                    "isPartOfComposite": true
-                },
-                {
-                    "name": "positive",
-                    "id": "d298de9a-5bd0-432b-9f10-7bec66ab355c",
-                    "path": "<Keyboard>/d",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "",
-                    "action": "Paddle",
-                    "isComposite": false,
-                    "isPartOfComposite": true
-                },
-                {
-                    "name": "Controller",
-                    "id": "51804fa2-d1f0-4297-9bdf-4ca90dcba0f2",
-                    "path": "1DAxis",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "",
-                    "action": "Paddle",
-                    "isComposite": true,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "negative",
-                    "id": "61ae66ba-052e-4cc6-b48a-8f6105a66abf",
-                    "path": "<Gamepad>/leftTrigger",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "",
-                    "action": "Paddle",
-                    "isComposite": false,
-                    "isPartOfComposite": true
-                },
-                {
-                    "name": "positive",
-                    "id": "1f34a885-701b-4c58-aca8-8edfd175aeeb",
-                    "path": "<Gamepad>/rightTrigger",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "",
-                    "action": "Paddle",
-                    "isComposite": false,
-                    "isPartOfComposite": true
-                },
-                {
-                    "name": "Keyboard",
-                    "id": "7bf3750d-bb37-40f2-bf13-49ad6f95ffe6",
-                    "path": "1DAxis",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "",
-                    "action": "StaticMovement",
-                    "isComposite": true,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "negative",
-                    "id": "dec10706-92ac-4663-817d-bf6bdc70323f",
+                    "name": "",
+                    "id": "3cfa1491-41a9-4ca7-a280-5a43d52d446e",
                     "path": "<Keyboard>/a",
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "StaticMovement",
+                    "action": "PaddleLeft",
                     "isComposite": false,
-                    "isPartOfComposite": true
+                    "isPartOfComposite": false
                 },
                 {
-                    "name": "positive",
-                    "id": "77e779a1-0ce5-4e96-a32f-eb8dc87b3646",
+                    "name": "",
+                    "id": "ecc743e3-3393-43b9-8bb9-fc74b1d7df00",
+                    "path": "<Gamepad>/leftTrigger",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "PaddleLeft",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "84d99ad0-1484-4aab-991c-2d9fa37ffddc",
                     "path": "<Keyboard>/e",
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "StaticMovement",
+                    "action": "PaddleRight",
                     "isComposite": false,
-                    "isPartOfComposite": true
-                },
-                {
-                    "name": "Controller",
-                    "id": "7cf0bd51-fc2f-49e3-872b-7ef27b65ef58",
-                    "path": "1DAxis",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "",
-                    "action": "StaticMovement",
-                    "isComposite": true,
                     "isPartOfComposite": false
                 },
                 {
-                    "name": "negative",
-                    "id": "a39f6908-c01a-4d1e-8d2c-445e961bae11",
+                    "name": "",
+                    "id": "552cac4e-9249-4cbe-9e57-4af35a458181",
+                    "path": "<Gamepad>/rightTrigger",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "PaddleRight",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "62a3c127-3f1f-4b5a-9e99-e4c86b6c0755",
+                    "path": "<Keyboard>/q",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "StaticRotateLeft",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "5ef8087e-4505-4945-aeb6-aff821b2bc0b",
                     "path": "<Gamepad>/leftStick/left",
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "StaticMovement",
+                    "action": "StaticRotateLeft",
                     "isComposite": false,
-                    "isPartOfComposite": true
+                    "isPartOfComposite": false
                 },
                 {
-                    "name": "positive",
-                    "id": "6e16ed90-7d3f-4eb5-b9b9-fb23ded00bce",
+                    "name": "",
+                    "id": "98e456ff-58ef-4d20-bd85-6f2f8c69cc97",
+                    "path": "<Keyboard>/d",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "StaticRotateRight",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "9080299f-91ab-47cf-883d-fb860410a663",
                     "path": "<Gamepad>/leftStick/right",
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "StaticMovement",
+                    "action": "StaticRotateRight",
                     "isComposite": false,
-                    "isPartOfComposite": true
+                    "isPartOfComposite": false
                 }
             ]
         }

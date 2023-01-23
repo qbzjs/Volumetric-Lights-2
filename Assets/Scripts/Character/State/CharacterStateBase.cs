@@ -2,8 +2,9 @@ using UnityEngine;
 
 namespace Character.State
 {
-    public abstract class CharacterState 
+    public abstract class CharacterStateBase 
     {
+        public GameplayInputs GameplayInputs;
         public bool CanCharacterMove = true;
         public bool CanCharacterMakeActions = true;
 

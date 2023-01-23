@@ -8,8 +8,7 @@ namespace Kayak
     public class KayakController : MonoBehaviour
     {
         public KayakParameters KayakValues;
-        [HideInInspector] public Rigidbody Rigidbody;
-        [HideInInspector] public float Balance;
+        public Rigidbody Rigidbody;
         [ReadOnly] public float CurrentSideRotationForce;
 
         private void Start()

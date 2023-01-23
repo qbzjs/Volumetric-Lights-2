@@ -5,8 +5,11 @@ using Object = UnityEngine.Object;
 
 namespace Character.State
 {
-    public class CharacterNavigationState : CharacterState
+    public class CharacterNavigationState : CharacterStateBase
     {
+        //inputs
+        private Inputs _inputs;
+        
         //kayak
         private Vector2 _paddleForceValue;
         private float _leftPaddleMovement, _rightPaddleMovement;
@@ -33,11 +36,14 @@ namespace Character.State
 
         public override void EnterState(CharacterStateManager character)
         {
-            
+            //inputs
+            GameplayInputs = new GameplayInputs();
+            GameplayInputs.Enable();
         }
 
         public override void UpdateState(CharacterStateManager character)
         {
+            GatherInputs();
             HandlePaddleMovement();
             RotateMovement();
         }
@@ -54,6 +60,15 @@ namespace Character.State
         #endregion
 
         #region Methods
+
+        private void GatherInputs()
+        {
+            _inputs.PaddleLeft = GameplayInputs.Boat.PaddleLeft.ReadValue<bool>();       
+            _inputs.PaddleRight = GameplayInputs.Boat.PaddleRight.ReadValue<bool>();    
+            
+            _inputs.RotateLeft = GameplayInputs.Boat.StaticRotateLeft.ReadValue<bool>();       
+            _inputs.RotateRight = GameplayInputs.Boat.StaticRotateRight.ReadValue<bool>();       
+        }
 
         private void RotateKayak(int value)
         {
@@ -85,17 +100,14 @@ namespace Character.State
 
             //input -> paddleMovement
 
-            if (Input.GetKeyDown(KeyCode.Q) && _leftPaddleEngaged == false)
+            if (_inputs.PaddleLeft && _leftPaddleEngaged == false)
             {
                 _rightPaddleMovement -= paddleMovementInputValue;
-
                 _leftPaddleEngaged = true;
-
                 _rightPaddleEngaged = false;
                 Paddle();
-
             }
-            if (Input.GetKeyDown(KeyCode.D) && _rightPaddleEngaged == false)
+            if (_inputs.PaddleRight && _rightPaddleEngaged == false)
             {
                 _leftPaddleMovement -= paddleMovementInputValue;
                 _rightPaddleEngaged = true;
@@ -116,17 +128,14 @@ namespace Character.State
         {
             const float paddleMovementInputValue = 1;
 
-            if (Input.GetKeyDown(KeyCode.A))
+            if (_inputs.RotateLeft)
             {
                 _rightPaddleMovement -= paddleMovementInputValue;
-
                 _leftPaddleEngaged = true;
-
                 _rightPaddleEngaged = false;
                 RotateKayak(-1);
-
             }
-            if (Input.GetKeyDown(KeyCode.E))
+            if (_inputs.RotateRight)
             {
                 _leftPaddleMovement -= paddleMovementInputValue;
                 _rightPaddleEngaged = true;
@@ -138,5 +147,7 @@ namespace Character.State
         #endregion
     }
 }
+
+
 
 
