@@ -9,7 +9,7 @@ namespace Character.State
     {
         //inputs
         private Inputs _inputs;
-        
+
         //kayak
         private Vector2 _paddleForceValue;
         private float _leftPaddleMovement, _rightPaddleMovement;
@@ -28,6 +28,8 @@ namespace Character.State
             _kayakController = kayak;
             _kayakRigidbody = kayak.Rigidbody;
             _kayakValues = kayak.KayakValues;
+
+            _inputs.DEADZONE = 0.3f;
         }
 
         #endregion
@@ -37,6 +39,7 @@ namespace Character.State
         public override void EnterState(CharacterStateManager character)
         {
             //inputs
+            MonoBehaviour.print("enter navigation state");
             GameplayInputs = new GameplayInputs();
             GameplayInputs.Enable();
         }
@@ -64,11 +67,12 @@ namespace Character.State
         private void GatherInputs()
         {
             _inputs.PaddleLeft = GameplayInputs.Boat.PaddleLeft.triggered;       
-            MonoBehaviour.print(GameplayInputs.Boat.PaddleLeft.triggered);
-            _inputs.PaddleRight = GameplayInputs.Boat.PaddleRight.triggered;    
-            
-            _inputs.RotateLeft = GameplayInputs.Boat.StaticRotateLeft.triggered;       
-            _inputs.RotateRight = GameplayInputs.Boat.StaticRotateRight.triggered;       
+            _inputs.PaddleRight = GameplayInputs.Boat.PaddleRight.triggered;
+
+            _inputs.RotateLeft = GameplayInputs.Boat.StaticRotateLeft.ReadValue<float>();       
+            MonoBehaviour.print($"paddle left : {_inputs.RotateLeft}");
+            _inputs.RotateRight = GameplayInputs.Boat.StaticRotateRight.ReadValue<float>();       
+            MonoBehaviour.print($"paddle right : {_inputs.RotateRight}");
         }
 
         private void RotateKayak(int value)
@@ -129,14 +133,14 @@ namespace Character.State
         {
             const float paddleMovementInputValue = 1;
 
-            if (_inputs.RotateLeft)
+            if (_inputs.RotateLeft > _inputs.DEADZONE)
             {
                 _rightPaddleMovement -= paddleMovementInputValue;
                 _leftPaddleEngaged = true;
                 _rightPaddleEngaged = false;
                 RotateKayak(-1);
             }
-            if (_inputs.RotateRight)
+            if (_inputs.RotateRight > _inputs.DEADZONE)
             {
                 _leftPaddleMovement -= paddleMovementInputValue;
                 _rightPaddleEngaged = true;

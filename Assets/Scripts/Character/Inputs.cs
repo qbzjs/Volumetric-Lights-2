@@ -4,7 +4,8 @@
     {
         public bool PaddleLeft;
         public bool PaddleRight;
-        public bool RotateLeft;
-        public bool RotateRight;
+        public float RotateLeft;
+        public float RotateRight;
+        public float DEADZONE;
     }
 }
