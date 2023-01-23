@@ -29,11 +29,11 @@ public partial class @GameplayInputs : IInputActionCollection2, IDisposable
             ""actions"": [
                 {
                     ""name"": ""PaddleLeft"",
-                    ""type"": ""PassThrough"",
+                    ""type"": ""Button"",
                     ""id"": ""ec7d4462-88fd-4f43-8928-11e27232ea53"",
                     ""expectedControlType"": ""Button"",
                     ""processors"": """",
-                    ""interactions"": """",
+                    ""interactions"": ""Press"",
                     ""initialStateCheck"": false
                 },
                 {
@@ -42,7 +42,7 @@ public partial class @GameplayInputs : IInputActionCollection2, IDisposable
                     ""id"": ""90c3aca1-1a2b-4b05-a9a6-0ecf98f6952b"",
                     ""expectedControlType"": ""Button"",
                     ""processors"": """",
-                    ""interactions"": """",
+                    ""interactions"": ""Press"",
                     ""initialStateCheck"": false
                 },
                 {
@@ -51,7 +51,7 @@ public partial class @GameplayInputs : IInputActionCollection2, IDisposable
                     ""id"": ""31fcf997-f244-4d71-9596-0801daf74d3f"",
                     ""expectedControlType"": ""Button"",
                     ""processors"": """",
-                    ""interactions"": """",
+                    ""interactions"": ""Hold(duration=0.2)"",
                     ""initialStateCheck"": false
                 },
                 {
@@ -60,7 +60,7 @@ public partial class @GameplayInputs : IInputActionCollection2, IDisposable
                     ""id"": ""68f74b2f-e772-4377-9710-58135b74f550"",
                     ""expectedControlType"": ""Button"",
                     ""processors"": """",
-                    ""interactions"": """",
+                    ""interactions"": ""Hold(duration=0.2)"",
                     ""initialStateCheck"": false
                 }
             ],

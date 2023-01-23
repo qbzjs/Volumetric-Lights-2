@@ -63,11 +63,12 @@ namespace Character.State
 
         private void GatherInputs()
         {
-            _inputs.PaddleLeft = GameplayInputs.Boat.PaddleLeft.ReadValue<bool>();       
-            _inputs.PaddleRight = GameplayInputs.Boat.PaddleRight.ReadValue<bool>();    
+            _inputs.PaddleLeft = GameplayInputs.Boat.PaddleLeft.triggered;       
+            MonoBehaviour.print(GameplayInputs.Boat.PaddleLeft.triggered);
+            _inputs.PaddleRight = GameplayInputs.Boat.PaddleRight.triggered;    
             
-            _inputs.RotateLeft = GameplayInputs.Boat.StaticRotateLeft.ReadValue<bool>();       
-            _inputs.RotateRight = GameplayInputs.Boat.StaticRotateRight.ReadValue<bool>();       
+            _inputs.RotateLeft = GameplayInputs.Boat.StaticRotateLeft.triggered;       
+            _inputs.RotateRight = GameplayInputs.Boat.StaticRotateRight.triggered;       
         }
 
         private void RotateKayak(int value)
