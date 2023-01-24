@@ -1,4 +1,5 @@
 using System;
+using DG.Tweening;
 using Kayak;
 using UnityEngine;
 using Object = UnityEngine.Object;
@@ -7,14 +8,21 @@ namespace Character.State
 {
     public class CharacterNavigationState : CharacterStateBase
     {
+        //enum
+        private enum Direction
+        {
+            Left = 0,
+            Right = 1
+        }
+        
         //inputs
         private Inputs _inputs;
 
         //kayak
         private Vector2 _paddleForceValue;
-        private float _leftPaddleMovement, _rightPaddleMovement;
-        private bool _leftPaddleEngaged, _rightPaddleEngaged;
+        private float _leftPaddleCooldown, _rightPaddleCooldown;
         private float _currentInputPaddleFrontForce = 30;
+        private float _rotationForceY = 0f; // the rotation 
 
         //reference
         private KayakController _kayakController;
@@ -42,13 +50,19 @@ namespace Character.State
             MonoBehaviour.print("enter navigation state");
             GameplayInputs = new GameplayInputs();
             GameplayInputs.Enable();
+            
+            //values
+            _rightPaddleCooldown = _kayakValues.PaddleCooldown;
+            _leftPaddleCooldown = _kayakValues.PaddleCooldown;
         }
 
         public override void UpdateState(CharacterStateManager character)
         {
             GatherInputs();
+            PaddleCooldownManagement();
             HandlePaddleMovement();
-            RotateMovement();
+            KayakRotationManager();
+            HandleStaticRotation();
         }
 
         public override void FixedUpdate(CharacterStateManager character)
@@ -73,77 +87,65 @@ namespace Character.State
             _inputs.RotateRight = GameplayInputs.Boat.StaticRotateRight.ReadValue<float>();       
         }
 
-        private void RotateKayak(int value)
+        private void KayakRotationManager()
         {
+            if (Mathf.Abs(_rotationForceY) > 0.01f)
+            {
+                _rotationForceY = Mathf.Lerp(_rotationForceY, 0, _kayakValues.RotationDeceleration);
+            }
             Transform kayakTransform = _kayakController.transform;
-            const float paddleRotateForce = 10;
-
-            Quaternion rotation = kayakTransform.rotation;
-            Quaternion newRotation = Quaternion.Euler(new Vector3(rotation.x,value * paddleRotateForce,rotation.z));
-            
-            kayakTransform.rotation = newRotation; //TODO lerp the rotation
+            kayakTransform.Rotate(Vector3.up, _rotationForceY);
         }
 
         #endregion
         
         #region Paddle Movement
 
-        private void Paddle()
+        private void Paddle(Direction direction)
         {
-            _currentInputPaddleFrontForce += _kayakValues.PaddleInputFrontForceAdding; //TODO value never reset to 0 
-            _currentInputPaddleFrontForce = Mathf.Clamp(_currentInputPaddleFrontForce, 0, _kayakValues.PaddleInputFrontForceMaximum);
-            
-            Vector3 forceToApply = _kayakController.transform.forward * _currentInputPaddleFrontForce;
+            //apply force
+            Vector3 forceToApply = _kayakController.transform.forward * _kayakValues.PaddleFrontForce;
             _kayakRigidbody.AddForce(forceToApply);
+
+            //rotation
+            float rotation = _kayakValues.PaddleSideRotationForce;
+            _rotationForceY += direction == Direction.Right ? -rotation : rotation;
         }
 
         private void HandlePaddleMovement()
         {
-            const float paddleMovementInputValue = 1;
-
             //input -> paddleMovement
-
-            if (_inputs.PaddleLeft && _leftPaddleEngaged == false)
+            if (_inputs.PaddleLeft && _rightPaddleCooldown <= 0)
             {
-                _rightPaddleMovement -= paddleMovementInputValue;
-                _leftPaddleEngaged = true;
-                _rightPaddleEngaged = false;
-                Paddle();
+                _rightPaddleCooldown = _kayakValues.PaddleCooldown;
+                Paddle(Direction.Left);
             }
-            if (_inputs.PaddleRight && _rightPaddleEngaged == false)
+            if (_inputs.PaddleRight && _leftPaddleCooldown <= 0)
             {
-                _leftPaddleMovement -= paddleMovementInputValue;
-                _rightPaddleEngaged = true;
-                _leftPaddleEngaged = false;
-                Paddle();
+                _leftPaddleCooldown = _kayakValues.PaddleCooldown;
+                Paddle(Direction.Right);
             }
+        }
 
-            //clamp values
-            _leftPaddleMovement = Mathf.Clamp(_leftPaddleMovement, 0, 1);
-            _rightPaddleMovement = Mathf.Clamp(_rightPaddleMovement, 0, 1);
+        private void PaddleCooldownManagement()
+        {
+            _leftPaddleCooldown -= Time.deltaTime;
+            _rightPaddleCooldown -= Time.deltaTime;
         }
 
         #endregion
         
         #region Rotate Movement
         
-        private void RotateMovement()
+        private void HandleStaticRotation()
         {
-            const float paddleMovementInputValue = 1;
-
             if (_inputs.RotateLeft > _inputs.DEADZONE)
             {
-                _rightPaddleMovement -= paddleMovementInputValue;
-                _leftPaddleEngaged = true;
-                _rightPaddleEngaged = false;
-                RotateKayak(-1);
+                _rotationForceY -= _kayakValues.StaticRotationForce;
             }
             if (_inputs.RotateRight > _inputs.DEADZONE)
             {
-                _leftPaddleMovement -= paddleMovementInputValue;
-                _rightPaddleEngaged = true;
-                _leftPaddleEngaged = false;
-                RotateKayak(1);
+                _rotationForceY += _kayakValues.StaticRotationForce;
             }
         }
         

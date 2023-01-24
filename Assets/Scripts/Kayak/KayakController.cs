@@ -9,7 +9,6 @@ namespace Kayak
     {
         public KayakParameters KayakValues;
         public Rigidbody Rigidbody;
-        [ReadOnly] public float CurrentSideRotationForce;
 
         private void Start()
         {
@@ -18,13 +17,7 @@ namespace Kayak
         }
         private void Update()
         {
-            SideRotationForceReset();
             ClampVelocity();
-        }
-
-        private void SideRotationForceReset()
-        {
-            CurrentSideRotationForce = Mathf.Lerp(CurrentSideRotationForce, 0, KayakValues.PaddleInputSideForceResetLerp);
         }
 
         private void ClampVelocity()
@@ -39,18 +32,16 @@ namespace Kayak
     [Serializable]
     public struct KayakParameters
     {
-        [Range(0,1)] public float Acceleration;
-        [Range(0,1)] public float Deceleration;
-        [Range(0,100)] public float Speed;
-
+        [Header("Values")]
         [Range(0,20)] public float MaximumFrontVelocity;
-        [Range(0,100)] public float PaddleInputFrontForce;
-        [Range(0,1)] public float PaddleInputFrontDeceleration;
-        [Range(0,20)] public float PaddleInputFrontForceAdding;
-        [Range(0,200)] public float PaddleInputFrontForceMaximum;
-        [Range(0,1)] public float PaddleInputSideForce;
-        [Range(0,1)] public float PaddleInputSideForceResetLerp;
+        [Range(0, 1)] public float RotationDeceleration;
 
-        [Range(0,20)] public float RotationMultiplier;
+        [Header("Paddle")]
+        [Range(0,200)] public float PaddleFrontForce;
+        [Range(0,2)] public float PaddleSideRotationForce;
+        [Range(0,3)] public float PaddleCooldown;
+
+        [Header("Static Rotation")] 
+        [Range(0, 2)] public float StaticRotationForce;
     }
 }
