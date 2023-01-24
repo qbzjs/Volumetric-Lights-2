@@ -501,8 +501,8 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7217796707964902280}
-  m_LocalRotation: {x: 0.09608335, y: -0.047564615, z: 0.0045967107, w: 0.9942256}
-  m_LocalPosition: {x: 0.51926255, y: 2.1287956, z: -2.7445548}
+  m_LocalRotation: {x: 0.09619324, y: -0, z: -0, w: 0.9953627}
+  m_LocalPosition: {x: 0, y: 2.1287956, z: -5.439397}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -685,8 +685,8 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7217796707998912109}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0.51926255, y: 2.1287956, z: -2.7445548}
+  m_LocalRotation: {x: 0.09619324, y: -0, z: -0, w: 0.9953627}
+  m_LocalPosition: {x: 0, y: 2.1287956, z: -5.439397}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -786,8 +786,8 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7217796708230699273}
-  m_LocalRotation: {x: -0, y: 0.047786213, z: -0, w: 0.9988576}
-  m_LocalPosition: {x: -0.25488687, y: 0, z: -2.6578062}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -871,6 +871,7 @@ GameObject:
   - component: {fileID: 7217796708653836312}
   - component: {fileID: 7217796708653836310}
   - component: {fileID: 7217796708653836311}
+  - component: {fileID: 2865575383136156668}
   m_Layer: 0
   m_Name: Character
   m_TagString: Untagged
@@ -937,6 +938,23 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   KayakTransform: {fileID: 2610664555048439514}
+--- !u!114 &2865575383136156668
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7217796708653836314}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1f43676ab677d124f85407856fff321e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  CinemachineCameraTarget: {fileID: 7217796708219281697}
+  TopClamp: 70
+  BottomClamp: -10
+  CameraAngleOverride: 0
+  LockCameraPosition: 1
 --- !u!1 &7217796708746400579
 GameObject:
   m_ObjectHideFlags: 0
