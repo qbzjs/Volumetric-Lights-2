@@ -8,7 +8,6 @@ namespace Character.State
     {
 
         [Header("References"), SerializeField] private KayakController _kayakController;
-        
         private CharacterStateBase _currentStateBase;
         private CharacterNavigationState _navigationState;
 
