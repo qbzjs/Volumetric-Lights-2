@@ -49,7 +49,6 @@ namespace Character.State
         public override void EnterState(CharacterStateManager character)
         {
             //inputs
-            MonoBehaviour.print("enter navigation state");
             GameplayInputs = new GameplayInputs();
             GameplayInputs.Enable();
 

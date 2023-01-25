@@ -26,6 +26,8 @@ namespace Character
 
             Inputs.RotateLeft = GameplayInputs.Boat.StaticRotateLeft.ReadValue<float>();
             Inputs.RotateRight = GameplayInputs.Boat.StaticRotateRight.ReadValue<float>();
+            
+            Inputs.RotateCamera = GameplayInputs.Boat.RotateCamera.ReadValue<Vector2>();
         }
     }
     

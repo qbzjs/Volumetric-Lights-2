@@ -704,13 +704,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1f43676ab677d124f85407856fff321e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  CinemachineCameraTarget: {fileID: 5773740044235661809}
-  TopClamp: 70
-  BottomClamp: -10
-  CameraAngleOverride: 0
-  LockCameraPosition: 1
+  _cinemachineCameraTarget: {fileID: 5773740044235661809}
+  _topClamp: 70
+  _bottomClamp: -30
+  _cameraAngleOverride: 0
+  _lockCameraPosition: 0
   _rigidbodyKayak: {fileID: 2610664555048439513}
   _characterStateManager: {fileID: 7217796708653836310}
+  _input: {fileID: 5885439514833416252}
 --- !u!1001 &2348827399903010682
 PrefabInstance:
   m_ObjectHideFlags: 0
