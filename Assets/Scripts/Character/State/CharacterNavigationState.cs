@@ -1,8 +1,5 @@
-using System;
-using DG.Tweening;
 using Kayak;
 using UnityEngine;
-using Object = UnityEngine.Object;
 
 namespace Character.State
 {
@@ -22,13 +19,12 @@ namespace Character.State
         }
         
         //inputs
-        private Inputs _inputs;
+        private InputManagement _inputs;
 
         //kayak
         private Vector2 _paddleForceValue;
         private float _leftPaddleCooldown, _rightPaddleCooldown;
         private float _currentInputPaddleFrontForce = 30;
-
 
         //reference
         private KayakController _kayakController;
@@ -37,12 +33,13 @@ namespace Character.State
 
         #region Constructor
 
-        public CharacterNavigationState(KayakController kayak)
+        public CharacterNavigationState(KayakController kayak, InputManagement inputManagement)
         {
             _kayakController = kayak;
             _kayakRigidbody = kayak.Rigidbody;
             _kayakValues = kayak.KayakValues;
-            _inputs.DEADZONE = 0.3f;
+            _inputs = inputManagement;
+            _inputs.Inputs.DEADZONE = 0.3f;
         }
 
         #endregion
@@ -52,7 +49,6 @@ namespace Character.State
         public override void EnterState(CharacterStateManager character)
         {
             //inputs
-            MonoBehaviour.print("enter navigation state");
             GameplayInputs = new GameplayInputs();
             GameplayInputs.Enable();
 
@@ -63,16 +59,14 @@ namespace Character.State
 
         public override void UpdateState(CharacterStateManager character)
         {
-            GatherInputs();
             PaddleCooldownManagement();
+            HandlePaddleMovement();
+            HandleStaticRotation();
         }
 
         public override void FixedUpdate(CharacterStateManager character)
         {
-            HandlePaddleMovement();
             KayakRotationManager(RotationType.Paddle);
-            
-            HandleStaticRotation();
             KayakRotationManager(RotationType.Static);
         }
 
@@ -84,15 +78,6 @@ namespace Character.State
         #endregion
 
         #region Methods
-
-        private void GatherInputs()
-        {
-            _inputs.PaddleLeft = GameplayInputs.Boat.PaddleLeft.triggered;
-            _inputs.PaddleRight = GameplayInputs.Boat.PaddleRight.triggered;
-
-            _inputs.RotateLeft = GameplayInputs.Boat.StaticRotateLeft.ReadValue<float>();
-            _inputs.RotateRight = GameplayInputs.Boat.StaticRotateRight.ReadValue<float>();
-        }
 
         private void KayakRotationManager(RotationType rotationType)
         {
@@ -146,12 +131,12 @@ namespace Character.State
         private void HandlePaddleMovement()
         {
             //input -> paddleMovement
-            if (_inputs.PaddleLeft && _rightPaddleCooldown <= 0)
+            if (_inputs.Inputs.PaddleLeft && _rightPaddleCooldown <= 0)
             {
                 _rightPaddleCooldown = _kayakValues.PaddleCooldown;
                 Paddle(Direction.Left);
             }
-            if (_inputs.PaddleRight && _leftPaddleCooldown <= 0)
+            if (_inputs.Inputs.PaddleRight && _leftPaddleCooldown <= 0)
             {
                 _leftPaddleCooldown = _kayakValues.PaddleCooldown;
                 Paddle(Direction.Right);
@@ -170,11 +155,11 @@ namespace Character.State
 
         private void HandleStaticRotation()
         {
-            if (_inputs.RotateLeft > _inputs.DEADZONE)
+            if (_inputs.Inputs.RotateLeft > _inputs.Inputs.DEADZONE)
             {
                 RotationStaticForceY -= _kayakValues.StaticRotationForce;
             }
-            if (_inputs.RotateRight > _inputs.DEADZONE)
+            if (_inputs.Inputs.RotateRight > _inputs.Inputs.DEADZONE)
             {
                 RotationStaticForceY += _kayakValues.StaticRotationForce;
             }
