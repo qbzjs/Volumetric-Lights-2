@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Character.State;
 using Singleton;
 using UnityEngine;
 
@@ -38,13 +39,13 @@ public class RotateCamera : MonoBehaviour
     private float _cinemachineTargetYaw;
     private float _cinemachineTargetPitch;
 
+
     private GameObject _mainCamera;
-
-    private float _timerRotateCamera = 0;
-    private float _timeToUnlock = 1.5f;
-
+    public Rigidbody RigidbodyKayak;
+    public CharacterStateManager CharacterStateManager;
     private void Start()
     {
+        //RigidbodyKayak = GetComponent<Rigidbody>();
         if (Camera.main != null)
         {
             _mainCamera = Camera.main.gameObject;
@@ -56,12 +57,9 @@ public class RotateCamera : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.L))
             LockCameraPosition = !LockCameraPosition;
-        if (Input.GetKeyDown(KeyCode.R))
-        {
-            LockCamera();
-        }
-        UnLockCamera();
-        InputForLock();
+   
+        //print(RigidbodyKayak.velocity);
+        //InputForLock();
     }
 
     private void LateUpdate()
@@ -71,15 +69,12 @@ public class RotateCamera : MonoBehaviour
 
     private void CameraRotation()
     {
-        if (LockCameraPosition == false)
+        if (Input.GetMouseButton(0))
         {
-            if (Input.GetMouseButton(0))
-            {
-                _cinemachineTargetYaw += Input.GetAxis("Mouse X") * 1;
-                _cinemachineTargetPitch += Input.GetAxis("Mouse Y") * 1;
-            }
+            _cinemachineTargetYaw += Input.GetAxis("Mouse X") * 1;
+            _cinemachineTargetPitch += Input.GetAxis("Mouse Y") * 1;
         }
-        else
+        else if (Mathf.Abs(RigidbodyKayak.velocity.x + RigidbodyKayak.velocity.z) > 0.2 || Mathf.Abs(CharacterStateManager.CurrentStateBase.RotationStaticForceY) > 0.01)
         {
             Quaternion rotation = CinemachineCameraTarget.transform.localRotation;
 
@@ -104,16 +99,7 @@ public class RotateCamera : MonoBehaviour
 
 
     }
-    private void InputForLock()
-    {
-        if(Input.GetKey(KeyCode.A)||
-            Input.GetKey(KeyCode.E)||
-            Input.GetKey(KeyCode.Q)||
-            Input.GetKey(KeyCode.D))
-        {
-            LockCamera();
-        }
-    }
+
 
 
     private float ClampAngle(float lfAngle, float lfMin, float lfMax)
@@ -123,22 +109,5 @@ public class RotateCamera : MonoBehaviour
         return Mathf.Clamp(lfAngle, lfMin, lfMax);
     }
 
-    public void LockCamera()
-    {
-        LockCameraPosition = true;
-        _timerRotateCamera = 0;
-    }
-    public void UnLockCamera()
-    {
-        if (LockCameraPosition == true && _timerRotateCamera <= _timeToUnlock)
-        {
-            _timerRotateCamera += Time.deltaTime;
-        }
-        else if (_timerRotateCamera >= _timeToUnlock)
-        {
-            LockCameraPosition = false;
-            _timerRotateCamera = 0;
-        }
-    }
-
+ 
 }

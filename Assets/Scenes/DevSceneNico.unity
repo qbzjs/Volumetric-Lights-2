@@ -123,6 +123,12 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 0}
+--- !u!54 &296376311 stripped
+Rigidbody:
+  m_CorrespondingSourceObject: {fileID: 2610664555048439513, guid: 36e32e7372e41e346abb29f843dd75b3,
+    type: 3}
+  m_PrefabInstance: {fileID: 7217796708188491343}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &410087039
 GameObject:
   m_ObjectHideFlags: 0
@@ -342,6 +348,18 @@ MonoBehaviour:
     scale: {x: 5, y: 5}
     height: 1
     alternate: 0
+--- !u!114 &767417492 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 7217796708653836310, guid: 36e32e7372e41e346abb29f843dd75b3,
+    type: 3}
+  m_PrefabInstance: {fileID: 7217796708188491343}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5c9ad99accd13d042bb402174874e832, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &820466258
 GameObject:
   m_ObjectHideFlags: 0
@@ -814,9 +832,19 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2865575383136156668, guid: 36e32e7372e41e346abb29f843dd75b3,
         type: 3}
+      propertyPath: RigidbodyKayak
+      value: 
+      objectReference: {fileID: 296376311}
+    - target: {fileID: 2865575383136156668, guid: 36e32e7372e41e346abb29f843dd75b3,
+        type: 3}
       propertyPath: LockCameraPosition
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 2865575383136156668, guid: 36e32e7372e41e346abb29f843dd75b3,
+        type: 3}
+      propertyPath: CharacterStateManager
+      value: 
+      objectReference: {fileID: 767417492}
     - target: {fileID: 3387405727807608120, guid: 36e32e7372e41e346abb29f843dd75b3,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -1000,6 +1028,11 @@ PrefabInstance:
     - target: {fileID: 7217796707998912109, guid: 36e32e7372e41e346abb29f843dd75b3,
         type: 3}
       propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7217796708653836312, guid: 36e32e7372e41e346abb29f843dd75b3,
+        type: 3}
+      propertyPath: m_Constraints
       value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents:

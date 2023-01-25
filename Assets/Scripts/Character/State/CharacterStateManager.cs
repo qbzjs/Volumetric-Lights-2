@@ -8,30 +8,30 @@ namespace Character.State
     {
 
         [Header("References"), SerializeField] private KayakController _kayakController;
-        private CharacterStateBase _currentStateBase;
+        public CharacterStateBase CurrentStateBase;
         private CharacterNavigationState _navigationState;
 
         private void Awake()
         {
             _navigationState = new CharacterNavigationState(_kayakController);
-            _currentStateBase = _navigationState;
+            CurrentStateBase = _navigationState;
         }
 
         private void Start()
         {
-            _currentStateBase.EnterState(this);
+            CurrentStateBase.EnterState(this);
         }
         private void Update()
         {
-            _currentStateBase.UpdateState(this);
+            CurrentStateBase.UpdateState(this);
         }
         private void FixedUpdate()
         {
-            _currentStateBase.FixedUpdate(this);
+            CurrentStateBase.FixedUpdate(this);
         }
         public void SwitchState(CharacterStateBase stateBaseCharacter)
         {
-            _currentStateBase = stateBaseCharacter;
+            CurrentStateBase = stateBaseCharacter;
             stateBaseCharacter.EnterState(this);
         }
     }

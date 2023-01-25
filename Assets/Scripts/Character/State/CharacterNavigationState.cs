@@ -28,8 +28,7 @@ namespace Character.State
         private Vector2 _paddleForceValue;
         private float _leftPaddleCooldown, _rightPaddleCooldown;
         private float _currentInputPaddleFrontForce = 30;
-        private float _rotationStaticForceY = 0f;
-        private float _rotationPaddleForceY = 0f;
+
 
         //reference
         private KayakController _kayakController;
@@ -100,7 +99,7 @@ namespace Character.State
         private void KayakRotationManager(RotationType rotationType)
         {
             //get rotation
-            float rotationForceY = rotationType == RotationType.Paddle ? _rotationPaddleForceY : _rotationStaticForceY;
+            float rotationForceY = rotationType == RotationType.Paddle ? RotationPaddleForceY : RotationStaticForceY;
             
             //calculate rotation
             if (Mathf.Abs(rotationForceY) > 0.001f)
@@ -121,10 +120,10 @@ namespace Character.State
             switch (rotationType)
             {
                 case RotationType.Paddle:
-                    _rotationPaddleForceY = rotationForceY;
+                    RotationPaddleForceY = rotationForceY;
                     break;
                 case RotationType.Static:
-                    _rotationStaticForceY = rotationForceY;
+                    RotationStaticForceY = rotationForceY;
                     break;
             }
         }
@@ -141,7 +140,7 @@ namespace Character.State
 
             //rotation
             float rotation = _kayakValues.PaddleSideRotationForce;
-            _rotationPaddleForceY += direction == Direction.Right ? -rotation : rotation;
+            RotationPaddleForceY += direction == Direction.Right ? -rotation : rotation;
         }
 
         private void HandlePaddleMovement()
@@ -173,11 +172,11 @@ namespace Character.State
         {
             if (_inputs.RotateLeft > _inputs.DEADZONE)
             {
-                _rotationStaticForceY -= _kayakValues.StaticRotationForce;
+                RotationStaticForceY -= _kayakValues.StaticRotationForce;
             }
             if (_inputs.RotateRight > _inputs.DEADZONE)
             {
-                _rotationStaticForceY += _kayakValues.StaticRotationForce;
+                RotationStaticForceY += _kayakValues.StaticRotationForce;
             }
         }
 
