@@ -1,5 +1,6 @@
 using System;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 namespace Kayak
 {
@@ -34,14 +35,15 @@ namespace Kayak
     {
         [Header("Values")]
         [Range(0,20)] public float MaximumFrontVelocity;
-        [Range(0, 1)] public float RotationDeceleration;
 
         [Header("Paddle")]
         [Range(0,200)] public float PaddleFrontForce;
         [Range(0,2)] public float PaddleSideRotationForce;
         [Range(0,3)] public float PaddleCooldown;
+        [Range(0, 0.25f)] public float PaddleRotationDeceleration;
 
         [Header("Static Rotation")] 
         [Range(0, 2)] public float StaticRotationForce;
+        [Range(0, 0.25f)] public float StaticRotationDeceleration;
     }
 }
