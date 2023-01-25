@@ -88,9 +88,13 @@ namespace Character.State
 
         private void KayakRotationManager()
         {
-            if (Mathf.Abs(_rotationForceY) > 0.01f)
+            if (Mathf.Abs(_rotationForceY) > 0.001f)
             {
                 _rotationForceY = Mathf.Lerp(_rotationForceY, 0, _kayakValues.RotationDeceleration);
+            }
+            else
+            {
+                _rotationForceY = 0;
             }
             Transform kayakTransform = _kayakController.transform;
             kayakTransform.Rotate(Vector3.up, _rotationForceY);
