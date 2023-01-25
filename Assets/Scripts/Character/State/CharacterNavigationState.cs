@@ -64,18 +64,16 @@ namespace Character.State
         public override void UpdateState(CharacterStateManager character)
         {
             GatherInputs();
-            
             PaddleCooldownManagement();
-            
+        }
+
+        public override void FixedUpdate(CharacterStateManager character)
+        {
             HandlePaddleMovement();
             KayakRotationManager(RotationType.Paddle);
             
             HandleStaticRotation();
             KayakRotationManager(RotationType.Static);
-        }
-
-        public override void FixedUpdate(CharacterStateManager character)
-        {
         }
 
         public override void SwitchState(CharacterStateManager character)
@@ -134,6 +132,8 @@ namespace Character.State
 
         private void Paddle(Direction direction)
         {
+            Debug.Log($"Paddle {direction}");
+            
             //apply force
             Vector3 forceToApply = _kayakController.transform.forward * _kayakValues.PaddleFrontForce;
             _kayakRigidbody.AddForce(forceToApply);

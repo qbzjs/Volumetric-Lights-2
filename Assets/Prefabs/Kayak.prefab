@@ -215,6 +215,7 @@ GameObject:
   - component: {fileID: 333907971529626016}
   - component: {fileID: 333907971529626019}
   - component: {fileID: 4950148468892883501}
+  - component: {fileID: 4595948853936165718}
   m_Layer: 0
   m_Name: Kayak
   m_TagString: Untagged
@@ -238,7 +239,6 @@ Transform:
   - {fileID: 333907970277157177}
   - {fileID: 333907971254692471}
   - {fileID: 333907970869196802}
-  - {fileID: 4950148468317929050}
   - {fileID: 4294043952691023655}
   m_Father: {fileID: 0}
   m_RootOrder: 0
@@ -273,44 +273,27 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   KayakValues:
     MaximumFrontVelocity: 20
-    PaddleFrontForce: 100
-    PaddleSideRotationForce: 0.05
-    PaddleCooldown: 0.5
+    PaddleFrontForce: 150
+    PaddleSideRotationForce: 0.1
+    PaddleCooldown: 0.25
     PaddleRotationDeceleration: 0.01
-    StaticRotationForce: 0.002
+    StaticRotationForce: 0.01
     StaticRotationDeceleration: 0.01
   Rigidbody: {fileID: 333907971529626019}
---- !u!1 &4950148468317929051
-GameObject:
+--- !u!136 &4595948853936165718
+CapsuleCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 4950148468317929050}
-  m_Layer: 0
-  m_Name: BoatCameraTarget
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &4950148468317929050
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4950148468317929051}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.028000057, y: 0.34, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 333907971529626016}
-  m_RootOrder: 4
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_GameObject: {fileID: 333907971529626045}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  m_Radius: 0.5063446
+  m_Height: 4.5526404
+  m_Direction: 2
+  m_Center: {x: 0.025382526, y: 0, z: 0.37306792}
 --- !u!1001 &4331683580325226700
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -321,7 +304,7 @@ PrefabInstance:
     - target: {fileID: -8679921383154817045, guid: 320c278f54df47d4396b306485232f66,
         type: 3}
       propertyPath: m_RootOrder
-      value: 5
+      value: 4
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 320c278f54df47d4396b306485232f66,
         type: 3}
@@ -395,26 +378,6 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 320c278f54df47d4396b306485232f66, type: 3}
---- !u!1 &3520779812771747229 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 919132149155446097, guid: 320c278f54df47d4396b306485232f66,
-    type: 3}
-  m_PrefabInstance: {fileID: 4331683580325226700}
-  m_PrefabAsset: {fileID: 0}
---- !u!64 &7902204714334376856
-MeshCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3520779812771747229}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 4
-  m_Convex: 0
-  m_CookingOptions: 30
-  m_Mesh: {fileID: 0}
 --- !u!4 &4294043952691023655 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: 320c278f54df47d4396b306485232f66,
