@@ -40,10 +40,6 @@ public class RotateCamera : MonoBehaviour
 
     private GameObject _mainCamera;
 
-    private bool _isCurrentDeviceMouse = true;
-
-    private float _rotateMultiplierJoystickOldInputSystem = 250f;
-
     private float _timerRotateCamera = 0;
     private float _timeToUnlock = 1.5f;
 
@@ -58,15 +54,14 @@ public class RotateCamera : MonoBehaviour
 
     private void Update()
     {
-        if (Input.GetKeyDown(KeyCode.C))
-            _isCurrentDeviceMouse = !_isCurrentDeviceMouse;
-        if (Input.GetKeyDown(KeyCode.I))
+        if (Input.GetKeyDown(KeyCode.L))
             LockCameraPosition = !LockCameraPosition;
         if (Input.GetKeyDown(KeyCode.R))
         {
             LockCamera();
         }
         UnLockCamera();
+        InputForLock();
     }
 
     private void LateUpdate()
@@ -78,17 +73,10 @@ public class RotateCamera : MonoBehaviour
     {
         if (LockCameraPosition == false)
         {
-            float deltaTimeMultiplier = _isCurrentDeviceMouse ? 1.0f : Time.deltaTime;
-            if (_isCurrentDeviceMouse == true)
+            if (Input.GetMouseButton(0))
             {
-                _cinemachineTargetYaw += Input.GetAxis("Mouse X") * deltaTimeMultiplier;
-                _cinemachineTargetPitch += Input.GetAxis("Mouse Y") * deltaTimeMultiplier;
-            }
-            else
-            {
-                float multiplier = _rotateMultiplierJoystickOldInputSystem;
-                _cinemachineTargetYaw += (Input.GetAxis("Joystick X") * multiplier) * deltaTimeMultiplier;
-                _cinemachineTargetPitch += (Input.GetAxis("Joystick Y") * multiplier) * deltaTimeMultiplier;
+                _cinemachineTargetYaw += Input.GetAxis("Mouse X") * 1;
+                _cinemachineTargetPitch += Input.GetAxis("Mouse Y") * 1;
             }
         }
         else
@@ -115,6 +103,16 @@ public class RotateCamera : MonoBehaviour
             _cinemachineTargetYaw, 0.0f);
 
 
+    }
+    private void InputForLock()
+    {
+        if(Input.GetKey(KeyCode.A)||
+            Input.GetKey(KeyCode.E)||
+            Input.GetKey(KeyCode.Q)||
+            Input.GetKey(KeyCode.D))
+        {
+            LockCamera();
+        }
     }
 
 

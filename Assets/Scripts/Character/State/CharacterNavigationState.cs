@@ -151,13 +151,11 @@ namespace Character.State
             {
                 _rightPaddleCooldown = _kayakValues.PaddleCooldown;
                 Paddle(Direction.Left);
-                RotateCamera.Instance.LockCamera();
             }
             if (_inputs.PaddleRight && _leftPaddleCooldown <= 0)
             {
                 _leftPaddleCooldown = _kayakValues.PaddleCooldown;
                 Paddle(Direction.Right);
-                RotateCamera.Instance.LockCamera();
             }
         }
 
