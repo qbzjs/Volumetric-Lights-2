@@ -1,12 +1,24 @@
 using System.Collections;
 using System.Collections.Generic;
+using Singleton;
 using UnityEngine;
 
 public class RotateCamera : MonoBehaviour
 {
-    public static RotateCamera Instance;
-    [Header("Cinemachine")]
-    [Tooltip("The follow target set in the Cinemachine Virtual Camera that the camera will follow")]
+    #region Singleton
+    public static RotateCamera Instance { get; private set; }
+    private void Awake()
+    {
+        if (Instance != null && Instance != this)
+        {
+            Destroy(gameObject);
+        }
+        Instance = this;
+    }
+    #endregion
+    
+    [Header("Cinemachine")
+     ,Tooltip("The follow target set in the Cinemachine Virtual Camera that the camera will follow")]
     public GameObject CinemachineCameraTarget;
 
     [Tooltip("How far in degrees can you move the camera up")]
@@ -15,7 +27,7 @@ public class RotateCamera : MonoBehaviour
     [Tooltip("How far in degrees can you move the camera down")]
     public float BottomClamp = -30.0f;
 
-    [Tooltip("Additional degress to override the camera. Useful for fine tuning camera position when locked")]
+    [Tooltip("Additional degrees to override the camera. Useful for fine tuning camera position when locked")]
     public float CameraAngleOverride = 0.0f;
 
     [Tooltip("For locking the camera position on all axis")]
@@ -29,34 +41,30 @@ public class RotateCamera : MonoBehaviour
     // private GameplayInputs _input;
     private GameObject _mainCamera;
 
-    private bool IsCurrentDeviceMouse = true;
+    private bool _isCurrentDeviceMouse = true;
 
-    private Vector3 _cameraStartRota;
-    private float rotateMultiplierJoystickOldInputSystem = 250f;
+    private Vector3 _cameraStartRotation;
+    private float _rotateMultiplierJoystickOldInputSystem = 250f;
 
     private const float _threshold = 0.01f;
 
     private float _timerRotateCamera = 0;
     private float _timeToUnlock = 1.5f;
-    private void Awake()
-    {
-        Instance = this;
-        if (_mainCamera == null)
-        {
-            _mainCamera = GameObject.FindGameObjectWithTag("MainCamera");
-        }
-    }
 
     private void Start()
     {
+        if (Camera.main != null)
+        {
+            _mainCamera = Camera.main.gameObject;
+        }
         _cinemachineTargetYaw = CinemachineCameraTarget.transform.rotation.eulerAngles.y;
-        _cameraStartRota = _mainCamera.transform.rotation.eulerAngles;
+        _cameraStartRotation = _mainCamera.transform.rotation.eulerAngles;
     }
-    // Update is called once per frame
-    void Update()
+
+    private void Update()
     {
         if (Input.GetKeyDown(KeyCode.C))
-            IsCurrentDeviceMouse = !IsCurrentDeviceMouse;
+            _isCurrentDeviceMouse = !_isCurrentDeviceMouse;
         if (Input.GetKeyDown(KeyCode.I))
             LockCameraPosition = !LockCameraPosition;
         if (Input.GetKeyDown(KeyCode.R))
@@ -75,15 +83,15 @@ public class RotateCamera : MonoBehaviour
     {
         if (LockCameraPosition == false)
         {
-            float deltaTimeMultiplier = IsCurrentDeviceMouse ? 1.0f : Time.deltaTime;
-            if (IsCurrentDeviceMouse == true)
+            float deltaTimeMultiplier = _isCurrentDeviceMouse ? 1.0f : Time.deltaTime;
+            if (_isCurrentDeviceMouse == true)
             {
                 _cinemachineTargetYaw += Input.GetAxis("Mouse X") * deltaTimeMultiplier;
                 _cinemachineTargetPitch += Input.GetAxis("Mouse Y") * deltaTimeMultiplier;
             }
             else
             {
-                var multiplier = rotateMultiplierJoystickOldInputSystem;
+                var multiplier = _rotateMultiplierJoystickOldInputSystem;
                 _cinemachineTargetYaw += (Input.GetAxis("Joystick X") * multiplier) * deltaTimeMultiplier;
                 _cinemachineTargetPitch += (Input.GetAxis("Joystick Y") * multiplier) * deltaTimeMultiplier;
             }
