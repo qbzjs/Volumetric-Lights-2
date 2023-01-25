@@ -273,11 +273,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   KayakValues:
     MaximumFrontVelocity: 20
-    PaddleFrontForce: 150
+    PaddleFrontForce: 80
     PaddleSideRotationForce: 0.1
     PaddleCooldown: 0.25
     PaddleRotationDeceleration: 0.01
-    StaticRotationForce: 0.01
+    StaticRotationForce: 0.005
     StaticRotationDeceleration: 0.01
   Rigidbody: {fileID: 333907971529626019}
 --- !u!136 &4595948853936165718

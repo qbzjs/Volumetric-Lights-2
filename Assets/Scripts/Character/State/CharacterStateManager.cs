@@ -9,11 +9,13 @@ namespace Character.State
 
         [Header("References"), SerializeField] private KayakController _kayakController;
         public CharacterStateBase CurrentStateBase;
+        [SerializeField] private InputManagement _inputManagement;
+
         private CharacterNavigationState _navigationState;
 
         private void Awake()
         {
-            _navigationState = new CharacterNavigationState(_kayakController);
+            _navigationState = new CharacterNavigationState(_kayakController, _inputManagement);
             CurrentStateBase = _navigationState;
         }
 
