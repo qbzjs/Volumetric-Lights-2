@@ -52,7 +52,7 @@ namespace Character.State
         private void OnGUI()
         {
             GUI.skin.label.fontSize = 50;
-            GUI.Label(new Rect(10, 10, 300, 100), CurrentStateBase.Balance.ToString());
+            GUI.Label(new Rect(10, 10, 500, 100), "Balance : " + Math.Round(CurrentStateBase.Balance,2));
         }
 
         #endregion
