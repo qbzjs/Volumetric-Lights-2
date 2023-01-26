@@ -117,8 +117,6 @@ namespace Character.State
 
         private void Paddle(Direction direction)
         {
-            Debug.Log($"Paddle {direction}");
-            
             //apply force
             Vector3 forceToApply = _kayakController.transform.forward * _kayakValues.PaddleFrontForce;
             _kayakRigidbody.AddForce(forceToApply);
@@ -159,14 +157,32 @@ namespace Character.State
 
         private void HandleStaticRotation()
         {
+            //left
             if (_inputs.Inputs.RotateLeft > _inputs.Inputs.DEADZONE)
             {
+                if (Mathf.Abs(_kayakRigidbody.velocity.x + _kayakRigidbody.velocity.z) > 0.1f)
+                {
+                    DecelerationAndRotate(Direction.Left);
+                }
                 RotationStaticForceY -= _kayakValues.StaticRotationForce;
             }
+            //right
             if (_inputs.Inputs.RotateRight > _inputs.Inputs.DEADZONE)
             {
+                if (Mathf.Abs(_kayakRigidbody.velocity.x + _kayakRigidbody.velocity.z) > 0.1f)
+                {
+                    DecelerationAndRotate(Direction.Right);
+                }
                 RotationStaticForceY += _kayakValues.StaticRotationForce;
             }
+        }
+
+        private void DecelerationAndRotate(Direction direction)
+        {
+            Vector3 targetVelocity = new Vector3(0, _kayakRigidbody.velocity.y, 0);
+            _kayakRigidbody.velocity = Vector3.Lerp(_kayakRigidbody.velocity, targetVelocity, _kayakValues.VelocityDecelerationLerp);
+            float force = _kayakValues.VelocityDecelerationRotationForce;
+            RotationStaticForceY += direction == Direction.Left ? -force : force;
         }
 
         #endregion

@@ -43,7 +43,9 @@ namespace Kayak
         [Range(0, 0.25f)] public float PaddleRotationDeceleration;
 
         [Header("Static Rotation")] 
-        [Range(0, 2)] public float StaticRotationForce;
+        [Range(0, 0.1f)] public float StaticRotationForce;
         [Range(0, 0.25f)] public float StaticRotationDeceleration;
+        [Range(0,0.1f)] public float VelocityDecelerationLerp;
+        [Range(0, 0.1f)] public float VelocityDecelerationRotationForce;
     }
 }
