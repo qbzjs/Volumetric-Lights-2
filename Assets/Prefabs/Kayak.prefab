@@ -25,7 +25,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 333907970047417241}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0.247, y: -0.14, z: 1.29}
+  m_LocalPosition: {x: -0.314, y: -0.14, z: 1.487}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -76,7 +76,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 333907970277157174}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.216, y: -0.14199996, z: 1.29}
+  m_LocalPosition: {x: 0.26400003, y: -0.14199996, z: 1.487}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -127,7 +127,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 333907970869196803}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.207, y: -0.11, z: -1.46}
+  m_LocalPosition: {x: 0.26400003, y: -0.11, z: -1.263}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -178,7 +178,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 333907971254692468}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0.223, y: -0.102000006, z: -1.4600002}
+  m_LocalPosition: {x: -0.29299995, y: -0.102000006, z: -1.2630001}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -280,6 +280,8 @@ MonoBehaviour:
     PaddleRotationDeceleration: 0.01
     StaticRotationForce: 0.005
     StaticRotationDeceleration: 0.01
+    VelocityDecelerationLerp: 0.005
+    VelocityDecelerationRotationForce: 0.01
   Rigidbody: {fileID: 333907971529626019}
 --- !u!136 &4595948853936165718
 CapsuleCollider:
@@ -319,7 +321,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7609563091299782994}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 0.197}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -338,6 +340,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: InteractiveRipplesParticles
+      objectReference: {fileID: 0}
+    - target: {fileID: 6475471068446741617, guid: d34d48d0e10077e42acc36e4aee97016,
+        type: 3}
+      propertyPath: m_Layer
+      value: 6
       objectReference: {fileID: 0}
     - target: {fileID: 6475471068446741630, guid: d34d48d0e10077e42acc36e4aee97016,
         type: 3}
