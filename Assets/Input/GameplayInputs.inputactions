@@ -42,6 +42,15 @@
                     "initialStateCheck": true
                 },
                 {
+                    "name": "RotateCameraActivation",
+                    "type": "Value",
+                    "id": "ab86d594-21ec-40bb-8ec8-749b64f9654a",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "Hold(duration=0.2)",
+                    "initialStateCheck": true
+                },
+                {
                     "name": "RotateCamera",
                     "type": "Value",
                     "id": "94bc673f-e28e-491d-987f-4e04c7c7dbad",
@@ -159,6 +168,28 @@
                     "processors": "",
                     "groups": "GamePad",
                     "action": "RotateCamera",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "d1b4b7b8-9fe4-428b-84be-cf322c633df0",
+                    "path": "<Mouse>/leftButton",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "KeyboardMouse",
+                    "action": "RotateCameraActivation",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "c4c9b76c-690c-4ebf-8821-dd3443904c8f",
+                    "path": "<Gamepad>/rightStickPress",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "GamePad",
+                    "action": "RotateCameraActivation",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }
