@@ -1,4 +1,3 @@
-using System;
 using UnityEngine;
 
 namespace Character
@@ -8,10 +7,12 @@ namespace Character
         public Transform KayakTransform;
 
         private Vector3 _playerLocalPosition;
+        private Vector3 _localPositionDifference;
 
         private void Start()
         {
             _playerLocalPosition = transform.localPosition;
+            _localPositionDifference = _playerLocalPosition - KayakTransform.localPosition;
         }
 
         private void Update()
@@ -21,8 +22,7 @@ namespace Character
 
         private void MatchCharacterWithBoat()
         {
-            Vector3 position = KayakTransform.position;
-            transform.position = position + _playerLocalPosition;
+            transform.position = KayakTransform.position + _localPositionDifference;
         
             Vector3 rotation = transform.rotation.eulerAngles;
             Vector3 boatRotation = KayakTransform.rotation.eulerAngles;
