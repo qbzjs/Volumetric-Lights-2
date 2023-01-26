@@ -11,6 +11,9 @@ namespace Character.State
         public CharacterStateBase CurrentStateBase;
         [SerializeField] private InputManagement _inputManagement;
 
+        [Header("Values")] [SerializeField, Range(0, 1)]
+        private float balanceLerpTo0Value = 0.01f;
+
         private CharacterNavigationState _navigationState;
 
         private void Awake()
@@ -26,6 +29,7 @@ namespace Character.State
         private void Update()
         {
             CurrentStateBase.UpdateState(this);
+            BalanceManagement();
         }
         private void FixedUpdate()
         {
@@ -36,11 +40,21 @@ namespace Character.State
             CurrentStateBase = stateBaseCharacter;
             stateBaseCharacter.EnterState(this);
         }
-        
+
+        private void BalanceManagement()
+        {
+            //lerp to 0
+            CurrentStateBase.Balance = Mathf.Lerp(CurrentStateBase.Balance, 0, balanceLerpTo0Value);
+        }
+
+        #region GUI
+
         private void OnGUI()
         {
             GUI.skin.label.fontSize = 50;
             GUI.Label(new Rect(10, 10, 300, 100), CurrentStateBase.Balance.ToString());
         }
+
+        #endregion
     }
 }

@@ -35,6 +35,11 @@ namespace Character.Camera
         [SerializeField] 
         private InputManagement _input;
         
+        [Header("Rotation Values")]
+        [SerializeField] private float _balanceRotationMultiplier = 1f;
+        [SerializeField, Range(0,0.1f)] private float _balanceRotationZLerp = 0.01f;
+
+        
         //private values
         private float _cinemachineTargetYaw;
         private float _cinemachineTargetPitch;
@@ -78,15 +83,17 @@ namespace Character.Camera
             //Clamp
             _cinemachineTargetYaw = ClampAngle(_cinemachineTargetYaw, float.MinValue, float.MaxValue);
             _cinemachineTargetPitch = ClampAngle(_cinemachineTargetPitch, _bottomClamp, _topClamp);
-
-            //y camera rotation
-            const float rotationMultiplier = 4f;
-            float cameraRotationZ = characterManager.CurrentStateBase.Balance * rotationMultiplier;
-
-            //apply camera rotation
-            const float lerpValue = 0.01f;
-            Quaternion targetRotation = Quaternion.Euler(_cinemachineTargetPitch + _cameraAngleOverride, _cinemachineTargetYaw, cameraRotationZ);
-            _cinemachineCameraTarget.transform.rotation = Quaternion.Lerp(_cinemachineCameraTarget.transform.rotation, targetRotation, lerpValue);
+            
+            //apply camera pitch+yaw rotation
+            _cinemachineCameraTarget.transform.rotation = Quaternion.Euler(_cinemachineTargetPitch + _cameraAngleOverride, //pitch
+                _cinemachineTargetYaw, //yaw
+                _cinemachineCameraTarget.transform.rotation.eulerAngles.z); //stay the same
+            
+            //z balance rotation 
+            Vector3 cameraTargetRotationEuler = _cinemachineCameraTarget.transform.rotation.eulerAngles;
+            float cameraRotationZ = characterManager.CurrentStateBase.Balance * _balanceRotationMultiplier;
+            Quaternion targetRotation = Quaternion.Euler(cameraTargetRotationEuler.x, cameraTargetRotationEuler.y, cameraRotationZ); //apply rotation
+            _cinemachineCameraTarget.transform.rotation = Quaternion.Lerp(_cinemachineCameraTarget.transform.rotation, targetRotation, _balanceRotationZLerp);
         }
         
         private float ClampAngle(float lfAngle, float lfMin, float lfMax)
