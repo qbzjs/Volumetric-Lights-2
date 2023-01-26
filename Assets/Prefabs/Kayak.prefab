@@ -341,11 +341,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: InteractiveRipplesParticles
       objectReference: {fileID: 0}
-    - target: {fileID: 6475471068446741617, guid: d34d48d0e10077e42acc36e4aee97016,
-        type: 3}
-      propertyPath: m_Layer
-      value: 6
-      objectReference: {fileID: 0}
     - target: {fileID: 6475471068446741630, guid: d34d48d0e10077e42acc36e4aee97016,
         type: 3}
       propertyPath: m_RootOrder
