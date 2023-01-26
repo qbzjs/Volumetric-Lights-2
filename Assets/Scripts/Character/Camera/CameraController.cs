@@ -4,10 +4,10 @@ using UnityEngine.Serialization;
 
 namespace Character.Camera
 {
-    public class CameraRotationController : MonoBehaviour
+    public class CameraController : MonoBehaviour
     {
         #region Singleton
-        public static CameraRotationController Instance { get; private set; }
+        public static CameraController Instance { get; private set; }
         private void Awake()
         {
             if (Instance != null && Instance != this)
