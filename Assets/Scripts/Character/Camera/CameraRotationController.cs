@@ -39,7 +39,9 @@ namespace Character.Camera
         [Header("Rotation Values")]
         [SerializeField] private float _balanceRotationMultiplier = 1f;
         [SerializeField, Range(0, 0.1f)] private float _balanceRotationZLerp = 0.01f;
-        
+
+        [Header("Camera")] [SerializeField, Range(10, 100)] private float _multiplierValueRotation = 20.0f;
+
         [Header("Input rotation smooth values")]
         [SerializeField, Range(-10, -1f)] private float _rotationXMinClamp = -5f;
         [SerializeField, Range(1, 10f)] private float _rotationXMaxClamp = 5f;
@@ -71,23 +73,38 @@ namespace Character.Camera
                 //Cinemachine yaw/pitch
                 _cinemachineTargetYaw += _input.Inputs.RotateCamera.x;
                 _cinemachineTargetPitch += _input.Inputs.RotateCamera.y;
-                
+
                 //last inputs
                 _lastInputX = _input.Inputs.RotateCamera.x != 0 ? _input.Inputs.RotateCamera.x : _lastInputX;
                 _lastInputY = _input.Inputs.RotateCamera.y != 0 ? _input.Inputs.RotateCamera.y : _lastInputY;
             }
             //manage rotate to stay behind boat
-            else if (Mathf.Abs(_rigidbodyKayak.velocity.x + _rigidbodyKayak.velocity.z) > 0.2 || Mathf.Abs(characterManager.CurrentStateBase.RotationStaticForceY) > 0.01)
+            else if (Mathf.Abs(_rigidbodyKayak.velocity.x + _rigidbodyKayak.velocity.z) > 0.01f || Mathf.Abs(characterManager.CurrentStateBase.RotationStaticForceY) > 0.01f)
             {
-                if(_lastInputX != 0 || _lastInputY != 0)
+                if (_lastInputX != 0 || _lastInputY != 0)
                 {
                     _lastInputX = 0;
                     _lastInputY = 0;
                 }
-                
-                Quaternion rotation = _cinemachineCameraTarget.transform.localRotation;
 
-                _cinemachineCameraTarget.transform.localRotation = Quaternion.Slerp(rotation, Quaternion.Euler(new Vector3(0, 0, rotation.z)), Time.deltaTime * 2);
+                Quaternion rotation = _cinemachineCameraTarget.transform.localRotation;
+                const float rotationTreshold = 0.15f;
+                Quaternion targetQuaternion = Quaternion.Euler(new Vector3(0,
+                    -(characterManager.CurrentStateBase.RotationStaticForceY + characterManager.CurrentStateBase.RotationPaddleForceY) * _multiplierValueRotation,
+                    rotation.z));
+                if (characterManager.CurrentStateBase.RotationStaticForceY < -rotationTreshold || characterManager.CurrentStateBase.RotationPaddleForceY < -rotationTreshold)
+                {
+                    _cinemachineCameraTarget.transform.localRotation = Quaternion.Slerp(rotation, targetQuaternion, Time.deltaTime * 2); ; ;
+                }
+                else if (characterManager.CurrentStateBase.RotationStaticForceY > rotationTreshold || characterManager.CurrentStateBase.RotationPaddleForceY > rotationTreshold)
+                {
+                    _cinemachineCameraTarget.transform.localRotation = Quaternion.Slerp(rotation, targetQuaternion, Time.deltaTime * 2); ; ;
+                }
+                else
+                {
+                    _cinemachineCameraTarget.transform.localRotation = Quaternion.Slerp(rotation, Quaternion.Euler(new Vector3(0, 0, rotation.z)), Time.deltaTime * 2);
+                }
+
                 _cinemachineTargetYaw = _cinemachineCameraTarget.transform.rotation.eulerAngles.y;
 
                 if (_cinemachineCameraTarget.transform.rotation.eulerAngles.x > 180)
@@ -98,6 +115,7 @@ namespace Character.Camera
                 {
                     _cinemachineTargetPitch = _cinemachineCameraTarget.transform.rotation.eulerAngles.x;
                 }
+
             }
             else
             {
@@ -108,7 +126,8 @@ namespace Character.Camera
                 _cinemachineTargetYaw += _lastInputX;
                 _cinemachineTargetPitch += _lastInputY;
             }
-
+            Debug.Log(characterManager.CurrentStateBase.RotationStaticForceY + " static");
+            Debug.Log(characterManager.CurrentStateBase.RotationPaddleForceY + " paddle");
             //Clamp
             _cinemachineTargetYaw = ClampAngle(_cinemachineTargetYaw, float.MinValue, float.MaxValue);
             _cinemachineTargetPitch = ClampAngle(_cinemachineTargetPitch, _bottomClamp, _topClamp);
