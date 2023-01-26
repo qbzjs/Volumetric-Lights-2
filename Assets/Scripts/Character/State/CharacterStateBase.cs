@@ -9,16 +9,18 @@ namespace Character.State
         public bool CanCharacterMakeActions = true;
         public float RotationStaticForceY = 0f;
         public float RotationPaddleForceY = 0f;
+        
+        public float Balance = 0f;
 
         protected Transform PlayerPosition;
 
-        public abstract void EnterState(CharacterStateManager character);
+        public abstract void EnterState(CharacterManager character);
 
-        public abstract void UpdateState(CharacterStateManager character);
+        public abstract void UpdateState(CharacterManager character);
 
-        public abstract void FixedUpdate(CharacterStateManager character);
+        public abstract void FixedUpdate(CharacterManager character);
 
-        public abstract void SwitchState(CharacterStateManager character);
+        public abstract void SwitchState(CharacterManager character);
 
     }
 }

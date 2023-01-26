@@ -46,7 +46,7 @@ namespace Character.State
 
         #region CharacterBaseState overrided function
 
-        public override void EnterState(CharacterStateManager character)
+        public override void EnterState(CharacterManager character)
         {
             //inputs
             GameplayInputs = new GameplayInputs();
@@ -57,20 +57,20 @@ namespace Character.State
             _leftPaddleCooldown = _kayakValues.PaddleCooldown;
         }
 
-        public override void UpdateState(CharacterStateManager character)
+        public override void UpdateState(CharacterManager character)
         {
             PaddleCooldownManagement();
             HandlePaddleMovement();
             HandleStaticRotation();
         }
 
-        public override void FixedUpdate(CharacterStateManager character)
+        public override void FixedUpdate(CharacterManager character)
         {
             KayakRotationManager(RotationType.Paddle);
             KayakRotationManager(RotationType.Static);
         }
 
-        public override void SwitchState(CharacterStateManager character)
+        public override void SwitchState(CharacterManager character)
         {
 
         }
@@ -126,6 +126,10 @@ namespace Character.State
             //rotation
             float rotation = _kayakValues.PaddleSideRotationForce;
             RotationPaddleForceY += direction == Direction.Right ? -rotation : rotation;
+            
+            //balance
+            const float rotationToBalanceMultiplier = 10f;
+            Balance += RotationPaddleForceY * rotationToBalanceMultiplier;
         }
 
         private void HandlePaddleMovement()
