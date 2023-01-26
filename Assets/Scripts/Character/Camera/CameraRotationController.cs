@@ -41,6 +41,7 @@ namespace Character.Camera
         [SerializeField, Range(0, 0.1f)] private float _balanceRotationZLerp = 0.01f;
 
         [Header("Camera")] [SerializeField, Range(10, 100)] private float _multiplierValueRotation = 20.0f;
+        [Header("Camera")] [SerializeField, Range(0, 10)] private float _multiplierValuePosition = 2;
 
         [Header("Input rotation smooth values")]
         [SerializeField, Range(-10, -1f)] private float _rotationXMinClamp = -5f;
@@ -92,18 +93,35 @@ namespace Character.Camera
                 Quaternion targetQuaternion = Quaternion.Euler(new Vector3(0,
                     -(characterManager.CurrentStateBase.RotationStaticForceY + characterManager.CurrentStateBase.RotationPaddleForceY) * _multiplierValueRotation,
                     rotation.z));
+
+                Vector3 cameraTarget = _cinemachineCameraTarget.transform.localPosition;
                 if (characterManager.CurrentStateBase.RotationStaticForceY < -rotationTreshold || characterManager.CurrentStateBase.RotationPaddleForceY < -rotationTreshold)
                 {
-                    _cinemachineCameraTarget.transform.localRotation = Quaternion.Slerp(rotation, targetQuaternion, Time.deltaTime * 2); ; ;
+                    _cinemachineCameraTarget.transform.localRotation = Quaternion.Slerp(rotation, targetQuaternion, Time.deltaTime * 2);
+                    if (characterManager.CurrentStateBase.RotationPaddleForceY < -rotationTreshold)
+                    {
+                        cameraTarget.x = Mathf.Lerp(cameraTarget.x, (characterManager.CurrentStateBase.RotationStaticForceY + characterManager.CurrentStateBase.RotationPaddleForceY) * _multiplierValuePosition, .01f);
+                        cameraTarget.z = 0;
+                    }
                 }
+
                 else if (characterManager.CurrentStateBase.RotationStaticForceY > rotationTreshold || characterManager.CurrentStateBase.RotationPaddleForceY > rotationTreshold)
                 {
-                    _cinemachineCameraTarget.transform.localRotation = Quaternion.Slerp(rotation, targetQuaternion, Time.deltaTime * 2); ; ;
+                    _cinemachineCameraTarget.transform.localRotation = Quaternion.Slerp(rotation, targetQuaternion, Time.deltaTime * 2);
+                    if (characterManager.CurrentStateBase.RotationPaddleForceY > rotationTreshold)
+                    {
+                        cameraTarget.x = Mathf.Lerp(cameraTarget.x, (characterManager.CurrentStateBase.RotationStaticForceY + characterManager.CurrentStateBase.RotationPaddleForceY) * _multiplierValuePosition, .01f);
+                        cameraTarget.z = 0;
+                    }
                 }
+
                 else
                 {
                     _cinemachineCameraTarget.transform.localRotation = Quaternion.Slerp(rotation, Quaternion.Euler(new Vector3(0, 0, rotation.z)), Time.deltaTime * 2);
+                    cameraTarget.x = Mathf.Lerp(cameraTarget.x, 0, .01f);
+
                 }
+                _cinemachineCameraTarget.transform.localPosition = cameraTarget;
 
                 _cinemachineTargetYaw = _cinemachineCameraTarget.transform.rotation.eulerAngles.y;
 
@@ -126,8 +144,6 @@ namespace Character.Camera
                 _cinemachineTargetYaw += _lastInputX;
                 _cinemachineTargetPitch += _lastInputY;
             }
-            Debug.Log(characterManager.CurrentStateBase.RotationStaticForceY + " static");
-            Debug.Log(characterManager.CurrentStateBase.RotationPaddleForceY + " paddle");
             //Clamp
             _cinemachineTargetYaw = ClampAngle(_cinemachineTargetYaw, float.MinValue, float.MaxValue);
             _cinemachineTargetPitch = ClampAngle(_cinemachineTargetPitch, _bottomClamp, _topClamp);
