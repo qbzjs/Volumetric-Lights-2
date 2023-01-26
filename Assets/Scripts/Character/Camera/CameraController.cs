@@ -4,10 +4,10 @@ using UnityEngine.Serialization;
 
 namespace Character.Camera
 {
-    public class CameraRotationController : MonoBehaviour
+    public class CameraController : MonoBehaviour
     {
         #region Singleton
-        public static CameraRotationController Instance { get; private set; }
+        public static CameraController Instance { get; private set; }
         private void Awake()
         {
             if (Instance != null && Instance != this)
@@ -30,7 +30,6 @@ namespace Character.Camera
 
         [Header("References"), SerializeField]
         private Rigidbody _rigidbodyKayak;
-        [FormerlySerializedAs("_characterStateManager")]
         [SerializeField]
         private CharacterManager characterManager;
         [SerializeField]
@@ -39,7 +38,11 @@ namespace Character.Camera
         [Header("Rotation Values")]
         [SerializeField] private float _balanceRotationMultiplier = 1f;
         [SerializeField, Range(0, 0.1f)] private float _balanceRotationZLerp = 0.01f;
-        
+
+        [Header("Camera")]
+        [SerializeField, Range(10, 100)] private float _multiplierValueRotation = 20.0f;
+        [SerializeField, Range(0, 10)] private float _multiplierValuePosition = 2;
+
         [Header("Input rotation smooth values")]
         [SerializeField, Range(-10, -1f)] private float _rotationXMinClamp = -5f;
         [SerializeField, Range(1, 10f)] private float _rotationXMaxClamp = 5f;
@@ -71,25 +74,53 @@ namespace Character.Camera
                 //Cinemachine yaw/pitch
                 _cinemachineTargetYaw += _input.Inputs.RotateCamera.x;
                 _cinemachineTargetPitch += _input.Inputs.RotateCamera.y;
-                
+
                 //last inputs
                 _lastInputX = _input.Inputs.RotateCamera.x != 0 ? _input.Inputs.RotateCamera.x : _lastInputX;
                 _lastInputY = _input.Inputs.RotateCamera.y != 0 ? _input.Inputs.RotateCamera.y : _lastInputY;
             }
             //manage rotate to stay behind boat
-            else if (Mathf.Abs(_rigidbodyKayak.velocity.x + _rigidbodyKayak.velocity.z) > 0.2 || Mathf.Abs(characterManager.CurrentStateBase.RotationStaticForceY) > 0.01)
+            else if (Mathf.Abs(_rigidbodyKayak.velocity.x + _rigidbodyKayak.velocity.z) > 0.01f || Mathf.Abs(characterManager.CurrentStateBase.RotationStaticForceY) > 0.01f)
             {
-                if(_lastInputX != 0 || _lastInputY != 0)
+                //avoid last input to be 0
+                if (_lastInputX != 0 || _lastInputY != 0)
                 {
                     _lastInputX = 0;
                     _lastInputY = 0;
                 }
                 
+                //get target rotation
                 Quaternion rotation = _cinemachineCameraTarget.transform.localRotation;
+                Quaternion targetQuaternion = Quaternion.Euler(new Vector3(0,
+                    -(characterManager.CurrentStateBase.RotationStaticForceY + characterManager.CurrentStateBase.RotationPaddleForceY) * _multiplierValueRotation,
+                    rotation.z));
 
-                _cinemachineCameraTarget.transform.localRotation = Quaternion.Slerp(rotation, Quaternion.Euler(new Vector3(0, 0, rotation.z)), Time.deltaTime * 2);
+                //get camera local position
+                Vector3 cameraTargetLocalPosition = _cinemachineCameraTarget.transform.localPosition;
+                
+                
+                const float rotationThreshold = 0.15f;
+                
+                //calculate camera rotation & position
+                if (Mathf.Abs(characterManager.CurrentStateBase.RotationStaticForceY) > rotationThreshold || // if kayak is rotating
+                    Mathf.Abs(characterManager.CurrentStateBase.RotationPaddleForceY) > rotationThreshold)
+                {
+                    _cinemachineCameraTarget.transform.localRotation = Quaternion.Slerp(rotation, targetQuaternion, Time.deltaTime * 2);
+                    if (characterManager.CurrentStateBase.RotationPaddleForceY > rotationThreshold)
+                    {
+                        cameraTargetLocalPosition.x = Mathf.Lerp(cameraTargetLocalPosition.x, (characterManager.CurrentStateBase.RotationStaticForceY + characterManager.CurrentStateBase.RotationPaddleForceY) * _multiplierValuePosition, .01f);
+                        cameraTargetLocalPosition.z = 0;
+                    }
+                }
+                else //if kayak isn't rotating
+                {
+                    _cinemachineCameraTarget.transform.localRotation = Quaternion.Slerp(rotation, Quaternion.Euler(new Vector3(0, 0, rotation.z)), Time.deltaTime * 2);
+                    cameraTargetLocalPosition.x = Mathf.Lerp(cameraTargetLocalPosition.x, 0, .01f);
+                }
+                
+                //apply camera rotation & position
+                _cinemachineCameraTarget.transform.localPosition = cameraTargetLocalPosition;
                 _cinemachineTargetYaw = _cinemachineCameraTarget.transform.rotation.eulerAngles.y;
-
                 if (_cinemachineCameraTarget.transform.rotation.eulerAngles.x > 180)
                 {
                     _cinemachineTargetPitch = _cinemachineCameraTarget.transform.rotation.eulerAngles.x - 360;
@@ -98,22 +129,26 @@ namespace Character.Camera
                 {
                     _cinemachineTargetPitch = _cinemachineCameraTarget.transform.rotation.eulerAngles.x;
                 }
+
             }
             else
             {
+                //last input value
                 _lastInputX = ClampAngle(_lastInputX, -5.0f, 5.0f);
                 _lastInputY = ClampAngle(_lastInputY, -1.0f, 1.0f);
                 _lastInputX = Mathf.Lerp(_lastInputX, 0, _lerpTimeX);
                 _lastInputY = Mathf.Lerp(_lastInputY, 0, _lerpTimeY);
+                
+                //apply value to camera
                 _cinemachineTargetYaw += _lastInputX;
                 _cinemachineTargetPitch += _lastInputY;
             }
-
-            //Clamp
+            
+            //Clamp yaw + pitch
             _cinemachineTargetYaw = ClampAngle(_cinemachineTargetYaw, float.MinValue, float.MaxValue);
             _cinemachineTargetPitch = ClampAngle(_cinemachineTargetPitch, _bottomClamp, _topClamp);
 
-            //apply camera pitch+yaw rotation
+            //apply pitch+yaw to camera
             _cinemachineCameraTarget.transform.rotation = Quaternion.Euler(_cinemachineTargetPitch + _cameraAngleOverride, //pitch
                 _cinemachineTargetYaw, //yaw
                 _cinemachineCameraTarget.transform.rotation.eulerAngles.z); //stay the same
