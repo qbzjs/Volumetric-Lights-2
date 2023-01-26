@@ -234,30 +234,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: InteractiveRipplesParticles (1)
       objectReference: {fileID: 0}
-    - target: {fileID: 6475471068446741617, guid: d34d48d0e10077e42acc36e4aee97016,
-        type: 3}
-      propertyPath: m_Layer
-      value: 6
-      objectReference: {fileID: 0}
     - target: {fileID: 6475471068446741630, guid: d34d48d0e10077e42acc36e4aee97016,
         type: 3}
       propertyPath: m_RootOrder
-      value: 6
-      objectReference: {fileID: 0}
-    - target: {fileID: 6475471068446741630, guid: d34d48d0e10077e42acc36e4aee97016,
-        type: 3}
-      propertyPath: m_LocalScale.x
-      value: 0.91575754
-      objectReference: {fileID: 0}
-    - target: {fileID: 6475471068446741630, guid: d34d48d0e10077e42acc36e4aee97016,
-        type: 3}
-      propertyPath: m_LocalScale.y
-      value: 4.1874843
-      objectReference: {fileID: 0}
-    - target: {fileID: 6475471068446741630, guid: d34d48d0e10077e42acc36e4aee97016,
-        type: 3}
-      propertyPath: m_LocalScale.z
-      value: 1.3533227
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 6475471068446741630, guid: d34d48d0e10077e42acc36e4aee97016,
         type: 3}
@@ -14210,6 +14190,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalPosition.y
       value: 9.24
+      objectReference: {fileID: 0}
+    - target: {fileID: 459120858340772287, guid: 1234adbd798f2fe449590ea419456881,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 1926916344905154587, guid: 1234adbd798f2fe449590ea419456881,
         type: 3}
