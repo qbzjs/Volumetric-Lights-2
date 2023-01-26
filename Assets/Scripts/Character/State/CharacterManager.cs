@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace Character.State
 {
-    public class CharacterStateManager : MonoBehaviour
+    public class CharacterManager : MonoBehaviour
     {
 
         [Header("References"), SerializeField] private KayakController _kayakController;
@@ -35,6 +35,12 @@ namespace Character.State
         {
             CurrentStateBase = stateBaseCharacter;
             stateBaseCharacter.EnterState(this);
+        }
+        
+        private void OnGUI()
+        {
+            GUI.skin.label.fontSize = 50;
+            GUI.Label(new Rect(10, 10, 300, 100), CurrentStateBase.Balance.ToString());
         }
     }
 }
