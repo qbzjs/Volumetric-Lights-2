@@ -1,5 +1,6 @@
 ﻿using System;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 namespace Character
 {
@@ -21,8 +22,8 @@ namespace Character
         
         private void GatherInputs()
         {
-            Inputs.PaddleLeft = GameplayInputs.Boat.PaddleLeft.triggered;
-            Inputs.PaddleRight = GameplayInputs.Boat.PaddleRight.triggered;
+            Inputs.PaddleLeft = GameplayInputs.Boat.PaddleLeft.ReadValue<float>() > 0;
+            Inputs.PaddleRight = GameplayInputs.Boat.PaddleRight.ReadValue<float>() > 0;
 
             Inputs.RotateLeft = GameplayInputs.Boat.StaticRotateLeft.ReadValue<float>();
             Inputs.RotateRight = GameplayInputs.Boat.StaticRotateRight.ReadValue<float>();

@@ -7,21 +7,21 @@
             "actions": [
                 {
                     "name": "PaddleLeft",
-                    "type": "Button",
+                    "type": "Value",
                     "id": "ec7d4462-88fd-4f43-8928-11e27232ea53",
                     "expectedControlType": "Button",
                     "processors": "",
-                    "interactions": "Press",
-                    "initialStateCheck": false
+                    "interactions": "Hold(duration=0.1)",
+                    "initialStateCheck": true
                 },
                 {
                     "name": "PaddleRight",
-                    "type": "Button",
+                    "type": "Value",
                     "id": "90c3aca1-1a2b-4b05-a9a6-0ecf98f6952b",
                     "expectedControlType": "Button",
                     "processors": "",
-                    "interactions": "Press",
-                    "initialStateCheck": false
+                    "interactions": "Hold(duration=0.1)",
+                    "initialStateCheck": true
                 },
                 {
                     "name": "StaticRotateLeft",

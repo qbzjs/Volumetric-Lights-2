@@ -117,6 +117,8 @@ namespace Character.State
 
         private void Paddle(Direction direction)
         {
+            Debug.Log(direction);
+            
             //apply force
             Vector3 forceToApply = _kayakController.transform.forward * _kayakValues.PaddleFrontForce;
             _kayakRigidbody.AddForce(forceToApply);
@@ -136,11 +138,13 @@ namespace Character.State
             if (_inputs.Inputs.PaddleLeft && _rightPaddleCooldown <= 0)
             {
                 _rightPaddleCooldown = _kayakValues.PaddleCooldown;
+                _rightPaddleCooldown = _kayakValues.PaddleCooldown / 2;
                 Paddle(Direction.Left);
             }
             if (_inputs.Inputs.PaddleRight && _leftPaddleCooldown <= 0)
             {
                 _leftPaddleCooldown = _kayakValues.PaddleCooldown;
+                _leftPaddleCooldown = _kayakValues.PaddleCooldown / 2;
                 Paddle(Direction.Right);
             }
         }
