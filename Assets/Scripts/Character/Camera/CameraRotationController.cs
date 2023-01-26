@@ -4,10 +4,10 @@ using UnityEngine.Serialization;
 
 namespace Character.Camera
 {
-    public class RotateCamera : MonoBehaviour
+    public class CameraRotationController : MonoBehaviour
     {
         #region Singleton
-        public static RotateCamera Instance { get; private set; }
+        public static CameraRotationController Instance { get; private set; }
         private void Awake()
         {
             if (Instance != null && Instance != this)
@@ -27,13 +27,11 @@ namespace Character.Camera
         private float _bottomClamp = -30.0f;
         [Tooltip("Additional degrees to override the camera. Useful for fine tuning camera position when locked"), SerializeField]
         private float _cameraAngleOverride = 0.0f;
-        [Tooltip("Locking the camera position on all axis"), SerializeField] 
-        private bool _lockCameraPosition;
-        
+
         [Header("References"), SerializeField] 
         private Rigidbody _rigidbodyKayak;
-        [SerializeField] 
-        private CharacterStateManager _characterStateManager;
+        [FormerlySerializedAs("_characterStateManager")] [SerializeField] 
+        private CharacterManager characterManager;
         [SerializeField] 
         private InputManagement _input;
         
@@ -53,12 +51,14 @@ namespace Character.Camera
 
         private void CameraRotation()
         {
+            //rotate freely with inputs
             if (Input.GetMouseButton(0))
             {
                 _cinemachineTargetYaw += _input.Inputs.RotateCamera.x;
                 _cinemachineTargetPitch += _input.Inputs.RotateCamera.y;
             }
-            else if (Mathf.Abs(_rigidbodyKayak.velocity.x + _rigidbodyKayak.velocity.z) > 0.2 || Mathf.Abs(_characterStateManager.CurrentStateBase.RotationStaticForceY) > 0.01)
+            //manage rotate to stay behind boat
+            else if (Mathf.Abs(_rigidbodyKayak.velocity.x + _rigidbodyKayak.velocity.z) > 0.2 || Mathf.Abs(characterManager.CurrentStateBase.RotationStaticForceY) > 0.01)
             {
                 Quaternion rotation = _cinemachineCameraTarget.transform.localRotation;
 
@@ -75,17 +75,20 @@ namespace Character.Camera
                 }
             }
 
+            //Clamp
             _cinemachineTargetYaw = ClampAngle(_cinemachineTargetYaw, float.MinValue, float.MaxValue);
             _cinemachineTargetPitch = ClampAngle(_cinemachineTargetPitch, _bottomClamp, _topClamp);
 
-            _cinemachineCameraTarget.transform.rotation = Quaternion.Euler(_cinemachineTargetPitch + _cameraAngleOverride,
-                _cinemachineTargetYaw, 0.0f);
+            //y camera rotation
+            const float rotationMultiplier = 4f;
+            float cameraRotationZ = characterManager.CurrentStateBase.Balance * rotationMultiplier;
 
-
+            //apply camera rotation
+            const float lerpValue = 0.01f;
+            Quaternion targetRotation = Quaternion.Euler(_cinemachineTargetPitch + _cameraAngleOverride, _cinemachineTargetYaw, cameraRotationZ);
+            _cinemachineCameraTarget.transform.rotation = Quaternion.Lerp(_cinemachineCameraTarget.transform.rotation, targetRotation, lerpValue);
         }
-
-
-
+        
         private float ClampAngle(float lfAngle, float lfMin, float lfMax)
         {
             if (lfAngle < -360f) lfAngle += 360f;
