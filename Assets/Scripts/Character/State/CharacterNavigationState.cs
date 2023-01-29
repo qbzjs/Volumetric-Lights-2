@@ -117,8 +117,6 @@ namespace Character.State
 
         private void Paddle(Direction direction)
         {
-            Debug.Log(direction);
-            
             //apply force
             Vector3 forceToApply = _kayakController.transform.forward * _kayakValues.PaddleFrontForce;
             _kayakRigidbody.AddForce(forceToApply);
