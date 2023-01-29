@@ -128,6 +128,9 @@ namespace Character.State
             //balance
             const float rotationToBalanceMultiplier = 10f;
             Balance += RotationPaddleForceY * rotationToBalanceMultiplier;
+            
+            //audio
+            SoundManager.Instance.PlaySound(_kayakController.PaddlingAudioClip);
         }
 
         private void HandlePaddleMovement()

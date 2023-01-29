@@ -7,7 +7,7 @@ public class EscapeMenu : MonoBehaviour
     [SerializeField] private GameObject _escapeMenu;
     [SerializeField] private bool _stopTime;
 
-    private void Awake()
+    private void Start()
     {
         _escapeMenu.SetActive(false);
     }

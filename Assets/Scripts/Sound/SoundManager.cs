@@ -38,11 +38,11 @@ public class SoundManager : MonoBehaviour
 
     public void ToggleEffects()
     {
-        _effectSource.mute = _effectSource == false;
+        _effectSource.mute = _effectSource.mute == false;
     }
     
     public void ToggleMusic()
     {
-        _musicSource.mute = _musicSource == false;
+        _musicSource.mute = _musicSource.mute == false;
     }
 }

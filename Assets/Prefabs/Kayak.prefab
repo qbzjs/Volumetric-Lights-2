@@ -287,6 +287,7 @@ MonoBehaviour:
   _frontParticles:
   - {fileID: 4398326501491074328}
   - {fileID: 1612721150975241001}
+  PaddlingAudioClip: {fileID: 8300000, guid: cc79f0cc1ba16294cb28181e5ed1db4e, type: 3}
 --- !u!136 &4595948853936165718
 CapsuleCollider:
   m_ObjectHideFlags: 0

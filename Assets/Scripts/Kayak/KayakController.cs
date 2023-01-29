@@ -13,6 +13,7 @@ namespace Kayak
         public Rigidbody Rigidbody;
 
         [Header("References"), SerializeField] private List<ParticleSystem> _frontParticles;
+        [Header("Audio")] public AudioClip PaddlingAudioClip;
 
         private void Start()
         {
