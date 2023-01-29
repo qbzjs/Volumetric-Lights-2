@@ -60,12 +60,12 @@ namespace Character.State
         public override void UpdateState(CharacterManager character)
         {
             PaddleCooldownManagement();
-            HandlePaddleMovement();
-            HandleStaticRotation();
         }
 
         public override void FixedUpdate(CharacterManager character)
         {
+            HandlePaddleMovement();
+            HandleStaticRotation();
             KayakRotationManager(RotationType.Paddle);
             KayakRotationManager(RotationType.Static);
         }

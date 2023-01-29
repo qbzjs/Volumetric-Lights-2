@@ -276,7 +276,7 @@ MonoBehaviour:
   KayakValues:
     MaximumFrontVelocity: 20
     PaddleFrontForce: 160
-    PaddleSideRotationForce: 0.1
+    PaddleSideRotationForce: 0.2
     PaddleCooldown: 1.2
     PaddleRotationDeceleration: 0.01
     StaticRotationForce: 0.005
