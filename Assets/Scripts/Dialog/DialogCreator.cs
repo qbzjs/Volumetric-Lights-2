@@ -32,7 +32,7 @@ public class DialogCreator : MonoBehaviour
     [SerializeField] private List<DialogStruct> _dialog;
     [SerializeField] private bool _canBeReplayed;
     [SerializeField, ReadOnly] private bool _hasEnded;
-    [SerializeField] private bool _blockPlayerMovement;
+    [SerializeField] private bool _blockPlayerMovement, _blockCameraMovement;
 
     [Space(20), Header("Events")]
     public UnityEvent OnDialogLaunch = new UnityEvent();
