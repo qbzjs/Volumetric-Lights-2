@@ -152,6 +152,7 @@ public class DialogCreator : MonoBehaviour
         if (_dialog[index].ShowLetterByLetter)
         {
             DialogManager.Instance.TypeWriterText.FullText = _dialog[index].Text;
+            DialogManager.Instance.TypeWriterText.Delay =  _dialog[index].TextShowTime / _dialog[index].Text.Length;
             StartCoroutine(DialogManager.Instance.TypeWriterText.ShowText());
         }
         else

@@ -13,7 +13,7 @@ namespace Dialog
 
         public IEnumerator ShowText()
         {
-            for (int i = 0; i < FullText.Length; i++)
+            for (int i = 0; i <= FullText.Length; i++)
             {
                 CurrentText = FullText.Substring(0, i);
                 DisplayText.text = CurrentText;
