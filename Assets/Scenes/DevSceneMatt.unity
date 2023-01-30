@@ -2218,6 +2218,26 @@ PrefabInstance:
       propertyPath: _blockCameraMovement
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 5847406828615683508, guid: 24e437890bed266479bfe8e4681720a5,
+        type: 3}
+      propertyPath: _dialog.Array.data[2].Text
+      value: Une humaine !
+      objectReference: {fileID: 0}
+    - target: {fileID: 5847406828615683508, guid: 24e437890bed266479bfe8e4681720a5,
+        type: 3}
+      propertyPath: _dialog.Array.data[2].TextHoldTime
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5847406828615683508, guid: 24e437890bed266479bfe8e4681720a5,
+        type: 3}
+      propertyPath: _dialog.Array.data[0].ShowLetterByLetter
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5847406828615683508, guid: 24e437890bed266479bfe8e4681720a5,
+        type: 3}
+      propertyPath: _dialog.Array.data[1].ShowLetterByLetter
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 5847406828615683509, guid: 24e437890bed266479bfe8e4681720a5,
         type: 3}
       propertyPath: m_Name

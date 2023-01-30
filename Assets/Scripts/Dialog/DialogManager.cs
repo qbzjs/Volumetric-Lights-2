@@ -26,7 +26,7 @@ namespace Dialog
         
         #endregion
 
-        public TextMeshProUGUI TextMeshPro;
+        public TypeWriter TypeWriterText;
         public GameObject DialogUIGameObject;
         public Image PressButtonImage;
 
