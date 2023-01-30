@@ -717,6 +717,8 @@ MonoBehaviour:
   _balanceRotationZLerp: 0.01
   _multiplierValueRotation: 20
   _multiplierValuePosition: 2
+  _virtualCamera: {fileID: 4192299973026284776}
+  _multiplierFovCamera: 2
   _rotationXMinClamp: -5
   _rotationXMaxClamp: 5
   _rotationYMinClamp: -1

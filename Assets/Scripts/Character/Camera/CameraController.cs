@@ -1,4 +1,5 @@
 using Character.State;
+using Cinemachine;
 using UnityEngine;
 using UnityEngine.Serialization;
 
@@ -42,6 +43,10 @@ namespace Character.Camera
         [Header("Camera")]
         [SerializeField, Range(10, 100)] private float _multiplierValueRotation = 20.0f;
         [SerializeField, Range(0, 10)] private float _multiplierValuePosition = 2;
+        
+        [Header("Virtual Camera")]
+        [SerializeField] private CinemachineVirtualCamera _virtualCamera;
+        [SerializeField, Range(0, 5)] private float _multiplierFovCamera = 1;
 
         [Header("Input rotation smooth values")]
         [SerializeField, Range(-10, -1f)] private float _rotationXMinClamp = -5f;
@@ -56,16 +61,23 @@ namespace Character.Camera
         private float _cinemachineTargetPitch;
         private float _lastInputX;
         private float _lastInputY;
+        private float _cameraBaseFov;
         private void Start()
         {
             _cinemachineTargetYaw = _cinemachineCameraTarget.transform.rotation.eulerAngles.y;
+            _cameraBaseFov = _virtualCamera.m_Lens.FieldOfView;
         }
 
         private void Update()
         {
             CameraRotation();
+            FielOfView();
         }
-
+        private void FielOfView()
+        {
+            float velocityXZ = Mathf.Abs(_rigidbodyKayak.velocity.x) + Mathf.Abs(_rigidbodyKayak.velocity.z);
+            _virtualCamera.m_Lens.FieldOfView = Mathf.Lerp(_virtualCamera.m_Lens.FieldOfView, _cameraBaseFov + (velocityXZ * _multiplierFovCamera), .01f);
+        }
         private void CameraRotation()
         {
             //rotate freely with inputs
