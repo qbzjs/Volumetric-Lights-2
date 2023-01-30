@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class FollowPlayer : MonoBehaviour
 {
-    [SerializeField] Transform _posTarget;
+    [SerializeField] Transform _posSednaTarget;
     [SerializeField] Transform _rotationKayak;
 
     private Rigidbody _rigidbody;
@@ -22,7 +22,7 @@ public class FollowPlayer : MonoBehaviour
     private void Position()
     {
         Vector3 current = new Vector3(transform.position.x, 0, transform.position.z);
-        Vector3 target = new Vector3(_posTarget.transform.position.x, 0, _posTarget.transform.position.z);
+        Vector3 target = new Vector3(_posSednaTarget.transform.position.x, 0, _posSednaTarget.transform.position.z);
         Vector3 pos = Vector3.SmoothDamp(current, target, ref _velocity, 0.5f);
 
         Vector3 velocity = new Vector3(_velocity.x, _rigidbody.velocity.y, _velocity.z);
