@@ -1532,6 +1532,87 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 4616244909802483892}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &1506097772
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1506097774}
+  - component: {fileID: 1506097773}
+  - component: {fileID: 1506097775}
+  m_Layer: 0
+  m_Name: DialogCreatorExample
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1506097773
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1506097772}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 962c15179fceaa24e904cf8c8f0a8a15, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _launchType: 0
+  _dialog:
+  - Text: Tient ?
+    TextShowTime: 1
+    TextHoldTime: 2
+    SequencingTypeNext: 0
+  - Text: Qui est-ce ?
+    TextShowTime: 1
+    TextHoldTime: 2
+    SequencingTypeNext: 0
+  - Text: Une humaine...
+    TextShowTime: 1
+    TextHoldTime: 2
+    SequencingTypeNext: 1
+  _canBeReplayed: 0
+  _hasEnded: 0
+  _blockPlayerMovement: 1
+  OnDialogLaunch:
+    m_PersistentCalls:
+      m_Calls: []
+  OnDialogEnd:
+    m_PersistentCalls:
+      m_Calls: []
+--- !u!4 &1506097774
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1506097772}
+  m_LocalRotation: {x: -0, y: -0.06230464, z: -0, w: 0.9980572}
+  m_LocalPosition: {x: -0.11, y: 2.4905896, z: 18.41}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 7
+  m_LocalEulerAnglesHint: {x: 0, y: -7.144, z: 0}
+--- !u!65 &1506097775
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1506097772}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 15.641748, y: 10, z: 10}
+  m_Center: {x: -2.8208742, y: 0, z: 0}
 --- !u!4 &1826803700 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 4616244911090478533, guid: 1234adbd798f2fe449590ea419456881,
