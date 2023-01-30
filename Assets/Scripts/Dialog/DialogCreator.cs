@@ -128,7 +128,7 @@ public class DialogCreator : MonoBehaviour
         {
             FindObjectOfType<CharacterManager>().CurrentStateBase.CanCharacterMove = false;
         }
-        
+
         //visual
         DialogManager.Instance.PressButtonImage.DOFade(0f, 0f);
         GameObject dialog = DialogManager.Instance.DialogUIGameObject;
@@ -143,6 +143,9 @@ public class DialogCreator : MonoBehaviour
         _currentDialogCooldown = _dialog[index].TextShowTime;
 
         DialogManager.Instance.TextMeshPro.text = _dialog[index].Text;
+        
+        //audio
+        SoundManager.Instance.PlayDialog(_dialog[index].Clip);
     }
 
     private void EndDialog()

@@ -15,7 +15,9 @@ namespace Dialog
     {
         [TextArea] public string Text;
         public float TextShowTime;
+        public bool ShowLetterByLetter;
         public float TextHoldTime;
         public SequencingType SequencingTypeNext;
+        public AudioClip Clip;
     }
 }
