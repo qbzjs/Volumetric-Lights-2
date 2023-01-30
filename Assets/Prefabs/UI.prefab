@@ -1786,7 +1786,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0fc77b2ed8a746dab03fd863584f75ee, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  TextMeshPro: {fileID: 6652371328360516097}
+  TypeWriterText: {fileID: 0}
   DialogUIGameObject: {fileID: 3128447822129208163}
   PressButtonImage: {fileID: 7237106428786210801}
 --- !u!1 &1632394492975044395
@@ -2063,6 +2063,7 @@ GameObject:
   - component: {fileID: 8796111279962178781}
   - component: {fileID: 3774529737245698293}
   - component: {fileID: 6652371328360516097}
+  - component: {fileID: 2848470980093469852}
   m_Layer: 5
   m_Name: Text (TMP)
   m_TagString: Untagged
@@ -2187,6 +2188,21 @@ MonoBehaviour:
   m_hasFontAssetChanged: 0
   m_baseMaterial: {fileID: 0}
   m_maskOffset: {x: 0, y: 0, z: 0, w: 0}
+--- !u!114 &2848470980093469852
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4742396060974619287}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0d4685e9ea2f4cfd8a52476449823a0a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Delay: 0.1
+  FullText: 
+  DisplayText: {fileID: 6652371328360516097}
 --- !u!1 &5709455975342259254
 GameObject:
   m_ObjectHideFlags: 0

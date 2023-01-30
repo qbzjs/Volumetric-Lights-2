@@ -11,7 +11,7 @@ using UnityEngine.Events;
 public class DialogCreator : MonoBehaviour
 {
     #region Enums
-    
+
     [Serializable]
     private enum LaunchType
     {
@@ -26,7 +26,7 @@ public class DialogCreator : MonoBehaviour
         Holding = 2,
         WaitingForInput = 3,
     }
-    
+
     #endregion
 
     [SerializeField] private LaunchType _launchType;
@@ -35,8 +35,7 @@ public class DialogCreator : MonoBehaviour
     [SerializeField, ReadOnly] private bool _hasEnded;
     [SerializeField] private bool _blockPlayerMovement, _blockCameraMovement;
 
-    [Space(20), Header("Events")]
-    public UnityEvent OnDialogLaunch = new UnityEvent();
+    [Space(20), Header("Events")] public UnityEvent OnDialogLaunch = new UnityEvent();
     public UnityEvent OnDialogEnd = new UnityEvent();
 
     private int _dialogIndex;
@@ -57,7 +56,7 @@ public class DialogCreator : MonoBehaviour
         {
             return;
         }
-        
+
         CoolDownManagement();
     }
 
@@ -82,7 +81,7 @@ public class DialogCreator : MonoBehaviour
         {
             return;
         }
-        
+
         switch (_currentDialogState)
         {
             case DialogState.Showing:
@@ -101,18 +100,20 @@ public class DialogCreator : MonoBehaviour
                     _currentDialogState = DialogState.WaitingForInput;
                     DialogManager.Instance.PressButtonImage.DOFade(1, 0.2f);
                 }
+
                 break;
             case DialogState.WaitingForInput:
                 if (_gameplayInputs.Boat.DialogSkip.triggered)
                 {
                     _dialogIndex++;
                     CheckForDialogEnd();
-                    
+
                     if (_dialogIndex < _dialog.Count - 1)
                     {
                         ShowDialog(_dialogIndex);
                     }
                 }
+
                 break;
         }
     }
@@ -121,7 +122,7 @@ public class DialogCreator : MonoBehaviour
     {
         DialogManager.Instance.ToggleDialog(true);
         OnDialogLaunch.Invoke();
-        
+
         _dialogIndex = 0;
         ShowDialog(_dialogIndex);
 
@@ -148,8 +149,16 @@ public class DialogCreator : MonoBehaviour
         _currentDialogState = DialogState.Showing;
         _currentDialogCooldown = _dialog[index].TextShowTime;
 
-        DialogManager.Instance.TextMeshPro.text = _dialog[index].Text;
-        
+        if (_dialog[index].ShowLetterByLetter)
+        {
+            DialogManager.Instance.TypeWriterText.FullText = _dialog[index].Text;
+            StartCoroutine(DialogManager.Instance.TypeWriterText.ShowText());
+        }
+        else
+        {
+            DialogManager.Instance.TypeWriterText.DisplayText.text = _dialog[index].Text;
+        }
+
         //audio
         SoundManager.Instance.PlayDialog(_dialog[index].Clip);
     }
@@ -159,11 +168,11 @@ public class DialogCreator : MonoBehaviour
         OnDialogEnd.Invoke();
         _hasEnded = true;
         _currentDialogState = DialogState.NotLaunched;
-        
+
         //visual
         GameObject dialog = DialogManager.Instance.DialogUIGameObject;
         dialog.transform.DOScale(Vector3.zero, 0.25f).OnComplete(DeactivateDialogObject);
-        
+
         //booleans
         FindObjectOfType<CharacterManager>().CurrentStateBase.CanCharacterMove = true;
         FindObjectOfType<CameraController>().CanMoveCameraMaunally = true;
@@ -171,7 +180,7 @@ public class DialogCreator : MonoBehaviour
 
     private void CheckForDialogEnd()
     {
-        if (_dialogIndex >= _dialog.Count-1)
+        if (_dialogIndex >= _dialog.Count - 1)
         {
             EndDialog();
         }
