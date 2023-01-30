@@ -635,6 +635,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 7217796708440880408}
+  - {fileID: 4245854113754196410}
   m_Father: {fileID: 7217796707971164476}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -717,6 +718,7 @@ MonoBehaviour:
   _balanceRotationZLerp: 0.01
   _multiplierValueRotation: 20
   _multiplierValuePosition: 2
+  CanMoveCameraMaunally: 1
   _virtualCamera: {fileID: 4192299973026284776}
   _multiplierFovCamera: 2
   _rotationXMinClamp: -5
@@ -725,6 +727,37 @@ MonoBehaviour:
   _rotationYMaxClamp: 1
   _lerpTimeX: 0.02
   _lerpTimeY: 0.06
+--- !u!1 &8337715506076774778
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 4245854113754196410}
+  m_Layer: 0
+  m_Name: SednaTarget
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &4245854113754196410
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8337715506076774778}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -2.29, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 7217796708653836313}
+  m_RootOrder: 1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &2348827399903010682
 PrefabInstance:
   m_ObjectHideFlags: 0
