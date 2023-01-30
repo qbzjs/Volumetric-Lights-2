@@ -71,10 +71,7 @@ namespace Character.Camera
 
         private void Update()
         {
-            if (CanMoveCameraMaunally)
-            {
-                CameraRotation();
-            }
+            CameraRotation();
             FielOfView();
         }
         private void FielOfView()
@@ -85,7 +82,7 @@ namespace Character.Camera
         private void CameraRotation()
         {
             //rotate freely with inputs
-            if (_input.Inputs.RotateCameraClick)
+            if (_input.Inputs.RotateCameraClick && CanMoveCameraMaunally)
             {
                 //Cinemachine yaw/pitch
                 _cinemachineTargetYaw += _input.Inputs.RotateCamera.x;
