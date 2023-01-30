@@ -8,7 +8,8 @@ public class ToggleAudio : MonoBehaviour
     public enum AudioType
     {
         Music,
-        Effects
+        Effects,
+        Dialog
     }
 
     [SerializeField] private AudioType _toggleType;

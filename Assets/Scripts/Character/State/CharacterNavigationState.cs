@@ -17,7 +17,7 @@ namespace Character.State
             Static = 0,
             Paddle = 1
         }
-        
+
         //inputs
         private InputManagement _inputs;
 
@@ -64,15 +64,17 @@ namespace Character.State
 
         public override void FixedUpdate(CharacterManager character)
         {
-            HandlePaddleMovement();
-            HandleStaticRotation();
-            KayakRotationManager(RotationType.Paddle);
-            KayakRotationManager(RotationType.Static);
+            if (CanCharacterMove)
+            {
+                HandlePaddleMovement();
+                HandleStaticRotation();
+                KayakRotationManager(RotationType.Paddle);
+                KayakRotationManager(RotationType.Static);
+            }
         }
 
         public override void SwitchState(CharacterManager character)
         {
-
         }
 
         #endregion
@@ -83,18 +85,20 @@ namespace Character.State
         {
             //get rotation
             float rotationForceY = rotationType == RotationType.Paddle ? RotationPaddleForceY : RotationStaticForceY;
-            
+
             //calculate rotation
             if (Mathf.Abs(rotationForceY) > 0.001f)
             {
-                rotationForceY = Mathf.Lerp(rotationForceY, 0,  
-                    rotationType == RotationType.Paddle ? _kayakValues.PaddleRotationDeceleration : _kayakValues.StaticRotationDeceleration);
+                rotationForceY = Mathf.Lerp(rotationForceY, 0,
+                    rotationType == RotationType.Paddle
+                        ? _kayakValues.PaddleRotationDeceleration
+                        : _kayakValues.StaticRotationDeceleration);
             }
             else
             {
                 rotationForceY = 0;
             }
-            
+
             //apply transform
             Transform kayakTransform = _kayakController.transform;
             kayakTransform.Rotate(Vector3.up, rotationForceY);
@@ -124,11 +128,11 @@ namespace Character.State
             //rotation
             float rotation = _kayakValues.PaddleSideRotationForce;
             RotationPaddleForceY += direction == Direction.Right ? -rotation : rotation;
-            
+
             //balance
             const float rotationToBalanceMultiplier = 10f;
             Balance += RotationPaddleForceY * rotationToBalanceMultiplier;
-            
+
             //audio
             SoundManager.Instance.PlaySound(_kayakController.PaddlingAudioClip);
         }
@@ -142,6 +146,7 @@ namespace Character.State
                 _rightPaddleCooldown = _kayakValues.PaddleCooldown / 2;
                 Paddle(Direction.Left);
             }
+
             if (_inputs.Inputs.PaddleRight && _leftPaddleCooldown <= 0)
             {
                 _leftPaddleCooldown = _kayakValues.PaddleCooldown;
@@ -162,30 +167,36 @@ namespace Character.State
 
         private void HandleStaticRotation()
         {
+            bool isFast = Mathf.Abs(_kayakRigidbody.velocity.x + _kayakRigidbody.velocity.z) >= 0.1f;
+
             //left
             if (_inputs.Inputs.RotateLeft > _inputs.Inputs.DEADZONE)
             {
-                if (Mathf.Abs(_kayakRigidbody.velocity.x + _kayakRigidbody.velocity.z) > 0.1f)
-                {
-                    DecelerationAndRotate(Direction.Left);
-                }
-                RotationStaticForceY -= _kayakValues.StaticRotationForce;
-            }
-            //right
-            if (_inputs.Inputs.RotateRight > _inputs.Inputs.DEADZONE)
-            {
-                if (Mathf.Abs(_kayakRigidbody.velocity.x + _kayakRigidbody.velocity.z) > 0.1f)
+                if (isFast)
                 {
                     DecelerationAndRotate(Direction.Right);
                 }
+
                 RotationStaticForceY += _kayakValues.StaticRotationForce;
+            }
+
+            //right
+            if (_inputs.Inputs.RotateRight > _inputs.Inputs.DEADZONE)
+            {
+                if (isFast)
+                {
+                    DecelerationAndRotate(Direction.Left);
+                }
+
+                RotationStaticForceY -= _kayakValues.StaticRotationForce;
             }
         }
 
         private void DecelerationAndRotate(Direction direction)
         {
             Vector3 targetVelocity = new Vector3(0, _kayakRigidbody.velocity.y, 0);
-            _kayakRigidbody.velocity = Vector3.Lerp(_kayakRigidbody.velocity, targetVelocity, _kayakValues.VelocityDecelerationLerp);
+            _kayakRigidbody.velocity = Vector3.Lerp(_kayakRigidbody.velocity, targetVelocity,
+                _kayakValues.VelocityDecelerationLerp);
             float force = _kayakValues.VelocityDecelerationRotationForce;
             RotationStaticForceY += direction == Direction.Left ? -force : force;
         }
@@ -193,7 +204,3 @@ namespace Character.State
         #endregion
     }
 }
-
-
-
-

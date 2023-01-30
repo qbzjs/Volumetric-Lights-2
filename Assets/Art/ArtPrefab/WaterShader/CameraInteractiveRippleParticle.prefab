@@ -68,7 +68,7 @@ Camera:
     serializedVersion: 2
     m_Bits: 128
   m_RenderingPath: -1
-  m_TargetTexture: {fileID: 8600000, guid: aadf8d469b7de08448b61e5f5a58fbc9, type: 2}
+  m_TargetTexture: {fileID: 8600000, guid: 00d4e1cd6b774764e8b9cdfaf1fbc202, type: 2}
   m_TargetDisplay: 0
   m_TargetEye: 3
   m_HDR: 1
@@ -128,8 +128,8 @@ MonoBehaviour:
   m_GameObject: {fileID: 8256109799724521613}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3ce2f80c585c3514c866b7bb8009a9a5, type: 3}
+  m_Script: {fileID: 11500000, guid: 356ee3c1171a41d468e670a15572b9af, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  rt: {fileID: 8600000, guid: aadf8d469b7de08448b61e5f5a58fbc9, type: 2}
+  rt: {fileID: 8600000, guid: 00d4e1cd6b774764e8b9cdfaf1fbc202, type: 2}
   target: {fileID: 0}

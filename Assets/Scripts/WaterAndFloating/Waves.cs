@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using Singleton;
 using UnityEngine;
 
@@ -15,6 +16,7 @@ public class Waves : MonoBehaviour
     //Mesh
     protected MeshFilter MeshFilter;
     protected Mesh Mesh;
+    private List<Vector3> _vertices = new List<Vector3>();
 
     private void Start()
     {
@@ -31,13 +33,16 @@ public class Waves : MonoBehaviour
         //position & scale
         transform.position = _waterPosition.position;
         transform.localScale = _waterPosition.localScale;
+
+        Mesh.GetVertices(_vertices);
+        WaveGeneration();
     }
-    
+
     private void Update()
     {
         WaveGeneration();
     }
-    
+
     public float GetHeight(Vector3 position)
     {
         //scale factor and position in local space
@@ -61,20 +66,22 @@ public class Waves : MonoBehaviour
         p4.z = Mathf.Clamp(p4.z, 0, _dimension);
 
         //get the max distance to one of the edges and take that to compute max - dist
-        var max = Mathf.Max(Vector3.Distance(p1, localPos), Vector3.Distance(p2, localPos), Vector3.Distance(p3, localPos), Vector3.Distance(p4, localPos) + Mathf.Epsilon);
+        var max = Mathf.Max(Vector3.Distance(p1, localPos), Vector3.Distance(p2, localPos),
+            Vector3.Distance(p3, localPos), Vector3.Distance(p4, localPos) + Mathf.Epsilon);
         var dist = (max - Vector3.Distance(p1, localPos))
-                 + (max - Vector3.Distance(p2, localPos))
-                 + (max - Vector3.Distance(p3, localPos))
-                 + (max - Vector3.Distance(p4, localPos) + Mathf.Epsilon);
+                   + (max - Vector3.Distance(p2, localPos))
+                   + (max - Vector3.Distance(p3, localPos))
+                   + (max - Vector3.Distance(p4, localPos) + Mathf.Epsilon);
         //weighted sum
-        var height = Mesh.vertices[Index(p1.x, p1.z)].y * (max - Vector3.Distance(p1, localPos))
-                   + Mesh.vertices[Index(p2.x, p2.z)].y * (max - Vector3.Distance(p2, localPos))
-                   + Mesh.vertices[Index(p3.x, p3.z)].y * (max - Vector3.Distance(p3, localPos))
-                   + Mesh.vertices[Index(p4.x, p4.z)].y * (max - Vector3.Distance(p4, localPos));
+
+
+        var height = _vertices[Index(p1.x, p1.z)].y * (max - Vector3.Distance(p1, localPos))
+                     + _vertices[Index(p2.x, p2.z)].y * (max - Vector3.Distance(p2, localPos))
+                     + _vertices[Index(p3.x, p3.z)].y * (max - Vector3.Distance(p3, localPos))
+                     + _vertices[Index(p4.x, p4.z)].y * (max - Vector3.Distance(p4, localPos));
 
         //scale
         return height * transform.lossyScale.y / dist;
-
     }
 
     #region Mesh Generation
@@ -84,8 +91,8 @@ public class Waves : MonoBehaviour
         Vector3[] verts = new Vector3[(_dimension + 1) * (_dimension + 1)];
 
         //equaly distributed verts
-        for(int x = 0; x <= _dimension; x++)
-        for(int z = 0; z <= _dimension; z++)
+        for (int x = 0; x <= _dimension; x++)
+        for (int z = 0; z <= _dimension; z++)
             verts[Index(x, z)] = new Vector3(x, 0, z);
 
         return verts;
@@ -96,9 +103,9 @@ public class Waves : MonoBehaviour
         int[] tries = new int[Mesh.vertices.Length * 6];
 
         //two triangles are one tile
-        for(int x = 0; x < _dimension; x++)
+        for (int x = 0; x < _dimension; x++)
         {
-            for(int z = 0; z < _dimension; z++)
+            for (int z = 0; z < _dimension; z++)
             {
                 tries[Index(x, z) * 6 + 0] = Index(x, z);
                 tries[Index(x, z) * 6 + 1] = Index(x + 1, z + 1);
@@ -111,7 +118,7 @@ public class Waves : MonoBehaviour
 
         return tries;
     }
-    
+
     private Vector2[] GenerateUVs()
     {
         Vector2[] uvs = new Vector2[Mesh.vertices.Length];
@@ -128,7 +135,7 @@ public class Waves : MonoBehaviour
 
         return uvs;
     }
-    
+
     #endregion
 
     #region Index
@@ -147,34 +154,31 @@ public class Waves : MonoBehaviour
 
     private void WaveGeneration()
     {
-        Vector3[] verts = Mesh.vertices;
+        float time = Time.time;
+        Octave octave = _octaves[0];
+        float octaveScaleX = octave.scale.x;
+        float octaveScaleY = octave.scale.y;
+        float octaveSpeedX = octave.speed.x * time;
+        float octaveSpeedY = octave.speed.y * time;
+        float octaveHeight = octave.height;
+
         for (int x = 0; x <= _dimension; x++)
         {
             for (int z = 0; z <= _dimension; z++)
             {
                 float y = 0f;
-                for (int o = 0; o < _octaves.Length; o++)
-                {
-                    if (_octaves[o].alternate)
-                    {
-                        float perl = Mathf.PerlinNoise((x * _octaves[o].scale.x) / _dimension,
-                            (z * _octaves[o].scale.y) / _dimension) * Mathf.PI * 2f;
-                        y += Mathf.Cos(perl + _octaves[o].speed.magnitude * Time.time) * _octaves[o].height;
-                    }
-                    else
-                    {
-                        float perl = Mathf.PerlinNoise(
-                            (x * _octaves[o].scale.x + Time.time * _octaves[o].speed.x) / _dimension,
-                            (z * _octaves[o].scale.y + Time.time * _octaves[o].speed.y) / _dimension) - 0.5f;
-                        y += perl * _octaves[o].height;
-                    }
-                }
+     
+                float perl = Mathf.PerlinNoise(
+                    (x * octaveScaleX +  octaveSpeedX) / _dimension, 
+                    (z * octaveScaleY +  octaveSpeedY) / _dimension) - 0.5f;
+                
+                y += perl * octaveHeight;
 
-                verts[Index(x, z)] = new Vector3(x, y, z);
+                _vertices[ x * (_dimension + 1) + z] = new Vector3(x, y, z);
             }
         }
 
-        Mesh.vertices = verts;
+        Mesh.SetVertices(_vertices);
         Mesh.RecalculateNormals();
     }
 }

@@ -24,11 +24,17 @@ public class SoundManager : MonoBehaviour
 
     #endregion
 
-    [Header("Sources"), SerializeField] private AudioSource _musicSource, _effectSource;
+    [Header("Sources")]
+    [SerializeField] private AudioSource _musicSource, _effectSource, _dialogSource;
 
     public void PlaySound(AudioClip clip)
     {
         _effectSource.PlayOneShot(clip);
+    }
+    
+    public void PlayDialog(AudioClip clip)
+    {
+        _dialogSource.PlayOneShot(clip);
     }
 
     public void ChangeMasterVolume(float value)
@@ -44,5 +50,10 @@ public class SoundManager : MonoBehaviour
     public void ToggleMusic()
     {
         _musicSource.mute = _musicSource.mute == false;
+    }
+    
+    public void ToggleSource()
+    {
+        _dialogSource.mute = _dialogSource.mute == false;
     }
 }

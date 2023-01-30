@@ -80,6 +80,15 @@ public partial class @GameplayInputs : IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": true
+                },
+                {
+                    ""name"": ""DialogSkip"",
+                    ""type"": ""Button"",
+                    ""id"": ""5d09007b-cbc8-4cd4-a8f0-4eed24b01a10"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -140,12 +149,23 @@ public partial class @GameplayInputs : IInputActionCollection2, IDisposable
                 },
                 {
                     ""name"": """",
+                    ""id"": ""9080299f-91ab-47cf-883d-fb860410a663"",
+                    ""path"": ""<Gamepad>/leftStick/right"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""GamePad"",
+                    ""action"": ""StaticRotateLeft"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
                     ""id"": ""5ef8087e-4505-4945-aeb6-aff821b2bc0b"",
                     ""path"": ""<Gamepad>/leftStick/left"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": ""GamePad"",
-                    ""action"": ""StaticRotateLeft"",
+                    ""action"": ""StaticRotateRight"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 },
@@ -156,17 +176,6 @@ public partial class @GameplayInputs : IInputActionCollection2, IDisposable
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": ""KeyboardMouse"",
-                    ""action"": ""StaticRotateRight"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": false
-                },
-                {
-                    ""name"": """",
-                    ""id"": ""9080299f-91ab-47cf-883d-fb860410a663"",
-                    ""path"": ""<Gamepad>/leftStick/right"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": ""GamePad"",
                     ""action"": ""StaticRotateRight"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
@@ -214,6 +223,28 @@ public partial class @GameplayInputs : IInputActionCollection2, IDisposable
                     ""action"": ""RotateCameraActivation"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""499f5e8e-ee4b-43ea-bb48-fd3c9f4d6d4b"",
+                    ""path"": ""<Keyboard>/space"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""KeyboardMouse"",
+                    ""action"": ""DialogSkip"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""46354184-2a3e-4b3f-a67f-fef2bb867f03"",
+                    ""path"": ""<Gamepad>/buttonSouth"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""GamePad"",
+                    ""action"": ""DialogSkip"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -239,6 +270,7 @@ public partial class @GameplayInputs : IInputActionCollection2, IDisposable
         m_Boat_StaticRotateRight = m_Boat.FindAction("StaticRotateRight", throwIfNotFound: true);
         m_Boat_RotateCameraActivation = m_Boat.FindAction("RotateCameraActivation", throwIfNotFound: true);
         m_Boat_RotateCamera = m_Boat.FindAction("RotateCamera", throwIfNotFound: true);
+        m_Boat_DialogSkip = m_Boat.FindAction("DialogSkip", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -304,6 +336,7 @@ public partial class @GameplayInputs : IInputActionCollection2, IDisposable
     private readonly InputAction m_Boat_StaticRotateRight;
     private readonly InputAction m_Boat_RotateCameraActivation;
     private readonly InputAction m_Boat_RotateCamera;
+    private readonly InputAction m_Boat_DialogSkip;
     public struct BoatActions
     {
         private @GameplayInputs m_Wrapper;
@@ -314,6 +347,7 @@ public partial class @GameplayInputs : IInputActionCollection2, IDisposable
         public InputAction @StaticRotateRight => m_Wrapper.m_Boat_StaticRotateRight;
         public InputAction @RotateCameraActivation => m_Wrapper.m_Boat_RotateCameraActivation;
         public InputAction @RotateCamera => m_Wrapper.m_Boat_RotateCamera;
+        public InputAction @DialogSkip => m_Wrapper.m_Boat_DialogSkip;
         public InputActionMap Get() { return m_Wrapper.m_Boat; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -341,6 +375,9 @@ public partial class @GameplayInputs : IInputActionCollection2, IDisposable
                 @RotateCamera.started -= m_Wrapper.m_BoatActionsCallbackInterface.OnRotateCamera;
                 @RotateCamera.performed -= m_Wrapper.m_BoatActionsCallbackInterface.OnRotateCamera;
                 @RotateCamera.canceled -= m_Wrapper.m_BoatActionsCallbackInterface.OnRotateCamera;
+                @DialogSkip.started -= m_Wrapper.m_BoatActionsCallbackInterface.OnDialogSkip;
+                @DialogSkip.performed -= m_Wrapper.m_BoatActionsCallbackInterface.OnDialogSkip;
+                @DialogSkip.canceled -= m_Wrapper.m_BoatActionsCallbackInterface.OnDialogSkip;
             }
             m_Wrapper.m_BoatActionsCallbackInterface = instance;
             if (instance != null)
@@ -363,6 +400,9 @@ public partial class @GameplayInputs : IInputActionCollection2, IDisposable
                 @RotateCamera.started += instance.OnRotateCamera;
                 @RotateCamera.performed += instance.OnRotateCamera;
                 @RotateCamera.canceled += instance.OnRotateCamera;
+                @DialogSkip.started += instance.OnDialogSkip;
+                @DialogSkip.performed += instance.OnDialogSkip;
+                @DialogSkip.canceled += instance.OnDialogSkip;
             }
         }
     }
@@ -393,5 +433,6 @@ public partial class @GameplayInputs : IInputActionCollection2, IDisposable
         void OnStaticRotateRight(InputAction.CallbackContext context);
         void OnRotateCameraActivation(InputAction.CallbackContext context);
         void OnRotateCamera(InputAction.CallbackContext context);
+        void OnDialogSkip(InputAction.CallbackContext context);
     }
 }

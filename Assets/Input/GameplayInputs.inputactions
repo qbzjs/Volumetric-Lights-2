@@ -58,6 +58,15 @@
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": true
+                },
+                {
+                    "name": "DialogSkip",
+                    "type": "Button",
+                    "id": "5d09007b-cbc8-4cd4-a8f0-4eed24b01a10",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
                 }
             ],
             "bindings": [
@@ -118,12 +127,23 @@
                 },
                 {
                     "name": "",
+                    "id": "9080299f-91ab-47cf-883d-fb860410a663",
+                    "path": "<Gamepad>/leftStick/right",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "GamePad",
+                    "action": "StaticRotateLeft",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
                     "id": "5ef8087e-4505-4945-aeb6-aff821b2bc0b",
                     "path": "<Gamepad>/leftStick/left",
                     "interactions": "",
                     "processors": "",
                     "groups": "GamePad",
-                    "action": "StaticRotateLeft",
+                    "action": "StaticRotateRight",
                     "isComposite": false,
                     "isPartOfComposite": false
                 },
@@ -134,17 +154,6 @@
                     "interactions": "",
                     "processors": "",
                     "groups": "KeyboardMouse",
-                    "action": "StaticRotateRight",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
-                    "id": "9080299f-91ab-47cf-883d-fb860410a663",
-                    "path": "<Gamepad>/leftStick/right",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "GamePad",
                     "action": "StaticRotateRight",
                     "isComposite": false,
                     "isPartOfComposite": false
@@ -190,6 +199,28 @@
                     "processors": "",
                     "groups": "GamePad",
                     "action": "RotateCameraActivation",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "499f5e8e-ee4b-43ea-bb48-fd3c9f4d6d4b",
+                    "path": "<Keyboard>/space",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "KeyboardMouse",
+                    "action": "DialogSkip",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "46354184-2a3e-4b3f-a67f-fef2bb867f03",
+                    "path": "<Gamepad>/buttonSouth",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "GamePad",
+                    "action": "DialogSkip",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }
