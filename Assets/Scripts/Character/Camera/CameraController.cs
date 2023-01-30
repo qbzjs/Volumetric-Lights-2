@@ -43,6 +43,7 @@ namespace Character.Camera
         [Header("Camera")]
         [SerializeField, Range(10, 100)] private float _multiplierValueRotation = 20.0f;
         [SerializeField, Range(0, 10)] private float _multiplierValuePosition = 2;
+        [ReadOnly] public bool CanMoveCameraMaunally = true;
         
         [Header("Virtual Camera")]
         [SerializeField] private CinemachineVirtualCamera _virtualCamera;
@@ -70,7 +71,10 @@ namespace Character.Camera
 
         private void Update()
         {
-            CameraRotation();
+            if (CanMoveCameraMaunally)
+            {
+                CameraRotation();
+            }
             FielOfView();
         }
         private void FielOfView()

@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using Character.Camera;
 using Character.State;
 using DG.Tweening;
 using Dialog;
@@ -129,6 +130,11 @@ public class DialogCreator : MonoBehaviour
             FindObjectOfType<CharacterManager>().CurrentStateBase.CanCharacterMove = false;
         }
 
+        if (_blockCameraMovement)
+        {
+            FindObjectOfType<CameraController>().CanMoveCameraMaunally = false;
+        }
+
         //visual
         DialogManager.Instance.PressButtonImage.DOFade(0f, 0f);
         GameObject dialog = DialogManager.Instance.DialogUIGameObject;
@@ -157,13 +163,16 @@ public class DialogCreator : MonoBehaviour
         //visual
         GameObject dialog = DialogManager.Instance.DialogUIGameObject;
         dialog.transform.DOScale(Vector3.zero, 0.25f).OnComplete(DeactivateDialogObject);
+        
+        //booleans
+        FindObjectOfType<CharacterManager>().CurrentStateBase.CanCharacterMove = true;
+        FindObjectOfType<CameraController>().CanMoveCameraMaunally = true;
     }
 
     private void CheckForDialogEnd()
     {
         if (_dialogIndex >= _dialog.Count-1)
         {
-            FindObjectOfType<CharacterManager>().CurrentStateBase.CanCharacterMove = true;
             EndDialog();
         }
     }
