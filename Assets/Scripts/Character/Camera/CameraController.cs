@@ -71,20 +71,11 @@ namespace Character.Camera
         private void Update()
         {
             CameraRotation();
-
             FielOfView();
-
-
-
-
-
-
-
         }
         private void FielOfView()
         {
             float velocityXZ = Mathf.Abs(_rigidbodyKayak.velocity.x) + Mathf.Abs(_rigidbodyKayak.velocity.z);
-            print(velocityXZ);
             _virtualCamera.m_Lens.FieldOfView = Mathf.Lerp(_virtualCamera.m_Lens.FieldOfView, _cameraBaseFov + (velocityXZ * _multiplierFovCamera), .01f);
         }
         private void CameraRotation()
