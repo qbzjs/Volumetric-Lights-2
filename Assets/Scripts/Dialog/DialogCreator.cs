@@ -65,7 +65,6 @@ public class DialogCreator : MonoBehaviour
         KayakController kayakController = other.GetComponent<KayakController>();
         if (_launchType == LaunchType.TriggerZone && kayakController != null)
         {
-            print(kayakController.gameObject.name);
             if ((_hasEnded && _canBeReplayed) || (_hasEnded == false && _currentDialogState == DialogState.NotLaunched))
             {
                 LaunchDialog();
