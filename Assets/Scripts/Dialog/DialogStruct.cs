@@ -17,6 +17,8 @@ namespace Dialog
         public float TextShowTime;
         public bool ShowLetterByLetter;
         public float TextHoldTime;
+        public Color32 TextColor;
+        [Range(0,2)] public float SizeEffect;
         public SequencingType SequencingTypeNext;
         public AudioClip Clip;
     }
