@@ -738,7 +738,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4245854113754196410}
   m_Layer: 0
-  m_Name: SednaTarget
+  m_Name: SednaTargetPosition
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -886,7 +886,7 @@ PrefabInstance:
       objectReference: {fileID: 2610664555048439514}
     - target: {fileID: 2783859199191875584, guid: 41b89dcb864b1a841a81b0f15bd7c7f7,
         type: 3}
-      propertyPath: _positionSednaTarget
+      propertyPath: _sednaTargetPosition
       value: 
       objectReference: {fileID: 4245854113754196410}
     - target: {fileID: 2783859199191875585, guid: 41b89dcb864b1a841a81b0f15bd7c7f7,
