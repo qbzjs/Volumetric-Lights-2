@@ -64,13 +64,22 @@ namespace Character.State
 
         public override void FixedUpdate(CharacterManager character)
         {
-            if (CanCharacterMove)
+            if (CanCharacterMove == false)
+            {
+                return;
+            }
+            
+            if (_inputs.Inputs.PaddleLeft || _inputs.Inputs.PaddleRight)
             {
                 HandlePaddleMovement();
-                HandleStaticRotation();
-                KayakRotationManager(RotationType.Paddle);
-                KayakRotationManager(RotationType.Static);
             }
+            else if (_inputs.Inputs.RotateLeft != 0 || _inputs.Inputs.RotateRight != 0)
+            {
+                HandleStaticRotation();
+            }
+            
+            KayakRotationManager(RotationType.Paddle);
+            KayakRotationManager(RotationType.Static);
         }
 
         public override void SwitchState(CharacterManager character)
@@ -140,14 +149,14 @@ namespace Character.State
         private void HandlePaddleMovement()
         {
             //input -> paddleMovement
-            if (_inputs.Inputs.PaddleLeft && _rightPaddleCooldown <= 0)
+            if (_inputs.Inputs.PaddleLeft && _rightPaddleCooldown <= 0 && _inputs.Inputs.PaddleRight == false)
             {
                 _rightPaddleCooldown = _kayakValues.PaddleCooldown;
                 _rightPaddleCooldown = _kayakValues.PaddleCooldown / 2;
                 Paddle(Direction.Left);
             }
-
-            if (_inputs.Inputs.PaddleRight && _leftPaddleCooldown <= 0)
+            
+            if (_inputs.Inputs.PaddleRight && _leftPaddleCooldown <= 0 && _inputs.Inputs.PaddleLeft == false)
             {
                 _leftPaddleCooldown = _kayakValues.PaddleCooldown;
                 _leftPaddleCooldown = _kayakValues.PaddleCooldown / 2;
