@@ -33,7 +33,7 @@ namespace Character.State
 
         #region Constructor
 
-        public CharacterNavigationState(KayakController kayak, InputManagement inputManagement)
+        public CharacterNavigationState(KayakController kayak, InputManagement inputManagement, CharacterManager characterManagerRef) : base(characterManagerRef)
         {
             _kayakController = kayak;
             _kayakRigidbody = kayak.Rigidbody;
@@ -55,6 +55,9 @@ namespace Character.State
             //values
             _rightPaddleCooldown = _kayakValues.PaddleCooldown;
             _leftPaddleCooldown = _kayakValues.PaddleCooldown;
+            
+            //booleans
+            CharacterManagerRef.LerpBalanceTo0 = true;
         }
 
         public override void UpdateState(CharacterManager character)
@@ -140,7 +143,7 @@ namespace Character.State
 
             //balance
             const float rotationToBalanceMultiplier = 10f;
-            Balance += RotationPaddleForceY * rotationToBalanceMultiplier;
+            CharacterManagerRef.Balance += RotationPaddleForceY * rotationToBalanceMultiplier;
 
             //audio
             SoundManager.Instance.PlaySound(_kayakController.PaddlingAudioClip);
@@ -211,5 +214,6 @@ namespace Character.State
         }
 
         #endregion
+        
     }
 }

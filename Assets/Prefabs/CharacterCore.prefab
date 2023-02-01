@@ -631,7 +631,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7217796708653836314}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0.295, z: -0.436}
+  m_LocalPosition: {x: 0, y: 0.424, z: -0.131}
   m_LocalScale: {x: 0.76135, y: 0.76135, z: 0.76135}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -683,6 +683,8 @@ MonoBehaviour:
   _kayakController: {fileID: 7217796708516857175}
   _inputManagement: {fileID: 5885439514833416252}
   balanceLerpTo0Value: 0.01
+  LerpBalanceTo0: 1
+  Balance: 0
 --- !u!114 &7217796708653836311
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -784,7 +786,7 @@ PrefabInstance:
     - target: {fileID: 333907971529626016, guid: bc06d1e844ba3694bbdecce4a99ba863,
         type: 3}
       propertyPath: m_LocalPosition.z
-      value: -0.279
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 333907971529626016, guid: bc06d1e844ba3694bbdecce4a99ba863,
         type: 3}

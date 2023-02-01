@@ -283,6 +283,7 @@ MonoBehaviour:
     StaticRotationDeceleration: 0.01
     VelocityDecelerationLerp: 0.005
     VelocityDecelerationRotationForce: 0.01
+    BalanceLimit: 10
   Rigidbody: {fileID: 333907971529626019}
   _frontParticles:
   - {fileID: 4398326501491074328}

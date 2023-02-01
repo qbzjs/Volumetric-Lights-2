@@ -168,7 +168,7 @@ namespace Character.Camera
 
             //z balance rotation 
             Vector3 cameraTargetRotationEuler = _cinemachineCameraTarget.transform.rotation.eulerAngles;
-            float cameraRotationZ = characterManager.CurrentStateBase.Balance * _balanceRotationMultiplier;
+            float cameraRotationZ = characterManager.Balance * _balanceRotationMultiplier;
             Quaternion targetRotation = Quaternion.Euler(cameraTargetRotationEuler.x, cameraTargetRotationEuler.y, cameraRotationZ); //apply rotation
             _cinemachineCameraTarget.transform.rotation = Quaternion.Lerp(_cinemachineCameraTarget.transform.rotation, targetRotation, _balanceRotationZLerp);
         }
