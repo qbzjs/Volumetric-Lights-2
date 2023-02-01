@@ -91,27 +91,31 @@ public class DialogCreator : MonoBehaviour
                 _currentDialogState = DialogState.Holding;
                 _currentDialogCooldown = _dialog[_dialogIndex].TextHoldTime;
                 break;
+            
             case DialogState.Holding:
                 if (_dialog[_dialogIndex].SequencingTypeNext == SequencingType.Automatic)
                 {
-                    CheckForDialogEnd();
                     _dialogIndex++;
-                    ShowDialog(_dialogIndex);
+                    CheckForDialogEnd();
+                    if (_dialogIndex < _dialog.Count)
+                    {
+                        ShowDialog(_dialogIndex);
+                    }
                 }
                 else
                 {
                     _currentDialogState = DialogState.WaitingForInput;
                     DialogManager.Instance.PressButtonImage.DOFade(1, 0.2f);
                 }
-
                 break;
+            
             case DialogState.WaitingForInput:
                 if (_gameplayInputs.Boat.DialogSkip.triggered)
                 {
                     _dialogIndex++;
                     CheckForDialogEnd();
 
-                    if (_dialogIndex < _dialog.Count - 1)
+                    if (_dialogIndex < _dialog.Count)
                     {
                         ShowDialog(_dialogIndex);
                     }
@@ -141,7 +145,7 @@ public class DialogCreator : MonoBehaviour
         //visual
         DialogManager.Instance.PressButtonImage.DOFade(0f, 0f);
         GameObject dialog = DialogManager.Instance.DialogUIGameObject;
-        Vector3 scale = dialog.transform.localScale;
+        Vector3 scale = Vector3.one;
         dialog.transform.localScale = Vector3.zero;
         dialog.transform.DOScale(scale, 0.25f);
     }
@@ -188,7 +192,7 @@ public class DialogCreator : MonoBehaviour
 
     private void CheckForDialogEnd()
     {
-        if (_dialogIndex >= _dialog.Count - 1)
+        if (_dialogIndex >= _dialog.Count)
         {
             EndDialog();
         }
