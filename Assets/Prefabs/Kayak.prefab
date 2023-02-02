@@ -254,8 +254,8 @@ Rigidbody:
   m_GameObject: {fileID: 333907971529626045}
   serializedVersion: 2
   m_Mass: 1
-  m_Drag: 0.01
-  m_AngularDrag: 0.05
+  m_Drag: 0
+  m_AngularDrag: 0
   m_UseGravity: 0
   m_IsKinematic: 0
   m_Interpolate: 1
@@ -273,9 +273,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d0e0857b45e56e14f88336079beaccaf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _dragReducingMultiplier: 1.004
+  DragReducingTimer: 0
   KayakValues:
     MaximumFrontVelocity: 20
-    PaddleFrontForce: 160
+    PaddleFrontForce: 200
     PaddleSideRotationForce: 0.2
     PaddleCooldown: 1.2
     PaddleRotationDeceleration: 0.01
@@ -283,11 +285,10 @@ MonoBehaviour:
     StaticRotationDeceleration: 0.01
     VelocityDecelerationLerp: 0.005
     VelocityDecelerationRotationForce: 0.01
-    BalanceLimit: 10
-  Rigidbody: {fileID: 333907971529626019}
   _frontParticles:
   - {fileID: 4398326501491074328}
   - {fileID: 1612721150975241001}
+  Rigidbody: {fileID: 333907971529626019}
   PaddlingAudioClip: {fileID: 8300000, guid: cc79f0cc1ba16294cb28181e5ed1db4e, type: 3}
 --- !u!136 &4595948853936165718
 CapsuleCollider:
@@ -380,10 +381,30 @@ PrefabInstance:
       propertyPath: m_Name
       value: InteractiveRipplesParticles
       objectReference: {fileID: 0}
+    - target: {fileID: 6475471068446741628, guid: d34d48d0e10077e42acc36e4aee97016,
+        type: 3}
+      propertyPath: EmissionModule.rateOverDistance.scalar
+      value: 3
+      objectReference: {fileID: 0}
     - target: {fileID: 6475471068446741630, guid: d34d48d0e10077e42acc36e4aee97016,
         type: 3}
       propertyPath: m_RootOrder
       value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 6475471068446741630, guid: d34d48d0e10077e42acc36e4aee97016,
+        type: 3}
+      propertyPath: m_LocalScale.x
+      value: 1.5329846
+      objectReference: {fileID: 0}
+    - target: {fileID: 6475471068446741630, guid: d34d48d0e10077e42acc36e4aee97016,
+        type: 3}
+      propertyPath: m_LocalScale.y
+      value: 7.0098786
+      objectReference: {fileID: 0}
+    - target: {fileID: 6475471068446741630, guid: d34d48d0e10077e42acc36e4aee97016,
+        type: 3}
+      propertyPath: m_LocalScale.z
+      value: 2.2654717
       objectReference: {fileID: 0}
     - target: {fileID: 6475471068446741630, guid: d34d48d0e10077e42acc36e4aee97016,
         type: 3}

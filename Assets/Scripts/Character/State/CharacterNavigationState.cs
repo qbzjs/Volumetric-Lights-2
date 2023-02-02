@@ -136,6 +136,7 @@ namespace Character.State
             //apply force
             Vector3 forceToApply = _kayakController.transform.forward * _kayakValues.PaddleFrontForce;
             _kayakRigidbody.AddForce(forceToApply);
+            _kayakController.DragReducingTimer = 0.5f;
 
             //rotation
             float rotation = _kayakValues.PaddleSideRotationForce;
@@ -207,9 +208,12 @@ namespace Character.State
         private void DecelerationAndRotate(Direction direction)
         {
             Vector3 targetVelocity = new Vector3(0, _kayakRigidbody.velocity.y, 0);
+            
             _kayakRigidbody.velocity = Vector3.Lerp(_kayakRigidbody.velocity, targetVelocity,
                 _kayakValues.VelocityDecelerationLerp);
+            
             float force = _kayakValues.VelocityDecelerationRotationForce;
+            
             RotationStaticForceY += direction == Direction.Left ? -force : force;
         }
 
