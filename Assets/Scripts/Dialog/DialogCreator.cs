@@ -35,8 +35,12 @@ public class DialogCreator : MonoBehaviour
     [SerializeField, ReadOnly] private bool _hasEnded;
     [SerializeField] private bool _blockPlayerMovement, _blockCameraMovement;
 
-    [Space(20), Header("Events")] public UnityEvent OnDialogLaunch = new UnityEvent();
+    [Space(20), Header("Events")] 
+    public UnityEvent OnDialogLaunch = new UnityEvent();
     public UnityEvent OnDialogEnd = new UnityEvent();
+
+    [Space(20), Header("References"), SerializeField] private CharacterManager _characterManager;
+    [SerializeField] private CameraController _cameraController;
 
     private int _dialogIndex;
     private float _currentDialogCooldown;
@@ -87,32 +91,35 @@ public class DialogCreator : MonoBehaviour
                 _currentDialogState = DialogState.Holding;
                 _currentDialogCooldown = _dialog[_dialogIndex].TextHoldTime;
                 break;
+            
             case DialogState.Holding:
                 if (_dialog[_dialogIndex].SequencingTypeNext == SequencingType.Automatic)
                 {
-                    CheckForDialogEnd();
                     _dialogIndex++;
-                    ShowDialog(_dialogIndex);
+                    CheckForDialogEnd();
+                    if (_dialogIndex < _dialog.Count)
+                    {
+                        ShowDialog(_dialogIndex);
+                    }
                 }
                 else
                 {
                     _currentDialogState = DialogState.WaitingForInput;
                     DialogManager.Instance.PressButtonImage.DOFade(1, 0.2f);
                 }
-
                 break;
+            
             case DialogState.WaitingForInput:
                 if (_gameplayInputs.Boat.DialogSkip.triggered)
                 {
                     _dialogIndex++;
                     CheckForDialogEnd();
 
-                    if (_dialogIndex < _dialog.Count - 1)
+                    if (_dialogIndex < _dialog.Count)
                     {
                         ShowDialog(_dialogIndex);
                     }
                 }
-
                 break;
         }
     }
@@ -127,18 +134,18 @@ public class DialogCreator : MonoBehaviour
 
         if (_blockPlayerMovement)
         {
-            FindObjectOfType<CharacterManager>().CurrentStateBase.CanCharacterMove = false;
+            _characterManager.CurrentStateBase.CanCharacterMove = false;
         }
 
         if (_blockCameraMovement)
         {
-            FindObjectOfType<CameraController>().CanMoveCameraMaunally = false;
+            _cameraController.CanMoveCameraMaunally = false;
         }
 
         //visual
         DialogManager.Instance.PressButtonImage.DOFade(0f, 0f);
         GameObject dialog = DialogManager.Instance.DialogUIGameObject;
-        Vector3 scale = dialog.transform.localScale;
+        Vector3 scale = Vector3.one;
         dialog.transform.localScale = Vector3.zero;
         dialog.transform.DOScale(scale, 0.25f);
     }
@@ -151,6 +158,7 @@ public class DialogCreator : MonoBehaviour
         if (_dialog[index].ShowLetterByLetter)
         {
             DialogManager.Instance.TypeWriterText.FullText = _dialog[index].Text;
+            DialogManager.Instance.TypeWriterText.DisplayText.color = _dialog[index].TextColor;
             DialogManager.Instance.TypeWriterText.Delay =  _dialog[index].TextShowTime / _dialog[index].Text.Length;
             StartCoroutine(DialogManager.Instance.TypeWriterText.ShowText());
         }
@@ -159,6 +167,10 @@ public class DialogCreator : MonoBehaviour
             DialogManager.Instance.TypeWriterText.DisplayText.text = _dialog[index].Text;
         }
 
+        //visual
+        DialogManager.Instance.TypeWriterText.transform.DOPunchScale(Vector3.one * _dialog[index].SizeEffect, 0.3f, 10, 0);
+        DialogManager.Instance.PressButtonImage.DOFade(0, 0.1f);
+        
         //audio
         SoundManager.Instance.PlayDialog(_dialog[index].Clip);
     }
@@ -174,13 +186,13 @@ public class DialogCreator : MonoBehaviour
         dialog.transform.DOScale(Vector3.zero, 0.25f).OnComplete(DeactivateDialogObject);
 
         //booleans
-        FindObjectOfType<CharacterManager>().CurrentStateBase.CanCharacterMove = true;
-        FindObjectOfType<CameraController>().CanMoveCameraMaunally = true;
+        _characterManager.CurrentStateBase.CanCharacterMove = true;
+        _cameraController.CanMoveCameraMaunally = true;
     }
 
     private void CheckForDialogEnd()
     {
-        if (_dialogIndex >= _dialog.Count - 1)
+        if (_dialogIndex >= _dialog.Count)
         {
             EndDialog();
         }

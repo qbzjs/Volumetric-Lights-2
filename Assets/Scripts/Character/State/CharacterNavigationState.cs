@@ -33,7 +33,7 @@ namespace Character.State
 
         #region Constructor
 
-        public CharacterNavigationState(KayakController kayak, InputManagement inputManagement)
+        public CharacterNavigationState(KayakController kayak, InputManagement inputManagement, CharacterManager characterManagerRef) : base(characterManagerRef)
         {
             _kayakController = kayak;
             _kayakRigidbody = kayak.Rigidbody;
@@ -55,6 +55,9 @@ namespace Character.State
             //values
             _rightPaddleCooldown = _kayakValues.PaddleCooldown;
             _leftPaddleCooldown = _kayakValues.PaddleCooldown;
+            
+            //booleans
+            CharacterManagerRef.LerpBalanceTo0 = true;
         }
 
         public override void UpdateState(CharacterManager character)
@@ -64,13 +67,22 @@ namespace Character.State
 
         public override void FixedUpdate(CharacterManager character)
         {
-            if (CanCharacterMove)
+            if (CanCharacterMove == false)
+            {
+                return;
+            }
+            
+            if (_inputs.Inputs.PaddleLeft || _inputs.Inputs.PaddleRight)
             {
                 HandlePaddleMovement();
-                HandleStaticRotation();
-                KayakRotationManager(RotationType.Paddle);
-                KayakRotationManager(RotationType.Static);
             }
+            else if (_inputs.Inputs.RotateLeft != 0 || _inputs.Inputs.RotateRight != 0)
+            {
+                HandleStaticRotation();
+            }
+            
+            KayakRotationManager(RotationType.Paddle);
+            KayakRotationManager(RotationType.Static);
         }
 
         public override void SwitchState(CharacterManager character)
@@ -124,6 +136,7 @@ namespace Character.State
             //apply force
             Vector3 forceToApply = _kayakController.transform.forward * _kayakValues.PaddleFrontForce;
             _kayakRigidbody.AddForce(forceToApply);
+            _kayakController.DragReducingTimer = 0.5f;
 
             //rotation
             float rotation = _kayakValues.PaddleSideRotationForce;
@@ -131,7 +144,7 @@ namespace Character.State
 
             //balance
             const float rotationToBalanceMultiplier = 10f;
-            Balance += RotationPaddleForceY * rotationToBalanceMultiplier;
+            CharacterManagerRef.Balance += RotationPaddleForceY * rotationToBalanceMultiplier;
 
             //audio
             SoundManager.Instance.PlaySound(_kayakController.PaddlingAudioClip);
@@ -140,14 +153,14 @@ namespace Character.State
         private void HandlePaddleMovement()
         {
             //input -> paddleMovement
-            if (_inputs.Inputs.PaddleLeft && _rightPaddleCooldown <= 0)
+            if (_inputs.Inputs.PaddleLeft && _rightPaddleCooldown <= 0 && _inputs.Inputs.PaddleRight == false)
             {
                 _rightPaddleCooldown = _kayakValues.PaddleCooldown;
                 _rightPaddleCooldown = _kayakValues.PaddleCooldown / 2;
                 Paddle(Direction.Left);
             }
-
-            if (_inputs.Inputs.PaddleRight && _leftPaddleCooldown <= 0)
+            
+            if (_inputs.Inputs.PaddleRight && _leftPaddleCooldown <= 0 && _inputs.Inputs.PaddleLeft == false)
             {
                 _leftPaddleCooldown = _kayakValues.PaddleCooldown;
                 _leftPaddleCooldown = _kayakValues.PaddleCooldown / 2;
@@ -195,12 +208,16 @@ namespace Character.State
         private void DecelerationAndRotate(Direction direction)
         {
             Vector3 targetVelocity = new Vector3(0, _kayakRigidbody.velocity.y, 0);
+            
             _kayakRigidbody.velocity = Vector3.Lerp(_kayakRigidbody.velocity, targetVelocity,
                 _kayakValues.VelocityDecelerationLerp);
+            
             float force = _kayakValues.VelocityDecelerationRotationForce;
+            
             RotationStaticForceY += direction == Direction.Left ? -force : force;
         }
 
         #endregion
+        
     }
 }

@@ -146,7 +146,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e5964cfef310da04bb6a143c30bab8e4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _positionSednaTarget: {fileID: 0}
+  _sednaTargetPosition: {fileID: 0}
   _kayakTransform: {fileID: 0}
 --- !u!54 &2783859199191875591
 Rigidbody:

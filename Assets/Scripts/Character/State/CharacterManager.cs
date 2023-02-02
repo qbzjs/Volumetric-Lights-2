@@ -11,15 +11,17 @@ namespace Character.State
         public CharacterStateBase CurrentStateBase;
         [SerializeField] private InputManagement _inputManagement;
 
-        [Header("Values")] [SerializeField, Range(0, 1)]
-        private float balanceLerpTo0Value = 0.01f;
+        [Header("Balance"), SerializeField, Range(0, 1)] private float balanceLerpTo0Value = 0.01f;
+        [ReadOnly] public bool LerpBalanceTo0 = true;
+        [ReadOnly] public float Balance = 0f;
+        [Range(0,10), ReadOnly] public float BalanceLimit = 10f;
+        [Range(0,100), ReadOnly] public float BalanceValueToTimerMultiplier = 10f;
 
-        private CharacterNavigationState _navigationState;
-
+        
         private void Awake()
         {
-            _navigationState = new CharacterNavigationState(_kayakController, _inputManagement);
-            CurrentStateBase = _navigationState;
+            CharacterNavigationState navigationState = new CharacterNavigationState(_kayakController, _inputManagement, this);
+            CurrentStateBase = navigationState;
         }
 
         private void Start()
@@ -29,6 +31,7 @@ namespace Character.State
         private void Update()
         {
             CurrentStateBase.UpdateState(this);
+            
             BalanceManagement();
         }
         private void FixedUpdate()
@@ -43,8 +46,16 @@ namespace Character.State
 
         private void BalanceManagement()
         {
-            //lerp to 0
-            CurrentStateBase.Balance = Mathf.Lerp(CurrentStateBase.Balance, 0, balanceLerpTo0Value);
+            if (LerpBalanceTo0)
+            {
+                Balance = Mathf.Lerp(Balance, 0, balanceLerpTo0Value);
+            }
+            
+            if (Mathf.Abs(Balance) >= BalanceLimit)
+            {
+                CharacterUnbalancedState characterUnbalancedState = new CharacterUnbalancedState(_kayakController, _inputManagement, this);
+                SwitchState(characterUnbalancedState);
+            }
         }
 
         #region GUI
@@ -52,7 +63,7 @@ namespace Character.State
         private void OnGUI()
         {
             GUI.skin.label.fontSize = 50;
-            GUI.Label(new Rect(10, 10, 500, 100), "Balance : " + Math.Round(CurrentStateBase.Balance,2));
+            GUI.Label(new Rect(10, 10, 500, 100), "Balance : " + Math.Round(Balance,2));
         }
 
         #endregion
