@@ -682,11 +682,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _kayakController: {fileID: 7217796708516857175}
   _inputManagement: {fileID: 5885439514833416252}
+  CamController: {fileID: 2865575383136156668}
   balanceLerpTo0Value: 0.01
   LerpBalanceTo0: 1
   Balance: 0
-  BalanceLimit: 10
-  BalanceValueToTimerMultiplier: 10
+  BalanceLimit: 8
+  BalanceDeathLimit: 15
 --- !u!114 &7217796708653836311
 MonoBehaviour:
   m_ObjectHideFlags: 0
