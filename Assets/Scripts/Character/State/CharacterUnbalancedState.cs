@@ -9,17 +9,13 @@ namespace Character.State
 
         public CharacterUnbalancedState(KayakController kayak, InputManagement inputManagement, CharacterManager characterManagerRef) : base(characterManagerRef)
         {
-            
+            _kayakController = kayak;
+            _inputManagement = inputManagement;
         }
 
         #endregion
         
         #region Variables
-
-        [SerializeField, ReadOnly, Tooltip("The amplitude of the unbalance, the higher it is, the less time player has to react")]
-        private float _unbalanceAmount;
-        [SerializeField, ReadOnly, Tooltip("The amplitude of the unbalance, the higher it is, the less time player has to react")]
-        private float _deathTimer;
 
         private KayakController _kayakController;
         private InputManagement _inputManagement;
@@ -31,15 +27,13 @@ namespace Character.State
         
         public override void EnterState(CharacterManager character)
         {
-            //booleans
+            Debug.Log("unbalanced");
             CharacterManagerRef.LerpBalanceTo0 = false;
-            
-            //methods
-            CalculateUnbalance();
         }
 
         public override void UpdateState(CharacterManager character)
         {
+            TimerManagement();
         }
 
         public override void FixedUpdate(CharacterManager character)
@@ -54,11 +48,21 @@ namespace Character.State
 
         #region Methods
 
-        private void CalculateUnbalance()
+        private void TimerManagement()
         {
-            _unbalanceAmount = CharacterManagerRef.Balance - CharacterManagerRef.BalanceLimit;
-            _deathTimer = _unbalanceAmount * CharacterManagerRef.BalanceValueToTimerMultiplier;
-            Debug.Log($"{_unbalanceAmount} -> {_deathTimer}");
+            CharacterManagerRef.Balance += Time.deltaTime * Mathf.Sign(CharacterManagerRef.Balance);
+            if (Mathf.Abs(CharacterManagerRef.Balance) >= CharacterManagerRef.BalanceDeathLimit)
+            {
+                CharacterDeathState characterDeathState = new CharacterDeathState(CharacterManagerRef);
+                CharacterManagerRef.SwitchState(characterDeathState);
+            }
+            else if(Mathf.Abs(CharacterManagerRef.Balance) < CharacterManagerRef.BalanceLimit)
+            {
+                // CharacterNavigationState characterNavigationState = new CharacterNavigationState(_kayakController, _inputManagement, CharacterManagerRef);
+                // CharacterManagerRef.SwitchState(characterNavigationState);
+
+                CharacterManagerRef.CamController.CanMoveCameraMaunally = true;
+            }
         }
 
         #endregion

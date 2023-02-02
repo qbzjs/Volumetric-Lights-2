@@ -48,6 +48,8 @@ namespace Character.State
 
         public override void EnterState(CharacterManager character)
         {
+            Debug.Log("naviguation");
+            
             //inputs
             GameplayInputs = new GameplayInputs();
             GameplayInputs.Enable();
@@ -63,12 +65,22 @@ namespace Character.State
         public override void UpdateState(CharacterManager character)
         {
             PaddleCooldownManagement();
+            
+            //check balance 
+            if (Mathf.Abs(CharacterManagerRef.Balance) >= CharacterManagerRef.BalanceLimit)
+            {
+                CharacterUnbalancedState characterUnbalancedState = new CharacterUnbalancedState(_kayakController, _inputs, CharacterManagerRef);
+                CharacterManagerRef.SwitchState(characterUnbalancedState);
+
+                CharacterManagerRef.CamController.CanMoveCameraMaunally = false;
+            }
         }
 
         public override void FixedUpdate(CharacterManager character)
         {
             if (CanCharacterMove == false)
             {
+                StopCharacter();
                 return;
             }
             
@@ -125,6 +137,11 @@ namespace Character.State
                     RotationStaticForceY = rotationForceY;
                     break;
             }
+        }
+
+        private void StopCharacter()
+        {
+            _kayakRigidbody.velocity = Vector3.Lerp(_kayakRigidbody.velocity, Vector3.zero, 0.01f);
         }
 
         #endregion
