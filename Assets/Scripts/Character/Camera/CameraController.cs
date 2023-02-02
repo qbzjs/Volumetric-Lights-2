@@ -82,7 +82,10 @@ namespace Character.Camera
         private void CameraRotation()
         {
             //rotate freely with inputs
-            if (_input.Inputs.RotateCameraClick && CanMoveCameraMaunally)
+            bool rotateInput = Mathf.Abs(_input.Inputs.RotateCamera.x) + Mathf.Abs(_input.Inputs.RotateCamera.y) >= 0.5f;
+            const float minimumVelocityToReplaceCamera = 1f;
+            
+            if (rotateInput && CanMoveCameraMaunally)
             {
                 //Cinemachine yaw/pitch
                 _cinemachineTargetYaw += _input.Inputs.RotateCamera.x;
@@ -93,7 +96,8 @@ namespace Character.Camera
                 _lastInputY = _input.Inputs.RotateCamera.y != 0 ? _input.Inputs.RotateCamera.y : _lastInputY;
             }
             //manage rotate to stay behind boat
-            else if (Mathf.Abs(_rigidbodyKayak.velocity.x + _rigidbodyKayak.velocity.z) > 0.01f || Mathf.Abs(characterManager.CurrentStateBase.RotationStaticForceY) > 0.01f)
+            else if (Mathf.Abs(_rigidbodyKayak.velocity.x + _rigidbodyKayak.velocity.z) > minimumVelocityToReplaceCamera || 
+                     Mathf.Abs(characterManager.CurrentStateBase.RotationStaticForceY) > minimumVelocityToReplaceCamera)
             {
                 //avoid last input to be 0
                 if (_lastInputX != 0 || _lastInputY != 0)
