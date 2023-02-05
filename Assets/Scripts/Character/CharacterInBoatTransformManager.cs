@@ -4,7 +4,7 @@ namespace Character
 {
     public class CharacterInBoatTransformManager : MonoBehaviour
     {
-        public Transform KayakTransform;
+        public Transform KayakMeshTransform;
 
         private Vector3 _playerLocalPosition;
 
@@ -20,11 +20,12 @@ namespace Character
 
         private void MatchCharacterWithBoat()
         {
-            transform.position = KayakTransform.position + _playerLocalPosition;
+            transform.position = KayakMeshTransform.position + _playerLocalPosition;
         
             Vector3 rotation = transform.rotation.eulerAngles;
-            Vector3 boatRotation = KayakTransform.rotation.eulerAngles;
+            Vector3 boatRotation = KayakMeshTransform.rotation.eulerAngles;
             transform.rotation = Quaternion.Euler(rotation.x, boatRotation.y + 180, -boatRotation.z + 180);
+            
         }
     }
 }

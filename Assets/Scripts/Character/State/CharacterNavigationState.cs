@@ -74,6 +74,8 @@ namespace Character.State
 
                 CharacterManagerRef.CamController.CanMoveCameraMaunally = false;
             }
+            
+            MakeBoatRotationWithBalance(_kayakController.Mesh);
         }
 
         public override void FixedUpdate(CharacterManager character)

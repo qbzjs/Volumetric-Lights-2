@@ -34,6 +34,7 @@ namespace Character.State
         public override void UpdateState(CharacterManager character)
         {
             TimerManagement();
+            MakeBoatRotationWithBalance(_kayakController.Mesh);
         }
 
         public override void FixedUpdate(CharacterManager character)

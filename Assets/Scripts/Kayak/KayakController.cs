@@ -18,6 +18,7 @@ namespace Kayak
         [Header("References"), SerializeField] 
         private List<ParticleSystem> _frontParticles;
         public Rigidbody Rigidbody;
+        public Transform Mesh;
         
         [Header("Audio")] 
         public AudioClip PaddlingAudioClip;
