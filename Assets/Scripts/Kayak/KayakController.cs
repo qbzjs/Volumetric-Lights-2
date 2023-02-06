@@ -98,5 +98,9 @@ namespace Kayak
         [Range(0, 0.25f)] public float StaticRotationDeceleration;
         [Range(0,0.1f)] public float VelocityDecelerationLerp;
         [Range(0, 0.1f)] public float VelocityDecelerationRotationForce;
+
+        [Header("Unbalanced")] 
+        [Range(0, 1)] public float UnbalancePaddleCooldown;
+        [Range(0, 10)] public float UnbalancePaddleForce;
     }
 }
