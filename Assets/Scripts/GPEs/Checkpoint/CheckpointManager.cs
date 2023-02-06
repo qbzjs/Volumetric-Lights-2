@@ -4,12 +4,23 @@ using UnityEngine;
 
 public class CheckpointManager : MonoBehaviour
 {
+    #region SINGLETON
+
     public static CheckpointManager Instance;
-
-    public Checkpoint CurrentChekpoint;
-
+    
     private void Awake()
     {
-        Instance = this;
+        if (Instance == null)
+        {
+            Instance = this;
+        }
+        else
+        {
+            Destroy(gameObject);
+        }
     }
+
+    #endregion
+    
+    public Checkpoint CurrentCheckpoint;
 }
