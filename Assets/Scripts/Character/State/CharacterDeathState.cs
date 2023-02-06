@@ -30,7 +30,7 @@ namespace Character.State
 
         public override void UpdateState(CharacterManager character)
         {
-            Transform checkpoint = CheckpointManager.Instance.CurrentChekpoint.TargetRespawnTransform;
+            Transform checkpoint = CheckpointManager.Instance.CurrentCheckpoint.TargetRespawnTransform;
             MakeBoatRotationWithBalance(_kayakController.Mesh);
             if (Input.GetKeyDown(KeyCode.K))
             {

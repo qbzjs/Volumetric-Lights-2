@@ -5,18 +5,21 @@ using UnityEngine;
 
 public class Checkpoint : MonoBehaviour
 {
+    [SerializeField] private ParticleSystem _activationParticles;
+    [SerializeField] private AudioClip _activationClip;
     public Transform TargetRespawnTransform;
+    
+    private bool _hasBeenUsed;
 
     private void OnTriggerEnter(Collider other)
     {
-
-    }
-
-    private void OnTriggerStay(Collider other)
-    {
-        if (other.gameObject.GetComponent<KayakController>() != null & Input.GetKeyDown(KeyCode.M))
+        KayakController kayakController = other.gameObject.GetComponent<KayakController>();
+        if (kayakController != null && _hasBeenUsed == false)
         {
-            CheckpointManager.Instance.CurrentChekpoint = this;
+            CheckpointManager.Instance.CurrentCheckpoint = this;
+            _activationParticles.Play();
+            SoundManager.Instance.PlaySound(_activationClip);
+            _hasBeenUsed = true;
         }
     }
 }
