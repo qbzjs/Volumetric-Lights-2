@@ -593,7 +593,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7217796708440880409}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 0, y: 0.55, z: 0}
   m_LocalScale: {x: 0.89393, y: 0.89393, z: 0.89393}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -631,7 +631,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7217796708653836314}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0.424, z: 0}
+  m_LocalPosition: {x: 0, y: 0.132, z: 0}
   m_LocalScale: {x: 0.76135, y: 0.76135, z: 0.76135}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -700,7 +700,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7be024ccb8e2a2048aabfa8fe7abd17e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  KayakMeshTransform: {fileID: 8368439501237801241}
+  KayakTransform: {fileID: 2610664555048439514}
 --- !u!114 &2865575383136156668
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -757,7 +757,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8337715506076774778}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -3.41, y: 0, z: -1.2}
+  m_LocalPosition: {x: -3.41, y: 0.55, z: -1.2}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -862,12 +862,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d0e0857b45e56e14f88336079beaccaf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!4 &8368439501237801241 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 6105224612437298787, guid: bc06d1e844ba3694bbdecce4a99ba863,
-    type: 3}
-  m_PrefabInstance: {fileID: 2348827399903010682}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &5709416411141904096
 PrefabInstance:
   m_ObjectHideFlags: 0
