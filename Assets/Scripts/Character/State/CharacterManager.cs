@@ -12,14 +12,17 @@ namespace Character.State
         public CharacterStateBase CurrentStateBase;
         [SerializeField] private InputManagement _inputManagement;
         public CameraController CamController;
+        public Transform KayakMesh, CharacterMesh;
 
         [Header("Balance"), SerializeField, Range(0, 1)] private float balanceLerpTo0Value = 0.01f;
         [ReadOnly] public bool LerpBalanceTo0 = true;
         [ReadOnly] public float Balance = 0f;
-        [Range(0,40), ReadOnly, Tooltip("The limit over which the player will go in unbalance state")] 
+        [Range(0,40), Tooltip("The limit over which the player will go in unbalance state")] 
         public float BalanceLimit = 10f;
-        [Range(0, 40), ReadOnly, Tooltip("The limit over which the player will die")]
+        [Range(0, 40), Tooltip("The limit over which the player will die")]
         public float BalanceDeathLimit = 15f;
+        [Range(0, 40), Tooltip("The angle the player has ti reach when unbalanced to get back balanced")]
+        public float RebalanceAngle = 8f;
 
         
         private void Awake()
@@ -61,7 +64,9 @@ namespace Character.State
         private void OnGUI()
         {
             GUI.skin.label.fontSize = 50;
-            GUI.Label(new Rect(10, 10, 500, 100), "Balance : " + Math.Round(Balance,2));
+            
+            GUI.color = Color.white;
+            GUI.Label(new Rect(10, 10, 500, 100), "Balance : " + Math.Round(Balance,1));
         }
 
         #endregion
