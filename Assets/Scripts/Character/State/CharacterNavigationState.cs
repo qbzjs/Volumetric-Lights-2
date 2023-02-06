@@ -69,10 +69,11 @@ namespace Character.State
             //check balance 
             if (Mathf.Abs(CharacterManagerRef.Balance) >= CharacterManagerRef.BalanceLimit)
             {
+                CharacterManagerRef.CamController.CanMoveCameraMaunally = false;
+                _kayakController.CanReduceDrag = false;
+                
                 CharacterUnbalancedState characterUnbalancedState = new CharacterUnbalancedState(_kayakController, _inputs, CharacterManagerRef);
                 CharacterManagerRef.SwitchState(characterUnbalancedState);
-
-                CharacterManagerRef.CamController.CanMoveCameraMaunally = false;
             }
             
             MakeBoatRotationWithBalance(_kayakController.Mesh);

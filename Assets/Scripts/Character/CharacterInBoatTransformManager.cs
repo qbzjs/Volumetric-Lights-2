@@ -1,16 +1,17 @@
 using UnityEngine;
+using UnityEngine.Serialization;
 
 namespace Character
 {
     public class CharacterInBoatTransformManager : MonoBehaviour
     {
-        public Transform KayakMeshTransform;
+        public Transform KayakTransform;
 
-        private Vector3 _playerLocalPosition;
+        private Vector3 _playerPosition;
 
         private void Start()
         {
-            _playerLocalPosition = transform.localPosition;
+            _playerPosition = transform.localPosition;
         }
 
         private void Update()
@@ -20,12 +21,11 @@ namespace Character
 
         private void MatchCharacterWithBoat()
         {
-            transform.position = KayakMeshTransform.position + _playerLocalPosition;
+            transform.position = KayakTransform.position + _playerPosition;
         
             Vector3 rotation = transform.rotation.eulerAngles;
-            Vector3 boatRotation = KayakMeshTransform.rotation.eulerAngles;
+            Vector3 boatRotation = KayakTransform.rotation.eulerAngles;
             transform.rotation = Quaternion.Euler(rotation.x, boatRotation.y + 180, -boatRotation.z + 180);
-            
         }
     }
 }

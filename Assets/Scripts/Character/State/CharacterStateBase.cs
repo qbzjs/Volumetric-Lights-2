@@ -30,10 +30,11 @@ namespace Character.State
         public void MakeBoatRotationWithBalance(Transform kayakTransform)
         {
             Vector3 boatRotation = kayakTransform.localRotation.eulerAngles;
-            kayakTransform.localRotation = Quaternion.Euler(boatRotation.x,boatRotation.y, CharacterManagerRef.Balance * 2);
+            Quaternion targetBoatRotation = Quaternion.Euler(boatRotation.x,boatRotation.y, CharacterManagerRef.Balance * 2);
+            kayakTransform.localRotation = Quaternion.Lerp(kayakTransform.localRotation, targetBoatRotation, 0.01f);
             
             Vector3 characterRotation = CharacterManagerRef.transform.rotation.eulerAngles;
-            CharacterManagerRef.transform.rotation = Quaternion.Euler(characterRotation.x,characterRotation.y, -CharacterManagerRef.Balance * 2);
+            CharacterManagerRef.transform.rotation = Quaternion.Euler(characterRotation.x,characterRotation.y, -boatRotation.z);
         } 
     }
 }

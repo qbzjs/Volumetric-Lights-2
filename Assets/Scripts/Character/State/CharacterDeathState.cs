@@ -1,12 +1,15 @@
-﻿using UnityEngine;
+﻿using Kayak;
+using UnityEngine;
 
 namespace Character.State
 {
     public class CharacterDeathState : CharacterStateBase
     {
-        public CharacterDeathState(CharacterManager characterManagerRef) : base(characterManagerRef)
+        private KayakController _kayakController;
+        
+        public CharacterDeathState(CharacterManager characterManagerRef, KayakController kayakController) : base(characterManagerRef)
         {
-            
+            _kayakController = kayakController;
         }
 
         public override void EnterState(CharacterManager character)
@@ -16,6 +19,7 @@ namespace Character.State
 
         public override void UpdateState(CharacterManager character)
         {
+            MakeBoatRotationWithBalance(_kayakController.Mesh);
         }
 
         public override void FixedUpdate(CharacterManager character)

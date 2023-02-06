@@ -19,6 +19,7 @@ namespace Character.State
 
         private KayakController _kayakController;
         private InputManagement _inputManagement;
+        private GameplayInputs _gameplayInputs;
         
         #endregion
         
@@ -29,6 +30,10 @@ namespace Character.State
         {
             Debug.Log("unbalanced");
             CharacterManagerRef.LerpBalanceTo0 = false;
+            
+            //inputs
+            GameplayInputs = new GameplayInputs();
+            GameplayInputs.Enable();
         }
 
         public override void UpdateState(CharacterManager character)
@@ -54,15 +59,16 @@ namespace Character.State
             CharacterManagerRef.Balance += Time.deltaTime * Mathf.Sign(CharacterManagerRef.Balance);
             if (Mathf.Abs(CharacterManagerRef.Balance) >= CharacterManagerRef.BalanceDeathLimit)
             {
-                CharacterDeathState characterDeathState = new CharacterDeathState(CharacterManagerRef);
+                CharacterDeathState characterDeathState = new CharacterDeathState(CharacterManagerRef, _kayakController);
                 CharacterManagerRef.SwitchState(characterDeathState);
             }
             else if(Mathf.Abs(CharacterManagerRef.Balance) < CharacterManagerRef.BalanceLimit)
             {
+                _kayakController.CanReduceDrag = true;
+                CharacterManagerRef.CamController.CanMoveCameraMaunally = true;
+                
                 // CharacterNavigationState characterNavigationState = new CharacterNavigationState(_kayakController, _inputManagement, CharacterManagerRef);
                 // CharacterManagerRef.SwitchState(characterNavigationState);
-
-                CharacterManagerRef.CamController.CanMoveCameraMaunally = true;
             }
         }
 

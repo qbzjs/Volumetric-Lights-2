@@ -13,8 +13,10 @@ namespace Kayak
         [SerializeField, Range(1, 1.005f)] private float _dragReducingMultiplier = 1.0025f;
         [ReadOnly] public float DragReducingTimer;
         
+        [Header("Parameters")]
         public KayakParameters KayakValues;
-
+        [ReadOnly] public bool CanReduceDrag = true;
+        
         [Header("References"), SerializeField] 
         private List<ParticleSystem> _frontParticles;
         public Rigidbody Rigidbody;
@@ -62,7 +64,7 @@ namespace Kayak
 
         private void DragReducing()
         {
-            if (DragReducingTimer > 0)
+            if (DragReducingTimer > 0 || CanReduceDrag == false)
             {
                 DragReducingTimer -= Time.deltaTime;
                 return;
