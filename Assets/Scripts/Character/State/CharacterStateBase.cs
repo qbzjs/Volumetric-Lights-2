@@ -1,3 +1,4 @@
+using DG.Tweening;
 using UnityEngine;
 
 namespace Character.State
@@ -9,7 +10,6 @@ namespace Character.State
             CharacterManagerRef = characterManagerRef;
         }
         
-        public GameplayInputs GameplayInputs;
         public CharacterManager CharacterManagerRef;
         
         public bool CanCharacterMove = true;
@@ -27,14 +27,14 @@ namespace Character.State
 
         public abstract void SwitchState(CharacterManager character);
 
-        public void MakeBoatRotationWithBalance(Transform kayakTransform)
+        protected void MakeBoatRotationWithBalance(Transform kayakTransform)
         {
             Vector3 boatRotation = kayakTransform.localRotation.eulerAngles;
-            Quaternion targetBoatRotation = Quaternion.Euler(boatRotation.x,boatRotation.y, CharacterManagerRef.Balance * 2);
-            kayakTransform.localRotation = Quaternion.Lerp(kayakTransform.localRotation, targetBoatRotation, 0.01f);
+            Quaternion targetBoatRotation = Quaternion.Euler(boatRotation.x,boatRotation.y, CharacterManagerRef.Balance * 3);
+            kayakTransform.localRotation = Quaternion.Lerp(kayakTransform.localRotation, targetBoatRotation, 0.025f);
             
             Vector3 characterRotation = CharacterManagerRef.transform.rotation.eulerAngles;
             CharacterManagerRef.transform.rotation = Quaternion.Euler(characterRotation.x,characterRotation.y, -boatRotation.z);
-        } 
+        }
     }
 }

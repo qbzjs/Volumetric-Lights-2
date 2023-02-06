@@ -49,10 +49,6 @@ namespace Character.State
         public override void EnterState(CharacterManager character)
         {
             Debug.Log("naviguation");
-            
-            //inputs
-            GameplayInputs = new GameplayInputs();
-            GameplayInputs.Enable();
 
             //values
             _rightPaddleCooldown = _kayakValues.PaddleCooldown;
