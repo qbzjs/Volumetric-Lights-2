@@ -24,7 +24,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4259471943506417572}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: -3.26}
+  m_LocalPosition: {x: -3.01, y: 0, z: -3.15}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -107,9 +107,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a80ac52b023f917488fcc26e5862f92d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _zoneName: 
+  TargetRespawnTransform: {fileID: 5824427334280982204}
+  _zoneManager: {fileID: 0}
   _activationParticles: {fileID: 5389502103451266307}
   _activationClip: {fileID: 8300000, guid: 6e310188983e697438ee8a2c57dd70f5, type: 3}
-  TargetRespawnTransform: {fileID: 5824427334280982204}
 --- !u!1 &5169849621225320633
 GameObject:
   m_ObjectHideFlags: 0

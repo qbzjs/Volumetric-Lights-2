@@ -12,15 +12,12 @@ namespace Character.State
         [Header("References"), SerializeField] private KayakController _kayakController;
         public CharacterStateBase CurrentStateBase;
         [SerializeField] private InputManagement _inputManagement;
+        public CameraController CamController;
 
         [Header("Transition death")]
         public TransitionManager TransitionManager;
-        [Range(1, 5)] public float TimeToPlayFadeOut = 2.0f;
-        [Range(1, 5)] public float TimeFadeInEnded = 1.5f;
-
-        [Space(15)]
-        public CameraController CamController;
-        public Transform KayakMesh, CharacterMesh;
+        [Range(0, 5)] public float TimeToPlayFadeOut = 2.0f;
+        [Range(0, 5)] public float TimeFadeInEnded = 1.5f;
 
         [Header("Balance"), SerializeField, Range(0, 1)] private float balanceLerpTo0Value = 0.01f;
         [ReadOnly] public bool LerpBalanceTo0 = true;
