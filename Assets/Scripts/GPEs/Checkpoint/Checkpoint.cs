@@ -1,13 +1,17 @@
 using Kayak;
 using System.Collections;
 using System.Collections.Generic;
+using UI;
 using UnityEngine;
 
 public class Checkpoint : MonoBehaviour
 {
+    [SerializeField] private string _zoneName;
+    public Transform TargetRespawnTransform;
+    
+    [Header("References"), SerializeField] private ZoneManager _zoneManager;
     [SerializeField] private ParticleSystem _activationParticles;
     [SerializeField] private AudioClip _activationClip;
-    public Transform TargetRespawnTransform;
     
     private bool _hasBeenUsed;
 
@@ -17,9 +21,11 @@ public class Checkpoint : MonoBehaviour
         if (kayakController != null && _hasBeenUsed == false)
         {
             CheckpointManager.Instance.CurrentCheckpoint = this;
+            _hasBeenUsed = true;
+            
             _activationParticles.Play();
             SoundManager.Instance.PlaySound(_activationClip);
-            _hasBeenUsed = true;
+            _zoneManager.ShowZone(_zoneName);
         }
     }
 }

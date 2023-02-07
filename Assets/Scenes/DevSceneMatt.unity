@@ -1156,6 +1156,14 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1158828331, guid: c65dbc6e6a13448468e3141d768ce52b, type: 3}
+      propertyPath: _zoneName
+      value: Lac des mamouths
+      objectReference: {fileID: 0}
+    - target: {fileID: 1158828331, guid: c65dbc6e6a13448468e3141d768ce52b, type: 3}
+      propertyPath: _zoneManager
+      value: 
+      objectReference: {fileID: 1632394491191998869}
     - target: {fileID: 4285338905635752385, guid: c65dbc6e6a13448468e3141d768ce52b,
         type: 3}
       propertyPath: m_RootOrder
@@ -1695,6 +1703,14 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1158828331, guid: c65dbc6e6a13448468e3141d768ce52b, type: 3}
+      propertyPath: _zoneName
+      value: "Fleuve de la d\xE9esse"
+      objectReference: {fileID: 0}
+    - target: {fileID: 1158828331, guid: c65dbc6e6a13448468e3141d768ce52b, type: 3}
+      propertyPath: _zoneManager
+      value: 
+      objectReference: {fileID: 1632394491191998869}
     - target: {fileID: 4285338905635752385, guid: c65dbc6e6a13448468e3141d768ce52b,
         type: 3}
       propertyPath: m_RootOrder
@@ -2348,6 +2364,18 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 5f3937e671440d847b7282995fde0507, type: 3}
+--- !u!114 &1632394491191998869 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 8196072682807055919, guid: 5f3937e671440d847b7282995fde0507,
+    type: 3}
+  m_PrefabInstance: {fileID: 1632394491191998868}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 078efcfd25f23654dadc557ff8ff8809, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &4616244909802483892
 PrefabInstance:
   m_ObjectHideFlags: 0
