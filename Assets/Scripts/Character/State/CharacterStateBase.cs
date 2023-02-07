@@ -5,12 +5,14 @@ namespace Character.State
 {
     public abstract class CharacterStateBase 
     {
-        public CharacterStateBase(CharacterManager characterManagerRef)
+        public CharacterStateBase(CharacterManager characterManagerRef, MonoBehaviour monoBehaviour)
         {
             CharacterManagerRef = characterManagerRef;
+            MonoBehaviourRef = monoBehaviour;
         }
-        
-        public CharacterManager CharacterManagerRef;
+
+        protected CharacterManager CharacterManagerRef;
+        protected MonoBehaviour MonoBehaviourRef;
         
         public bool CanCharacterMove = true;
         public bool CanCharacterMakeActions = true;

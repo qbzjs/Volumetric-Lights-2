@@ -6,20 +6,14 @@ namespace Character.State
     public class CharacterDeathState : CharacterStateBase
     {
         private KayakController _kayakController;
-        private InputManagement _inputManagement;
+        private InputManagement _inputs;
 
-        public CharacterDeathState(CharacterManager characterManagerRef, KayakController kayakController) : base(characterManagerRef)
+        public CharacterDeathState(CharacterManager characterManagerRef, KayakController kayakController, InputManagement inputs, MonoBehaviour monoBehaviour) : 
+            base(characterManagerRef, monoBehaviour)
         {
             _kayakController = kayakController;
+            _inputs = inputs;
         }
-        public CharacterDeathState(CharacterManager characterManagerRef, InputManagement inputManagement, KayakController kayakController) : base(characterManagerRef)
-        {
-            _inputManagement = inputManagement;
-            _kayakController = kayakController;
-        }
-
-
-
 
         public override void EnterState(CharacterManager character)
         {
@@ -50,7 +44,7 @@ namespace Character.State
         public override void SwitchState(CharacterManager character)
         {
             CharacterManagerRef.TransitionManager.LaunchTransitionOut(SceneTransition.TransitionType.Fade);
-            CharacterNavigationState characterNavigationState = new CharacterNavigationState(_kayakController, _inputManagement, CharacterManagerRef);
+            CharacterNavigationState characterNavigationState = new CharacterNavigationState(_kayakController, _inputs, CharacterManagerRef, MonoBehaviourRef);
             CharacterManagerRef.SwitchState(characterNavigationState);
         }
     }

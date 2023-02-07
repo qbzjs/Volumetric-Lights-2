@@ -18,7 +18,8 @@ namespace Character.State
 
         #region Constructor
 
-        public CharacterUnbalancedState(KayakController kayak, InputManagement inputManagement, CharacterManager characterManagerRef) : base(characterManagerRef)
+        public CharacterUnbalancedState(KayakController kayak, InputManagement inputManagement, CharacterManager characterManagerRef, MonoBehaviour monoBehaviour) : 
+            base(characterManagerRef, monoBehaviour)
         {
             _kayakController = kayak;
             _inputs = inputManagement;
@@ -66,7 +67,7 @@ namespace Character.State
             CharacterManagerRef.Balance += Time.deltaTime * Mathf.Sign(CharacterManagerRef.Balance);
             if (Mathf.Abs(CharacterManagerRef.Balance) >= CharacterManagerRef.BalanceDeathLimit)
             {
-                CharacterDeathState characterDeathState = new CharacterDeathState(CharacterManagerRef, _inputs, _kayakController);
+                CharacterDeathState characterDeathState = new CharacterDeathState(CharacterManagerRef, _kayakController, _inputs, MonoBehaviourRef);
                 CharacterManagerRef.SwitchState(characterDeathState);
             }
             else if (Mathf.Abs(CharacterManagerRef.Balance) < CharacterManagerRef.RebalanceAngle)
@@ -75,7 +76,7 @@ namespace Character.State
                 CharacterManagerRef.CamController.CanMoveCameraMaunally = true;
                 CharacterManagerRef.Balance = 0;
 
-                CharacterNavigationState characterNavigationState = new CharacterNavigationState(_kayakController, _inputs, CharacterManagerRef);
+                CharacterNavigationState characterNavigationState = new CharacterNavigationState(_kayakController, _inputs, CharacterManagerRef, MonoBehaviourRef);
                 CharacterManagerRef.SwitchState(characterNavigationState);
             }
         }

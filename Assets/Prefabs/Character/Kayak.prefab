@@ -277,10 +277,36 @@ MonoBehaviour:
   DragReducingTimer: 0
   KayakValues:
     MaximumFrontVelocity: 20
-    PaddleFrontForce: 200
     PaddleSideRotationForce: 0.2
     PaddleCooldown: 1.2
     PaddleRotationDeceleration: 0.01
+    PaddleForce: 100
+    NumberOfForceAppliance: 4
+    TimeBetweenEveryAppliance: 0.05
+    ForceCurve:
+      serializedVersion: 2
+      m_Curve:
+      - serializedVersion: 3
+        time: -0.0009782761
+        value: 0.36073047
+        inSlope: 1.4552798
+        outSlope: 1.4552798
+        tangentMode: 0
+        weightedMode: 0
+        inWeight: 0
+        outWeight: 0.029045934
+      - serializedVersion: 3
+        time: 1
+        value: 1
+        inSlope: 0.07225551
+        outSlope: 0.07225551
+        tangentMode: 0
+        weightedMode: 0
+        inWeight: 0.19502074
+        outWeight: 0
+      m_PreInfinity: 2
+      m_PostInfinity: 2
+      m_RotationOrder: 4
     StaticRotationForce: 0.005
     StaticRotationDeceleration: 0.01
     VelocityDecelerationLerp: 0.005
@@ -289,8 +315,7 @@ MonoBehaviour:
     UnbalancePaddleForce: 2
   CanReduceDrag: 1
   _frontParticles:
-  - {fileID: 0}
-  - {fileID: 0}
+  - {fileID: 4919407605512908475}
   Rigidbody: {fileID: 333907971529626019}
   Mesh: {fileID: 6105224612437298787}
   PaddlingAudioClip: {fileID: 8300000, guid: cc79f0cc1ba16294cb28181e5ed1db4e, type: 3}
@@ -629,6 +654,12 @@ PrefabInstance:
 --- !u!4 &1932185342087640424 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 9071419740121720286, guid: f27f910378e128d4c9fc764dacd80494,
+    type: 3}
+  m_PrefabInstance: {fileID: 7436754032836890806}
+  m_PrefabAsset: {fileID: 0}
+--- !u!198 &4919407605512908475 stripped
+ParticleSystem:
+  m_CorrespondingSourceObject: {fileID: 2553988777827761677, guid: f27f910378e128d4c9fc764dacd80494,
     type: 3}
   m_PrefabInstance: {fileID: 7436754032836890806}
   m_PrefabAsset: {fileID: 0}

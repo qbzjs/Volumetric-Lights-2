@@ -1,3 +1,4 @@
+using System.Collections;
 using Kayak;
 using UnityEngine;
 
@@ -25,7 +26,6 @@ namespace Character.State
         private Vector2 _paddleForceValue;
         private float _leftPaddleCooldown, _rightPaddleCooldown;
         private float _currentInputPaddleFrontForce = 30;
-        private int _paddleCurrentFrame;
 
         //reference
         private KayakController _kayakController;
@@ -34,7 +34,8 @@ namespace Character.State
 
         #region Constructor
 
-        public CharacterNavigationState(KayakController kayak, InputManagement inputManagement, CharacterManager characterManagerRef) : base(characterManagerRef)
+        public CharacterNavigationState(KayakController kayak, InputManagement inputManagement, CharacterManager characterManagerRef, MonoBehaviour monoBehaviour) : 
+            base(characterManagerRef, monoBehaviour)
         {
             _kayakController = kayak;
             _kayakRigidbody = kayak.Rigidbody;
@@ -54,7 +55,6 @@ namespace Character.State
             //values
             _rightPaddleCooldown = _kayakValues.PaddleCooldown;
             _leftPaddleCooldown = _kayakValues.PaddleCooldown;
-            _paddleCurrentFrame = _kayakValues.ForceApplyTimeInFrames + 1;
                 
             //booleans
             CharacterManagerRef.LerpBalanceTo0 = true;
@@ -70,7 +70,7 @@ namespace Character.State
                 CharacterManagerRef.CamController.CanMoveCameraMaunally = false;
                 _kayakController.CanReduceDrag = false;
                 
-                CharacterUnbalancedState characterUnbalancedState = new CharacterUnbalancedState(_kayakController, _inputs, CharacterManagerRef);
+                CharacterUnbalancedState characterUnbalancedState = new CharacterUnbalancedState(_kayakController, _inputs, CharacterManagerRef, MonoBehaviourRef);
                 CharacterManagerRef.SwitchState(characterUnbalancedState);
             }
             
@@ -174,7 +174,7 @@ namespace Character.State
                 _rightPaddleCooldown = _kayakValues.PaddleCooldown;
                 _rightPaddleCooldown = _kayakValues.PaddleCooldown / 2;
                 Paddle(Direction.Left);
-                _paddleCurrentFrame = 0;
+                MonoBehaviourRef.StartCoroutine(PaddleForceCurve());
             }
             
             if (_inputs.Inputs.PaddleRight && _leftPaddleCooldown <= 0 && _inputs.Inputs.PaddleLeft == false)
@@ -182,19 +182,21 @@ namespace Character.State
                 _leftPaddleCooldown = _kayakValues.PaddleCooldown;
                 _leftPaddleCooldown = _kayakValues.PaddleCooldown / 2;
                 Paddle(Direction.Right);
-                _paddleCurrentFrame = 0;
+                MonoBehaviourRef.StartCoroutine(PaddleForceCurve());
             }
-            
-            //new paddle method
-            if (_paddleCurrentFrame > _kayakValues.ForceApplyTimeInFrames)
-            {
-                return;
-            }
+        }
 
-            float force = _kayakValues.ForceCurve[_paddleCurrentFrame].value * _kayakValues.EndForce;
-            _paddleCurrentFrame++;
-            Vector3 forceToApply = _kayakController.transform.forward * force;
-            _kayakRigidbody.AddForce(forceToApply);
+        private IEnumerator PaddleForceCurve()
+        {
+            for (int i = 0; i <= _kayakValues.NumberOfForceAppliance; i++)
+            {
+                float x = 1f/(float)_kayakValues.NumberOfForceAppliance * i;
+                float force = _kayakValues.ForceCurve.Evaluate(x) * _kayakValues.PaddleForce;
+                Vector3 forceToApply = _kayakController.transform.forward * force;
+                _kayakRigidbody.AddForce(forceToApply);
+
+                yield return new WaitForSeconds(_kayakValues.TimeBetweenEveryAppliance);
+            }
         }
 
         private void PaddleCooldownManagement()

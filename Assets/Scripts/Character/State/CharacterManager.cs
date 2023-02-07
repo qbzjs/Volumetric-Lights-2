@@ -29,7 +29,8 @@ namespace Character.State
         
         private void Awake()
         {
-            CharacterNavigationState navigationState = new CharacterNavigationState(_kayakController, _inputManagement, this);
+            CharacterNavigationState navigationState =
+                new CharacterNavigationState(_kayakController, _inputManagement, this, this);
             CurrentStateBase = navigationState;
         }
 
