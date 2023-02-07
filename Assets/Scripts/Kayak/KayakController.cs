@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using Character.State;
 using UnityEngine;
 using UnityEngine.Serialization;
 
@@ -19,11 +20,13 @@ namespace Kayak
         
         [Header("References"), SerializeField] 
         private List<ParticleSystem> _frontParticles;
+        [SerializeField] private CharacterManager _characterManager;
         public Rigidbody Rigidbody;
         public Transform Mesh;
         
         [Header("Audio")] 
         public AudioClip PaddlingAudioClip;
+        [SerializeField] private AudioClip CollisionAudioClip;
 
         private void Start()
         {
@@ -39,6 +42,14 @@ namespace Kayak
         private void FixedUpdate()
         {
             DragReducing();
+        }
+
+        private void OnCollisionEnter(Collision collision)
+        {
+            float value = collision.relativeVelocity.magnitude / KayakValues.CollisionToBalanceMagnitudeDivider;
+            Debug.Log($"collision V.M. :{Math.Round(collision.relativeVelocity.magnitude)} -> {Math.Round(value,2)}");
+            _characterManager.Balance += value * Mathf.Sign(_characterManager.Balance);
+            SoundManager.Instance.PlaySound(CollisionAudioClip);
         }
 
         private void ClampVelocity()
@@ -91,8 +102,9 @@ namespace Kayak
     [Serializable]
     public struct KayakParameters
     {
-        [Header("Values")]
+        [Header("Velocity & Collisions")]
         [Range(0,40)] public float MaximumFrontVelocity;
+        [Range(0,40)] public float CollisionToBalanceMagnitudeDivider;
 
         [Header("Paddle")]
         [Range(0,2)] public float PaddleSideRotationForce;
