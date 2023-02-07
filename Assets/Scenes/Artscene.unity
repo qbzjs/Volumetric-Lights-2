@@ -318,12 +318,12 @@ PrefabInstance:
     - target: {fileID: 7268116232058958273, guid: 36e32e7372e41e346abb29f843dd75b3,
         type: 3}
       propertyPath: InitialModule.startSize.scalar
-      value: 1.5
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 7268116232058958273, guid: 36e32e7372e41e346abb29f843dd75b3,
         type: 3}
       propertyPath: InitialModule.startSize.minScalar
-      value: 0.5
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7268116232058958273, guid: 36e32e7372e41e346abb29f843dd75b3,
         type: 3}
@@ -390,30 +390,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 288305607}
     m_Modifications:
-    - target: {fileID: 2553988777827761677, guid: f27f910378e128d4c9fc764dacd80494,
-        type: 3}
-      propertyPath: InitialModule.maxNumParticles
-      value: 15
-      objectReference: {fileID: 0}
-    - target: {fileID: 2553988777827761677, guid: f27f910378e128d4c9fc764dacd80494,
-        type: 3}
-      propertyPath: InitialModule.startSize.scalar
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 2553988777827761677, guid: f27f910378e128d4c9fc764dacd80494,
-        type: 3}
-      propertyPath: InitialModule.startSize.minScalar
-      value: 1
-      objectReference: {fileID: 0}
     - target: {fileID: 5850210515075414232, guid: f27f910378e128d4c9fc764dacd80494,
         type: 3}
       propertyPath: m_Name
       value: Water_splash (1)
-      objectReference: {fileID: 0}
-    - target: {fileID: 5850210515075414232, guid: f27f910378e128d4c9fc764dacd80494,
-        type: 3}
-      propertyPath: m_Layer
-      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 9071419740121720286, guid: f27f910378e128d4c9fc764dacd80494,
         type: 3}
