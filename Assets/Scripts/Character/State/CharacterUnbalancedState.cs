@@ -90,7 +90,7 @@ namespace Character.State
         {
             if (_inputs.Inputs.PaddleLeft && _leftPaddleCooldown <= 0)
             {
-                CharacterManagerRef.Balance -= _kayakValues.UnbalancePaddleForce;
+                CharacterManagerRef.Balance += _kayakValues.UnbalancePaddleForce;
                 _leftPaddleCooldown = _kayakValues.UnbalancePaddleCooldown;
                 
                 //audio
@@ -98,7 +98,7 @@ namespace Character.State
             }
             if (_inputs.Inputs.PaddleRight && _rightPaddleCooldown <= 0)
             {
-                CharacterManagerRef.Balance += _kayakValues.UnbalancePaddleForce;
+                CharacterManagerRef.Balance -= _kayakValues.UnbalancePaddleForce;
                 _rightPaddleCooldown = _kayakValues.UnbalancePaddleCooldown;
                 
                 //audio
