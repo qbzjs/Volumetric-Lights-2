@@ -45,7 +45,7 @@ namespace Character.State
             TimerManagement();
             PaddleCooldownManagement();
 
-            MakeBoatRotationWithBalance(_kayakController.Mesh);
+            MakeBoatRotationWithBalance(_kayakController.Mesh ,2);
 
             Rebalance();
         }

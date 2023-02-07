@@ -29,10 +29,10 @@ namespace Character.State
 
         public abstract void SwitchState(CharacterManager character);
 
-        protected void MakeBoatRotationWithBalance(Transform kayakTransform)
+        protected void MakeBoatRotationWithBalance(Transform kayakTransform, float multiplier)
         {
             Vector3 boatRotation = kayakTransform.localRotation.eulerAngles;
-            Quaternion targetBoatRotation = Quaternion.Euler(boatRotation.x,boatRotation.y, CharacterManagerRef.Balance * 3);
+            Quaternion targetBoatRotation = Quaternion.Euler(boatRotation.x,boatRotation.y, CharacterManagerRef.Balance * 3 * multiplier);
             kayakTransform.localRotation = Quaternion.Lerp(kayakTransform.localRotation, targetBoatRotation, 0.025f);
             
             Vector3 characterRotation = CharacterManagerRef.transform.rotation.eulerAngles;
