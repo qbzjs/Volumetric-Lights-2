@@ -834,6 +834,71 @@ PrefabInstance:
       propertyPath: m_Name
       value: Kayak
       objectReference: {fileID: 0}
+    - target: {fileID: 4950148468892883501, guid: bc06d1e844ba3694bbdecce4a99ba863,
+        type: 3}
+      propertyPath: KayakValues.EndForce
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 4950148468892883501, guid: bc06d1e844ba3694bbdecce4a99ba863,
+        type: 3}
+      propertyPath: KayakValues.ForceApplyTimeInFrames
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 4950148468892883501, guid: bc06d1e844ba3694bbdecce4a99ba863,
+        type: 3}
+      propertyPath: KayakValues.ForceApplyTimeInSeconds
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 4950148468892883501, guid: bc06d1e844ba3694bbdecce4a99ba863,
+        type: 3}
+      propertyPath: KayakValues.ForceCurve.m_Curve.Array.size
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 4950148468892883501, guid: bc06d1e844ba3694bbdecce4a99ba863,
+        type: 3}
+      propertyPath: KayakValues.ForceCurve.m_Curve.Array.data[1].time
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4950148468892883501, guid: bc06d1e844ba3694bbdecce4a99ba863,
+        type: 3}
+      propertyPath: KayakValues.ForceCurve.m_Curve.Array.data[0].value
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4950148468892883501, guid: bc06d1e844ba3694bbdecce4a99ba863,
+        type: 3}
+      propertyPath: KayakValues.ForceCurve.m_Curve.Array.data[1].value
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4950148468892883501, guid: bc06d1e844ba3694bbdecce4a99ba863,
+        type: 3}
+      propertyPath: KayakValues.ForceCurve.m_Curve.Array.data[0].inSlope
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4950148468892883501, guid: bc06d1e844ba3694bbdecce4a99ba863,
+        type: 3}
+      propertyPath: KayakValues.ForceCurve.m_Curve.Array.data[1].inSlope
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4950148468892883501, guid: bc06d1e844ba3694bbdecce4a99ba863,
+        type: 3}
+      propertyPath: KayakValues.ForceCurve.m_Curve.Array.data[0].outSlope
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4950148468892883501, guid: bc06d1e844ba3694bbdecce4a99ba863,
+        type: 3}
+      propertyPath: KayakValues.ForceCurve.m_Curve.Array.data[1].outSlope
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4950148468892883501, guid: bc06d1e844ba3694bbdecce4a99ba863,
+        type: 3}
+      propertyPath: KayakValues.ForceCurve.m_Curve.Array.data[0].tangentMode
+      value: 34
+      objectReference: {fileID: 0}
+    - target: {fileID: 4950148468892883501, guid: bc06d1e844ba3694bbdecce4a99ba863,
+        type: 3}
+      propertyPath: KayakValues.ForceCurve.m_Curve.Array.data[1].tangentMode
+      value: 34
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: bc06d1e844ba3694bbdecce4a99ba863, type: 3}
 --- !u!54 &2610664555048439513 stripped

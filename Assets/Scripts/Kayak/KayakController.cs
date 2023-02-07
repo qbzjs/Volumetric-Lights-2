@@ -99,6 +99,10 @@ namespace Kayak
         [Range(0,2)] public float PaddleSideRotationForce;
         [Range(0,3)] public float PaddleCooldown;
         [Range(0, 0.25f)] public float PaddleRotationDeceleration;
+        [Header("new values")] 
+        public float EndForce;
+        public int ForceApplyTimeInFrames;
+        public AnimationCurve ForceCurve;
 
         [Header("Static Rotation")] 
         [Range(0, 0.1f)] public float StaticRotationForce;

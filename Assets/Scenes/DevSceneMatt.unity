@@ -2653,11 +2653,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: CharacterCore
       objectReference: {fileID: 0}
-    - target: {fileID: 7217796708516857175, guid: 36e32e7372e41e346abb29f843dd75b3,
-        type: 3}
-      propertyPath: _dragReducingMultiplier
-      value: 50.4
-      objectReference: {fileID: 0}
     - target: {fileID: 7609300824562711772, guid: 36e32e7372e41e346abb29f843dd75b3,
         type: 3}
       propertyPath: _waves

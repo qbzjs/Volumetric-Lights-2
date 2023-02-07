@@ -25,6 +25,7 @@ namespace Character.State
         private Vector2 _paddleForceValue;
         private float _leftPaddleCooldown, _rightPaddleCooldown;
         private float _currentInputPaddleFrontForce = 30;
+        private int _paddleCurrentFrame;
 
         //reference
         private KayakController _kayakController;
@@ -53,7 +54,8 @@ namespace Character.State
             //values
             _rightPaddleCooldown = _kayakValues.PaddleCooldown;
             _leftPaddleCooldown = _kayakValues.PaddleCooldown;
-            
+            _paddleCurrentFrame = _kayakValues.ForceApplyTimeInFrames + 1;
+                
             //booleans
             CharacterManagerRef.LerpBalanceTo0 = true;
         }
@@ -150,8 +152,6 @@ namespace Character.State
         private void Paddle(Direction direction)
         {
             //apply force
-            Vector3 forceToApply = _kayakController.transform.forward * _kayakValues.PaddleFrontForce;
-            _kayakRigidbody.AddForce(forceToApply);
             _kayakController.DragReducingTimer = 0.5f;
 
             //rotation
@@ -174,6 +174,7 @@ namespace Character.State
                 _rightPaddleCooldown = _kayakValues.PaddleCooldown;
                 _rightPaddleCooldown = _kayakValues.PaddleCooldown / 2;
                 Paddle(Direction.Left);
+                _paddleCurrentFrame = 0;
             }
             
             if (_inputs.Inputs.PaddleRight && _leftPaddleCooldown <= 0 && _inputs.Inputs.PaddleLeft == false)
@@ -181,7 +182,19 @@ namespace Character.State
                 _leftPaddleCooldown = _kayakValues.PaddleCooldown;
                 _leftPaddleCooldown = _kayakValues.PaddleCooldown / 2;
                 Paddle(Direction.Right);
+                _paddleCurrentFrame = 0;
             }
+            
+            //new paddle method
+            if (_paddleCurrentFrame > _kayakValues.ForceApplyTimeInFrames)
+            {
+                return;
+            }
+
+            float force = _kayakValues.ForceCurve[_paddleCurrentFrame].value * _kayakValues.EndForce;
+            _paddleCurrentFrame++;
+            Vector3 forceToApply = _kayakController.transform.forward * force;
+            _kayakRigidbody.AddForce(forceToApply);
         }
 
         private void PaddleCooldownManagement()
