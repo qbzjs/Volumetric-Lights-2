@@ -10,7 +10,7 @@ namespace Kayak
     public class KayakController : MonoBehaviour
     {
         [Header("Drag")]
-        [SerializeField, Range(1, 1.005f)] private float _dragReducingMultiplier = 1.0025f;
+        [SerializeField, Range(50,51f)] private float _dragReducingMultiplier = 50.5f;
         [ReadOnly] public float DragReducingTimer;
         
         [Header("Parameters")]
@@ -33,8 +33,12 @@ namespace Kayak
         private void Update()
         {
             ParticleManagement();
-            DragReducing();
             ClampVelocity();
+        }
+
+        private void FixedUpdate()
+        {
+            DragReducing();
         }
 
         private void ClampVelocity()
@@ -76,7 +80,10 @@ namespace Kayak
 
             if (absX + absZ > 1)
             {
-                Rigidbody.velocity = new Vector3(velocity.x * _dragReducingMultiplier, velocity.y, velocity.z * _dragReducingMultiplier);
+                Rigidbody.velocity = new Vector3(
+                    velocity.x * _dragReducingMultiplier * Time.deltaTime, 
+                      velocity.y, 
+                    velocity.z * _dragReducingMultiplier * Time.deltaTime);
             }
         }
     }

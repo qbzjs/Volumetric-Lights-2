@@ -21,7 +21,7 @@ namespace Character.State
         public float BalanceLimit = 10f;
         [Range(0, 40), Tooltip("The limit over which the player will die")]
         public float BalanceDeathLimit = 15f;
-        [Range(0, 40), Tooltip("The angle the player has ti reach when unbalanced to get back balanced")]
+        [Range(0, 40), Tooltip("The angle the player has to reach when unbalanced to get back balanced")]
         public float RebalanceAngle = 8f;
 
         

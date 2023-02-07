@@ -834,21 +834,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: Kayak
       objectReference: {fileID: 0}
-    - target: {fileID: 4950148468892883501, guid: bc06d1e844ba3694bbdecce4a99ba863,
-        type: 3}
-      propertyPath: KayakValues.UnbalancePaddleForce
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 4950148468892883501, guid: bc06d1e844ba3694bbdecce4a99ba863,
-        type: 3}
-      propertyPath: KayakValues.UnbalancePaddleCooldown
-      value: 0.5
-      objectReference: {fileID: 0}
-    - target: {fileID: 6105224612437298787, guid: bc06d1e844ba3694bbdecce4a99ba863,
-        type: 3}
-      propertyPath: m_LocalPosition.z
-      value: 0.307
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: bc06d1e844ba3694bbdecce4a99ba863, type: 3}
 --- !u!54 &2610664555048439513 stripped
