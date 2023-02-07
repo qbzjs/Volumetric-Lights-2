@@ -226,6 +226,18 @@ Transform:
   m_Father: {fileID: 2039536271}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: -29.941, y: 0, z: 0}
+--- !u!114 &281813503 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 2042349448411395589, guid: 602ab2103e03fa54a9cc5cce72159172,
+    type: 3}
+  m_PrefabInstance: {fileID: 523961782}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f88752b85dab7944686bf733691304fb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &318769962
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -670,6 +682,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: TransitionManagerPrefab
+      objectReference: {fileID: 0}
+    - target: {fileID: 2042349448411395586, guid: 602ab2103e03fa54a9cc5cce72159172,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 2042349448411395588, guid: 602ab2103e03fa54a9cc5cce72159172,
         type: 3}
@@ -2689,6 +2706,16 @@ PrefabInstance:
       propertyPath: m_Name
       value: CharacterCore
       objectReference: {fileID: 0}
+    - target: {fileID: 7217796708653836310, guid: 36e32e7372e41e346abb29f843dd75b3,
+        type: 3}
+      propertyPath: TransitionType
+      value: 
+      objectReference: {fileID: 281813503}
+    - target: {fileID: 7217796708653836310, guid: 36e32e7372e41e346abb29f843dd75b3,
+        type: 3}
+      propertyPath: TransitionManager
+      value: 
+      objectReference: {fileID: 281813503}
     - target: {fileID: 7217796708653836314, guid: 36e32e7372e41e346abb29f843dd75b3,
         type: 3}
       propertyPath: m_Layer
