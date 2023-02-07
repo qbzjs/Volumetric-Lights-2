@@ -1,6 +1,7 @@
 using System;
 using Character.Camera;
 using Kayak;
+using SceneTransition;
 using UnityEngine;
 
 namespace Character.State
@@ -11,6 +12,7 @@ namespace Character.State
         [Header("References"), SerializeField] private KayakController _kayakController;
         public CharacterStateBase CurrentStateBase;
         [SerializeField] private InputManagement _inputManagement;
+        public TransitionManager TransitionManager;
         public CameraController CamController;
         public Transform KayakMesh, CharacterMesh;
 
