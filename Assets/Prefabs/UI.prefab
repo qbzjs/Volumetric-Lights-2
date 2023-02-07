@@ -1806,6 +1806,7 @@ MonoBehaviour:
   _textList:
   - {fileID: 922510534845697927}
   - {fileID: 1732385602142522460}
+  _zoneNameText: {fileID: 922510534845697927}
   _showTime: 1
   holdTime: 1
   _hideTime: 0.5

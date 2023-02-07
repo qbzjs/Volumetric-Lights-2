@@ -10,6 +10,7 @@ namespace UI
     public class ZoneManager : MonoBehaviour
     {
         [SerializeField] private List<TMP_Text> _textList;
+        [SerializeField] private TMP_Text _zoneNameText;
         [SerializeField, Range(0,5)] private float _showTime, holdTime, _hideTime;
 
         private void Start()
@@ -20,6 +21,7 @@ namespace UI
         public void ShowZone(string zoneName)
         {
             _textList.ForEach(x => x.DOFade(1,_showTime).OnComplete(HideZone));
+            _zoneNameText.text = zoneName;
         }
     
         private void HideZone()
