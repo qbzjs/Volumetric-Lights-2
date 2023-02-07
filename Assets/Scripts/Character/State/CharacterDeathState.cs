@@ -1,5 +1,4 @@
 ﻿using Kayak;
-using SceneTransition;
 using UnityEngine;
 
 namespace Character.State
@@ -8,7 +7,6 @@ namespace Character.State
     {
         private KayakController _kayakController;
         private InputManagement _inputManagement;
-        private TransitionType _transitionType;
 
         public CharacterDeathState(CharacterManager characterManagerRef, KayakController kayakController) : base(characterManagerRef)
         {
@@ -26,6 +24,7 @@ namespace Character.State
         public override void EnterState(CharacterManager character)
         {
             Debug.Log("death");
+            CharacterManagerRef.TransitionManager.LaunchTransitionIn(SceneTransition.TransitionType.Fade);
         }
 
         public override void UpdateState(CharacterManager character)
@@ -34,12 +33,13 @@ namespace Character.State
             MakeBoatRotationWithBalance(_kayakController.Mesh);
             if (Input.GetKeyDown(KeyCode.K))
             {
-                //TransitionManager.LaunchTransitionIn(_transitionType);
                 _kayakController.transform.position = checkpoint.position;
                 _kayakController.transform.rotation = checkpoint.rotation;
 
-                CharacterNavigationState characterUnbalancedState = new CharacterNavigationState(_kayakController, _inputManagement, CharacterManagerRef);
-                CharacterManagerRef.SwitchState(characterUnbalancedState);
+                _kayakController.CanReduceDrag = true;
+                CharacterManagerRef.CamController.CanMoveCameraMaunally = true;
+                CharacterManagerRef.Balance = 0;
+                this.SwitchState(character);
             }
         }
 
@@ -49,6 +49,9 @@ namespace Character.State
 
         public override void SwitchState(CharacterManager character)
         {
+            CharacterManagerRef.TransitionManager.LaunchTransitionOut(SceneTransition.TransitionType.Fade);
+            CharacterNavigationState characterNavigationState = new CharacterNavigationState(_kayakController, _inputManagement, CharacterManagerRef);
+            CharacterManagerRef.SwitchState(characterNavigationState);
         }
     }
 }

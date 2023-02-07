@@ -13,9 +13,9 @@ namespace Character.State
         private KayakParameters _kayakValues;
 
         private float _rightPaddleCooldown, _leftPaddleCooldown;
-        
+
         #endregion
-        
+
         #region Constructor
 
         public CharacterUnbalancedState(KayakController kayak, InputManagement inputManagement, CharacterManager characterManagerRef) : base(characterManagerRef)
@@ -28,7 +28,7 @@ namespace Character.State
         #endregion
 
         #region Override Functions
-        
+
         public override void EnterState(CharacterManager character)
         {
             Debug.Log("unbalanced");
@@ -43,9 +43,9 @@ namespace Character.State
         {
             TimerManagement();
             PaddleCooldownManagement();
-            
+
             MakeBoatRotationWithBalance(_kayakController.Mesh);
-            
+
             Rebalance();
         }
 
@@ -56,7 +56,7 @@ namespace Character.State
         public override void SwitchState(CharacterManager character)
         {
         }
-        
+
         #endregion
 
         #region Methods
@@ -66,20 +66,20 @@ namespace Character.State
             CharacterManagerRef.Balance += Time.deltaTime * Mathf.Sign(CharacterManagerRef.Balance);
             if (Mathf.Abs(CharacterManagerRef.Balance) >= CharacterManagerRef.BalanceDeathLimit)
             {
-                CharacterDeathState characterDeathState = new CharacterDeathState(CharacterManagerRef, _kayakController);
+                CharacterDeathState characterDeathState = new CharacterDeathState(CharacterManagerRef, _inputs, _kayakController);
                 CharacterManagerRef.SwitchState(characterDeathState);
             }
-            else if(Mathf.Abs(CharacterManagerRef.Balance) < CharacterManagerRef.RebalanceAngle)
+            else if (Mathf.Abs(CharacterManagerRef.Balance) < CharacterManagerRef.RebalanceAngle)
             {
                 _kayakController.CanReduceDrag = true;
                 CharacterManagerRef.CamController.CanMoveCameraMaunally = true;
                 CharacterManagerRef.Balance = 0;
-                
+
                 CharacterNavigationState characterNavigationState = new CharacterNavigationState(_kayakController, _inputs, CharacterManagerRef);
                 CharacterManagerRef.SwitchState(characterNavigationState);
             }
         }
-        
+
         private void PaddleCooldownManagement()
         {
             _leftPaddleCooldown -= Time.deltaTime;
@@ -92,7 +92,7 @@ namespace Character.State
             {
                 CharacterManagerRef.Balance += _kayakValues.UnbalancePaddleForce;
                 _leftPaddleCooldown = _kayakValues.UnbalancePaddleCooldown;
-                
+
                 //audio
                 SoundManager.Instance.PlaySound(_kayakController.PaddlingAudioClip);
             }
@@ -100,7 +100,7 @@ namespace Character.State
             {
                 CharacterManagerRef.Balance -= _kayakValues.UnbalancePaddleForce;
                 _rightPaddleCooldown = _kayakValues.UnbalancePaddleCooldown;
-                
+
                 //audio
                 SoundManager.Instance.PlaySound(_kayakController.PaddlingAudioClip);
             }
