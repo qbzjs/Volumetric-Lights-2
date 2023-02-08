@@ -598,7 +598,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5c9ad99accd13d042bb402174874e832, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _kayakController: {fileID: 7217796708516857175}
+  KayakController: {fileID: 0}
   _inputManagement: {fileID: 5885439514833416252}
   CamController: {fileID: 2865575383136156668}
   TransitionManager: {fileID: 0}
@@ -852,18 +852,6 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 2348827399903010682}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &7217796708516857175 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 4950148468892883501, guid: bc06d1e844ba3694bbdecce4a99ba863,
-    type: 3}
-  m_PrefabInstance: {fileID: 2348827399903010682}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d0e0857b45e56e14f88336079beaccaf, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1001 &3077108200881755274
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1094,7 +1082,7 @@ PrefabInstance:
     - target: {fileID: 3087206494705252583, guid: 42b890032cd51ac40acf57145eba518e,
         type: 3}
       propertyPath: m_LocalPosition.z
-      value: 0.6670641
+      value: 0.52
       objectReference: {fileID: 0}
     - target: {fileID: 3087206494705252583, guid: 42b890032cd51ac40acf57145eba518e,
         type: 3}
