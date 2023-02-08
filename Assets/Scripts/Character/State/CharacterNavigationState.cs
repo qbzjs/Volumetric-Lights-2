@@ -168,8 +168,9 @@ namespace Character.State
 
         private void HandlePaddleMovement()
         {
+            float staticInput = Mathf.Abs(_inputs.Inputs.RotateLeft) + Mathf.Abs(_inputs.Inputs.RotateRight);
             //input -> paddleMovement
-            if (_inputs.Inputs.PaddleLeft && _rightPaddleCooldown <= 0 && _inputs.Inputs.PaddleRight == false)
+            if (_inputs.Inputs.PaddleLeft && _rightPaddleCooldown <= 0 && _inputs.Inputs.PaddleRight == false && staticInput < 0.1f)
             {
                 _rightPaddleCooldown = _kayakValues.PaddleCooldown;
                 _rightPaddleCooldown = _kayakValues.PaddleCooldown / 2;
@@ -177,7 +178,7 @@ namespace Character.State
                 MonoBehaviourRef.StartCoroutine(PaddleForceCurve());
             }
             
-            if (_inputs.Inputs.PaddleRight && _leftPaddleCooldown <= 0 && _inputs.Inputs.PaddleLeft == false)
+            if (_inputs.Inputs.PaddleRight && _leftPaddleCooldown <= 0 && _inputs.Inputs.PaddleLeft == false && staticInput < 0.1f)
             {
                 _leftPaddleCooldown = _kayakValues.PaddleCooldown;
                 _leftPaddleCooldown = _kayakValues.PaddleCooldown / 2;
