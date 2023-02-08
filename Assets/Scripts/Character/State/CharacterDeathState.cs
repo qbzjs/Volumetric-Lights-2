@@ -25,7 +25,7 @@ namespace Character.State
         public override void EnterState(CharacterManager character)
         {
             Debug.Log("death");
-//            CameraController.Instance.DeadState = true;
+            //            CameraController.Instance.DeadState = true;
         }
 
         public override void UpdateState(CharacterManager character)
@@ -39,13 +39,14 @@ namespace Character.State
                 CharacterManagerRef.Balance -= 0.5f;
 
             //Timer Start Fade
-            _timerFadeOutStart += Time.deltaTime;
+            if (CameraController.Instance.StartTimerDeath == true)
+                _timerFadeOutStart += Time.deltaTime;
             //Timer transition In
             if (_transitionIn == true)
                 _timerFadeInEnded += Time.deltaTime;
-            
+
             //Transition In
-            if (_timerFadeOutStart > CharacterManagerRef.TimeToPlayFadeOut  && _transitionIn == false)
+            if (_timerFadeOutStart > CharacterManagerRef.TimeToPlayFadeOut && _transitionIn == false)
             {
                 _transitionIn = true;
                 CharacterManagerRef.TransitionManager.LaunchTransitionIn(SceneTransition.TransitionType.Fade);
@@ -71,7 +72,7 @@ namespace Character.State
                 if (_timerToRespawnCheckpoint >= CharacterManagerRef.TimeToPlayFadeOut)
                     this.SwitchState(character);
             }
-            MakeBoatRotationWithBalance(_kayakController.transform,1);
+            MakeBoatRotationWithBalance(_kayakController.transform, 1);
         }
 
         public override void FixedUpdate(CharacterManager character)
@@ -82,10 +83,11 @@ namespace Character.State
         {
             //Transition out
             CharacterManagerRef.TransitionManager.LaunchTransitionOut(SceneTransition.TransitionType.Fade);
-            
+
             //Reset variable
             CameraController.Instance.DeadState = false;
-            
+            CameraController.Instance.ResetValueDead();
+
             //Switch state
             CharacterNavigationState characterNavigationState = new CharacterNavigationState(_kayakController, _inputs, CharacterManagerRef, MonoBehaviourRef);
             CharacterManagerRef.SwitchState(characterNavigationState);

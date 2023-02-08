@@ -1869,6 +1869,18 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: c65dbc6e6a13448468e3141d768ce52b, type: 3}
+--- !u!114 &1714136896 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 7217796708516857175, guid: 36e32e7372e41e346abb29f843dd75b3,
+    type: 3}
+  m_PrefabInstance: {fileID: 7217796708188491343}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d0e0857b45e56e14f88336079beaccaf, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!4 &1826803700 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 4616244911090478533, guid: 1234adbd798f2fe449590ea419456881,
@@ -2682,22 +2694,22 @@ PrefabInstance:
     - target: {fileID: 2865575383136156668, guid: 36e32e7372e41e346abb29f843dd75b3,
         type: 3}
       propertyPath: PendulumValue
-      value: 30
+      value: 25
       objectReference: {fileID: 0}
     - target: {fileID: 2865575383136156668, guid: 36e32e7372e41e346abb29f843dd75b3,
         type: 3}
       propertyPath: SpeedPendulum
-      value: 2
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 2865575383136156668, guid: 36e32e7372e41e346abb29f843dd75b3,
         type: 3}
       propertyPath: PendulumValueMoins
-      value: 3
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 2865575383136156668, guid: 36e32e7372e41e346abb29f843dd75b3,
         type: 3}
       propertyPath: SpeedPendulumMoins
-      value: 0.2
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 2865575383136156668, guid: 36e32e7372e41e346abb29f843dd75b3,
         type: 3}
@@ -2841,6 +2853,11 @@ PrefabInstance:
       objectReference: {fileID: 281813503}
     - target: {fileID: 7217796708653836310, guid: 36e32e7372e41e346abb29f843dd75b3,
         type: 3}
+      propertyPath: KayakController
+      value: 
+      objectReference: {fileID: 1714136896}
+    - target: {fileID: 7217796708653836310, guid: 36e32e7372e41e346abb29f843dd75b3,
+        type: 3}
       propertyPath: TimeFadeInEnded
       value: 4.53
       objectReference: {fileID: 0}
@@ -2852,7 +2869,7 @@ PrefabInstance:
     - target: {fileID: 7217796708653836310, guid: 36e32e7372e41e346abb29f843dd75b3,
         type: 3}
       propertyPath: TimeToPlayFadeOut
-      value: 5
+      value: 0.1
       objectReference: {fileID: 0}
     - target: {fileID: 7217796708653836310, guid: 36e32e7372e41e346abb29f843dd75b3,
         type: 3}
