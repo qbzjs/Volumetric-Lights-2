@@ -1,4 +1,5 @@
 using System.Collections;
+using Character.Camera;
 using Kayak;
 using UnityEngine;
 
@@ -72,6 +73,7 @@ namespace Character.State
                 
                 CharacterUnbalancedState characterUnbalancedState = new CharacterUnbalancedState(_kayakController, _inputs, CharacterManagerRef, MonoBehaviourRef);
                 CharacterManagerRef.SwitchState(characterUnbalancedState);
+                this.SwitchState(character);
             }
             
             MakeBoatRotationWithBalance(_kayakController.transform, 1);
@@ -102,6 +104,7 @@ namespace Character.State
 
         public override void SwitchState(CharacterManager character)
         {
+            CameraController.Instance.NormalState = false;
         }
 
         #endregion

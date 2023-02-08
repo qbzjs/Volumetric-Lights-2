@@ -17,6 +17,7 @@ namespace Character.State
         [Header("Transition death")]
         public TransitionManager TransitionManager;
         [Range(0, 5)] public float TimeToPlayFadeOut = 2.0f;
+        [Range(0, 5)] public float TimeToRespawnCheckPoint = 2.0f;
         [Range(0, 5)] public float TimeFadeInEnded = 1.5f;
 
         [Header("Balance"), SerializeField, Range(0, 1)] private float balanceLerpTo0Value = 0.01f;
