@@ -9,7 +9,7 @@ namespace Character.State
     public class CharacterManager : MonoBehaviour
     {
 
-        [Header("References"), SerializeField] private KayakController _kayakController;
+        [Header("References")] public KayakController KayakController;
         public CharacterStateBase CurrentStateBase;
         [SerializeField] private InputManagement _inputManagement;
         public CameraController CamController;
@@ -33,7 +33,7 @@ namespace Character.State
         private void Awake()
         {
             CharacterNavigationState navigationState =
-                new CharacterNavigationState(_kayakController, _inputManagement, this, this);
+                new CharacterNavigationState(KayakController, _inputManagement, this, this);
             CurrentStateBase = navigationState;
         }
 

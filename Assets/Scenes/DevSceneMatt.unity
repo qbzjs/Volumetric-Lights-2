@@ -1237,6 +1237,18 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 7
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &917211426 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 7217796708516857175, guid: 36e32e7372e41e346abb29f843dd75b3,
+    type: 3}
+  m_PrefabInstance: {fileID: 7217796708188491343}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d0e0857b45e56e14f88336079beaccaf, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1167066294
 GameObject:
   m_ObjectHideFlags: 0
@@ -2955,6 +2967,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: CharacterCore
       objectReference: {fileID: 0}
+    - target: {fileID: 7217796708653836310, guid: 36e32e7372e41e346abb29f843dd75b3,
+        type: 3}
+      propertyPath: KayakController
+      value: 
+      objectReference: {fileID: 917211426}
     - target: {fileID: 7217796708653836310, guid: 36e32e7372e41e346abb29f843dd75b3,
         type: 3}
       propertyPath: TransitionManager

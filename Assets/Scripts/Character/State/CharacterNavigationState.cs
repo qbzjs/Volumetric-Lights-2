@@ -96,6 +96,8 @@ namespace Character.State
             
             KayakRotationManager(RotationType.Paddle);
             KayakRotationManager(RotationType.Static);
+            
+            VelocityToward();
         }
 
         public override void SwitchState(CharacterManager character)
