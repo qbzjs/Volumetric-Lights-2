@@ -86,6 +86,9 @@ AnimatorStateTransition:
   - m_ConditionMode: 1
     m_ConditionEvent: BrakeRight
     m_EventTreshold: 0
+  - m_ConditionMode: 2
+    m_ConditionEvent: BrakeLeft
+    m_EventTreshold: 0
   m_DstStateMachine: {fileID: 0}
   m_DstState: {fileID: -5776582792505747529}
   m_Solo: 0
@@ -136,6 +139,9 @@ AnimatorStateTransition:
   - m_ConditionMode: 1
     m_ConditionEvent: PaddleLeft
     m_EventTreshold: 0
+  - m_ConditionMode: 2
+    m_ConditionEvent: Unbalance
+    m_EventTreshold: 0
   m_DstStateMachine: {fileID: 0}
   m_DstState: {fileID: -6738565247519074340}
   m_Solo: 0
@@ -160,6 +166,9 @@ AnimatorStateTransition:
   m_Conditions:
   - m_ConditionMode: 1
     m_ConditionEvent: PaddleRight
+    m_EventTreshold: 0
+  - m_ConditionMode: 2
+    m_ConditionEvent: BrakeRight
     m_EventTreshold: 0
   m_DstStateMachine: {fileID: 0}
   m_DstState: {fileID: 1227858885730352976}
@@ -323,6 +332,9 @@ AnimatorStateTransition:
   - m_ConditionMode: 1
     m_ConditionEvent: PaddleLeft
     m_EventTreshold: 0
+  - m_ConditionMode: 2
+    m_ConditionEvent: BrakeLeft
+    m_EventTreshold: 0
   m_DstStateMachine: {fileID: 0}
   m_DstState: {fileID: -6738565247519074340}
   m_Solo: 0
@@ -347,6 +359,9 @@ AnimatorStateTransition:
   m_Conditions:
   - m_ConditionMode: 1
     m_ConditionEvent: BrakeRight
+    m_EventTreshold: 0
+  - m_ConditionMode: 2
+    m_ConditionEvent: Unbalance
     m_EventTreshold: 0
   m_DstStateMachine: {fileID: 0}
   m_DstState: {fileID: -5776582792505747529}
@@ -373,6 +388,9 @@ AnimatorStateTransition:
   - m_ConditionMode: 1
     m_ConditionEvent: Idle
     m_EventTreshold: 0
+  - m_ConditionMode: 2
+    m_ConditionEvent: BrakeLeft
+    m_EventTreshold: 0
   m_DstStateMachine: {fileID: 0}
   m_DstState: {fileID: -2281743554662957642}
   m_Solo: 0
@@ -397,6 +415,9 @@ AnimatorStateTransition:
   m_Conditions:
   - m_ConditionMode: 1
     m_ConditionEvent: PaddleLeft
+    m_EventTreshold: 0
+  - m_ConditionMode: 2
+    m_ConditionEvent: Idle
     m_EventTreshold: 0
   m_DstStateMachine: {fileID: 0}
   m_DstState: {fileID: -6738565247519074340}
@@ -454,6 +475,9 @@ AnimatorStateTransition:
   - m_ConditionMode: 1
     m_ConditionEvent: BrakeLeft
     m_EventTreshold: 0
+  - m_ConditionMode: 2
+    m_ConditionEvent: Unbalance
+    m_EventTreshold: 0
   m_DstStateMachine: {fileID: 0}
   m_DstState: {fileID: 1885637878508561385}
   m_Solo: 0
@@ -478,6 +502,9 @@ AnimatorStateTransition:
   m_Conditions:
   - m_ConditionMode: 1
     m_ConditionEvent: BrakeLeft
+    m_EventTreshold: 0
+  - m_ConditionMode: 2
+    m_ConditionEvent: Idle
     m_EventTreshold: 0
   m_DstStateMachine: {fileID: 0}
   m_DstState: {fileID: 1885637878508561385}
@@ -504,6 +531,9 @@ AnimatorStateTransition:
   - m_ConditionMode: 1
     m_ConditionEvent: PaddleRight
     m_EventTreshold: 0
+  - m_ConditionMode: 2
+    m_ConditionEvent: Idle
+    m_EventTreshold: 0
   m_DstStateMachine: {fileID: 0}
   m_DstState: {fileID: 1227858885730352976}
   m_Solo: 0
@@ -529,6 +559,9 @@ AnimatorStateTransition:
   - m_ConditionMode: 1
     m_ConditionEvent: BrakeLeft
     m_EventTreshold: 0
+  - m_ConditionMode: 2
+    m_ConditionEvent: BrakeRight
+    m_EventTreshold: 0
   m_DstStateMachine: {fileID: 0}
   m_DstState: {fileID: 1885637878508561385}
   m_Solo: 0
@@ -553,6 +586,9 @@ AnimatorStateTransition:
   m_Conditions:
   - m_ConditionMode: 1
     m_ConditionEvent: PaddleRight
+    m_EventTreshold: 0
+  - m_ConditionMode: 2
+    m_ConditionEvent: BrakeLeft
     m_EventTreshold: 0
   m_DstStateMachine: {fileID: 0}
   m_DstState: {fileID: 1227858885730352976}
@@ -581,7 +617,7 @@ AnimatorController:
     m_Type: 4
     m_DefaultFloat: 0
     m_DefaultInt: 0
-    m_DefaultBool: 1
+    m_DefaultBool: 0
     m_Controller: {fileID: 0}
   - m_Name: PaddleRight
     m_Type: 9
@@ -792,6 +828,9 @@ AnimatorStateTransition:
   - m_ConditionMode: 1
     m_ConditionEvent: Idle
     m_EventTreshold: 0
+  - m_ConditionMode: 2
+    m_ConditionEvent: BrakeRight
+    m_EventTreshold: 0
   m_DstStateMachine: {fileID: 0}
   m_DstState: {fileID: -2281743554662957642}
   m_Solo: 0
@@ -816,6 +855,9 @@ AnimatorStateTransition:
   m_Conditions:
   - m_ConditionMode: 1
     m_ConditionEvent: PaddleRight
+    m_EventTreshold: 0
+  - m_ConditionMode: 2
+    m_ConditionEvent: Unbalance
     m_EventTreshold: 0
   m_DstStateMachine: {fileID: 0}
   m_DstState: {fileID: 1227858885730352976}
@@ -842,6 +884,9 @@ AnimatorStateTransition:
   - m_ConditionMode: 1
     m_ConditionEvent: Unbalance
     m_EventTreshold: 0
+  - m_ConditionMode: 2
+    m_ConditionEvent: Idle
+    m_EventTreshold: 0
   m_DstStateMachine: {fileID: 0}
   m_DstState: {fileID: 3151349693497396367}
   m_Solo: 0
@@ -866,6 +911,9 @@ AnimatorStateTransition:
   m_Conditions:
   - m_ConditionMode: 1
     m_ConditionEvent: Idle
+    m_EventTreshold: 0
+  - m_ConditionMode: 2
+    m_ConditionEvent: Unbalance
     m_EventTreshold: 0
   m_DstStateMachine: {fileID: 0}
   m_DstState: {fileID: -2281743554662957642}
@@ -917,6 +965,9 @@ AnimatorStateTransition:
   - m_ConditionMode: 1
     m_ConditionEvent: BrakeRight
     m_EventTreshold: 0
+  - m_ConditionMode: 2
+    m_ConditionEvent: Idle
+    m_EventTreshold: 0
   m_DstStateMachine: {fileID: 0}
   m_DstState: {fileID: -5776582792505747529}
   m_Solo: 0
@@ -941,6 +992,9 @@ AnimatorStateTransition:
   m_Conditions:
   - m_ConditionMode: 1
     m_ConditionEvent: PaddleLeft
+    m_EventTreshold: 0
+  - m_ConditionMode: 2
+    m_ConditionEvent: BrakeRight
     m_EventTreshold: 0
   m_DstStateMachine: {fileID: 0}
   m_DstState: {fileID: -6738565247519074340}
@@ -992,6 +1046,9 @@ AnimatorStateTransition:
   - m_ConditionMode: 1
     m_ConditionEvent: Unbalance
     m_EventTreshold: 0
+  - m_ConditionMode: 2
+    m_ConditionEvent: BrakeRight
+    m_EventTreshold: 0
   m_DstStateMachine: {fileID: 0}
   m_DstState: {fileID: 3151349693497396367}
   m_Solo: 0
@@ -1016,6 +1073,9 @@ AnimatorStateTransition:
   m_Conditions:
   - m_ConditionMode: 1
     m_ConditionEvent: Unbalance
+    m_EventTreshold: 0
+  - m_ConditionMode: 2
+    m_ConditionEvent: BrakeLeft
     m_EventTreshold: 0
   m_DstStateMachine: {fileID: 0}
   m_DstState: {fileID: 3151349693497396367}
