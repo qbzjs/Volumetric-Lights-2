@@ -21,11 +21,12 @@ namespace Character
 
         private void MatchCharacterWithBoat()
         {
+            //position
             transform.position = KayakTransform.position + _playerPosition;
-        
-            Vector3 rotation = transform.rotation.eulerAngles;
+            
+            //rotation
             Vector3 boatRotation = KayakTransform.rotation.eulerAngles;
-            transform.rotation = Quaternion.Euler(rotation.x, boatRotation.y + 180, -boatRotation.z + 180);
+            transform.rotation = Quaternion.Euler(boatRotation.x,boatRotation.y,boatRotation.z);
         }
     }
 }
