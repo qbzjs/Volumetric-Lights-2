@@ -65,8 +65,18 @@ namespace Character.Camera
         private float _cameraBaseFov;
 
 
+        public bool NormalState = true;
+        public bool DeadState = false;
+        private float _rotaZ = 0;
+        private bool _left;
+        private float _lastRotaZ;
 
-        private float rotaZ = 0;
+        [Header("DeadState (ça fonctionne que une fois pour l'instant)")]
+        public float PendulumValue = 10;
+        public float SpeedPendulum = 1;
+        public float PendulumValueMoins = 1;
+        public float SpeedPendulumMoins = 0.1f;
+        private bool _playOnce = false;
         private void Start()
         {
             _cinemachineTargetYaw = _cinemachineCameraTarget.transform.rotation.eulerAngles.y;
@@ -77,6 +87,16 @@ namespace Character.Camera
         {
             CameraRotation();
             FielOfView();
+
+            if (NormalState == true && Mathf.Abs(_rotaZ) >= 0.1f)
+            {
+                ResetRotateZ();
+            }
+
+            if (DeadState == true)
+            {
+                Isdead();
+            }
         }
         private void FielOfView()
         {
@@ -176,9 +196,16 @@ namespace Character.Camera
             _cinemachineCameraTarget.transform.rotation = Quaternion.Euler(_cinemachineTargetPitch + _cameraAngleOverride, //pitch
             _cinemachineTargetYaw, //yaw
                                    //_cinemachineCameraTarget.transform.rotation.eulerAngles.z); //stay the same
-             rotaZ); //stay the same
+             _rotaZ); //stay the same
 
         }
+
+        private void ResetRotateZ()
+        {
+            print("reset");
+            _rotaZ = Mathf.Lerp(_rotaZ, 0, 0.01f);
+        }
+
         private void RotateCamInZ()
         {
             if (Mathf.Abs(_characterManager.Balance) <= _characterManager.BalanceDeathLimit)
@@ -186,19 +213,71 @@ namespace Character.Camera
                 if (Mathf.Abs(_characterManager.Balance) > _characterManager.BalanceLimit)
                 {
                     if (_characterManager.Balance > 0)
-                        rotaZ = Mathf.Lerp(rotaZ, _characterManager.Balance + 10, 0.01f);
+                    {
+                        _rotaZ = Mathf.Lerp(_rotaZ, _characterManager.Balance + 10, 0.01f);
+                    }
                     else if (_characterManager.Balance < 0)
-                        rotaZ = Mathf.Lerp(rotaZ, _characterManager.Balance - 10, 0.01f);
-                }
-                else
-                {
-                    rotaZ = Mathf.Lerp(rotaZ, 0, 0.01f);
+                    {
+                        _rotaZ = Mathf.Lerp(_rotaZ, _characterManager.Balance - 10, 0.01f);
+                    }
                 }
             }
             else
             {
-                rotaZ = Mathf.Lerp(rotaZ, 0, 0.01f);
+                if (DeadState == false)
+                {
+                    _lastRotaZ = _rotaZ;
+                    DeadState = true;
+                }
             }
+        }
+        
+        
+
+
+        private void Isdead()
+        {
+            if(_lastRotaZ > 0)
+            {
+                _left = false;
+            }
+            if (_rotaZ >= PendulumValue)
+            {
+                _left = false;
+                if (PendulumValue > 0 && _playOnce == false)
+                {
+                    PendulumValue -= PendulumValueMoins;
+                    SpeedPendulum -= SpeedPendulumMoins;
+                    _playOnce = true;
+                }
+            }
+            else if (_rotaZ <= -PendulumValue)
+            {
+                //left
+                _left = true;
+                if (PendulumValue > 0 && _playOnce == false)
+                {
+                    PendulumValue -= PendulumValueMoins;
+                    SpeedPendulum -= SpeedPendulumMoins;
+                    _playOnce = true;
+                }
+            }
+
+            if (_rotaZ > -PendulumValue && _rotaZ < PendulumValue)
+                _playOnce = false;
+
+            if (_left == true)
+            {
+                _rotaZ += 0.1f * SpeedPendulum;
+            }
+            else
+                _rotaZ -= 0.1f * SpeedPendulum;
+
+
+            if (SpeedPendulum <= 0.1f)
+                ResetRotateZ();
+
+            //_rotaZ = Mathf.Lerp(_rotaZ, 0, 0.01f);
         }
         private float ClampAngle(float lfAngle, float lfMin, float lfMax)
         {
