@@ -722,7 +722,7 @@ MonoBehaviour:
   _bottomClamp: -10
   _cameraAngleOverride: 0
   _rigidbodyKayak: {fileID: 2610664555048439513}
-  characterManager: {fileID: 7217796708653836310}
+  _characterManager: {fileID: 7217796708653836310}
   _input: {fileID: 5885439514833416252}
   _balanceRotationMultiplier: 0
   _balanceRotationZLerp: 0.01
