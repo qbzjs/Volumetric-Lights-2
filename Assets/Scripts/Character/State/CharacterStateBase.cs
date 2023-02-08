@@ -34,9 +34,6 @@ namespace Character.State
             Vector3 boatRotation = kayakTransform.localRotation.eulerAngles;
             Quaternion targetBoatRotation = Quaternion.Euler(boatRotation.x,boatRotation.y, CharacterManagerRef.Balance * 3 * multiplier);
             kayakTransform.localRotation = Quaternion.Lerp(kayakTransform.localRotation, targetBoatRotation, 0.025f);
-            
-            Vector3 characterRotation = CharacterManagerRef.transform.rotation.eulerAngles;
-            CharacterManagerRef.transform.rotation = Quaternion.Euler(characterRotation.x,characterRotation.y, -boatRotation.z);
         }
     }
 }

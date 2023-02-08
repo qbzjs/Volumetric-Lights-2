@@ -74,7 +74,7 @@ namespace Character.State
                 CharacterManagerRef.SwitchState(characterUnbalancedState);
             }
             
-            MakeBoatRotationWithBalance(_kayakController.Mesh, 1);
+            MakeBoatRotationWithBalance(_kayakController.transform, 1);
         }
 
         public override void FixedUpdate(CharacterManager character)
