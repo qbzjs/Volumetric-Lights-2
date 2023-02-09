@@ -887,18 +887,6 @@ Mesh:
     offset: 0
     size: 0
     path: 
---- !u!114 &63764578 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 7217796708516857175, guid: 36e32e7372e41e346abb29f843dd75b3,
-    type: 3}
-  m_PrefabInstance: {fileID: 1878923627}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d0e0857b45e56e14f88336079beaccaf, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!43 &184955661
 Mesh:
   m_ObjectHideFlags: 0
@@ -7643,7 +7631,7 @@ PrefabInstance:
     - target: {fileID: 4285338905635752385, guid: c65dbc6e6a13448468e3141d768ce52b,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: 579
+      value: 584.5
       objectReference: {fileID: 0}
     - target: {fileID: 4285338905635752385, guid: c65dbc6e6a13448468e3141d768ce52b,
         type: 3}
@@ -7653,7 +7641,7 @@ PrefabInstance:
     - target: {fileID: 4285338905635752385, guid: c65dbc6e6a13448468e3141d768ce52b,
         type: 3}
       propertyPath: m_LocalPosition.z
-      value: -412.8
+      value: -447.8
       objectReference: {fileID: 0}
     - target: {fileID: 4285338905635752385, guid: c65dbc6e6a13448468e3141d768ce52b,
         type: 3}
@@ -7708,12 +7696,37 @@ PrefabInstance:
     - target: {fileID: 5824427334280982204, guid: c65dbc6e6a13448468e3141d768ce52b,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: -8.6
+      value: -8.599976
       objectReference: {fileID: 0}
     - target: {fileID: 5824427334280982204, guid: c65dbc6e6a13448468e3141d768ce52b,
         type: 3}
       propertyPath: m_LocalPosition.z
       value: 1.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 5824427334280982204, guid: c65dbc6e6a13448468e3141d768ce52b,
+        type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5824427334280982204, guid: c65dbc6e6a13448468e3141d768ce52b,
+        type: 3}
+      propertyPath: m_LocalRotation.x
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5824427334280982204, guid: c65dbc6e6a13448468e3141d768ce52b,
+        type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0.00000044703472
+      objectReference: {fileID: 0}
+    - target: {fileID: 5824427334280982204, guid: c65dbc6e6a13448468e3141d768ce52b,
+        type: 3}
+      propertyPath: m_LocalRotation.z
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5824427334280982204, guid: c65dbc6e6a13448468e3141d768ce52b,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: c65dbc6e6a13448468e3141d768ce52b, type: 3}
@@ -14237,7 +14250,7 @@ RectTransform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1440702493}
   m_LocalRotation: {x: -0, y: -0.62928265, z: -0, w: 0.7771766}
-  m_LocalPosition: {x: 0, y: 0, z: -412.5}
+  m_LocalPosition: {x: 0, y: 0, z: -447.5}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -14246,7 +14259,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: -77.994, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 577.9001, y: 2.27}
+  m_AnchoredPosition: {x: 583.4001, y: 2.27}
   m_SizeDelta: {x: 20, y: 5}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1440702495
@@ -17489,36 +17502,6 @@ PrefabInstance:
       propertyPath: _waves
       value: 
       objectReference: {fileID: 419315132}
-    - target: {fileID: 2865575383136156668, guid: 36e32e7372e41e346abb29f843dd75b3,
-        type: 3}
-      propertyPath: _topClamp
-      value: 28
-      objectReference: {fileID: 0}
-    - target: {fileID: 2865575383136156668, guid: 36e32e7372e41e346abb29f843dd75b3,
-        type: 3}
-      propertyPath: _bottomClamp
-      value: -18
-      objectReference: {fileID: 0}
-    - target: {fileID: 2865575383136156668, guid: 36e32e7372e41e346abb29f843dd75b3,
-        type: 3}
-      propertyPath: PendulumValue
-      value: 5
-      objectReference: {fileID: 0}
-    - target: {fileID: 2865575383136156668, guid: 36e32e7372e41e346abb29f843dd75b3,
-        type: 3}
-      propertyPath: SpeedPendulum
-      value: 1.5
-      objectReference: {fileID: 0}
-    - target: {fileID: 2865575383136156668, guid: 36e32e7372e41e346abb29f843dd75b3,
-        type: 3}
-      propertyPath: PendulumValueMoins
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 2865575383136156668, guid: 36e32e7372e41e346abb29f843dd75b3,
-        type: 3}
-      propertyPath: SpeedPendulumMoins
-      value: 0.2
-      objectReference: {fileID: 0}
     - target: {fileID: 3387405727807608120, guid: 36e32e7372e41e346abb29f843dd75b3,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -17649,41 +17632,26 @@ PrefabInstance:
       propertyPath: m_Name
       value: CharacterCore
       objectReference: {fileID: 0}
-    - target: {fileID: 7217796708516857175, guid: 36e32e7372e41e346abb29f843dd75b3,
+    - target: {fileID: 7217796708440880409, guid: 36e32e7372e41e346abb29f843dd75b3,
         type: 3}
-      propertyPath: KayakValues.UnbalancePaddleForce
-      value: 0.46
-      objectReference: {fileID: 0}
-    - target: {fileID: 7217796708653836310, guid: 36e32e7372e41e346abb29f843dd75b3,
-        type: 3}
-      propertyPath: KayakController
-      value: 
-      objectReference: {fileID: 63764578}
-    - target: {fileID: 7217796708653836310, guid: 36e32e7372e41e346abb29f843dd75b3,
-        type: 3}
-      propertyPath: TimeFadeInEnded
-      value: 0.43
-      objectReference: {fileID: 0}
-    - target: {fileID: 7217796708653836310, guid: 36e32e7372e41e346abb29f843dd75b3,
-        type: 3}
-      propertyPath: TimeToPlayFadeOut
-      value: 1.14
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7217796708653836310, guid: 36e32e7372e41e346abb29f843dd75b3,
         type: 3}
       propertyPath: TransitionManager
       value: 
       objectReference: {fileID: 1861894415}
-    - target: {fileID: 7217796708653836310, guid: 36e32e7372e41e346abb29f843dd75b3,
-        type: 3}
-      propertyPath: TimeToRespawnCheckPoint
-      value: 1.93
-      objectReference: {fileID: 0}
     - target: {fileID: 7609300824562711772, guid: 36e32e7372e41e346abb29f843dd75b3,
         type: 3}
       propertyPath: _waves
       value: 
       objectReference: {fileID: 419315132}
+    - target: {fileID: 7609300824953394914, guid: 36e32e7372e41e346abb29f843dd75b3,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 36e32e7372e41e346abb29f843dd75b3, type: 3}
 --- !u!43 &1897250285
