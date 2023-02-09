@@ -273,47 +273,47 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d0e0857b45e56e14f88336079beaccaf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _dragReducingMultiplier: 50.4
+  _dragReducingMultiplier: 50.745
   DragReducingTimer: 0
   KayakValues:
     MaximumFrontVelocity: 20
     CollisionToBalanceMagnitudeDivider: 5
-    PaddleSideRotationForce: 0.2
-    PaddleCooldown: 1.2
-    PaddleRotationDeceleration: 0.01
-    PaddleForce: 100
-    NumberOfForceAppliance: 4
-    TimeBetweenEveryAppliance: 0.05
+    PaddleSideRotationForce: 0.091
+    PaddleCooldown: 2
+    PaddleRotationDeceleration: 0.008
+    PaddleForce: 80
+    NumberOfForceAppliance: 5
+    TimeBetweenEveryAppliance: 0.0487
     ForceCurve:
       serializedVersion: 2
       m_Curve:
       - serializedVersion: 3
-        time: -0.0009782761
-        value: 0.36073047
-        inSlope: 1.4552798
-        outSlope: 1.4552798
+        time: 0
+        value: 0
+        inSlope: 1.1792452
+        outSlope: 1.1792452
         tangentMode: 0
         weightedMode: 0
         inWeight: 0
-        outWeight: 0.029045934
+        outWeight: 0.1
       - serializedVersion: 3
         time: 1
         value: 1
-        inSlope: 0.07225551
-        outSlope: 0.07225551
+        inSlope: -0
+        outSlope: -0
         tangentMode: 0
         weightedMode: 0
-        inWeight: 0.19502074
+        inWeight: 0.46249998
         outWeight: 0
       m_PreInfinity: 2
       m_PostInfinity: 2
       m_RotationOrder: 4
-    StaticRotationForce: 0.005
-    StaticRotationDeceleration: 0.01
+    StaticRotationForce: 0.0106
+    StaticRotationDeceleration: 0.0152
     VelocityDecelerationLerp: 0.005
     VelocityDecelerationRotationForce: 0.01
     UnbalancePaddleCooldown: 0.5
-    UnbalancePaddleForce: 2
+    UnbalancePaddleForce: 6.18
   CanReduceDrag: 1
   _frontParticles:
   - {fileID: 4919407605512908475}
