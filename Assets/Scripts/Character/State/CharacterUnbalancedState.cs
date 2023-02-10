@@ -38,6 +38,14 @@ namespace Character.State
             //values
             _rightPaddleCooldown = _kayakValues.UnbalancePaddleCooldown;
             _leftPaddleCooldown = _kayakValues.UnbalancePaddleCooldown;
+            
+            //balance
+            if (Mathf.Abs(CharacterManagerRef.Balance) >
+                CharacterManagerRef.BalanceDeathLimit - CharacterManagerRef.MinimumTimeUnbalanced)
+            {
+                CharacterManagerRef.Balance = (CharacterManagerRef.BalanceDeathLimit - CharacterManagerRef.MinimumTimeUnbalanced) *
+                                              Mathf.Sign(CharacterManagerRef.Balance);
+            }
         }
 
         public override void UpdateState(CharacterManager character)

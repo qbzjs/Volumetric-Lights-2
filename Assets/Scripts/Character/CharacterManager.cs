@@ -44,6 +44,8 @@ namespace Character
         public float BalanceDeathLimit = 15f;
         [Range(0, 40), Tooltip("The angle the player has to reach when unbalanced to get back balanced")]
         public float RebalanceAngle = 8f;
+        [Range(0, 10), Tooltip("Minimum Time/Balance the player has to react when unbalanced")]
+        public float MinimumTimeUnbalanced = 2f;
 
 
         private void Awake()

@@ -314,7 +314,7 @@ MonoBehaviour:
     VelocityDecelerationLerp: 0.004
     VelocityDecelerationRotationForce: 0.01
     UnbalancePaddleCooldown: 0.5
-    UnbalancePaddleForce: 6.18
+    UnbalancePaddleForce: 2
   CanReduceDrag: 1
   _frontParticles:
   - {fileID: 4919407605512908475}
