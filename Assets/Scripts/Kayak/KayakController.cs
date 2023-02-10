@@ -140,6 +140,8 @@ namespace Kayak
         public float StaticRotationForce;
         [Range(0, 0.25f), Tooltip("The lerp deceleration value resetting the static rotation to 0 over time")] 
         public float StaticRotationDeceleration;
+        [Range(0, 5f), Tooltip("The cooldown after paddling allowing the player to static rotate ")] 
+        public float StaticRotationCooldownAfterPaddle;
         
         [Header("Deceleration")]
         [Range(0,0.1f), Tooltip("The lerp value of the velocity deceleration over time")] 

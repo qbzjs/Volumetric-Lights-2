@@ -310,6 +310,7 @@ MonoBehaviour:
       m_RotationOrder: 4
     StaticRotationForce: 0.0106
     StaticRotationDeceleration: 0.0152
+    StaticRotationCooldownAfterPaddle: 1
     VelocityDecelerationLerp: 0.004
     VelocityDecelerationRotationForce: 0.01
     UnbalancePaddleCooldown: 0.5

@@ -22,6 +22,7 @@ namespace Character.State
 
         //inputs
         private InputManagement _inputs;
+        private float _staticInputTimer;
 
         //kayak
         private Vector2 _paddleForceValue;
@@ -56,6 +57,7 @@ namespace Character.State
             //values
             _rightPaddleCooldown = _kayakValues.PaddleCooldown;
             _leftPaddleCooldown = _kayakValues.PaddleCooldown;
+            _staticInputTimer = _kayakValues.StaticRotationCooldownAfterPaddle;
                 
             //booleans
             CharacterManagerRef.LerpBalanceTo0 = true;
@@ -73,7 +75,7 @@ namespace Character.State
                 
                 CharacterUnbalancedState characterUnbalancedState = new CharacterUnbalancedState(_kayakController, _inputs, CharacterManagerRef, MonoBehaviourRef);
                 CharacterManagerRef.SwitchState(characterUnbalancedState);
-                this.SwitchState(character);
+                SwitchState(character);
             }
             
             MakeBoatRotationWithBalance(_kayakController.transform, 1);
@@ -81,6 +83,8 @@ namespace Character.State
 
         public override void FixedUpdate(CharacterManager character)
         {
+            SetBrakeAnimationToFalse();
+            
             if (CanCharacterMove == false)
             {
                 StopCharacter();
@@ -90,18 +94,12 @@ namespace Character.State
             if (_inputs.Inputs.PaddleLeft || _inputs.Inputs.PaddleRight)
             {
                 HandlePaddleMovement();
-
-                SetBrakeAnimationToFalse();
             }
-            if (_inputs.Inputs.RotateLeft != 0 || _inputs.Inputs.RotateRight != 0)
+            if ((_inputs.Inputs.RotateLeft != 0 || _inputs.Inputs.RotateRight != 0) && _staticInputTimer <= 0)
             {
                 HandleStaticRotation();
             }
-            else
-            {
-                SetBrakeAnimationToFalse();
-            }
-            
+
             KayakRotationManager(RotationType.Paddle);
             KayakRotationManager(RotationType.Static);
             
@@ -168,9 +166,10 @@ namespace Character.State
 
         private void Paddle(Direction direction)
         {
-            //apply force
+            //timers
             _kayakController.DragReducingTimer = 0.5f;
-
+            _staticInputTimer = _kayakValues.StaticRotationCooldownAfterPaddle;
+            
             //rotation
             float rotation = _kayakValues.PaddleSideRotationForce;
             RotationPaddleForceY += direction == Direction.Right ? -rotation : rotation;
@@ -184,13 +183,15 @@ namespace Character.State
             
             //animation
             CharacterManagerRef.PaddleAnimator.SetTrigger(direction == Direction.Left ? "PaddleLeft" : "PaddleRight");
+            
         }
 
         private void HandlePaddleMovement()
         {
             float staticInput = Mathf.Abs(_inputs.Inputs.RotateLeft) + Mathf.Abs(_inputs.Inputs.RotateRight);
+            
             //input -> paddleMovement
-            if (_inputs.Inputs.PaddleLeft && _rightPaddleCooldown <= 0 && _inputs.Inputs.PaddleRight == false && staticInput < 0.1f)
+            if (_inputs.Inputs.PaddleLeft && _rightPaddleCooldown <= 0 && _inputs.Inputs.PaddleRight == false)
             {
                 _rightPaddleCooldown = _kayakValues.PaddleCooldown;
                 _rightPaddleCooldown = _kayakValues.PaddleCooldown / 2;
@@ -198,7 +199,7 @@ namespace Character.State
                 MonoBehaviourRef.StartCoroutine(PaddleForceCurve());
             }
             
-            if (_inputs.Inputs.PaddleRight && _leftPaddleCooldown <= 0 && _inputs.Inputs.PaddleLeft == false && staticInput < 0.1f)
+            if (_inputs.Inputs.PaddleRight && _leftPaddleCooldown <= 0 && _inputs.Inputs.PaddleLeft == false)
             {
                 _leftPaddleCooldown = _kayakValues.PaddleCooldown;
                 _leftPaddleCooldown = _kayakValues.PaddleCooldown / 2;
@@ -224,6 +225,8 @@ namespace Character.State
         {
             _leftPaddleCooldown -= Time.deltaTime;
             _rightPaddleCooldown -= Time.deltaTime;
+
+            _staticInputTimer -= Time.deltaTime;
         }
 
         #endregion
