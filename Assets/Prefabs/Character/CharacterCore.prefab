@@ -673,11 +673,11 @@ MonoBehaviour:
   _input: {fileID: 5885439514833416252}
   _balanceRotationMultiplier: 0
   _balanceRotationZLerp: 0.01
-  _multiplierValueRotation: 20
-  _multiplierValuePosition: 2
+  _multiplierValueRotation: 75.5
+  _multiplierValuePosition: 8.64
   CanMoveCameraMaunally: 1
   _virtualCamera: {fileID: 4192299973026284776}
-  _multiplierFovCamera: 1.57
+  _multiplierFovCamera: 2.37
   _rotationXMinClamp: -5
   _rotationXMaxClamp: 5
   _rotationYMinClamp: -1
