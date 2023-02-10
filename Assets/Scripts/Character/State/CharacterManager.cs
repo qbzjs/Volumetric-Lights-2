@@ -13,6 +13,7 @@ namespace Character.State
         public CharacterStateBase CurrentStateBase;
         [SerializeField] private InputManagement _inputManagement;
         public CameraController CamController;
+        public Animator PaddleAnimator;
 
         [Header("Transition death")]
         public TransitionManager TransitionManager;

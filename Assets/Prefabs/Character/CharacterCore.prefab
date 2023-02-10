@@ -122,7 +122,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3014273842563118509}
   m_LocalRotation: {x: 0.13062188, y: 0.05271515, z: -0.006955267, w: 0.99000543}
-  m_LocalPosition: {x: -0.75000006, y: 4.106699, z: -7.0226398}
+  m_LocalPosition: {x: -0.75, y: 4.1066995, z: -7.0226393}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -241,8 +241,8 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3858187113969445702}
-  m_LocalRotation: {x: 0.12158245, y: -0, z: 4.6566134e-10, w: 0.99258137}
-  m_LocalPosition: {x: -0.75000006, y: 4.106699, z: -7.0226398}
+  m_LocalRotation: {x: 0.121443555, y: -0.047431704, z: 0.005809965, w: 0.99144745}
+  m_LocalPosition: {x: -0.07617086, y: 4.486699, z: -4.392164}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -524,7 +524,7 @@ GameObject:
   m_Component:
   - component: {fileID: 7217796708440880408}
   m_Layer: 0
-  m_Name: Mesh
+  m_Name: PaddleAndCharacter
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -629,6 +629,7 @@ MonoBehaviour:
   KayakController: {fileID: 7217796708516857175}
   _inputManagement: {fileID: 5885439514833416252}
   CamController: {fileID: 2865575383136156668}
+  PaddleAnimator: {fileID: 8907830870862546047}
   TransitionManager: {fileID: 0}
   TimeToPlayFadeOut: 0.62
   TimeToRespawnCheckPoint: 4.56
@@ -1172,6 +1173,12 @@ PrefabInstance:
 --- !u!4 &8907830870692452627 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 3268853077453613981, guid: 42b890032cd51ac40acf57145eba518e,
+    type: 3}
+  m_PrefabInstance: {fileID: 6252039122969522830}
+  m_PrefabAsset: {fileID: 0}
+--- !u!95 &8907830870862546047 stripped
+Animator:
+  m_CorrespondingSourceObject: {fileID: 3268853077837625073, guid: 42b890032cd51ac40acf57145eba518e,
     type: 3}
   m_PrefabInstance: {fileID: 6252039122969522830}
   m_PrefabAsset: {fileID: 0}

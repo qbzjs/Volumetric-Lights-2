@@ -169,6 +169,9 @@ namespace Character.State
 
             //audio
             SoundManager.Instance.PlaySound(_kayakController.PaddlingAudioClip);
+            
+            //animation
+            CharacterManagerRef.PaddleAnimator.SetTrigger(direction == Direction.Left ? "PaddleLeft" : "PaddleRight");
         }
 
         private void HandlePaddleMovement()
