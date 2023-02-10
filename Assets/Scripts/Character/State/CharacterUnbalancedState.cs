@@ -89,7 +89,7 @@ namespace Character.State
 
         private void Rebalance()
         {
-            if (_inputs.Inputs.PaddleLeft && _leftPaddleCooldown <= 0)
+            if (_inputs.Inputs.PaddleLeft && _leftPaddleCooldown <= 0 && CharacterManagerRef.Balance < 0)
             {
                 CharacterManagerRef.Balance += _kayakValues.UnbalancePaddleForce;
                 _leftPaddleCooldown = _kayakValues.UnbalancePaddleCooldown;
@@ -97,7 +97,7 @@ namespace Character.State
                 //audio
                 SoundManager.Instance.PlaySound(_kayakController.PaddlingAudioClip);
             }
-            if (_inputs.Inputs.PaddleRight && _rightPaddleCooldown <= 0)
+            if (_inputs.Inputs.PaddleRight && _rightPaddleCooldown <= 0 && CharacterManagerRef.Balance > 0)
             {
                 CharacterManagerRef.Balance -= _kayakValues.UnbalancePaddleForce;
                 _rightPaddleCooldown = _kayakValues.UnbalancePaddleCooldown;
