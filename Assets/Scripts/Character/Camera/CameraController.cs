@@ -161,8 +161,10 @@ namespace Character.Camera
                     Mathf.Abs(_characterManager.CurrentStateBase.RotationPaddleForceY) > rotationThreshold)
                 {
                     _cinemachineCameraTarget.transform.localRotation = Quaternion.Slerp(rotation, targetQuaternion, Time.deltaTime * 2);
-                    if (_characterManager.CurrentStateBase.RotationPaddleForceY > rotationThreshold)
+                    if (Mathf.Abs(_characterManager.CurrentStateBase.RotationPaddleForceY) > rotationThreshold)
                     {
+                        print(_characterManager.CurrentStateBase.RotationStaticForceY + "static");
+                        print(_characterManager.CurrentStateBase.RotationPaddleForceY + "paddle");
                         cameraTargetLocalPosition.x = Mathf.Lerp(cameraTargetLocalPosition.x, (_characterManager.CurrentStateBase.RotationStaticForceY + _characterManager.CurrentStateBase.RotationPaddleForceY) * _multiplierValuePosition, .01f);
                         cameraTargetLocalPosition.z = 0;
                     }
