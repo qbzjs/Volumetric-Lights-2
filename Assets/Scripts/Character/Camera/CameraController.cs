@@ -50,26 +50,40 @@ namespace Character.Camera
         [SerializeField, Range(0, 5)] private float _multiplierFovCamera = 1;
 
         [Header("Input rotation smooth values")]
-        [SerializeField, Range(0, 0.1f),Tooltip("The lerp value applied to the mouse/stick camera movement X input value when released")] 
+        [SerializeField, Range(0, 0.1f), Tooltip("The lerp value applied to the mouse/stick camera movement X input value when released")]
         private float _lerpTimeX = 0.02f;
-        [SerializeField, Range(0, 0.1f),Tooltip("The lerp value applied to the mouse/stick camera movement Y input value when released")] 
+        [SerializeField, Range(0, 0.1f), Tooltip("The lerp value applied to the mouse/stick camera movement Y input value when released")]
         private float _lerpTimeY = 0.06f;
 
-        [Header("State"), Tooltip("")]
-        public bool NormalState = true;
-        [Tooltip("")]
-        public bool DeadState = false;
+
+        [Header("Lerp")]
+        [SerializeField, Range(0, 0.1f), Tooltip("The lerp value applied to the field of view of camera depending on the speed of the player")]
+        private float _lerpFOV = .01f;
+        [SerializeField, Range(0, 0.1f), Tooltip("The lerp value applied to the rotation of the camera when the player moves")]
+        private float _lerpLocalRotationMove = 0.005f;
+        [SerializeField, Range(0, 0.1f), Tooltip("The lerp value applied to the position of the camera when the player moves")]
+        private float _lerpLocalPositionMove = .005f;
+        [SerializeField, Range(0, 0.1f), Tooltip("The lerp value applied to the position of the camera when the player is not moving")]
+        private float _lerpLocalPositionNotMoving = 0.01f;
+        [SerializeField, Range(0, 0.1f), Tooltip("The lerp value applied to the position of the camera when the player is not moving")]
+        private float _lerpLocalRotationNotMoving = 0.01f;
         
+        [Header("State")]
+        [ReadOnly] public bool NormalState = true;
+        [ReadOnly] public bool DeadState = false;
+
         [Header("Pendulum")]
-        [Tooltip("")]
+        [Tooltip("The angle you have on the first pendulum")]
         public float PendulumValue = 10;
-        [Tooltip("")]
+        [Tooltip("The speed you have in the first pendulum")]
         public float SpeedPendulum = 1;
-        [Tooltip("")]
+        [Tooltip("The degree of angle you remove from the pendulum at each pendulum")]
         public float PendulumValueMoins = 1;
-        [Tooltip("")]
+        [Tooltip("The speed you take away from the speed with each pendulum")]
         public float SpeedPendulumMoins = 0.1f;
-       
+
+
+
         //pendulum
         private float _pendulumValue;
         private float _speedPendulum;
@@ -89,7 +103,7 @@ namespace Character.Camera
         //other
         private bool _playOnce = false;
         public bool StartTimerDeath = false;
-        
+
         private void Start()
         {
             ResetValueDead();
@@ -115,7 +129,7 @@ namespace Character.Camera
         private void FielOfView()
         {
             float velocityXZ = Mathf.Abs(_rigidbodyKayak.velocity.x) + Mathf.Abs(_rigidbodyKayak.velocity.z);
-            _virtualCamera.m_Lens.FieldOfView = Mathf.Lerp(_virtualCamera.m_Lens.FieldOfView, _cameraBaseFov + (velocityXZ * _multiplierFovCamera), .01f);
+            _virtualCamera.m_Lens.FieldOfView = Mathf.Lerp(_virtualCamera.m_Lens.FieldOfView, _cameraBaseFov + (velocityXZ * _multiplierFovCamera), _lerpFOV);
         }
         private void CameraRotation()
         {
@@ -135,7 +149,7 @@ namespace Character.Camera
             }
             //manage rotate to stay behind boat
             else if (Mathf.Abs(_rigidbodyKayak.velocity.x + _rigidbodyKayak.velocity.z) > minimumVelocityToReplaceCamera ||
-                     Mathf.Abs(_characterManager.CurrentStateBase.RotationStaticForceY) > minimumVelocityToReplaceCamera)
+                     Mathf.Abs(_characterManager.CurrentStateBase.RotationStaticForceY) > minimumVelocityToReplaceCamera / 20)
             {
                 //avoid last input to be 0
                 if (_lastInputX != 0 || _lastInputY != 0)
@@ -145,39 +159,44 @@ namespace Character.Camera
                 }
 
                 //get target rotation
-                Quaternion rotation = _cinemachineCameraTarget.transform.localRotation;
+                Quaternion localRotation = _cinemachineCameraTarget.transform.localRotation;
                 Quaternion targetQuaternion = Quaternion.Euler(new Vector3(0,
                     -(_characterManager.CurrentStateBase.RotationStaticForceY + _characterManager.CurrentStateBase.RotationPaddleForceY) * _multiplierValueRotation,
-                    rotation.z));
+                    localRotation.z));
 
                 //get camera local position
                 Vector3 cameraTargetLocalPosition = _cinemachineCameraTarget.transform.localPosition;
 
-
                 const float rotationThreshold = 0.15f;
-
                 //calculate camera rotation & position
                 if (Mathf.Abs(_characterManager.CurrentStateBase.RotationStaticForceY) > rotationThreshold || // if kayak is rotating
                     Mathf.Abs(_characterManager.CurrentStateBase.RotationPaddleForceY) > rotationThreshold)
                 {
-                    _cinemachineCameraTarget.transform.localRotation = Quaternion.Slerp(rotation, targetQuaternion, Time.deltaTime * 2);
+                    _cinemachineCameraTarget.transform.localRotation = Quaternion.Slerp(localRotation, targetQuaternion, _lerpLocalRotationMove);
+
                     if (Mathf.Abs(_characterManager.CurrentStateBase.RotationPaddleForceY) > rotationThreshold)
                     {
-                        print(_characterManager.CurrentStateBase.RotationStaticForceY + "static");
-                        print(_characterManager.CurrentStateBase.RotationPaddleForceY + "paddle");
-                        cameraTargetLocalPosition.x = Mathf.Lerp(cameraTargetLocalPosition.x, (_characterManager.CurrentStateBase.RotationStaticForceY + _characterManager.CurrentStateBase.RotationPaddleForceY) * _multiplierValuePosition, .01f);
+                        cameraTargetLocalPosition.x = Mathf.Lerp(cameraTargetLocalPosition.x,
+                            (_characterManager.CurrentStateBase.RotationStaticForceY + _characterManager.CurrentStateBase.RotationPaddleForceY) * _multiplierValuePosition, //value
+                            _lerpLocalPositionMove); //time lerp
                         cameraTargetLocalPosition.z = 0;
                     }
                 }
-                else //if kayak isn't rotating
+                else
                 {
-                    _cinemachineCameraTarget.transform.localRotation = Quaternion.Slerp(rotation, Quaternion.Euler(new Vector3(0, 0, rotation.z)), Time.deltaTime * 2);
-                    cameraTargetLocalPosition.x = Mathf.Lerp(cameraTargetLocalPosition.x, 0, .01f);
+                    /*if (_input.Inputs.PaddleLeft == false && _input.Inputs.PaddleRight == false &&
+                        _input.Inputs.RotateLeft < _input.Inputs.DEADZONE  && _input.Inputs.RotateRight < _input.Inputs.DEADZONE)
+                    {*/
+                    
+                        _cinemachineCameraTarget.transform.localRotation = Quaternion.Slerp(localRotation, Quaternion.Euler(new Vector3(0, 0, localRotation.z)), _lerpLocalRotationNotMoving);
+                        cameraTargetLocalPosition.x = Mathf.Lerp(cameraTargetLocalPosition.x, 0, _lerpLocalPositionNotMoving);
+                    //}
                 }
 
                 //apply camera rotation & position
                 _cinemachineCameraTarget.transform.localPosition = cameraTargetLocalPosition;
                 _cinemachineTargetYaw = _cinemachineCameraTarget.transform.rotation.eulerAngles.y;
+
                 if (_cinemachineCameraTarget.transform.rotation.eulerAngles.x > 180)
                 {
                     _cinemachineTargetPitch = _cinemachineCameraTarget.transform.rotation.eulerAngles.x - 360;
@@ -207,21 +226,17 @@ namespace Character.Camera
 
             RotateCamInZ();
 
-
             //apply pitch+yaw+z to camera
             _cinemachineCameraTarget.transform.rotation = Quaternion.Euler(
-                _cinemachineTargetPitch + _cameraAngleOverride, //pitch
+                _cinemachineTargetPitch /*+ _cameraAngleOverride*/, //pitch
                 _cinemachineTargetYaw, //yaw
-                _rotationZ); //stay the same
+                _rotationZ); //z rotation
 
         }
 
-        private void ResetRotateZ()
+        private void SmoothResetRotateZ()
         {
             _rotationZ = Mathf.Lerp(_rotationZ, 0, 0.01f);
-
-            if (Mathf.Abs(_rotationZ) >= 0.01f)
-                _rotationZ = 0;
         }
 
         private void RotateCamInZ()
@@ -306,7 +321,7 @@ namespace Character.Camera
             if (_speedPendulum <= 0.1f || _pendulumValue <= 0.1f)
             {
                 StartTimerDeath = true;
-                ResetRotateZ();
+                SmoothResetRotateZ();
             }
         }
         private float ClampAngle(float lfAngle, float lfMin, float lfMax)
