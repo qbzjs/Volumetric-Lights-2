@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using Character;
 using Character.State;
 using UnityEngine;
 using UnityEngine.Serialization;
@@ -11,22 +12,32 @@ namespace Kayak
     public class KayakController : MonoBehaviour
     {
         [Header("Drag")]
-        [SerializeField, Range(50,51f)] private float _dragReducingMultiplier = 50.5f;
-        [ReadOnly] public float DragReducingTimer;
+        [SerializeField, Range(50,51f), Tooltip("The multiplier of the current velocity to reduce drag -> velocity * DragReducingMultiplier * deltaTime")] 
+        private float _dragReducingMultiplier = 50.5f;
+        [ReadOnly, Tooltip("If this value is <= 0, the drag reducing will be activated")] 
+        public float DragReducingTimer;
         
         [Header("Parameters")]
+        [Tooltip("The different values related to the kayak")]
         public KayakParameters KayakValues;
-        [ReadOnly] public bool CanReduceDrag = true;
+        [ReadOnly, Tooltip("= is the drag reducing method activated ?")] 
+        public bool CanReduceDrag = true;
         
-        [Header("References"), SerializeField] 
+        [Header("References")]
+        [SerializeField, Tooltip("References of the water particles in front of the kayak")] 
         private List<ParticleSystem> _frontParticles;
-        [SerializeField] private CharacterManager _characterManager;
+        [SerializeField, Tooltip("Reference of the character manager in the scene")] 
+        private CharacterManager _characterManager;
+        [Tooltip("Reference of the kayak rigidbody")]
         public Rigidbody Rigidbody;
+        [Tooltip("Reference of the kayak mesh")]
         public Transform Mesh;
         
         [Header("Audio")] 
+        [Tooltip("The audio clip of the paddling")]
         public AudioClip PaddlingAudioClip;
-        [SerializeField] private AudioClip CollisionAudioClip;
+        [SerializeField, Tooltip("The audio clip of the kayak colliding")] 
+        private AudioClip CollisionAudioClip;
 
         private void Start()
         {
@@ -103,26 +114,43 @@ namespace Kayak
     public struct KayakParameters
     {
         [Header("Velocity & Collisions")]
-        [Range(0,40)] public float MaximumFrontVelocity;
-        [Range(0,40)] public float CollisionToBalanceMagnitudeDivider;
+        [Range(0,40), Tooltip("the maximum velocity that the kayak can go")] 
+        public float MaximumFrontVelocity;
+        [Range(0,40), Tooltip("the divider of the collision magnitude value applied to the balance")] 
+        public float CollisionToBalanceMagnitudeDivider;
 
         [Header("Paddle")]
-        [Range(0,2)] public float PaddleSideRotationForce;
-        [Range(0,3)] public float PaddleCooldown;
-        [Range(0, 0.25f)] public float PaddleRotationDeceleration;
-        [Range(0,200)] public float PaddleForce;
-        [Range(0,30)] public int NumberOfForceAppliance;
-        [Range(0,0.2f)] public float TimeBetweenEveryAppliance;
+        [Range(0,2), Tooltip("The rotation force that each paddle will apply to the kayak rotation")] 
+        public float PaddleSideRotationForce;
+        [Range(0,3), Tooltip("The cooldown to use each paddle")] 
+        public float PaddleCooldown;
+        [Range(0, 0.25f), Tooltip("The lerp value applied to the rotation force of the kayak, the higher it is the faster the kayak will stop rotating")] 
+        public float PaddleRotationDeceleration;
+        [Range(0,200), Tooltip("The raw front force applied to the kayak when paddling once")] 
+        public float PaddleForce;
+        [Range(0,30), Tooltip("The number of times the kayak will \"paddle\" when pressing the input once")] 
+        public int NumberOfForceAppliance;
+        [Range(0,0.2f), Tooltip("The time between each of those paddling, the lower it is the seamless the kayak paddling is")] 
+        public float TimeBetweenEveryAppliance;
+        [Tooltip("The curve of force applied to the different appliance of paddling")]
         public AnimationCurve ForceCurve;
 
         [Header("Static Rotation")] 
-        [Range(0, 0.1f)] public float StaticRotationForce;
-        [Range(0, 0.25f)] public float StaticRotationDeceleration;
-        [Range(0,0.1f)] public float VelocityDecelerationLerp;
-        [Range(0, 0.1f)] public float VelocityDecelerationRotationForce;
+        [Range(0, 0.1f), Tooltip("The force applied on rotation when static rotating")] 
+        public float StaticRotationForce;
+        [Range(0, 0.25f), Tooltip("The lerp deceleration value resetting the static rotation to 0 over time")] 
+        public float StaticRotationDeceleration;
+        
+        [Header("Deceleration")]
+        [Range(0,0.1f), Tooltip("The lerp value of the velocity deceleration over time")] 
+        public float VelocityDecelerationLerp;
+        [Range(0, 0.1f), Tooltip("The lerp value of the rotation velocity deceleration over time")] 
+        public float VelocityDecelerationRotationForce;
 
         [Header("Unbalanced")] 
-        [Range(0, 1)] public float UnbalancePaddleCooldown;
-        [Range(0, 10)] public float UnbalancePaddleForce;
+        [Range(0, 1), Tooltip("The cooldown of the paddle when unbalanced")] 
+        public float UnbalancePaddleCooldown;
+        [Range(0, 10), Tooltip("The paddle force on balance when unbalanced")] 
+        public float UnbalancePaddleForce;
     }
 }

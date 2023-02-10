@@ -1,29 +1,43 @@
 using System;
 using Character.Camera;
+using Character.State;
 using Kayak;
 using SceneTransition;
 using UnityEngine;
 
-namespace Character.State
+namespace Character
 {
     public class CharacterManager : MonoBehaviour
     {
 
-        [Header("References")] public KayakController KayakController;
+        [Header("References")] 
         public CharacterStateBase CurrentStateBase;
-        [SerializeField] private InputManagement _inputManagement;
+        [Tooltip("Reference of the KayakController script")]
+        public KayakController KayakController;
+        [SerializeField, Tooltip("Reference of the InputManagement script")] 
+        private InputManagement _inputManagement;
+        [Tooltip("Reference of the CameraController script")]
         public CameraController CamController;
+        [Tooltip("Reference of the paddle Animator")]
         public Animator PaddleAnimator;
-
-        [Header("Transition death")]
+        [Tooltip("Reference of the TransitionManager script")]
         public TransitionManager TransitionManager;
-        [Range(0, 5)] public float TimeToPlayFadeOut = 2.0f;
-        [Range(0, 5)] public float TimeToRespawnCheckPoint = 2.0f;
-        [Range(0, 5)] public float TimeFadeInEnded = 1.5f;
+        
+        [Header("Transition death")]
+        [Range(0, 5), Tooltip("The duration of the fade out transition at death")] 
+        public float TimeToPlayFadeOut = 2.0f;
+        [Range(0, 5), Tooltip("The duration between the death and the respawn -> should be over TimeToPlayFadeOut duration")] 
+        public float TimeToRespawnCheckPoint = 2.0f;
+        [Range(0, 5), Tooltip("The duration of the fade in transition at spawn")] 
+        public float TimeFadeInEnded = 1.5f;
 
-        [Header("Balance"), SerializeField, Range(0, 1)] private float balanceLerpTo0Value = 0.01f;
-        [ReadOnly] public bool LerpBalanceTo0 = true;
-        [ReadOnly] public float Balance = 0f;
+        [Header("Balance")]
+        [SerializeField, Range(0, 1), Tooltip("The lerp value that reset the balance to 0 over time")] 
+        private float balanceLerpTo0Value = 0.01f;
+        [ReadOnly, Tooltip("Can the balance lerp itself to 0 ?")] 
+        public bool LerpBalanceTo0 = true;
+        [ReadOnly, Tooltip("The current balance value")] 
+        public float Balance = 0f;
         [Range(0, 40), Tooltip("The limit over which the player will go in unbalance state")]
         public float BalanceLimit = 10f;
         [Range(0, 40), Tooltip("The limit over which the player will die")]

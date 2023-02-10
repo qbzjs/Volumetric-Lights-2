@@ -50,39 +50,44 @@ namespace Character.Camera
         [SerializeField, Range(0, 5)] private float _multiplierFovCamera = 1;
 
         [Header("Input rotation smooth values")]
-        [SerializeField, Range(-10, -1f)] private float _rotationXMinClamp = -5f;
-        [SerializeField, Range(1, 10f)] private float _rotationXMaxClamp = 5f;
-        [SerializeField, Range(-5, -0f)] private float _rotationYMinClamp = -1f;
-        [SerializeField, Range(0, 5f)] private float _rotationYMaxClamp = 1f;
-        [SerializeField, Range(0, 0.1f)] private float _lerpTimeX = 0.02f;
-        [SerializeField, Range(0, 0.1f)] private float _lerpTimeY = 0.06f;
+        [SerializeField, Range(0, 0.1f),Tooltip("The lerp value applied to the mouse/stick camera movement X input value when released")] 
+        private float _lerpTimeX = 0.02f;
+        [SerializeField, Range(0, 0.1f),Tooltip("The lerp value applied to the mouse/stick camera movement Y input value when released")] 
+        private float _lerpTimeY = 0.06f;
 
-        //private values
-        private float _cinemachineTargetYaw;
-        private float _cinemachineTargetPitch;
-        private float _lastInputX;
-        private float _lastInputY;
-        private float _cameraBaseFov;
-
-
+        [Header("State"), Tooltip("")]
         public bool NormalState = true;
+        [Tooltip("")]
         public bool DeadState = false;
-        private float _rotaZ = 0;
-        private bool _left;
-        private float _lastRotaZ;
-
-        [Header("DeadState")]
+        [Tooltip("")]
         public float PendulumValue = 10;
+        [Tooltip("")]
         public float SpeedPendulum = 1;
+        [Tooltip("")]
         public float PendulumValueMoins = 1;
+        [Tooltip("")]
         public float SpeedPendulumMoins = 0.1f;
-        private bool _playOnce = false;
-
+       
+        //pendulum
         private float _pendulumValue;
         private float _speedPendulum;
         private float _pendulumValueMoins;
         private float _speedPendulumMoins;
+        //cinemachine yaw&pitch
+        private float _cinemachineTargetYaw;
+        private float _cinemachineTargetPitch;
+        //inputs
+        private float _lastInputX;
+        private float _lastInputY;
+        //camera
+        private float _cameraBaseFov;
+        private float _rotaZ = 0;
+        private bool _left;
+        private float _lastRotaZ;
+        //other
+        private bool _playOnce = false;
         public bool StartTimerDeath = false;
+        
         private void Start()
         {
             ResetValueDead();

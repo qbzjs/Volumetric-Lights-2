@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using Character;
 using Character.Camera;
 using Character.State;
 using DG.Tweening;
