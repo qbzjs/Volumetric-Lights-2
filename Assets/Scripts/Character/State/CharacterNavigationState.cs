@@ -90,10 +90,16 @@ namespace Character.State
             if (_inputs.Inputs.PaddleLeft || _inputs.Inputs.PaddleRight)
             {
                 HandlePaddleMovement();
+
+                SetBrakeAnimationToFalse();
             }
-            else if (_inputs.Inputs.RotateLeft != 0 || _inputs.Inputs.RotateRight != 0)
+            if (_inputs.Inputs.RotateLeft != 0 || _inputs.Inputs.RotateRight != 0)
             {
                 HandleStaticRotation();
+            }
+            else
+            {
+                SetBrakeAnimationToFalse();
             }
             
             KayakRotationManager(RotationType.Paddle);
@@ -148,6 +154,12 @@ namespace Character.State
         private void StopCharacter()
         {
             _kayakRigidbody.velocity = Vector3.Lerp(_kayakRigidbody.velocity, Vector3.zero, 0.01f);
+        }
+
+        private void SetBrakeAnimationToFalse()
+        {
+            CharacterManagerRef.PaddleAnimator.SetBool("BrakeLeft", false);
+            CharacterManagerRef.PaddleAnimator.SetBool("BrakeRight", false);
         }
 
         #endregion
@@ -229,10 +241,11 @@ namespace Character.State
                 {
                     DecelerationAndRotate(Direction.Right);
                 }
-
                 RotationStaticForceY += _kayakValues.StaticRotationForce;
+                
+                CharacterManagerRef.PaddleAnimator.SetBool("BrakeLeft", true);
             }
-
+            
             //right
             if (_inputs.Inputs.RotateRight > _inputs.Inputs.DEADZONE)
             {
@@ -240,8 +253,9 @@ namespace Character.State
                 {
                     DecelerationAndRotate(Direction.Left);
                 }
-
                 RotationStaticForceY -= _kayakValues.StaticRotationForce;
+                
+                CharacterManagerRef.PaddleAnimator.SetBool("BrakeRight", true);
             }
         }
 

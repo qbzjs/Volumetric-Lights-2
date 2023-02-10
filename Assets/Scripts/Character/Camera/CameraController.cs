@@ -59,6 +59,8 @@ namespace Character.Camera
         public bool NormalState = true;
         [Tooltip("")]
         public bool DeadState = false;
+        
+        [Header("Pendulum")]
         [Tooltip("")]
         public float PendulumValue = 10;
         [Tooltip("")]
@@ -81,7 +83,7 @@ namespace Character.Camera
         private float _lastInputY;
         //camera
         private float _cameraBaseFov;
-        private float _rotaZ = 0;
+        private float _rotationZ = 0;
         private bool _left;
         private float _lastRotaZ;
         //other
@@ -100,12 +102,12 @@ namespace Character.Camera
             CameraRotation();
             FielOfView();
 
-            if (NormalState == true && Mathf.Abs(_rotaZ) >= 0.1f)
+            if (NormalState && Mathf.Abs(_rotationZ) >= 0.1f)
             {
                 //ResetRotateZ();
             }
 
-            if (DeadState == true)
+            if (DeadState)
             {
                 Isdead();
             }
@@ -205,19 +207,19 @@ namespace Character.Camera
 
 
             //apply pitch+yaw+z to camera
-            _cinemachineCameraTarget.transform.rotation = Quaternion.Euler(_cinemachineTargetPitch + _cameraAngleOverride, //pitch
-            _cinemachineTargetYaw, //yaw
-                                   //_cinemachineCameraTarget.transform.rotation.eulerAngles.z); //stay the same
-             _rotaZ); //stay the same
+            _cinemachineCameraTarget.transform.rotation = Quaternion.Euler(
+                _cinemachineTargetPitch + _cameraAngleOverride, //pitch
+                _cinemachineTargetYaw, //yaw
+                _rotationZ); //stay the same
 
         }
 
         private void ResetRotateZ()
         {
-            _rotaZ = Mathf.Lerp(_rotaZ, 0, 0.01f);
+            _rotationZ = Mathf.Lerp(_rotationZ, 0, 0.01f);
 
-            if (Mathf.Abs(_rotaZ) >= 0.01f)
-                _rotaZ = 0;
+            if (Mathf.Abs(_rotationZ) >= 0.01f)
+                _rotationZ = 0;
         }
 
         private void RotateCamInZ()
@@ -228,11 +230,11 @@ namespace Character.Camera
                 {
                     if (_characterManager.Balance > 0)
                     {
-                        _rotaZ = Mathf.Lerp(_rotaZ, _characterManager.Balance + 10, 0.01f);
+                        _rotationZ = Mathf.Lerp(_rotationZ, _characterManager.Balance + 10, 0.01f);
                     }
                     else if (_characterManager.Balance < 0)
                     {
-                        _rotaZ = Mathf.Lerp(_rotaZ, _characterManager.Balance - 10, 0.01f);
+                        _rotationZ = Mathf.Lerp(_rotationZ, _characterManager.Balance - 10, 0.01f);
                     }
                 }
             }
@@ -240,7 +242,7 @@ namespace Character.Camera
             {
                 if (DeadState == false)
                 {
-                    _lastRotaZ = _rotaZ;
+                    _lastRotaZ = _rotationZ;
                     DeadState = true;
                 }
             }
@@ -273,29 +275,29 @@ namespace Character.Camera
                 _left = true;
             }
 
-            if (_rotaZ >= _pendulumValue)
+            if (_rotationZ >= _pendulumValue)
             {
                 _left = false;
                 PlayOnce();
             }
-            else if (_rotaZ <= -_pendulumValue)
+            else if (_rotationZ <= -_pendulumValue)
             {
                 _left = true;
                 PlayOnce();
             }
 
-            if (_rotaZ > -_pendulumValue && _rotaZ < _pendulumValue)
+            if (_rotationZ > -_pendulumValue && _rotationZ < _pendulumValue)
                 _playOnce = false;
 
             if (_speedPendulum > 0 || _pendulumValue > 0)
             {
                 if (_left == true)
                 {
-                    _rotaZ += 0.1f * _speedPendulum;
+                    _rotationZ += 0.1f * _speedPendulum;
                 }
                 else
                 {
-                    _rotaZ -= 0.1f * _speedPendulum;
+                    _rotationZ -= 0.1f * _speedPendulum;
                 }
             }
 
