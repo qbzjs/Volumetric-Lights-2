@@ -675,11 +675,11 @@ MonoBehaviour:
   _balanceRotationMultiplier: 0
   _balanceRotationZLerp: 0.01
   _multiplierValueRotation: 75.5
-  _multiplierValuePosition: 8.64
+  _multiplierValuePosition: 5.8
   CanMoveCameraMaunally: 1
   _virtualCamera: {fileID: 4192299973026284776}
-  _multiplierFovCamera: 2.37
-  _lerpTimeX: 0.02
+  _multiplierFovCamera: 2.03
+  _lerpTimeX: 0.0922
   _lerpTimeY: 0.06
   NormalState: 1
   DeadState: 0

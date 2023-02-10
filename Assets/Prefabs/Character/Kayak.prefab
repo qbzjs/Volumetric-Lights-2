@@ -273,37 +273,37 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d0e0857b45e56e14f88336079beaccaf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _dragReducingMultiplier: 50.745
+  _dragReducingMultiplier: 50.654
   DragReducingTimer: 0
   KayakValues:
     MaximumFrontVelocity: 20
     CollisionToBalanceMagnitudeDivider: 5
-    PaddleSideRotationForce: 0.091
+    PaddleSideRotationForce: 0.254
     PaddleCooldown: 2
     PaddleRotationDeceleration: 0.008
-    PaddleForce: 80
-    NumberOfForceAppliance: 5
-    TimeBetweenEveryAppliance: 0.0487
+    PaddleForce: 52.6
+    NumberOfForceAppliance: 9
+    TimeBetweenEveryAppliance: 0.0386
     ForceCurve:
       serializedVersion: 2
       m_Curve:
       - serializedVersion: 3
         time: 0
         value: 0
-        inSlope: 1.1792452
-        outSlope: 1.1792452
+        inSlope: 2
+        outSlope: 2
         tangentMode: 0
         weightedMode: 0
         inWeight: 0
-        outWeight: 0.1
+        outWeight: 0
       - serializedVersion: 3
         time: 1
         value: 1
-        inSlope: -0
-        outSlope: -0
+        inSlope: 0
+        outSlope: 0
         tangentMode: 0
         weightedMode: 0
-        inWeight: 0.46249998
+        inWeight: 0
         outWeight: 0
       m_PreInfinity: 2
       m_PostInfinity: 2
