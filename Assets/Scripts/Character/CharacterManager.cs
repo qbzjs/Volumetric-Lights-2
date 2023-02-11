@@ -24,12 +24,12 @@ namespace Character
         public TransitionManager TransitionManager;
         
         [Header("Transition death")]
-        [Range(0, 5), Tooltip("The duration of the fade out transition at death")] 
-        public float TimeToPlayFadeOut = 2.0f;
-        [Range(0, 5), Tooltip("The duration between the death and the respawn -> should be over TimeToPlayFadeOut duration")] 
-        public float TimeToRespawnCheckPoint = 2.0f;
         [Range(0, 5), Tooltip("The duration of the fade in transition at spawn")] 
-        public float TimeFadeInEnded = 1.5f;
+        public float TimeFadeInAfterDeath = 0.5f;
+        [Range(1, 5), Tooltip("The duration between the death and the respawn -> should be over TimeToPlayFadeOut duration")] 
+        public float TimeToRespawnCheckPoint = 1.5f;
+        [Range(1, 5), Tooltip("The duration of the fade out transition at death")] 
+        public float TimeToPlayFadeOutAfterRespawn = 2.0f;
 
         [Header("Balance")]
         [SerializeField, Range(0, 1), Tooltip("The lerp value that reset the balance to 0 over time")] 
