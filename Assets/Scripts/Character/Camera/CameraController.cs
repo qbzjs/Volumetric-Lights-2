@@ -19,6 +19,16 @@ namespace Character.Camera
         }
         #endregion
 
+        #region PlayerStateEnum
+        public enum PlayerState
+        {
+            NavigationState = 0,
+            UnbalanceState = 1,
+            FightState = 2,
+            DeadState = 3
+        }
+        #endregion
+
         //serialize fields
         [Header("Cinemachine"), Tooltip("The follow target set in the Cinemachine Virtual Camera that the camera will follow"), SerializeField]
         private GameObject _cinemachineCameraTarget;
@@ -67,20 +77,26 @@ namespace Character.Camera
         private float _lerpLocalPositionNotMoving = 0.01f;
         [SerializeField, Range(0, 0.1f), Tooltip("The lerp value applied to the position of the camera when the player is not moving")]
         private float _lerpLocalRotationNotMoving = 0.01f;
-        
-        [Header("State")]
-        [ReadOnly] public bool NormalState = true;
-        [ReadOnly] public bool DeadState = false;
+
+
+        [Header("Player State")]
+        [ReadOnly] public PlayerState StatePlayer;
+        //[ReadOnly] public bool NormalState = true;
+        //[ReadOnly] public bool DeadState = false;
 
         [Header("Pendulum")]
         [Tooltip("The angle you have on the first pendulum")]
-        public float PendulumValue = 10;
+        public float PendulumFirstAngle = 10;
         [Tooltip("The speed you have in the first pendulum")]
-        public float SpeedPendulum = 1;
+        public float PendulumFirstSpeed = 1;
         [Tooltip("The degree of angle you remove from the pendulum at each pendulum")]
-        public float PendulumValueMoins = 1;
+        public float PendulumRemoveAngle = 1;
         [Tooltip("The speed you take away from the speed with each pendulum")]
-        public float SpeedPendulumMoins = 0.1f;
+        public float PendulumRemoveSpeed = 0.1f;
+        [Tooltip("Division of the position in X according to the angle")]
+        [SerializeField] float _divisionMoveForceX = 10;
+        [Tooltip("Division of the position in Y according to the angle")]
+        [SerializeField] float _divisionMoveForceY = 50;
 
 
 
@@ -96,6 +112,7 @@ namespace Character.Camera
         private float _lastInputX;
         private float _lastInputY;
         //camera
+        private Vector3 _cameraTargetBasePos;
         private float _cameraBaseFov;
         private float _rotationZ = 0;
         private bool _left;
@@ -106,6 +123,7 @@ namespace Character.Camera
 
         private void Start()
         {
+            _cameraTargetBasePos = _cinemachineCameraTarget.transform.localPosition;
             ResetValueDead();
             _cinemachineTargetYaw = _cinemachineCameraTarget.transform.rotation.eulerAngles.y;
             _cameraBaseFov = _virtualCamera.m_Lens.FieldOfView;
@@ -116,12 +134,12 @@ namespace Character.Camera
             CameraRotation();
             FielOfView();
 
-            if (NormalState && Mathf.Abs(_rotationZ) >= 0.1f)
+            if (StatePlayer == PlayerState.NavigationState /*NormalState*/ && Mathf.Abs(_rotationZ) >= 0.1f)
             {
-                //ResetRotateZ();
+                SmoothResetRotateZ();
             }
 
-            if (DeadState)
+            if (StatePlayer == PlayerState.DeadState /*DeadState*/)
             {
                 Isdead();
             }
@@ -167,17 +185,28 @@ namespace Character.Camera
                 //get camera local position
                 Vector3 cameraTargetLocalPosition = _cinemachineCameraTarget.transform.localPosition;
 
+
                 const float rotationThreshold = 0.15f;
+                float rotationStaticY = _characterManager.CurrentStateBase.RotationStaticForceY;
+                float rotationPaddleY = _characterManager.CurrentStateBase.RotationPaddleForceY;
+
                 //calculate camera rotation & position
-                if (Mathf.Abs(_characterManager.CurrentStateBase.RotationStaticForceY) > rotationThreshold || // if kayak is rotating
-                    Mathf.Abs(_characterManager.CurrentStateBase.RotationPaddleForceY) > rotationThreshold)
+                if (Mathf.Abs(rotationStaticY) > rotationThreshold / 2 || // if kayak is rotating
+                    Mathf.Abs(rotationPaddleY) > rotationThreshold)
                 {
                     _cinemachineCameraTarget.transform.localRotation = Quaternion.Slerp(localRotation, targetQuaternion, _lerpLocalRotationMove);
 
-                    if (Mathf.Abs(_characterManager.CurrentStateBase.RotationPaddleForceY) > rotationThreshold)
+                    if (/*_input.Inputs.RotateLeft >= _input.Inputs.DEADZONE ||
+                        _input.Inputs.RotateRight >= _input.Inputs.DEADZONE*/
+                        Mathf.Abs(rotationStaticY) > rotationThreshold / 2)// if kayak is rotating
+                    {
+                        print("cc");
+                        cameraTargetLocalPosition.x = Mathf.Lerp(cameraTargetLocalPosition.x, 0, _lerpLocalPositionNotMoving);
+                    }
+                    else if (Mathf.Abs(rotationPaddleY) > rotationThreshold)// if kayak is moving
                     {
                         cameraTargetLocalPosition.x = Mathf.Lerp(cameraTargetLocalPosition.x,
-                            (_characterManager.CurrentStateBase.RotationStaticForceY + _characterManager.CurrentStateBase.RotationPaddleForceY) * _multiplierValuePosition, //value
+                            (rotationStaticY + rotationPaddleY) * _multiplierValuePosition, //value
                             _lerpLocalPositionMove); //time lerp
                         cameraTargetLocalPosition.z = 0;
                     }
@@ -187,9 +216,9 @@ namespace Character.Camera
                     /*if (_input.Inputs.PaddleLeft == false && _input.Inputs.PaddleRight == false &&
                         _input.Inputs.RotateLeft < _input.Inputs.DEADZONE  && _input.Inputs.RotateRight < _input.Inputs.DEADZONE)
                     {*/
-                    
-                        _cinemachineCameraTarget.transform.localRotation = Quaternion.Slerp(localRotation, Quaternion.Euler(new Vector3(0, 0, localRotation.z)), _lerpLocalRotationNotMoving);
-                        cameraTargetLocalPosition.x = Mathf.Lerp(cameraTargetLocalPosition.x, 0, _lerpLocalPositionNotMoving);
+
+                    _cinemachineCameraTarget.transform.localRotation = Quaternion.Slerp(localRotation, Quaternion.Euler(new Vector3(0, 0, localRotation.z)), _lerpLocalRotationNotMoving);
+                    cameraTargetLocalPosition.x = Mathf.Lerp(cameraTargetLocalPosition.x, 0, _lerpLocalPositionNotMoving);
                     //}
                 }
 
@@ -234,7 +263,7 @@ namespace Character.Camera
 
         }
 
-        private void SmoothResetRotateZ()
+        public void SmoothResetRotateZ()
         {
             _rotationZ = Mathf.Lerp(_rotationZ, 0, 0.01f);
         }
@@ -255,14 +284,6 @@ namespace Character.Camera
                     }
                 }
             }
-            else
-            {
-                if (DeadState == false)
-                {
-                    _lastRotaZ = _rotationZ;
-                    DeadState = true;
-                }
-            }
         }
 
 
@@ -276,21 +297,31 @@ namespace Character.Camera
             }
         }
 
+        public void ResetCameraLocalPos()
+        {
+            Vector3 localPos = _cinemachineCameraTarget.transform.localPosition;
+            localPos.x = _cameraTargetBasePos.x;
+            localPos.y = _cameraTargetBasePos.y;
+            localPos.z = _cameraTargetBasePos.z;
+            _cinemachineCameraTarget.transform.localPosition = localPos;
+        }
+
         public void ResetValueDead()
         {
-            _pendulumValue = PendulumValue;
-            _speedPendulum = SpeedPendulum;
-            _pendulumValueMoins = PendulumValueMoins;
-            _speedPendulumMoins = SpeedPendulumMoins;
+            SmoothResetRotateZ();
+            _pendulumValue = PendulumFirstAngle;
+            _speedPendulum = PendulumFirstSpeed;
+            _pendulumValueMoins = PendulumRemoveAngle;
+            _speedPendulumMoins = PendulumRemoveSpeed;
             _playOnce = false;
+            //DeadState = false;
+
+            StatePlayer = PlayerState.NavigationState;
             StartTimerDeath = false;
         }
+
         private void Isdead()
         {
-            if (_lastRotaZ > 0)
-            {
-                _left = true;
-            }
 
             if (_rotationZ >= _pendulumValue)
             {
@@ -306,6 +337,7 @@ namespace Character.Camera
             if (_rotationZ > -_pendulumValue && _rotationZ < _pendulumValue)
                 _playOnce = false;
 
+
             if (_speedPendulum > 0 || _pendulumValue > 0)
             {
                 if (_left == true)
@@ -317,6 +349,17 @@ namespace Character.Camera
                     _rotationZ -= 0.1f * _speedPendulum;
                 }
             }
+
+            //position camera in function of z value
+            Vector3 localPos = _cinemachineCameraTarget.transform.localPosition;
+            localPos.x = -(_rotationZ / _divisionMoveForceX);
+            if (_rotationZ > 0)
+                localPos.y = -(_rotationZ / _divisionMoveForceY) + _cameraTargetBasePos.y;
+            else
+                localPos.y = (_rotationZ / _divisionMoveForceY) + _cameraTargetBasePos.y;
+            localPos.z = _cameraTargetBasePos.z;
+            _cinemachineCameraTarget.transform.localPosition = localPos;
+
 
             if (_speedPendulum <= 0.1f || _pendulumValue <= 0.1f)
             {

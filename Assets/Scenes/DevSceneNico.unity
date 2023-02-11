@@ -2703,6 +2703,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2865575383136156668, guid: 36e32e7372e41e346abb29f843dd75b3,
         type: 3}
+      propertyPath: PendulumFirstAngle
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 2865575383136156668, guid: 36e32e7372e41e346abb29f843dd75b3,
+        type: 3}
       propertyPath: PendulumValueMoins
       value: 5
       objectReference: {fileID: 0}
@@ -2718,6 +2723,16 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2865575383136156668, guid: 36e32e7372e41e346abb29f843dd75b3,
         type: 3}
+      propertyPath: _multiplierValuePosition
+      value: 3.84
+      objectReference: {fileID: 0}
+    - target: {fileID: 2865575383136156668, guid: 36e32e7372e41e346abb29f843dd75b3,
+        type: 3}
+      propertyPath: _multiplierValueRotation
+      value: 22.9
+      objectReference: {fileID: 0}
+    - target: {fileID: 2865575383136156668, guid: 36e32e7372e41e346abb29f843dd75b3,
+        type: 3}
       propertyPath: _balanceRotationMultiplier
       value: 0
       objectReference: {fileID: 0}
@@ -2729,12 +2744,12 @@ PrefabInstance:
     - target: {fileID: 3387405727807608120, guid: 36e32e7372e41e346abb29f843dd75b3,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: 2.422896
+      value: 4.106699
       objectReference: {fileID: 0}
     - target: {fileID: 3387405727807608120, guid: 36e32e7372e41e346abb29f843dd75b3,
         type: 3}
       propertyPath: m_LocalPosition.z
-      value: -5.6433263
+      value: -7.0226393
       objectReference: {fileID: 0}
     - target: {fileID: 3387405727807608120, guid: 36e32e7372e41e346abb29f843dd75b3,
         type: 3}
@@ -2769,12 +2784,37 @@ PrefabInstance:
     - target: {fileID: 6731779359497347653, guid: 36e32e7372e41e346abb29f843dd75b3,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: 2.422896
+      value: 4.106699
       objectReference: {fileID: 0}
     - target: {fileID: 6731779359497347653, guid: 36e32e7372e41e346abb29f843dd75b3,
         type: 3}
       propertyPath: m_LocalPosition.z
-      value: -5.6433263
+      value: -7.0226393
+      objectReference: {fileID: 0}
+    - target: {fileID: 6731779359497347653, guid: 36e32e7372e41e346abb29f843dd75b3,
+        type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6731779359497347653, guid: 36e32e7372e41e346abb29f843dd75b3,
+        type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6731779359497347653, guid: 36e32e7372e41e346abb29f843dd75b3,
+        type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6731779359497347653, guid: 36e32e7372e41e346abb29f843dd75b3,
+        type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6731779359497347653, guid: 36e32e7372e41e346abb29f843dd75b3,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7217796707971164476, guid: 36e32e7372e41e346abb29f843dd75b3,
         type: 3}
@@ -2839,12 +2879,12 @@ PrefabInstance:
     - target: {fileID: 7217796708653836310, guid: 36e32e7372e41e346abb29f843dd75b3,
         type: 3}
       propertyPath: BalanceLimit
-      value: 6.5
+      value: 3.4
       objectReference: {fileID: 0}
     - target: {fileID: 7217796708653836310, guid: 36e32e7372e41e346abb29f843dd75b3,
         type: 3}
       propertyPath: RebalanceAngle
-      value: 2.2
+      value: 1.9
       objectReference: {fileID: 0}
     - target: {fileID: 7217796708653836310, guid: 36e32e7372e41e346abb29f843dd75b3,
         type: 3}
@@ -2859,23 +2899,28 @@ PrefabInstance:
     - target: {fileID: 7217796708653836310, guid: 36e32e7372e41e346abb29f843dd75b3,
         type: 3}
       propertyPath: TimeFadeInEnded
-      value: 4.53
+      value: 0.53
       objectReference: {fileID: 0}
     - target: {fileID: 7217796708653836310, guid: 36e32e7372e41e346abb29f843dd75b3,
         type: 3}
       propertyPath: BalanceDeathLimit
-      value: 13.1
+      value: 6.2
       objectReference: {fileID: 0}
     - target: {fileID: 7217796708653836310, guid: 36e32e7372e41e346abb29f843dd75b3,
         type: 3}
       propertyPath: TimeToPlayFadeOut
-      value: 0.1
+      value: 0.58
       objectReference: {fileID: 0}
     - target: {fileID: 7217796708653836310, guid: 36e32e7372e41e346abb29f843dd75b3,
         type: 3}
       propertyPath: TransitionManager
       value: 
       objectReference: {fileID: 281813503}
+    - target: {fileID: 7217796708653836310, guid: 36e32e7372e41e346abb29f843dd75b3,
+        type: 3}
+      propertyPath: TimeToRespawnCheckPoint
+      value: 1.5
+      objectReference: {fileID: 0}
     - target: {fileID: 7217796708653836310, guid: 36e32e7372e41e346abb29f843dd75b3,
         type: 3}
       propertyPath: TimerToRespawnCheckpoint
