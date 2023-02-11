@@ -1,4 +1,5 @@
-﻿using Kayak;
+﻿using Character.Camera;
+using Kayak;
 using UnityEngine;
 
 namespace Character.State
@@ -18,7 +19,7 @@ namespace Character.State
 
         #region Constructor
 
-        public CharacterUnbalancedState(KayakController kayak, InputManagement inputManagement, CharacterManager characterManagerRef, MonoBehaviour monoBehaviour) : 
+        public CharacterUnbalancedState(KayakController kayak, InputManagement inputManagement, CharacterManager characterManagerRef, MonoBehaviour monoBehaviour) :
             base(characterManagerRef, monoBehaviour)
         {
             _kayakController = kayak;
@@ -35,10 +36,12 @@ namespace Character.State
             Debug.Log("unbalanced");
             CharacterManagerRef.LerpBalanceTo0 = false;
 
+            //CameraController.Instance.NormalState = false;
+            CameraController.Instance.StatePlayer = CameraController.PlayerState.UnbalanceState;
             //values
             _rightPaddleCooldown = _kayakValues.UnbalancePaddleCooldown;
             _leftPaddleCooldown = _kayakValues.UnbalancePaddleCooldown;
-            
+
             //balance
             if (Mathf.Abs(CharacterManagerRef.Balance) >
                 CharacterManagerRef.BalanceDeathLimit - CharacterManagerRef.MinimumTimeUnbalanced)
@@ -53,9 +56,13 @@ namespace Character.State
             TimerManagement();
             PaddleCooldownManagement();
 
-            MakeBoatRotationWithBalance(_kayakController.transform ,2);
+            MakeBoatRotationWithBalance(_kayakController.transform, 2);
 
             Rebalance();
+
+
+            if (Mathf.Abs(CharacterManagerRef.Balance) < CharacterManagerRef.RebalanceAngle)
+                this.SwitchState(character);
         }
 
         public override void FixedUpdate(CharacterManager character)
@@ -64,6 +71,7 @@ namespace Character.State
 
         public override void SwitchState(CharacterManager character)
         {
+
         }
 
         #endregion
@@ -83,6 +91,7 @@ namespace Character.State
                 _kayakController.CanReduceDrag = true;
                 CharacterManagerRef.CamController.CanMoveCameraMaunally = true;
                 CharacterManagerRef.Balance = 0;
+
 
                 CharacterNavigationState characterNavigationState = new CharacterNavigationState(_kayakController, _inputs, CharacterManagerRef, MonoBehaviourRef);
                 CharacterManagerRef.SwitchState(characterNavigationState);

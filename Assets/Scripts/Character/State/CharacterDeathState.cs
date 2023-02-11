@@ -8,6 +8,7 @@ namespace Character.State
     {
         private KayakController _kayakController;
         private InputManagement _inputs;
+
         private bool _transitionIn = false;
         private bool _respawned = false;
 
@@ -25,7 +26,7 @@ namespace Character.State
         public override void EnterState(CharacterManager character)
         {
             Debug.Log("death");
-            //            CameraController.Instance.DeadState = true;
+            CameraController.Instance.StatePlayer = CameraController.PlayerState.DeadState;
         }
 
         public override void UpdateState(CharacterManager character)
@@ -40,38 +41,47 @@ namespace Character.State
 
             //Timer Start Fade
             if (CameraController.Instance.StartTimerDeath == true)
-                _timerFadeOutStart += Time.deltaTime;
-            //Timer transition In
-            if (_transitionIn == true)
+            {
                 _timerFadeInEnded += Time.deltaTime;
+            }
 
             //Transition In
-            if (_timerFadeOutStart > CharacterManagerRef.TimeToPlayFadeOut && _transitionIn == false)
+            if (_timerFadeInEnded > CharacterManagerRef.TimeFadeInAfterDeath && _transitionIn == false)
             {
                 _transitionIn = true;
                 CharacterManagerRef.TransitionManager.LaunchTransitionIn(SceneTransition.TransitionType.Fade);
             }
 
-
-            if (_timerFadeInEnded >= CharacterManagerRef.TimeFadeInEnded)
+            //Timer transition In
+            if (_transitionIn == true && _respawned == false)
             {
                 _timerToRespawnCheckpoint += Time.deltaTime;
+            }
+
+
+            if (_timerToRespawnCheckpoint >= CharacterManagerRef.TimeToRespawnCheckPoint)
+            {
+                if (_respawned == true)
+                {
+                    _timerFadeOutStart += Time.deltaTime;
+                }
+
                 if (_respawned == false)
                 {
-                    _respawned = true;
                     //put kayak in checkpoint position & rotation
                     _kayakController.transform.position = checkpoint.position;
                     _kayakController.transform.rotation = checkpoint.rotation;
+
+                    //Reset value
+                    _kayakController.CanReduceDrag = true;
+                    CharacterManagerRef.CamController.CanMoveCameraMaunally = true;
+                    CharacterManagerRef.Balance = 0;
+                    _respawned = true;
                 }
 
-                //Reset value
-                _kayakController.CanReduceDrag = true;
-                CharacterManagerRef.CamController.CanMoveCameraMaunally = true;
-                CharacterManagerRef.Balance = 0;
-
-                if (_timerToRespawnCheckpoint >= CharacterManagerRef.TimeToPlayFadeOut)
-                    this.SwitchState(character);
             }
+            if (_timerFadeOutStart > CharacterManagerRef.TimeToPlayFadeOutAfterRespawn && _respawned == true)
+                this.SwitchState(character);
             MakeBoatRotationWithBalance(_kayakController.transform, 1);
         }
 
@@ -85,7 +95,6 @@ namespace Character.State
             CharacterManagerRef.TransitionManager.LaunchTransitionOut(SceneTransition.TransitionType.Fade);
 
             //Reset variable
-            CameraController.Instance.DeadState = false;
             CameraController.Instance.ResetValueDead();
 
             //Switch state

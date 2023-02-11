@@ -53,6 +53,7 @@ namespace Character.State
         public override void EnterState(CharacterManager character)
         {
             Debug.Log("naviguation");
+            CameraController.Instance.StatePlayer = CameraController.PlayerState.NavigationState;
 
             //values
             _rightPaddleCooldown = _kayakValues.PaddleCooldown;
@@ -75,7 +76,6 @@ namespace Character.State
                 
                 CharacterUnbalancedState characterUnbalancedState = new CharacterUnbalancedState(_kayakController, _inputs, CharacterManagerRef, MonoBehaviourRef);
                 CharacterManagerRef.SwitchState(characterUnbalancedState);
-                SwitchState(character);
             }
             
             MakeBoatRotationWithBalance(_kayakController.transform, 1);
@@ -108,7 +108,6 @@ namespace Character.State
 
         public override void SwitchState(CharacterManager character)
         {
-            CameraController.Instance.NormalState = false;
         }
 
         #endregion
