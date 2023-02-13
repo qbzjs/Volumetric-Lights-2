@@ -200,7 +200,6 @@ namespace Character.Camera
                         _input.Inputs.RotateRight >= _input.Inputs.DEADZONE*/
                         Mathf.Abs(rotationStaticY) > rotationThreshold / 2)// if kayak is rotating
                     {
-                        print("cc");
                         cameraTargetLocalPosition.x = Mathf.Lerp(cameraTargetLocalPosition.x, 0, _lerpLocalPositionNotMoving);
                     }
                     else if (Mathf.Abs(rotationPaddleY) > rotationThreshold)// if kayak is moving
@@ -256,10 +255,20 @@ namespace Character.Camera
             RotateCamInZ();
 
             //apply pitch+yaw+z to camera
-            _cinemachineCameraTarget.transform.rotation = Quaternion.Euler(
+            if (Mathf.Abs(_characterManager.Balance) > 60)
+            {
+                _cinemachineCameraTarget.transform.rotation = Quaternion.Euler(
+                _cinemachineTargetPitch + _cameraAngleOverride, //pitch
+                _cinemachineTargetYaw, //yaw
+                _rotationZ); //z rotation
+            }
+            else
+            {
+                _cinemachineCameraTarget.transform.rotation = Quaternion.Euler(
                 _cinemachineTargetPitch /*+ _cameraAngleOverride*/, //pitch
                 _cinemachineTargetYaw, //yaw
                 _rotationZ); //z rotation
+            }
 
         }
 
@@ -309,20 +318,33 @@ namespace Character.Camera
         public void ResetValueDead()
         {
             SmoothResetRotateZ();
-            _pendulumValue = PendulumFirstAngle;
-            _speedPendulum = PendulumFirstSpeed;
-            _pendulumValueMoins = PendulumRemoveAngle;
-            _speedPendulumMoins = PendulumRemoveSpeed;
-            _playOnce = false;
+            //_pendulumValue = PendulumFirstAngle;
+            //_speedPendulum = PendulumFirstSpeed;
+            //_pendulumValueMoins = PendulumRemoveAngle;
+            //_speedPendulumMoins = PendulumRemoveSpeed;
+            //_playOnce = false;
             //DeadState = false;
 
             StatePlayer = PlayerState.NavigationState;
+            _virtualCamera.GetCinemachineComponent<Cinemachine3rdPersonFollow>().CameraDistance = 7;
             StartTimerDeath = false;
         }
 
         private void Isdead()
         {
+            SmoothResetRotateZ();
+            if (Mathf.Abs(_characterManager.Balance) > 60)
+            {
+                _virtualCamera.GetCinemachineComponent<Cinemachine3rdPersonFollow>().CameraDistance += 0.05f;
 
+                if (_virtualCamera.GetCinemachineComponent<Cinemachine3rdPersonFollow>().CameraDistance > 10)
+                    StartTimerDeath = true;
+            }
+
+        }
+
+        private void PendulumDead()
+        {
             if (_rotationZ >= _pendulumValue)
             {
                 _left = false;
@@ -366,7 +388,9 @@ namespace Character.Camera
                 StartTimerDeath = true;
                 SmoothResetRotateZ();
             }
+
         }
+
         private float ClampAngle(float lfAngle, float lfMin, float lfMax)
         {
             if (lfAngle < -360f) lfAngle += 360f;
