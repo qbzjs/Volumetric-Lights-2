@@ -17256,6 +17256,21 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2865575383136156668, guid: 36e32e7372e41e346abb29f843dd75b3,
         type: 3}
+      propertyPath: PendulumFirstAngle
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2865575383136156668, guid: 36e32e7372e41e346abb29f843dd75b3,
+        type: 3}
+      propertyPath: _divisionMoveForceX
+      value: 10000
+      objectReference: {fileID: 0}
+    - target: {fileID: 2865575383136156668, guid: 36e32e7372e41e346abb29f843dd75b3,
+        type: 3}
+      propertyPath: _divisionMoveForceY
+      value: 10000
+      objectReference: {fileID: 0}
+    - target: {fileID: 2865575383136156668, guid: 36e32e7372e41e346abb29f843dd75b3,
+        type: 3}
       propertyPath: _multiplierFovCamera
       value: 2.03
       objectReference: {fileID: 0}
