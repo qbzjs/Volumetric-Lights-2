@@ -4,26 +4,26 @@ using UnityEngine;
 [CustomEditor(typeof(BezierSpline))]
 public class BezierSplineInspector : Editor {
 
-    private BezierSpline spline;
-    private Transform handleTransform;
-    private Quaternion handleRotation;
+    private BezierSpline _spline;
+    private Transform _handleTransform;
+    private Quaternion _handleRotation;
     
-    private const int stepsPerCurve = 10;
-    private const float directionScale = 0.5f;
+    private const int StepsPerCurve = 10;
+    private const float DirectionScale = 0.5f;
     
-    private const float handleSize = 0.04f;
-    private const float pickSize = 0.06f;
+    private const float HandleSize = 0.04f;
+    private const float PickSize = 0.06f;
 	
-    private int selectedIndex = -1;
+    private int _selectedIndex = -1;
 
     private void OnSceneGUI () {
-        spline = target as BezierSpline;
-        handleTransform = spline.transform;
-        handleRotation = Tools.pivotRotation == PivotRotation.Local ?
-            handleTransform.rotation : Quaternion.identity;
+        _spline = target as BezierSpline;
+        _handleTransform = _spline.transform;
+        _handleRotation = Tools.pivotRotation == PivotRotation.Local ?
+            _handleTransform.rotation : Quaternion.identity;
 		
         Vector3 p0 = ShowPoint(0);
-        for (int i = 1; i < spline.points.Length; i += 3) {
+        for (int i = 1; i < _spline.points.Length; i += 3) {
             Vector3 p1 = ShowPoint(i);
             Vector3 p2 = ShowPoint(i + 1);
             Vector3 p3 = ShowPoint(i + 2);
@@ -40,28 +40,28 @@ public class BezierSplineInspector : Editor {
 
     private void ShowDirections () {
         Handles.color = Color.green;
-        Vector3 point = spline.GetPoint(0f);
-        Handles.DrawLine(point, point + spline.GetDirection(0f) * directionScale);
-        int steps = stepsPerCurve * spline.CurveCount;
+        Vector3 point = _spline.GetPoint(0f);
+        Handles.DrawLine(point, point + _spline.GetDirection(0f) * DirectionScale);
+        int steps = StepsPerCurve * _spline.CurveCount;
         for (int i = 1; i <= steps; i++) {
-            point = spline.GetPoint(i / (float)steps);
-            Handles.DrawLine(point, point + spline.GetDirection(i / (float)steps) * directionScale);
+            point = _spline.GetPoint(i / (float)steps);
+            Handles.DrawLine(point, point + _spline.GetDirection(i / (float)steps) * DirectionScale);
         }
     }
 
     private Vector3 ShowPoint (int index) {
-        Vector3 point = handleTransform.TransformPoint(spline.points[index]);
+        Vector3 point = _handleTransform.TransformPoint(_spline.points[index]);
         Handles.color = Color.white;
-        if (Handles.Button(point, handleRotation, handleSize, pickSize, Handles.DotHandleCap)) {
-            selectedIndex = index;
+        if (Handles.Button(point, _handleRotation, HandleSize, PickSize, Handles.DotHandleCap)) {
+            _selectedIndex = index;
         }
-        if (selectedIndex == index) {
+        if (_selectedIndex == index) {
             EditorGUI.BeginChangeCheck();
-            point = Handles.DoPositionHandle(point, handleRotation);
+            point = Handles.DoPositionHandle(point, _handleRotation);
             if (EditorGUI.EndChangeCheck()) {
-                Undo.RecordObject(spline, "Move Point");
-                EditorUtility.SetDirty(spline);
-                spline.points[index] = handleTransform.InverseTransformPoint(point);
+                Undo.RecordObject(_spline, "Move Point");
+                EditorUtility.SetDirty(_spline);
+                _spline.points[index] = _handleTransform.InverseTransformPoint(point);
             }
         }
         return point;
@@ -69,11 +69,11 @@ public class BezierSplineInspector : Editor {
     
     public override void OnInspectorGUI () {
         DrawDefaultInspector();
-        spline = target as BezierSpline;
+        _spline = target as BezierSpline;
         if (GUILayout.Button("Add Curve")) {
-            Undo.RecordObject(spline, "Add Curve");
-            spline.AddCurve();
-            EditorUtility.SetDirty(spline);
+            Undo.RecordObject(_spline, "Add Curve");
+            _spline.AddCurve();
+            EditorUtility.SetDirty(_spline);
         }
     }
 }
