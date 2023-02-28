@@ -2631,6 +2631,16 @@ PrefabInstance:
       propertyPath: field of view
       value: 56.2
       objectReference: {fileID: 0}
+    - target: {fileID: 124876923868058828, guid: 36e32e7372e41e346abb29f843dd75b3,
+        type: 3}
+      propertyPath: far clip plane
+      value: 5000
+      objectReference: {fileID: 0}
+    - target: {fileID: 124876923868058828, guid: 36e32e7372e41e346abb29f843dd75b3,
+        type: 3}
+      propertyPath: near clip plane
+      value: 0.1
+      objectReference: {fileID: 0}
     - target: {fileID: 2610664554247681292, guid: 36e32e7372e41e346abb29f843dd75b3,
         type: 3}
       propertyPath: _waves
@@ -2681,80 +2691,33 @@ PrefabInstance:
       propertyPath: _waves
       value: 
       objectReference: {fileID: 419315132}
-    - target: {fileID: 2865575383136156668, guid: 36e32e7372e41e346abb29f843dd75b3,
-        type: 3}
+    - target: {fileID: 0}
       propertyPath: test
       value: 10
       objectReference: {fileID: 0}
-    - target: {fileID: 2865575383136156668, guid: 36e32e7372e41e346abb29f843dd75b3,
-        type: 3}
+    - target: {fileID: 0}
       propertyPath: speed
       value: 1
       objectReference: {fileID: 0}
-    - target: {fileID: 2865575383136156668, guid: 36e32e7372e41e346abb29f843dd75b3,
-        type: 3}
+    - target: {fileID: 0}
       propertyPath: PendulumValue
       value: 25
       objectReference: {fileID: 0}
-    - target: {fileID: 2865575383136156668, guid: 36e32e7372e41e346abb29f843dd75b3,
-        type: 3}
+    - target: {fileID: 0}
       propertyPath: SpeedPendulum
       value: 5
       objectReference: {fileID: 0}
-    - target: {fileID: 2865575383136156668, guid: 36e32e7372e41e346abb29f843dd75b3,
-        type: 3}
-      propertyPath: PendulumFirstAngle
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 2865575383136156668, guid: 36e32e7372e41e346abb29f843dd75b3,
-        type: 3}
-      propertyPath: PendulumFirstSpeed
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 2865575383136156668, guid: 36e32e7372e41e346abb29f843dd75b3,
-        type: 3}
+    - target: {fileID: 0}
       propertyPath: PendulumValueMoins
       value: 5
       objectReference: {fileID: 0}
-    - target: {fileID: 2865575383136156668, guid: 36e32e7372e41e346abb29f843dd75b3,
-        type: 3}
+    - target: {fileID: 0}
       propertyPath: SpeedPendulumMoins
       value: 1
       objectReference: {fileID: 0}
-    - target: {fileID: 2865575383136156668, guid: 36e32e7372e41e346abb29f843dd75b3,
-        type: 3}
+    - target: {fileID: 0}
       propertyPath: SpeedRatioPendulum
       value: 0.5
-      objectReference: {fileID: 0}
-    - target: {fileID: 2865575383136156668, guid: 36e32e7372e41e346abb29f843dd75b3,
-        type: 3}
-      propertyPath: PendulumRemoveSpeed
-      value: 0.2
-      objectReference: {fileID: 0}
-    - target: {fileID: 2865575383136156668, guid: 36e32e7372e41e346abb29f843dd75b3,
-        type: 3}
-      propertyPath: _divisionMoveForceX
-      value: 10000
-      objectReference: {fileID: 0}
-    - target: {fileID: 2865575383136156668, guid: 36e32e7372e41e346abb29f843dd75b3,
-        type: 3}
-      propertyPath: _divisionMoveForceY
-      value: 10000
-      objectReference: {fileID: 0}
-    - target: {fileID: 2865575383136156668, guid: 36e32e7372e41e346abb29f843dd75b3,
-        type: 3}
-      propertyPath: _multiplierValuePosition
-      value: 3.84
-      objectReference: {fileID: 0}
-    - target: {fileID: 2865575383136156668, guid: 36e32e7372e41e346abb29f843dd75b3,
-        type: 3}
-      propertyPath: _multiplierValueRotation
-      value: 22.9
-      objectReference: {fileID: 0}
-    - target: {fileID: 2865575383136156668, guid: 36e32e7372e41e346abb29f843dd75b3,
-        type: 3}
-      propertyPath: _balanceRotationMultiplier
-      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3387405727807608120, guid: 36e32e7372e41e346abb29f843dd75b3,
         type: 3}
@@ -2923,6 +2886,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7217796708653836310, guid: 36e32e7372e41e346abb29f843dd75b3,
         type: 3}
+      propertyPath: CameraManagerRef
+      value: 
+      objectReference: {fileID: 7217796708188491352}
+    - target: {fileID: 7217796708653836310, guid: 36e32e7372e41e346abb29f843dd75b3,
+        type: 3}
       propertyPath: BalanceDeathLimit
       value: 6.2
       objectReference: {fileID: 0}
@@ -2956,5 +2924,18 @@ PrefabInstance:
       propertyPath: _waves
       value: 
       objectReference: {fileID: 419315132}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 5480866633708966426, guid: 36e32e7372e41e346abb29f843dd75b3, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: 36e32e7372e41e346abb29f843dd75b3, type: 3}
+--- !u!114 &7217796708188491352 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 7611706348771366613, guid: 36e32e7372e41e346abb29f843dd75b3,
+    type: 3}
+  m_PrefabInstance: {fileID: 7217796708188491343}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7d49cd67baff6c54aa5d47073fe1fc45, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
