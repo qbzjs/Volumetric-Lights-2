@@ -1,4 +1,4 @@
-﻿namespace WaterFlow
+﻿namespace WaterFlowGPE.Bezier
 {
     public enum BezierControlPointMode
     {

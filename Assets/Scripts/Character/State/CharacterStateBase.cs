@@ -31,6 +31,9 @@ namespace Character.State
 
         public abstract void SwitchState(CharacterManager character);
 
+        /// <summary>
+        /// Rotate the boat alongside the Balance value
+        /// </summary>
         protected void MakeBoatRotationWithBalance(Transform kayakTransform, float multiplier)
         {
             Vector3 boatRotation = kayakTransform.localRotation.eulerAngles;
@@ -38,6 +41,9 @@ namespace Character.State
             kayakTransform.localRotation = Quaternion.Lerp(kayakTransform.localRotation, targetBoatRotation, 0.025f);
         }
 
+        /// <summary>
+        /// Move the velocity toward the player's facing direction
+        /// </summary>
         protected void VelocityToward()
         {
             Vector3 oldVelocity = CharacterManagerRef.KayakController.Rigidbody.velocity;
