@@ -276,7 +276,7 @@ MonoBehaviour:
   _dragReducingMultiplier: 50.654
   DragReducingTimer: 0
   KayakValues:
-    MaximumFrontVelocity: 20
+    MaximumFrontVelocity: 12
     CollisionToBalanceMagnitudeDivider: 5
     PaddleSideRotationForce: 0.254
     PaddleCooldown: 2
