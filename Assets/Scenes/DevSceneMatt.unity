@@ -2681,6 +2681,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: WaterFlowExample
       objectReference: {fileID: 0}
+    - target: {fileID: 1978983415328643322, guid: c9fe68c15f2e4ff44b152da45200273f,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 1978983415328643324, guid: c9fe68c15f2e4ff44b152da45200273f,
         type: 3}
       propertyPath: m_RootOrder
@@ -3043,11 +3048,6 @@ PrefabInstance:
       propertyPath: TransitionManager
       value: 
       objectReference: {fileID: 1878337776}
-    - target: {fileID: 7217796708653836310, guid: 36e32e7372e41e346abb29f843dd75b3,
-        type: 3}
-      propertyPath: MinimumTimeUnbalanced
-      value: 2
-      objectReference: {fileID: 0}
     - target: {fileID: 7609300824562711772, guid: 36e32e7372e41e346abb29f843dd75b3,
         type: 3}
       propertyPath: _waves
@@ -3146,6 +3146,26 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 8907499377915252844, guid: 9f97cd87f2bcad74abdba51a0733ff23,
+        type: 3}
+      propertyPath: _points.Array.data[5].x
+      value: 4.729162
+      objectReference: {fileID: 0}
+    - target: {fileID: 8907499377915252844, guid: 9f97cd87f2bcad74abdba51a0733ff23,
+        type: 3}
+      propertyPath: _points.Array.data[5].z
+      value: -6.128953
+      objectReference: {fileID: 0}
+    - target: {fileID: 8907499377915252844, guid: 9f97cd87f2bcad74abdba51a0733ff23,
+        type: 3}
+      propertyPath: _points.Array.data[7].x
+      value: 12.12141
+      objectReference: {fileID: 0}
+    - target: {fileID: 8907499377915252844, guid: 9f97cd87f2bcad74abdba51a0733ff23,
+        type: 3}
+      propertyPath: _points.Array.data[7].z
+      value: 1.1709108
+      objectReference: {fileID: 0}
     - target: {fileID: 8907499378128185032, guid: 9f97cd87f2bcad74abdba51a0733ff23,
         type: 3}
       propertyPath: m_Name
@@ -3154,7 +3174,7 @@ PrefabInstance:
     - target: {fileID: 8907499378128185032, guid: 9f97cd87f2bcad74abdba51a0733ff23,
         type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8907499378128185035, guid: 9f97cd87f2bcad74abdba51a0733ff23,
         type: 3}
@@ -3216,10 +3236,42 @@ PrefabInstance:
       propertyPath: _waves
       value: 
       objectReference: {fileID: 419315132}
+    - target: {fileID: 8907499379896150754, guid: 9f97cd87f2bcad74abdba51a0733ff23,
+        type: 3}
+      propertyPath: _mode
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 8907499379896150754, guid: 9f97cd87f2bcad74abdba51a0733ff23,
+        type: 3}
+      propertyPath: _duration
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 8907499379896150754, guid: 9f97cd87f2bcad74abdba51a0733ff23,
+        type: 3}
+      propertyPath: _timeToScaleEnd
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 8907499379896150754, guid: 9f97cd87f2bcad74abdba51a0733ff23,
+        type: 3}
+      propertyPath: _timeToScaleStart
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 8907499379896150761, guid: 9f97cd87f2bcad74abdba51a0733ff23,
+        type: 3}
+      propertyPath: m_Constraints
+      value: 112
+      objectReference: {fileID: 0}
     - target: {fileID: 8907499379896150764, guid: 9f97cd87f2bcad74abdba51a0733ff23,
         type: 3}
       propertyPath: m_Materials.Array.data[0]
       value: 
       objectReference: {fileID: 2100000, guid: ce30bcf8f3ffd8242afc1044dbc4957f, type: 2}
-    m_RemovedComponents: []
+    - target: {fileID: 8907499379896150765, guid: 9f97cd87f2bcad74abdba51a0733ff23,
+        type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
+    m_RemovedComponents:
+    - {fileID: 8907499379896150761, guid: 9f97cd87f2bcad74abdba51a0733ff23, type: 3}
+    - {fileID: 8907499379896150765, guid: 9f97cd87f2bcad74abdba51a0733ff23, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: 9f97cd87f2bcad74abdba51a0733ff23, type: 3}
