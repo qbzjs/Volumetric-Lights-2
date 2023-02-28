@@ -288,7 +288,6 @@ namespace Character.State
         /// </summary>
         private void DecelerationAndRotate(Direction direction)
         {
-            Debug.Log("deceleration & rotate");
             Vector3 targetVelocity = new Vector3(0, _kayakRigidbody.velocity.y, 0);
             
             _kayakRigidbody.velocity = Vector3.Lerp(_kayakRigidbody.velocity, targetVelocity,

@@ -10,6 +10,7 @@ namespace WaterFlowGPE
         [SerializeField] private BezierSpline _spline;
         [SerializeField, Range(0,100)] private int _numberOfBlocks = 10;
         [SerializeField] private WaterFlowBlock _waterFlowBlockPrefab;
+        [SerializeField] private float _waterFlowBlockWidth = 6f;
         [SerializeField, ReadOnly] private WaterFlowBlock[] _waterFlowBlocks;
         
         public void GenerateWaterFlow()
@@ -38,7 +39,7 @@ namespace WaterFlowGPE
             float distancePerBlock = 1f / _numberOfBlocks;
             Array.Resize(ref _waterFlowBlocks, _numberOfBlocks);
             int index = 0;
-            for (float i = 0; i < 1; i += distancePerBlock)
+            for (float i = 0; i < 1-distancePerBlock; i += distancePerBlock)
             {
                 //gets points
                 Vector3 point = _spline.GetPoint(i);
@@ -51,9 +52,13 @@ namespace WaterFlowGPE
                 
                 //instantiate
                 _waterFlowBlocks[index] = Instantiate(_waterFlowBlockPrefab, _spline.GetPoint(i), rotation, gameObject.transform);
+                //values
                 _waterFlowBlocks[index].Direction = direction;
                 _waterFlowBlocks[index].WaterFlowManager = this;
-                
+                //scale
+                Vector3 scale = _waterFlowBlocks[index].transform.localScale;
+                _waterFlowBlocks[index].transform.localScale = new Vector3(scale.x, scale.y, _waterFlowBlockWidth);
+
                 index++;
             }
         }
