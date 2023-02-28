@@ -36,8 +36,8 @@ namespace Character.State
 
         #region Constructor
 
-        public CharacterNavigationState(KayakController kayak, InputManagement inputManagement, CharacterManager characterManagerRef, MonoBehaviour monoBehaviour) : 
-            base(characterManagerRef, monoBehaviour)
+        public CharacterNavigationState(KayakController kayak, InputManagement inputManagement, CharacterManager characterManagerRef, MonoBehaviour monoBehaviour, CameraManager cameraManagerRef) : 
+            base(characterManagerRef, monoBehaviour, cameraManagerRef)
         {
             _kayakController = kayak;
             _kayakRigidbody = kayak.Rigidbody;
@@ -74,7 +74,7 @@ namespace Character.State
                 CharacterManagerRef.CamController.CanMoveCameraMaunally = false;
                 _kayakController.CanReduceDrag = false;
                 
-                CharacterUnbalancedState characterUnbalancedState = new CharacterUnbalancedState(_kayakController, _inputs, CharacterManagerRef, MonoBehaviourRef);
+                CharacterUnbalancedState characterUnbalancedState = new CharacterUnbalancedState(_kayakController, _inputs, CharacterManagerRef, MonoBehaviourRef, CameraManagerRef);
                 CharacterManagerRef.SwitchState(characterUnbalancedState);
             }
             
