@@ -26,7 +26,6 @@ namespace Character.State
         public override void EnterState(CharacterManager character)
         {
             Debug.Log("death");
-            CameraController.Instance.StatePlayer = CameraController.PlayerState.DeadState;
         }
 
         public override void UpdateState(CharacterManager character)
@@ -77,7 +76,7 @@ namespace Character.State
                     CameraManagerRef.SwitchState(cameraNavigationState);
                     //Reset value
                     _kayakController.CanReduceDrag = true;
-                    CharacterManagerRef.CamController.CanMoveCameraMaunally = true;
+                    CameraManagerRef.CanMoveCameraMaunally = true;
                     CharacterManagerRef.Balance = 0;
                     _respawned = true;
                 }

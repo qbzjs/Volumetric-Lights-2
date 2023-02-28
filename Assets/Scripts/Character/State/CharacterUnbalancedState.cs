@@ -36,10 +36,6 @@ namespace Character.State
             Debug.Log("unbalanced");
             CharacterManagerRef.LerpBalanceTo0 = false;
 
-            //CameraController.Instance.NormalState = false;
-            //CameraController.Instance.StatePlayer = CameraController.PlayerState.UnbalanceState;
-            //CameraUnbalancedState cameraUnbalancedState = new CameraUnbalancedState(CameraManagerRef, MonoBehaviourRef);
-
             //values
             _rightPaddleCooldown = _kayakValues.UnbalancePaddleCooldown;
             _leftPaddleCooldown = _kayakValues.UnbalancePaddleCooldown;
@@ -91,7 +87,7 @@ namespace Character.State
             else if (Mathf.Abs(CharacterManagerRef.Balance) < CharacterManagerRef.RebalanceAngle)
             {
                 _kayakController.CanReduceDrag = true;
-                CharacterManagerRef.CamController.CanMoveCameraMaunally = true;
+                CameraManagerRef.CanMoveCameraMaunally = true;
                 CharacterManagerRef.Balance = 0;
 
 

@@ -41,7 +41,7 @@ public class DialogCreator : MonoBehaviour
     public UnityEvent OnDialogEnd = new UnityEvent();
 
     [Space(20), Header("References"), SerializeField] private CharacterManager _characterManager;
-    [SerializeField] private CameraController _cameraController;
+    [SerializeField] private CameraManager _cameraManager;
 
     private int _dialogIndex;
     private float _currentDialogCooldown;
@@ -140,7 +140,7 @@ public class DialogCreator : MonoBehaviour
 
         if (_blockCameraMovement)
         {
-            _cameraController.CanMoveCameraMaunally = false;
+            _cameraManager.CanMoveCameraMaunally = false;
         }
 
         //visual
@@ -188,7 +188,7 @@ public class DialogCreator : MonoBehaviour
 
         //booleans
         _characterManager.CurrentStateBase.CanCharacterMove = true;
-        _cameraController.CanMoveCameraMaunally = true;
+        _cameraManager.CanMoveCameraMaunally = true;
     }
 
     private void CheckForDialogEnd()

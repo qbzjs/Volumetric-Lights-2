@@ -17,8 +17,8 @@ namespace Character
         public KayakController KayakController;
         [SerializeField, Tooltip("Reference of the InputManagement script")] 
         private InputManagement _inputManagement;
-        [Tooltip("Reference of the CameraController script")]
-        public CameraController CamController;
+        //[Tooltip("Reference of the CameraController script")]
+        //public CameraController CamController;
         [Tooltip("Reference of the paddle Animator")]
         public Animator PaddleAnimator;
         [Tooltip("Reference of the TransitionManager script")]
