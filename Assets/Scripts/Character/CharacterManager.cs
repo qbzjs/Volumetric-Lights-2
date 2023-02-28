@@ -75,6 +75,9 @@ namespace Character
             stateBaseCharacter.EnterState(this);
         }
 
+        /// <summary>
+        /// Lerp the Balance value to 0 
+        /// </summary>
         private void BalanceManagement()
         {
             if (LerpBalanceTo0)

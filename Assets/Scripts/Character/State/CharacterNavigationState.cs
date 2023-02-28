@@ -114,6 +114,9 @@ namespace Character.State
 
         #region Methods
 
+        /// <summary>
+        /// Handle the boat y rotation depending on the force applied from each side
+        /// </summary>
         private void KayakRotationManager(RotationType rotationType)
         {
             //get rotation
@@ -148,11 +151,18 @@ namespace Character.State
             }
         }
 
+        /// <summary>
+        /// Lerp the character velocity to 0
+        /// </summary>
         private void StopCharacter()
         {
+            Debug.Log("stop character");
             _kayakRigidbody.velocity = Vector3.Lerp(_kayakRigidbody.velocity, Vector3.zero, 0.01f);
         }
 
+        /// <summary>
+        /// Set the animators brake booleans to false
+        /// </summary>
         private void SetBrakeAnimationToFalse()
         {
             CharacterManagerRef.PaddleAnimator.SetBool("BrakeLeft", false);
@@ -163,6 +173,9 @@ namespace Character.State
 
         #region Paddle Movement
 
+        /// <summary>
+        /// Handle the paddling of the kayak, add rotation force, launch the paddleForceCurve method to move the rigidbody, play paddle sound, set animation paddle trigger
+        /// </summary>
         private void Paddle(Direction direction)
         {
             //timers
@@ -176,26 +189,28 @@ namespace Character.State
             //balance
             const float rotationToBalanceMultiplier = 10f;
             CharacterManagerRef.Balance += RotationPaddleForceY * rotationToBalanceMultiplier;
+            
+            //force
+            MonoBehaviourRef.StartCoroutine(PaddleForceCurve());
 
             //audio
             SoundManager.Instance.PlaySound(_kayakController.PaddlingAudioClip);
             
             //animation
             CharacterManagerRef.PaddleAnimator.SetTrigger(direction == Direction.Left ? "PaddleLeft" : "PaddleRight");
-            
         }
 
+        /// <summary>
+        /// Detect & verify paddle input and launch paddle method 
+        /// </summary>
         private void HandlePaddleMovement()
         {
-            float staticInput = Mathf.Abs(_inputs.Inputs.RotateLeft) + Mathf.Abs(_inputs.Inputs.RotateRight);
-            
             //input -> paddleMovement
             if (_inputs.Inputs.PaddleLeft && _rightPaddleCooldown <= 0 && _inputs.Inputs.PaddleRight == false)
             {
                 _rightPaddleCooldown = _kayakValues.PaddleCooldown;
                 _rightPaddleCooldown = _kayakValues.PaddleCooldown / 2;
                 Paddle(Direction.Left);
-                MonoBehaviourRef.StartCoroutine(PaddleForceCurve());
             }
             
             if (_inputs.Inputs.PaddleRight && _leftPaddleCooldown <= 0 && _inputs.Inputs.PaddleLeft == false)
@@ -203,10 +218,12 @@ namespace Character.State
                 _leftPaddleCooldown = _kayakValues.PaddleCooldown;
                 _leftPaddleCooldown = _kayakValues.PaddleCooldown / 2;
                 Paddle(Direction.Right);
-                MonoBehaviourRef.StartCoroutine(PaddleForceCurve());
             }
         }
 
+        /// <summary>
+        /// Add paddle force to the kayak a certain number of times
+        /// </summary>
         private IEnumerator PaddleForceCurve()
         {
             for (int i = 0; i <= _kayakValues.NumberOfForceAppliance; i++)
@@ -220,6 +237,9 @@ namespace Character.State
             }
         }
 
+        /// <summary>
+        /// Count the different cooldowns
+        /// </summary>
         private void PaddleCooldownManagement()
         {
             _leftPaddleCooldown -= Time.deltaTime;
@@ -232,6 +252,9 @@ namespace Character.State
 
         #region Rotate Movement
 
+        /// <summary>
+        ///detect static rotation input and apply static rotation by adding rotation force & setting animator booleans
+        /// </summary>
         private void HandleStaticRotation()
         {
             bool isFast = Mathf.Abs(_kayakRigidbody.velocity.x + _kayakRigidbody.velocity.z) >= 0.1f;
@@ -261,8 +284,12 @@ namespace Character.State
             }
         }
 
+        /// <summary>
+        /// Lerp the kayak velocity to 0 and make add rotation force
+        /// </summary>
         private void DecelerationAndRotate(Direction direction)
         {
+            Debug.Log("deceleration & rotate");
             Vector3 targetVelocity = new Vector3(0, _kayakRigidbody.velocity.y, 0);
             
             _kayakRigidbody.velocity = Vector3.Lerp(_kayakRigidbody.velocity, targetVelocity,

@@ -63,6 +63,9 @@ namespace Kayak
             SoundManager.Instance.PlaySound(CollisionAudioClip);
         }
 
+        /// <summary>
+        /// Clamp the kayak velocity x & z between -maximumFrontVelocity & maximumFrontVelocity
+        /// </summary>
         private void ClampVelocity()
         {
             Vector3 velocity = Rigidbody.velocity;
@@ -76,6 +79,9 @@ namespace Kayak
             Rigidbody.velocity = new Vector3(velocityX, velocity.y, velocityZ);
         }
 
+        /// <summary>
+        /// Manage the play/stop of particles at the front kayak
+        /// </summary>
         private void ParticleManagement()
         {
             if (Rigidbody.velocity.magnitude > 1)
@@ -88,6 +94,9 @@ namespace Kayak
             }
         }
 
+        /// <summary>
+        /// Artificially reduce the kayak drag to let it slide longer on water
+        /// </summary>
         private void DragReducing()
         {
             if (DragReducingTimer > 0 || CanReduceDrag == false)
