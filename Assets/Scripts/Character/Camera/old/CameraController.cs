@@ -29,6 +29,8 @@ namespace Character.Camera
         }
         #endregion
 
+
+        #region value
         //serialize fields
         [Header("Cinemachine"), Tooltip("The follow target set in the Cinemachine Virtual Camera that the camera will follow"), SerializeField]
         private GameObject _cinemachineCameraTarget;
@@ -81,8 +83,6 @@ namespace Character.Camera
 
         [Header("Player State")]
         [ReadOnly] public PlayerState StatePlayer;
-        //[ReadOnly] public bool NormalState = true;
-        //[ReadOnly] public bool DeadState = false;
 
         [Header("Pendulum")]
         [Tooltip("The angle you have on the first pendulum")]
@@ -120,7 +120,9 @@ namespace Character.Camera
         //other
         private bool _playOnce = false;
         public bool StartTimerDeath = false;
+        #endregion
 
+        #region Function
         private void Start()
         {
             _cameraTargetBasePos = _cinemachineCameraTarget.transform.localPosition;
@@ -132,17 +134,17 @@ namespace Character.Camera
         private void Update()
         {
             CameraRotation();
-            FielOfView();
+            //FielOfView();
 
-            if (StatePlayer == PlayerState.NavigationState /*NormalState*/ && Mathf.Abs(_rotationZ) >= 0.1f)
-            {
-                SmoothResetRotateZ();
-            }
+            //if (StatePlayer == PlayerState.NavigationState /*NormalState*/ && Mathf.Abs(_rotationZ) >= 0.1f)
+            //{
+            //    SmoothResetRotateZ();
+            //}
 
-            if (StatePlayer == PlayerState.DeadState /*DeadState*/)
-            {
-                Isdead();
-            }
+            //if (StatePlayer == PlayerState.DeadState /*DeadState*/)
+            //{
+            //    Isdead();
+            //}
         }
         private void FielOfView()
         {
@@ -398,4 +400,5 @@ namespace Character.Camera
             return Mathf.Clamp(lfAngle, lfMin, lfMax);
         }
     }
+    #endregion
 }
