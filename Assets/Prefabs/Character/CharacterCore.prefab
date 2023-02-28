@@ -626,7 +626,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5c9ad99accd13d042bb402174874e832, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  CameraManagerRef: {fileID: 0}
+  CameraManagerRef: {fileID: 7611706348771366613}
   KayakController: {fileID: 7217796708516857175}
   _inputManagement: {fileID: 5885439514833416252}
   CamController: {fileID: 0}
