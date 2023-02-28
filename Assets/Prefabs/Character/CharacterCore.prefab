@@ -629,7 +629,6 @@ MonoBehaviour:
   CameraManagerRef: {fileID: 7611706348771366613}
   KayakController: {fileID: 7217796708516857175}
   _inputManagement: {fileID: 5885439514833416252}
-  CamController: {fileID: 0}
   PaddleAnimator: {fileID: 8907830870862546047}
   TransitionManager: {fileID: 0}
   TimeFadeInAfterDeath: 0.5
