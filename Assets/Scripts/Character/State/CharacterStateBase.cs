@@ -5,13 +5,15 @@ namespace Character.State
 {
     public abstract class CharacterStateBase 
     {
-        public CharacterStateBase(CharacterManager characterManagerRef, MonoBehaviour monoBehaviour)
+        public CharacterStateBase(CharacterManager characterManagerRef, MonoBehaviour monoBehaviour, CameraManager cameraManagerRef)
         {
             CharacterManagerRef = characterManagerRef;
             MonoBehaviourRef = monoBehaviour;
+            CameraManagerRef = cameraManagerRef;
         }
 
         protected CharacterManager CharacterManagerRef;
+        protected CameraManager CameraManagerRef;
         protected MonoBehaviour MonoBehaviourRef;
         
         public bool CanCharacterMove = true;

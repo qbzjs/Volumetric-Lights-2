@@ -12,6 +12,7 @@ namespace Character
 
         [Header("References")] 
         public CharacterStateBase CurrentStateBase;
+        public CameraManager CameraManagerRef;
         [Tooltip("Reference of the KayakController script")]
         public KayakController KayakController;
         [SerializeField, Tooltip("Reference of the InputManagement script")] 
@@ -51,7 +52,7 @@ namespace Character
         private void Awake()
         {
             CharacterNavigationState navigationState =
-                new CharacterNavigationState(KayakController, _inputManagement, this, this);
+                new CharacterNavigationState(KayakController, _inputManagement, this, this, CameraManagerRef);
             CurrentStateBase = navigationState;
         }
 
