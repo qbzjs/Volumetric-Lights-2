@@ -47,7 +47,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 522d05f301da4a4b9d7aee4b522d2273, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _speed: 5
+  _speed: 0.2
   Direction: {x: 0, y: 0, z: 0}
   IsActive: 1
   WaterFlowManager: {fileID: 0}

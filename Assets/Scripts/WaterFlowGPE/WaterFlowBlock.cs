@@ -1,14 +1,11 @@
-﻿using System;
-using Character;
-using Kayak;
+﻿using Kayak;
 using UnityEngine;
-using UnityEngine.Serialization;
 
 namespace WaterFlowGPE
 {
     public class WaterFlowBlock : MonoBehaviour
     {
-        [SerializeField, Range(0, 100)] private float _speed;
+        [SerializeField] private float _speed;
         [ReadOnly] public Vector3 Direction;
         [ReadOnly] public bool IsActive = true;
         [HideInInspector] public WaterFlowManager WaterFlowManager;
@@ -16,12 +13,21 @@ namespace WaterFlowGPE
         private void OnTriggerStay(Collider other)
         {
             KayakController kayakController = other.GetComponent<KayakController>();
-            if (kayakController != null)
+            if (kayakController != null && WaterFlowManager != null) 
             {
                 WaterFlowManager.SetClosestBlockToPlayer(kayakController.transform);
-                kayakController.transform.position += Direction * _speed * Time.deltaTime * (IsActive ? 1 : 0);
-                kayakController.Rigidbody.AddForce(Direction * _speed * Time.deltaTime * (IsActive ? 1 : 0));
-                Debug.Log($"active : {IsActive}");
+                if (IsActive)
+                {
+                    // -> rotate kayak lerp toward direction
+                    Vector3 rotation = kayakController.transform.rotation.eulerAngles;
+                    float angle = Vector3.Angle(Direction, Vector3.forward);
+                    Quaternion targetRotation = Quaternion.Euler(rotation.x,angle,rotation.z);
+                    kayakController.transform.rotation = Quaternion.Lerp(Quaternion.Euler(rotation),targetRotation, 0.1f);
+                    
+                    // -> apply velocity by multiplying current by speed
+                    Vector3 velocity = kayakController.Rigidbody.velocity;
+                    kayakController.Rigidbody.velocity = new Vector3(velocity.x + _speed, velocity.y, velocity.z + _speed); // * Time.deltaTime;
+                }
             }
         }
     }
