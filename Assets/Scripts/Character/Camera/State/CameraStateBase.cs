@@ -23,12 +23,14 @@ public abstract class CameraStateBase
     public abstract void SwitchState(CameraManager camera);
 
 
+
+
     protected void ClampRotationCameraValue()
     {
         CameraManagerRef.CinemachineTargetYaw = ClampAngle(CameraManagerRef.CinemachineTargetYaw, float.MinValue, float.MaxValue);
-        CameraManagerRef.CinemachineTargetPitch = ClampAngle(CameraManagerRef.CinemachineTargetPitch, CameraManagerRef._bottomClamp, CameraManagerRef._topClamp);
+        CameraManagerRef.CinemachineTargetPitch = ClampAngle(CameraManagerRef.CinemachineTargetPitch, CameraManagerRef.BottomClamp, CameraManagerRef.TopClamp);
     }
-    protected float ClampAngle(float lfAngle, float lfMin, float lfMax)
+    public float ClampAngle(float lfAngle, float lfMin, float lfMax)
     {
         if (lfAngle < -360f) lfAngle += 360f;
         if (lfAngle > 360f) lfAngle -= 360f;

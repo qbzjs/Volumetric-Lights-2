@@ -6,7 +6,7 @@ namespace Character.Camera
     public class CameraTargetFollow : MonoBehaviour
     {
         [SerializeField] private Transform _kayakTransform;
-        
+
         private Vector3 _localPositionBase;
 
         private void Start()
@@ -18,11 +18,12 @@ namespace Character.Camera
         {
             //position
             transform.position = _kayakTransform.position + _localPositionBase;
-            
+
             //rotation
-            Vector3 rotation = transform.rotation.eulerAngles;
-            Vector3 kayakRotation = _kayakTransform.eulerAngles;
-            transform.rotation = Quaternion.Euler(new Vector3(rotation.x, kayakRotation.y, rotation.z));
+            //Vector3 rotation = transform.rotation.eulerAngles;
+            //Vector3 kayakRotation = _kayakTransform.eulerAngles;
+            //transform.rotation = Quaternion.Euler(new Vector3(rotation.x, kayakRotation.y, rotation.z));
+            //Debug.Log("Nico faut modif la !");
         }
     }
 }

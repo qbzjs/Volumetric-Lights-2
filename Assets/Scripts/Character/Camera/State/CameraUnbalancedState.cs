@@ -17,7 +17,6 @@ public class CameraUnbalancedState : CameraStateBase
         RotateCameraInZ();
         CameraManagerRef.ApplyRotationCamera();
 
-        this.SwitchState(camera);
     }
     public override void FixedUpdate(CameraManager camera)
     {
@@ -25,30 +24,19 @@ public class CameraUnbalancedState : CameraStateBase
     }
     public override void SwitchState(CameraManager camera)
     {
-        //if (Input.GetKeyDown(KeyCode.K))
-        if (Mathf.Abs(CameraManagerRef._characterManager.Balance) >= CameraManagerRef._characterManager.BalanceDeathLimit)
-        {
-            CameraDeathState cameraDeathState = new CameraDeathState(CameraManagerRef, MonoBehaviourRef);
-            CameraManagerRef.SwitchState(cameraDeathState);
-        }
-        //if (Input.GetKeyDown(KeyCode.I))
-        if (Mathf.Abs(CameraManagerRef._characterManager.Balance) < CameraManagerRef._characterManager.RebalanceAngle)
-        {
-            CameraNavigationState cameraNavigationState = new CameraNavigationState(CameraManagerRef, MonoBehaviourRef);
-            CameraManagerRef.SwitchState(cameraNavigationState);
-        }
+       
     }
 
 
     protected void RotateCameraInZ()
     {
-        if (CameraManagerRef._characterManager.Balance > 0)
+        if (CameraManagerRef.CharacterManager.Balance > 0)
         {
-            CameraManagerRef.RotationZ = Mathf.Lerp(CameraManagerRef.RotationZ, CameraManagerRef._characterManager.Balance + 10, 0.01f);
+            CameraManagerRef.RotationZ = Mathf.Lerp(CameraManagerRef.RotationZ, CameraManagerRef.CharacterManager.Balance + 10, 0.01f);
         }
-        else if (CameraManagerRef._characterManager.Balance < 0)
+        else if (CameraManagerRef.CharacterManager.Balance < 0)
         {
-            CameraManagerRef.RotationZ = Mathf.Lerp(CameraManagerRef.RotationZ, CameraManagerRef._characterManager.Balance - 10, 0.01f);
+            CameraManagerRef.RotationZ = Mathf.Lerp(CameraManagerRef.RotationZ, CameraManagerRef.CharacterManager.Balance - 10, 0.01f);
         }
     }
 }

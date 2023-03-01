@@ -33,9 +33,9 @@ public class CameraDeathState : CameraStateBase
     private void Isdead()
     {
         CameraManagerRef.SmoothResetRotateZ();
-        CameraManagerRef._virtualCamera.GetCinemachineComponent<Cinemachine3rdPersonFollow>().CameraDistance += 0.05f;
+        CameraManagerRef.VirtualCamera.GetCinemachineComponent<Cinemachine3rdPersonFollow>().CameraDistance += 0.05f;
 
-        if (CameraManagerRef._virtualCamera.GetCinemachineComponent<Cinemachine3rdPersonFollow>().CameraDistance > 10)
+        if (CameraManagerRef.VirtualCamera.GetCinemachineComponent<Cinemachine3rdPersonFollow>().CameraDistance > 10)
         {
             CameraManagerRef.StartTimerDeath = true;
         }
