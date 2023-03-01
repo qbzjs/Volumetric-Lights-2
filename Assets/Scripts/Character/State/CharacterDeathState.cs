@@ -76,7 +76,7 @@ namespace Character.State
                     CameraManagerRef.SwitchState(cameraNavigationState);
                     //Reset value
                     _kayakController.CanReduceDrag = true;
-                    CameraManagerRef.CanMoveCameraMaunally = true;
+                    CameraManagerRef.CanMoveCameraManually = true;
                     CharacterManagerRef.Balance = 0;
                     _respawned = true;
                 }
@@ -95,9 +95,6 @@ namespace Character.State
         {
             //Transition out
             CharacterManagerRef.TransitionManager.LaunchTransitionOut(SceneTransition.TransitionType.Fade);
-
-            //Reset variable
-            //CameraController.Instance.ResetValueDead();
 
             //Switch state character
             CharacterNavigationState characterNavigationState = new CharacterNavigationState(_kayakController, _inputs, CharacterManagerRef, MonoBehaviourRef, CameraManagerRef);

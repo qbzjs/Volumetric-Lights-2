@@ -140,7 +140,7 @@ public class DialogCreator : MonoBehaviour
 
         if (_blockCameraMovement)
         {
-            _cameraManager.CanMoveCameraMaunally = false;
+            _cameraManager.CanMoveCameraManually = false;
         }
 
         //visual
@@ -188,7 +188,7 @@ public class DialogCreator : MonoBehaviour
 
         //booleans
         _characterManager.CurrentStateBase.CanCharacterMove = true;
-        _cameraManager.CanMoveCameraMaunally = true;
+        _cameraManager.CanMoveCameraManually = true;
     }
 
     private void CheckForDialogEnd()

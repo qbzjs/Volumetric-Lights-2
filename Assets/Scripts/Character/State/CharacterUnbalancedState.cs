@@ -83,16 +83,22 @@ namespace Character.State
             {
                 CharacterDeathState characterDeathState = new CharacterDeathState(CharacterManagerRef, _kayakController, _inputs, MonoBehaviourRef, CameraManagerRef);
                 CharacterManagerRef.SwitchState(characterDeathState);
+
+                CameraDeathState cameraDeathState = new CameraDeathState(CameraManagerRef, MonoBehaviourRef);
+                CameraManagerRef.SwitchState(cameraDeathState);
             }
             else if (Mathf.Abs(CharacterManagerRef.Balance) < CharacterManagerRef.RebalanceAngle)
             {
                 _kayakController.CanReduceDrag = true;
-                CameraManagerRef.CanMoveCameraMaunally = true;
+                CameraManagerRef.CanMoveCameraManually = true;
                 CharacterManagerRef.Balance = 0;
 
 
                 CharacterNavigationState characterNavigationState = new CharacterNavigationState(_kayakController, _inputs, CharacterManagerRef, MonoBehaviourRef, CameraManagerRef);
                 CharacterManagerRef.SwitchState(characterNavigationState);
+
+                CameraNavigationState cameraNavigationState = new CameraNavigationState(CameraManagerRef, MonoBehaviourRef);
+                CameraManagerRef.SwitchState(cameraNavigationState);
             }
         }
 
