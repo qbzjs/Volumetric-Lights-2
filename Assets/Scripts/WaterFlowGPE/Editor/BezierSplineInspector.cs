@@ -56,6 +56,10 @@ namespace WaterFlowGPE.Editor
             Handles.DrawLine(point, point + _spline.GetDirection(0f) * DirectionScale);
             int steps = StepsPerCurve * _spline.CurveCount();
             for (int i = 1; i <= steps; i++) {
+                if (i / (float)steps > 1)
+                {
+                    continue;
+                }
                 point = _spline.GetPoint(i / (float)steps);
                 Handles.DrawLine(point, point + _spline.GetDirection(i / (float)steps) * DirectionScale);
             }

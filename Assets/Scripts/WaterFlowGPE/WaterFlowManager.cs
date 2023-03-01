@@ -43,21 +43,15 @@ namespace WaterFlowGPE
             {
                 //gets points
                 Vector3 point = _spline.GetPoint(i);
-                Vector3 nextPoint = point + _spline.GetDirection(i) * 2f;
+                Vector3 nextPoint = _spline.GetPoint(i+distancePerBlock);
                 
-                //get direction & angle
+                //get direction
                 Vector3 direction = (nextPoint - point).normalized;
-                float angle = Vector3.Angle(direction, Vector3.forward) + 90;
-                Quaternion rotation = Quaternion.Euler(new Vector3(0,angle, 0));
-                
+
                 //instantiate
-                _waterFlowBlocks[index] = Instantiate(_waterFlowBlockPrefab, _spline.GetPoint(i), rotation, gameObject.transform);
-                //values
-                _waterFlowBlocks[index].Direction = direction;
-                _waterFlowBlocks[index].WaterFlowManager = this;
-                //scale
-                Vector3 scale = _waterFlowBlocks[index].transform.localScale;
-                _waterFlowBlocks[index].transform.localScale = new Vector3(scale.x, scale.y, _waterFlowBlockWidth);
+                _waterFlowBlocks[index] = Instantiate(_waterFlowBlockPrefab, _spline.GetPoint(i), Quaternion.identity, gameObject.transform);
+                _waterFlowBlocks[index].SetupBlock(direction, this, _waterFlowBlockWidth);
+                _waterFlowBlocks[index].name = Math.Round(i,2).ToString();
 
                 index++;
             }

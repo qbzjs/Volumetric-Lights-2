@@ -1,5 +1,7 @@
-﻿using Kayak;
+﻿using System;
+using Kayak;
 using UnityEngine;
+using UnityEngine.UI;
 
 namespace WaterFlowGPE
 {
@@ -34,9 +36,10 @@ namespace WaterFlowGPE
                     Vector3 currentRotationEuler = currentRotation.eulerAngles;
                     
                     //get target rotation
-                    float targetYAngle = Vector3.Angle(Direction, Vector3.forward);
+                    //float targetYAngle = Vector3.Angle(Direction, Vector3.forward);
+                    float targetYAngle = Quaternion.LookRotation(Direction).eulerAngles.y;
                     Quaternion targetRotation = Quaternion.Euler(currentRotationEuler.x,targetYAngle,currentRotationEuler.z);
-                    
+
                     //check if the boat is facing the flow direction or not
                     const float ANGLE_TO_FACE_FLOW = 20f;
                     float angleDifference = Mathf.Abs(Mathf.Abs(currentRotationEuler.y) - Mathf.Abs(targetYAngle));
@@ -56,5 +59,31 @@ namespace WaterFlowGPE
                 }
             }
         }
+
+        /// <summary>
+        /// Setup the water block and its values
+        /// </summary>
+        /// <param name="direction">the direction the block has to face</param>
+        /// <param name="waterFlowManager">the waterFlowManager script managing the block</param>
+        /// <param name="width">the width of the block</param>
+        public void SetupBlock(Vector3 direction, WaterFlowManager waterFlowManager, float width)
+        {
+            WaterFlowManager = waterFlowManager;
+            Direction = direction;
+            transform.localScale = new Vector3(transform.localScale.x, transform.localScale.y, width);
+            transform.rotation = Quaternion.LookRotation(Direction);
+            transform.rotation = Quaternion.Euler(new Vector3(transform.rotation.eulerAngles.x, transform.rotation.eulerAngles.y + 90, transform.rotation.eulerAngles.z));
+        }
+        
+        #if UNITY_EDITOR
+
+        private void OnDrawGizmos()
+        {
+            Gizmos.color = Color.red;
+            Gizmos.DrawLine(transform.position, transform.position + Direction * 2);
+            Gizmos.DrawSphere(transform.position + Direction * 2, 0.1f);
+        }
+
+#endif
     }
 }
