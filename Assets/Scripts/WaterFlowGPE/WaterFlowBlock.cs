@@ -36,7 +36,6 @@ namespace WaterFlowGPE
                     Vector3 currentRotationEuler = currentRotation.eulerAngles;
                     
                     //get target rotation
-                    //float targetYAngle = Vector3.Angle(Direction, Vector3.forward);
                     float targetYAngle = Quaternion.LookRotation(Direction).eulerAngles.y;
                     Quaternion targetRotation = Quaternion.Euler(currentRotationEuler.x,targetYAngle,currentRotationEuler.z);
 
