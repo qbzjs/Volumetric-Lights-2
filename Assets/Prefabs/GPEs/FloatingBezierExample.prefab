@@ -50,9 +50,9 @@ MonoBehaviour:
   - {x: 3.6506855, y: 0, z: 0.32127607}
   - {x: 4.1402793, y: 0, z: -0.97294044}
   - {x: 4.940523, y: 0, z: -3.0883455}
-  - {x: 7.5645866, y: 0, z: -4.8202972}
+  - {x: 4.729162, y: 0, z: -6.128953}
   - {x: 8.425286, y: 0, z: -2.479021}
-  - {x: 9.285986, y: 0, z: -0.1377449}
+  - {x: 12.12141, y: 0, z: 1.1709108}
   - {x: 16.240227, y: 0, z: -4.245817}
   - {x: 14.464856, y: 0, z: -6.1480446}
   _modes: 02000000010000000200000000000000
@@ -135,7 +135,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _waves: {fileID: 0}
-  _rigidbody: {fileID: 8907499379896150761}
+  _rigidbody: {fileID: 6976307159614361145}
   _depthBeforeSubmerged: 1
   _displacementAmount: 3
   _floaterCount: 1
@@ -152,9 +152,9 @@ GameObject:
   - component: {fileID: 8907499379896150766}
   - component: {fileID: 8907499379896150767}
   - component: {fileID: 8907499379896150764}
-  - component: {fileID: 8907499379896150765}
   - component: {fileID: 8907499379896150754}
-  - component: {fileID: 8907499379896150761}
+  - component: {fileID: 6976307159614361145}
+  - component: {fileID: 5068206992911825664}
   m_Layer: 0
   m_Name: SplineWalker
   m_TagString: Untagged
@@ -206,7 +206,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 31321ba15b8f8eb4c954353edc038b1d, type: 2}
+  - {fileID: 2100000, guid: ce30bcf8f3ffd8242afc1044dbc4957f, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -228,19 +228,6 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!65 &8907499379896150765
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8907499379896150755}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Size: {x: 1, y: 1, z: 1}
-  m_Center: {x: 0, y: 0, z: 0}
 --- !u!114 &8907499379896150754
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -254,12 +241,26 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _spline: {fileID: 8907499377915252844}
-  _duration: 5
-  _mode: 1
+  _duration: 6
+  _mode: 2
   _lookForward: 1
   _lookForwardLerp: 0.1
   _doNotAffectY: 1
---- !u!54 &8907499379896150761
+  _positionOffset: {x: 3, y: 0, z: 0}
+  _changeSizeAtStartAndEnd: 1
+  _timeToScaleStart: 2
+  _timeToScaleEnd: 2
+  _size: {x: 1, y: 1, z: 1}
+  OnSpawn:
+    m_PersistentCalls:
+      m_Calls: []
+  OnDecrease:
+    m_PersistentCalls:
+      m_Calls: []
+  OnEnd:
+    m_PersistentCalls:
+      m_Calls: []
+--- !u!54 &6976307159614361145
 Rigidbody:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -273,5 +274,18 @@ Rigidbody:
   m_UseGravity: 0
   m_IsKinematic: 0
   m_Interpolate: 0
-  m_Constraints: 0
+  m_Constraints: 112
   m_CollisionDetection: 0
+--- !u!65 &5068206992911825664
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8907499379896150755}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 1, y: 1, z: 1}
+  m_Center: {x: 0, y: 0, z: 0}
