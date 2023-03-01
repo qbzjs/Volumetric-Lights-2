@@ -17,23 +17,23 @@ namespace WaterFlowGPE.SpineWalker
         [Header("Spline"), SerializeField] private BezierSpline _spline;
 
         [Header("Parameters"), SerializeField] private float _duration;
-
         [SerializeField] private WalkerMode _mode;
 
         [Header("Rotation"), SerializeField] private bool _lookForward;
-
         [SerializeField, Range(0, 1)] private float _lookForwardLerp = 0.1f;
 
         [Header("Position"), SerializeField] private bool _doNotAffectY;
+        [SerializeField] private Vector3 _positionOffset;
 
         [Header("Size"), SerializeField] private bool _changeSizeAtStartAndEnd = true;
-
         [SerializeField, Range(0, 5)] private float _timeToScaleStart, _timeToScaleEnd;
+        [SerializeField] private Vector3 _size = Vector3.one;
 
-        private bool _hasDecreasedSize = false;
+        private bool _hasDecreasedSize;
         private float _progress;
         private bool _goingForward = true;
 
+        [Header("Events")]
         public UnityEvent OnSpawn = new UnityEvent();
         public UnityEvent OnDecrease = new UnityEvent();
         public UnityEvent OnEnd = new UnityEvent();
@@ -54,7 +54,7 @@ namespace WaterFlowGPE.SpineWalker
             if (_progress == (_goingForward ? 0 : 1))
             {
                 transform.localScale = Vector3.zero;
-                transform.DOScale(Vector3.one, _timeToScaleStart);
+                transform.DOScale(_size, _timeToScaleStart);
                 _hasDecreasedSize = false;
                 OnSpawn.Invoke();
             }
@@ -94,9 +94,9 @@ namespace WaterFlowGPE.SpineWalker
         {
             //set position
             Vector3 pointPosition = _spline.GetPoint(_progress);
-            Vector3 position = new Vector3(pointPosition.x, _doNotAffectY ? transform.localPosition.y : pointPosition.y,
+            Vector3 position = new Vector3(pointPosition.x, _doNotAffectY ? transform.position.y : pointPosition.y,
                 pointPosition.z);
-            transform.position = position;
+            transform.position = position + _positionOffset;
             if (_lookForward)
             {
                 Quaternion currentRotation = transform.rotation;
