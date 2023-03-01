@@ -62,19 +62,22 @@ namespace WaterFlowGPE.Bezier
 
         public Vector3 GetPoint (float t) 
         {
-            int i;
+            int index;
             if (t >= 1f) {
+                if (t > 1)
+                {
+                    Debug.LogError("Tried to access a point beyond 1");
+                }
                 t = 1f;
-                i = _points.Length - 4;
+                index = _points.Length - 4;
             }
             else {
                 t = Mathf.Clamp01(t) * CurveCount();
-                i = (int)t;
-                t -= i;
-                i *= 3;
+                index = (int)t;
+                t -= index;
+                index *= 3;
             }
-            return transform.TransformPoint(global::WaterFlowGPE.Bezier.Bezier.GetPoint(
-                _points[i], _points[i + 1], _points[i + 2], _points[i + 3], t));
+            return transform.TransformPoint(Bezier.GetPoint(_points[index], _points[index + 1], _points[index + 2], _points[index + 3], t));
         }
 	
         public Vector3 GetVelocity (float t) 
@@ -90,8 +93,7 @@ namespace WaterFlowGPE.Bezier
                 t -= i;
                 i *= 3;
             }
-            return transform.TransformPoint(global::WaterFlowGPE.Bezier.Bezier.GetFirstDerivative(
-                _points[i], _points[i + 1], _points[i + 2], _points[i + 3], t)) - transform.position;
+            return transform.TransformPoint(Bezier.GetFirstDerivative(_points[i], _points[i + 1], _points[i + 2], _points[i + 3], t)) - transform.position;
         }
 	
         public void Reset () 
@@ -137,6 +139,10 @@ namespace WaterFlowGPE.Bezier
             EnforceMode(_points.Length - 4);
         }
     
+        /// <summary>
+        /// Give the number of curves in the spline
+        /// </summary>
+        /// <returns>the number of different curves in the spline</returns>
         public int CurveCount() 
         {
             return (_points.Length - 1) / 3;
