@@ -12,6 +12,7 @@ namespace WaterFlowGPE
         [SerializeField] private WaterFlowBlock _waterFlowBlockPrefab;
         [SerializeField] private float _waterFlowBlockWidth = 6f;
         [SerializeField, ReadOnly] private WaterFlowBlock[] _waterFlowBlocks;
+        [SerializeField] private Transform _blockParent;
         
         public void GenerateWaterFlow()
         {
@@ -49,7 +50,7 @@ namespace WaterFlowGPE
                 Vector3 direction = (nextPoint - point).normalized;
 
                 //instantiate
-                _waterFlowBlocks[index] = Instantiate(_waterFlowBlockPrefab, _spline.GetPoint(i), Quaternion.identity, gameObject.transform);
+                _waterFlowBlocks[index] = Instantiate(_waterFlowBlockPrefab, _spline.GetPoint(i), Quaternion.identity, _blockParent);
                 _waterFlowBlocks[index].SetupBlock(direction, this, _waterFlowBlockWidth);
                 _waterFlowBlocks[index].name = Math.Round(i,2).ToString();
 
