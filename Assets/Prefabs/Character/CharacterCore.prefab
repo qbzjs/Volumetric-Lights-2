@@ -241,8 +241,8 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3858187113969445702}
-  m_LocalRotation: {x: 0.12158245, y: -0, z: -0, w: 0.99258137}
-  m_LocalPosition: {x: 0, y: 4.1066995, z: -7.0226393}
+  m_LocalRotation: {x: 0.121443555, y: -0.047431704, z: 0.005809965, w: 0.99144745}
+  m_LocalPosition: {x: 0.67040384, y: 4.486699, z: -4.3205667}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -666,27 +666,29 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7d49cd67baff6c54aa5d47073fe1fc45, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _cinemachineCameraTarget: {fileID: 5773740044235661809}
-  _topClamp: 28
-  _bottomClamp: -18
-  _cameraAngleOverride: 10
-  _rigidbodyKayak: {fileID: 2610664555048439513}
-  _characterManager: {fileID: 7217796708653836310}
-  _input: {fileID: 5885439514833416252}
-  _balanceRotationMultiplier: 0
-  _balanceRotationZLerp: 0.01
-  _multiplierValueRotation: 22.9
-  _multiplierValuePosition: 3.84
-  CanMoveCameraMaunally: 1
-  _virtualCamera: {fileID: 4192299973026284776}
-  _multiplierFovCamera: 2.03
-  _lerpTimeX: 0.0922
-  _lerpTimeY: 0.06
-  _lerpFOV: 0.01
-  _lerpLocalRotationMove: 0.005
-  _lerpLocalPositionMove: 0.005
-  _lerpLocalPositionNotMoving: 0.01
-  _lerpLocalRotationNotMoving: 0.01
+  CinemachineCameraTarget: {fileID: 3814212815698604900}
+  CinemachineCameraTargetFollow: {fileID: 3814212815698604900}
+  TopClamp: 70
+  BottomClamp: -30
+  CameraAngleOverride: 0
+  RigidbodyKayak: {fileID: 2610664555048439513}
+  CharacterManager: {fileID: 7217796708653836310}
+  Input: {fileID: 5885439514833416252}
+  BalanceRotationMultiplier: 1
+  BalanceRotationZLerp: 0.01
+  MultiplierValueRotation: 20
+  MultiplierValuePosition: 2
+  CanMoveCameraManually: 1
+  VirtualCamera: {fileID: 4192299973026284776}
+  MultiplierFovCamera: 1
+  LerpTimeX: 0.02
+  LerpTimeY: 0.06
+  TimerCameraReturnBehindBoat: 3
+  LerpFOV: 0.01
+  LerpLocalRotationMove: 0.005
+  LerpLocalPositionMove: 0.005
+  LerpLocalPositionNotMoving: 0.01
+  LerpLocalRotationNotMoving: 0.01
   PendulumFirstAngle: 0
   PendulumFirstSpeed: 1
   PendulumRemoveAngle: 1
