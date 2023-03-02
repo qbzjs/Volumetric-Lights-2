@@ -4,6 +4,7 @@ using Character.State;
 using Kayak;
 using SceneTransition;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 namespace Character
 {
@@ -15,10 +16,8 @@ namespace Character
         public CameraManager CameraManagerRef;
         [Tooltip("Reference of the KayakController script")]
         public KayakController KayakController;
-        [SerializeField, Tooltip("Reference of the InputManagement script")] 
-        private InputManagement _inputManagement;
-        //[Tooltip("Reference of the CameraController script")]
-        //public CameraController CamController;
+        [Tooltip("Reference of the InputManagement script")] 
+        public InputManagement InputManagement;
         [Tooltip("Reference of the paddle Animator")]
         public Animator PaddleAnimator;
         [Tooltip("Reference of the TransitionManager script")]
@@ -52,7 +51,7 @@ namespace Character
         private void Awake()
         {
             CharacterNavigationState navigationState =
-                new CharacterNavigationState(KayakController, _inputManagement, this, this, CameraManagerRef);
+                new CharacterNavigationState(KayakController, InputManagement, this, this, CameraManagerRef);
             CurrentStateBase = navigationState;
         }
 

@@ -26,8 +26,8 @@ namespace Kayak
         [Header("References")]
         [SerializeField, Tooltip("References of the water particles in front of the kayak")] 
         private List<ParticleSystem> _frontParticles;
-        [SerializeField, Tooltip("Reference of the character manager in the scene")] 
-        private CharacterManager _characterManager;
+        [FormerlySerializedAs("_characterManager")] [Tooltip("Reference of the character manager in the scene")] 
+        public CharacterManager CharacterManager;
         [Tooltip("Reference of the kayak rigidbody")]
         public Rigidbody Rigidbody;
         [Tooltip("Reference of the kayak mesh")]
@@ -59,7 +59,7 @@ namespace Kayak
         {
             float value = collision.relativeVelocity.magnitude / KayakValues.CollisionToBalanceMagnitudeDivider;
             Debug.Log($"collision V.M. :{Math.Round(collision.relativeVelocity.magnitude)} -> {Math.Round(value,2)}");
-            _characterManager.Balance += value * Mathf.Sign(_characterManager.Balance);
+            CharacterManager.Balance += value * Mathf.Sign(CharacterManager.Balance);
             SoundManager.Instance.PlaySound(CollisionAudioClip);
         }
 

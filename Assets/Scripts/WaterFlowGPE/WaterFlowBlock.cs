@@ -1,4 +1,5 @@
 ﻿using System;
+using Character;
 using Kayak;
 using UnityEngine;
 using UnityEngine.UI;
@@ -18,6 +19,9 @@ namespace WaterFlowGPE
         
         [SerializeField, Range(0,0.05f), Tooltip("The lerp applied to the boat rotation to match the flow direction when the boat is not facing the flow direction")] 
         private float _rotationLerpWhenNotInDirection = 0.005f;
+        
+        [SerializeField, Range(0,0.05f), Tooltip("The lerp applied to the boat rotation to match the flow direction when the player is trying to move away")] 
+        private float _rotationLerpWhenMoving = 0.005f;
         
         [ReadOnly] public Vector3 Direction;
         [ReadOnly] public bool IsActive = true;
@@ -45,12 +49,16 @@ namespace WaterFlowGPE
                     bool isFacingFlow = angleDifference <= ANGLE_TO_FACE_FLOW;
                     
                     //apply rotation
+                    InputManagement inputManagement = kayakController.CharacterManager.InputManagement;
+                    bool isMoving = inputManagement.Inputs.PaddleLeft || inputManagement.Inputs.PaddleRight ||
+                                    Mathf.Abs(inputManagement.Inputs.RotateLeft) > 0.1f || Mathf.Abs(inputManagement.Inputs.RotateRight) > 0.1f;
                     kayakController.transform.rotation = Quaternion.Lerp(currentRotation,targetRotation, 
-                        isFacingFlow ? _rotationLerpWhenInDirection : _rotationLerpWhenNotInDirection);
-                    
+                        isMoving ? _rotationLerpWhenMoving : isFacingFlow ? _rotationLerpWhenInDirection : _rotationLerpWhenNotInDirection);
+
                     //apply velocity by multiplying current by speed
                     Vector3 velocity = kayakController.Rigidbody.velocity;
                     float speed = _speed * (isFacingFlow ? _speed : _speed * _speedNotFacingMultiplier);
+                    
                     kayakController.Rigidbody.velocity = new Vector3(
                         velocity.x + speed * Mathf.Sign(velocity.x), 
                         velocity.y, 
