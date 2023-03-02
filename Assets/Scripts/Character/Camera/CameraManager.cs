@@ -8,10 +8,11 @@ public class CameraManager : MonoBehaviour
 {
     public CameraStateBase CurrentStateBase;
 
-    //serialize fields
+    //ref
     [Header("Cinemachine"), Tooltip("The follow target set in the Cinemachine Virtual Camera that the camera will follow")]
     public GameObject CinemachineCameraTarget;
     public GameObject CinemachineCameraTargetFollow;
+    public Animator AnimatorRef;
     [Tooltip("How far in degrees can you move the camera up")]
     public float TopClamp = 70.0f;
     [Tooltip("How far in degrees can you move the camera down")]
@@ -34,6 +35,7 @@ public class CameraManager : MonoBehaviour
     [ReadOnly] public bool CanMoveCameraManually = true;
 
     [Header("Virtual Camera")]
+    public CinemachineBrain Brain;
     public CinemachineVirtualCamera VirtualCamera;
     [Range(0, 5)] public float MultiplierFovCamera = 1;
 

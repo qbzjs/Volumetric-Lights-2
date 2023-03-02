@@ -14,6 +14,11 @@ public class CameraNavigationState : CameraStateBase
 
     public override void EnterState(CameraManager camera)
     {
+        Debug.Log("cam nav");
+        CameraManagerRef.AnimatorRef.Play("VCam FreeLook");
+
+        CameraManagerRef.Brain.m_BlendUpdateMethod = Cinemachine.CinemachineBrain.BrainUpdateMethod.LateUpdate;
+
         CameraManagerRef.ResetNavigationValue();
     }
     public override void UpdateState(CameraManager camera)
@@ -28,6 +33,12 @@ public class CameraNavigationState : CameraStateBase
         ClampRotationCameraValue();
 
         CameraManagerRef.ApplyRotationCamera();
+
+        if (Input.GetKeyDown(KeyCode.K))
+        {
+            CameraTrackState cameraTrackState = new CameraTrackState(CameraManagerRef, MonoBehaviourRef, "VCam TrackDolly");
+            CameraManagerRef.SwitchState(cameraTrackState);
+        }
     }
     public override void FixedUpdate(CameraManager camera)
     {

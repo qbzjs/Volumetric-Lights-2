@@ -54,6 +54,7 @@ namespace Character.State
         {
             Debug.Log("naviguation");
 
+
             //values
             _rightPaddleCooldown = _kayakValues.PaddleCooldown;
             _leftPaddleCooldown = _kayakValues.PaddleCooldown;
