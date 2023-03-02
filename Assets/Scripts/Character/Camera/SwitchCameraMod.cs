@@ -1,7 +1,6 @@
 using Kayak;
 using System;
-using System.Collections;
-using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 public class SwitchCameraMod : MonoBehaviour
@@ -10,31 +9,44 @@ public class SwitchCameraMod : MonoBehaviour
     public BoxPosition[] BoxPositions;
     [SerializeField] private CameraManager _cameraManager;
     [SerializeField] private string _nameOfCamera;
-    private bool _isTrigger = false;
+    [ReadOnly, SerializeField] private bool _isTrigger = false;
 
     private void Update()
     {
-        foreach (var box in BoxPositions)
+        CheckRaycast();
+
+        _isTrigger = BoxPositions.ToList().Find(x => x.IsTrigger).IsTrigger;
+    }
+
+    private void CheckRaycast()
+    {
+        for (int i = 0; i <= BoxPositions.Length; i++)
         {
-            RaycastHit[] hits = Physics.BoxCastAll(transform.position + box.TriggerPosition, box.TriggerSize / 2, Vector3.forward, Quaternion.identity, 0f, box.PlayerLayerMask);
+            BoxPosition box = BoxPositions[i];
+            RaycastHit[] hits = Physics.BoxCastAll(transform.position + box.TriggerPosition, box.TriggerSize / 2,
+                Vector3.forward, Quaternion.identity, 0f, box.PlayerLayerMask);
 
             foreach (var hit in hits)
             {
                 KayakController kayakController = hit.collider.GetComponent<KayakController>();
                 if (kayakController != null)
                 {
-                    Debug.Log("cc");
-                  //  _isTrigger = true;
+                    BoxPosition boxPosition = box;
+                    boxPosition.IsTrigger = true;
+                    BoxPositions[i] = boxPosition;
+
                     //CameraTrackState cameraTrackState = new CameraTrackState(_cameraManager, this,_nameOfCamera);
                     //_cameraManager.SwitchState(cameraTrackState);
                 }
                 else
                 {
-                    Debug.Log("orv");
-                    /*_isTrigger = false;
+                    BoxPosition boxPosition = box;
+                    boxPosition.IsTrigger = false;
+                    BoxPositions[i] = boxPosition;
+
                     //CameraNavigationState cameraNavigationState = new CameraNavigationState(_cameraManager, this);
                     //_cameraManager.SwitchState(cameraNavigationState);
-                */}
+                }
             }
         }
     }
@@ -47,7 +59,6 @@ public class SwitchCameraMod : MonoBehaviour
         {
             Gizmos.color = Color.green;
             Gizmos.DrawWireCube(transform.position + box.TriggerPosition, box.TriggerSize);
-
         }
     }
 #endif
