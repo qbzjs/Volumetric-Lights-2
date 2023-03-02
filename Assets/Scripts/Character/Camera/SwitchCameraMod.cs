@@ -15,12 +15,24 @@ public class SwitchCameraMod : MonoBehaviour
     {
         CheckRaycast();
 
-        _isTrigger = BoxPositions.ToList().Find(x => x.IsTrigger).IsTrigger;
+        _isTrigger = BoxPositions.ToList().OrderByDescending(x => x.IsTrigger).FirstOrDefault().IsTrigger;
+
+
+        if (_isTrigger)
+        {
+            CameraTrackState cameraTrackState = new CameraTrackState(_cameraManager, this, _nameOfCamera);
+            _cameraManager.SwitchState(cameraTrackState);
+        }
+        else
+        {
+            CameraNavigationState cameraNavigationState = new CameraNavigationState(_cameraManager, this);
+            _cameraManager.SwitchState(cameraNavigationState);
+        }
     }
 
     private void CheckRaycast()
     {
-        for (int i = 0; i <= BoxPositions.Length; i++)
+        for (int i = 0; i < BoxPositions.Length; i++)
         {
             BoxPosition box = BoxPositions[i];
             RaycastHit[] hits = Physics.BoxCastAll(transform.position + box.TriggerPosition, box.TriggerSize / 2,
@@ -35,8 +47,6 @@ public class SwitchCameraMod : MonoBehaviour
                     boxPosition.IsTrigger = true;
                     BoxPositions[i] = boxPosition;
 
-                    //CameraTrackState cameraTrackState = new CameraTrackState(_cameraManager, this,_nameOfCamera);
-                    //_cameraManager.SwitchState(cameraTrackState);
                 }
                 else
                 {
@@ -44,8 +54,7 @@ public class SwitchCameraMod : MonoBehaviour
                     boxPosition.IsTrigger = false;
                     BoxPositions[i] = boxPosition;
 
-                    //CameraNavigationState cameraNavigationState = new CameraNavigationState(_cameraManager, this);
-                    //_cameraManager.SwitchState(cameraNavigationState);
+         
                 }
             }
         }
@@ -57,7 +66,10 @@ public class SwitchCameraMod : MonoBehaviour
     {
         foreach (var box in BoxPositions)
         {
-            Gizmos.color = Color.green;
+            if (box.IsTrigger)
+                Gizmos.color = Color.green;
+            else
+                Gizmos.color = Color.blue;
             Gizmos.DrawWireCube(transform.position + box.TriggerPosition, box.TriggerSize);
         }
     }
@@ -70,5 +82,5 @@ public struct BoxPosition
     public Vector3 TriggerSize;
     public Vector3 TriggerPosition;
     public LayerMask PlayerLayerMask;
-    public bool IsTrigger;
+    [ReadOnly] public bool IsTrigger;
 }
