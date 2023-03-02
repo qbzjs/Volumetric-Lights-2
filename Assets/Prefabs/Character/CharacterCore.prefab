@@ -349,8 +349,8 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2902698180730398354}
-  m_LocalRotation: {x: 0.1565888, y: -0.25511774, z: 0.04190886, w: 0.9532253}
-  m_LocalPosition: {x: 0.00000008940697, y: 0, z: 4.9999995}
+  m_LocalRotation: {x: 0.15658881, y: -0.25511777, z: 0.04190887, w: 0.9532254}
+  m_LocalPosition: {x: 0.000000029802322, y: 0, z: 5}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -421,7 +421,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3014273842563118509}
   m_LocalRotation: {x: 0.130805, y: 0.0053463127, z: -0.00070539623, w: 0.99139345}
-  m_LocalPosition: {x: -1.3521535, y: 2.7394547, z: 1.5173331}
+  m_LocalPosition: {x: -1.3521535, y: 2.7394552, z: 1.5173331}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -540,8 +540,8 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3858187113969445702}
-  m_LocalRotation: {x: 0.12158245, y: -0, z: 4.6566134e-10, w: 0.99258137}
-  m_LocalPosition: {x: 0.000000059604645, y: 4.1115265, z: -7.042048}
+  m_LocalRotation: {x: 0.12158245, y: -0, z: -0, w: 0.99258137}
+  m_LocalPosition: {x: 0, y: 4.1066995, z: -7.0226393}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -928,7 +928,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   CameraManagerRef: {fileID: 7611706348771366613}
   KayakController: {fileID: 7217796708516857175}
-  _inputManagement: {fileID: 5885439514833416252}
+  InputManagement: {fileID: 5885439514833416252}
   PaddleAnimator: {fileID: 8907830870862546047}
   TransitionManager: {fileID: 0}
   TimeFadeInAfterDeath: 0.5
@@ -1101,6 +1101,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Kayak
       objectReference: {fileID: 0}
+    - target: {fileID: 4950148468892883501, guid: bc06d1e844ba3694bbdecce4a99ba863,
+        type: 3}
+      propertyPath: CharacterManager
+      value: 
+      objectReference: {fileID: 7217796708653836310}
     - target: {fileID: 4950148468892883501, guid: bc06d1e844ba3694bbdecce4a99ba863,
         type: 3}
       propertyPath: _characterManager
