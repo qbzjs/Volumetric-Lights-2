@@ -9,6 +9,7 @@ namespace IcebergFallingGPE
     {
         [field: SerializeField] public Rigidbody Rigidbody { get; private set; }
         [field: SerializeField] public ParticleSystem ParticleSystem { get; private set; }
+        [field: SerializeField] public Waves WavesManager { get; private set; }
         [SerializeField, ReadOnly] public bool Fall;
         [SerializeField, ReadOnly] public bool HasFallen;
 
@@ -16,7 +17,8 @@ namespace IcebergFallingGPE
         [SerializeField] private Vector3 _endPosition;
         [SerializeField] private Vector3 _endRotation;
         [SerializeField] private AnimationCurve _fallSpeedCurve;
-        [SerializeField] private float _timeToPlayParticle;
+        [SerializeField] private float _timeToHitWater;
+        [SerializeField] private CircularWave _circularWaveData;
 
         private float _timer;
         private Vector3 _beginPosition, _targetPosition;
@@ -32,6 +34,16 @@ namespace IcebergFallingGPE
             if (Fall)
             {
                 HandleFall();
+            }
+
+            if (Fall && _timeToHitWater > 0)
+            {
+                _timeToHitWater -= Time.deltaTime;
+                if (_timeToHitWater <= 0)
+                {
+                    _circularWaveData.Center = new Vector2(transform.position.x,transform.position.z);
+                    WavesManager.LaunchCircularWave(_circularWaveData);
+                }
             }
         }
 

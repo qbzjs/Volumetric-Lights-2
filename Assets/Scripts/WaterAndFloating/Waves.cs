@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using Singleton;
 using UnityEngine;
 using UnityEngine.Serialization;
@@ -181,7 +182,7 @@ public class Waves : MonoBehaviour
         }
         
         ManageCircularWaves();
-
+        
         Mesh.SetVertices(_vertices);
         Mesh.RecalculateNormals();
     }
@@ -203,10 +204,18 @@ public class Waves : MonoBehaviour
         {
             //timing management
             _circularWavesDurationList[i] -= Time.deltaTime;
+            
+            //calculate the values
+            CircularWave waveData = _circularWavesList[i];
+            float currentTime = _circularWavesDurationList[i];
+            float percent = currentTime / waveData.Duration;
+            float distance = percent * waveData.Distance;
+            float amplitude = percent * waveData.Amplitude;
+            
+            //set vertex
+            int index = FindIndexOfClosestVerticeTo(new Vector3(waveData.Center.x,0,waveData.Center.y));
+            _vertices[index] += new Vector3(0, amplitude, 0);
 
-            //behaviour
-            
-            
             //end check
             if (_circularWavesDurationList[i] <= 0)
             {
@@ -214,6 +223,25 @@ public class Waves : MonoBehaviour
                 _circularWavesDurationList.Remove(_circularWavesDurationList[i]);
             }
         }
+    }
+
+    private int FindIndexOfClosestVerticeTo(Vector3 position)
+    {
+        Vector3 closestVector = _vertices[0];
+        float closestDistance = Vector3.Distance(position, closestVector);
+        int closestIndex = 0;
+        
+        for (int i = 0; i < _vertices.Count; i++)
+        {
+            float distance = Vector3.Distance(position, _vertices[i]);
+            if (distance < closestDistance)
+            {
+                closestDistance = distance;
+                closestIndex = i;
+            }
+        }
+
+        return closestIndex;
     }
 
     #endregion
@@ -225,13 +253,16 @@ public class Waves : MonoBehaviour
 public struct CircularWave
 {
     [Tooltip("The center of the wave, the point where it start")]
-    public float Center { get; }
+    public Vector2 Center { get; set; }
+
     [Tooltip("The duration of the wave in seconds")]
-    public float Duration { get; }
+    public float Duration;
+
     [Tooltip("The height of the waves")]
-    public float Amplitude { get; }
+    public float Amplitude;
+
     [Tooltip("The distance it runs")]
-    public float Distance { get; }
+    public float Distance;
 }
 
 [Serializable]
