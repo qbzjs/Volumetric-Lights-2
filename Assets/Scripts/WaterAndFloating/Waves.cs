@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using Singleton;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 [RequireComponent(typeof(MeshFilter))]
 [RequireComponent(typeof(MeshRenderer))]
@@ -156,11 +157,11 @@ public class Waves : MonoBehaviour
     {
         float time = Time.time;
         Octave octave = _octaves[0];
-        float octaveScaleX = octave.scale.x;
-        float octaveScaleY = octave.scale.y;
-        float octaveSpeedX = octave.speed.x * time;
-        float octaveSpeedY = octave.speed.y * time;
-        float octaveHeight = octave.height;
+        float octaveScaleX = octave.Scale.x;
+        float octaveScaleY = octave.Scale.y;
+        float octaveSpeedX = octave.Speed.x * time;
+        float octaveSpeedY = octave.Speed.y * time;
+        float octaveHeight = octave.Height;
 
         for (int x = 0; x <= _dimension; x++)
         {
@@ -168,26 +169,75 @@ public class Waves : MonoBehaviour
             {
                 float y = 0f;
      
-                float perl = Mathf.PerlinNoise(
+                float perlinNoiseValue = Mathf.PerlinNoise(
                     (x * octaveScaleX +  octaveSpeedX) / _dimension, 
-                    (z * octaveScaleY +  octaveSpeedY) / _dimension) - 0.5f;
+                    (z * octaveScaleY +  octaveSpeedY) / _dimension) 
+                                         - 0.5f;
                 
-                y += perl * octaveHeight;
+                y += perlinNoiseValue * octaveHeight;
 
                 _vertices[ x * (_dimension + 1) + z] = new Vector3(x, y, z);
             }
         }
+        
+        ManageCircularWaves();
 
         Mesh.SetVertices(_vertices);
         Mesh.RecalculateNormals();
     }
+
+    #region CircularWaves
+
+    private List<CircularWave> _circularWavesList = new List<CircularWave>();
+    private List<float> _circularWavesDurationList = new List<float>();
+    
+    public void LaunchCircularWave(CircularWave circularWave)
+    {
+        _circularWavesList.Add(circularWave);
+        _circularWavesDurationList.Add(circularWave.Duration);
+    }
+    
+    private void ManageCircularWaves()
+    {
+        for (int i = 0; i < _circularWavesList.Count; i++)
+        {
+            //timing management
+            _circularWavesDurationList[i] -= Time.deltaTime;
+
+            //behaviour
+            
+            
+            //end check
+            if (_circularWavesDurationList[i] <= 0)
+            {
+                _circularWavesList.Remove(_circularWavesList[i]);
+                _circularWavesDurationList.Remove(_circularWavesDurationList[i]);
+            }
+        }
+    }
+
+    #endregion
+
+    
+}
+
+[Serializable]
+public struct CircularWave
+{
+    [Tooltip("The center of the wave, the point where it start")]
+    public float Center { get; }
+    [Tooltip("The duration of the wave in seconds")]
+    public float Duration { get; }
+    [Tooltip("The height of the waves")]
+    public float Amplitude { get; }
+    [Tooltip("The distance it runs")]
+    public float Distance { get; }
 }
 
 [Serializable]
 public struct Octave
 {
-    public Vector2 speed;
-    public Vector2 scale;
-    public float height;
-    public bool alternate;
+    public Vector2 Speed;
+    public Vector2 Scale;
+    public float Height;
 }
