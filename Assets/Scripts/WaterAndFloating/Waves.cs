@@ -43,6 +43,7 @@ public class Waves : MonoBehaviour
     private void Update()
     {
         WaveGeneration();
+        ManageCircularWavesTimer();
     }
 
     public float GetHeight(Vector3 position)
@@ -182,7 +183,7 @@ public class Waves : MonoBehaviour
         }
         
         ManageCircularWaves();
-        
+
         Mesh.SetVertices(_vertices);
         Mesh.RecalculateNormals();
     }
@@ -202,9 +203,6 @@ public class Waves : MonoBehaviour
     {
         for (int i = 0; i < _circularWavesList.Count; i++)
         {
-            //timing management
-            _circularWavesDurationList[i] -= Time.deltaTime;
-            
             //calculate the values
             CircularWave waveData = _circularWavesList[i];
             float currentTime = _circularWavesDurationList[i];
@@ -213,10 +211,18 @@ public class Waves : MonoBehaviour
             float amplitude = percent * waveData.Amplitude;
             
             //set vertex
-            int index = FindIndexOfClosestVerticeTo(new Vector3(waveData.Center.x,0,waveData.Center.y));
-            _vertices[index] += new Vector3(0, amplitude, 0);
+            int index = FindIndexOfClosestVerticeTo(new Vector3(waveData.Center.x,amplitude,waveData.Center.y));
+            _vertices[index] = new Vector3(_vertices[index].x, amplitude, _vertices[index].z);
+            Debug.Log($"POS:{Math.Round(waveData.Center.x,2)}|{Math.Round(waveData.Center.y,2)}, INDEX:{index}, INDEX POS :{_vertices[index]}");
+        }
+    }
 
-            //end check
+    private void ManageCircularWavesTimer()
+    {
+        for (int i = 0; i < _circularWavesList.Count; i++)
+        {
+            _circularWavesDurationList[i] -= Time.deltaTime;
+            
             if (_circularWavesDurationList[i] <= 0)
             {
                 _circularWavesList.Remove(_circularWavesList[i]);
