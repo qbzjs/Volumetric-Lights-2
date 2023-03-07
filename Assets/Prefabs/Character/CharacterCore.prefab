@@ -982,15 +982,15 @@ MonoBehaviour:
   Input: {fileID: 5885439514833416252}
   BalanceRotationMultiplier: 0
   BalanceRotationZLerp: 0.01
-  MultiplierValueRotation: 22.9
-  MultiplierValuePosition: 3.84
+  MultiplierValueRotation: 0
+  MultiplierValuePosition: 0
   CanMoveCameraManually: 1
   Brain: {fileID: 1967899735}
   VirtualCamera: {fileID: 4192299973026284776}
   MultiplierFovCamera: 2.03
-  LerpTimeX: 0.0922
-  LerpTimeY: 0.06
-  TimerCameraReturnBehindBoat: 1
+  LerpTimeX: 0.0347
+  LerpTimeY: 0.0477
+  TimerCameraReturnBehindBoat: 0
   LerpFOV: 0.01
   LerpLocalRotationMove: 0.005
   LerpLocalPositionMove: 0.005
