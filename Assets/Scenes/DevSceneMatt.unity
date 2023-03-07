@@ -908,9 +908,9 @@ MonoBehaviour:
   _UVScale: 2
   _waterPosition: {fileID: 1383893021}
   _octaves:
-  - Speed: {x: 20, y: 20}
+  - Speed: {x: 10, y: 10}
     Scale: {x: 20, y: 20}
-    Height: 2
+    Height: 1
 --- !u!1 &640811324
 GameObject:
   m_ObjectHideFlags: 0

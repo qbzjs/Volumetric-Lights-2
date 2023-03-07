@@ -39,6 +39,7 @@ namespace Character.State
             //values
             _rightPaddleCooldown = _kayakValues.UnbalancePaddleCooldown;
             _leftPaddleCooldown = _kayakValues.UnbalancePaddleCooldown;
+            CanBeMoved = false;
 
             //balance
             if (Mathf.Abs(CharacterManagerRef.Balance) >

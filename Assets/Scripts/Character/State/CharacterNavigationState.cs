@@ -60,6 +60,7 @@ namespace Character.State
                 
             //booleans
             CharacterManagerRef.LerpBalanceTo0 = true;
+            CanBeMoved = true;
         }
 
         public override void UpdateState(CharacterManager character)
@@ -207,7 +208,6 @@ namespace Character.State
         /// </summary>
         private void HandlePaddleMovement()
         {
-            Debug.Log(Math.Round(_rightPaddleCooldown,2));
             //input -> paddleMovement
             if (_inputs.Inputs.PaddleLeft && _leftPaddleCooldown <= 0 && _inputs.Inputs.PaddleRight == false)
             {
