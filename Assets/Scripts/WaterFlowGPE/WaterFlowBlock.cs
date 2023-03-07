@@ -29,39 +29,57 @@ namespace WaterFlowGPE
         
         private void OnTriggerStay(Collider other)
         {
-            KayakController kayakController = other.GetComponent<KayakController>();
-            if (kayakController != null && WaterFlowManager != null) 
+            CheckForKayak(other);
+        }
+
+        /// <summary>
+        /// This method checks if a collider contains a KayakController component, and if so, applies rotation and
+        /// velocity to the kayak based on its facing direction and movement. It also sets the closest block to the
+        /// player if a WaterFlowManager is present.
+        /// </summary>
+        /// <param name="collider"> The collider to check </param>
+        private void CheckForKayak(Collider collider)
+        {
+            KayakController kayakController = collider.GetComponent<KayakController>();
+            if (kayakController != null && WaterFlowManager != null)
             {
+                if (kayakController.CharacterManager.CurrentStateBase.CanBeMoved == false)
+                {
+                    return;
+                }
+                
                 WaterFlowManager.SetClosestBlockToPlayer(kayakController.transform);
                 if (IsActive)
                 {
                     //get rotation
                     Quaternion currentRotation = kayakController.transform.rotation;
                     Vector3 currentRotationEuler = currentRotation.eulerAngles;
-                    
+
                     //get target rotation
                     float targetYAngle = Quaternion.LookRotation(Direction).eulerAngles.y;
-                    Quaternion targetRotation = Quaternion.Euler(currentRotationEuler.x,targetYAngle,currentRotationEuler.z);
+                    Quaternion targetRotation = Quaternion.Euler(currentRotationEuler.x, targetYAngle, currentRotationEuler.z);
 
                     //check if the boat is facing the flow direction or not
                     const float ANGLE_TO_FACE_FLOW = 20f;
                     float angleDifference = Mathf.Abs(Mathf.Abs(currentRotationEuler.y) - Mathf.Abs(targetYAngle));
                     bool isFacingFlow = angleDifference <= ANGLE_TO_FACE_FLOW;
-                    
+
                     //apply rotation
                     InputManagement inputManagement = kayakController.CharacterManager.InputManagement;
                     bool isMoving = inputManagement.Inputs.PaddleLeft || inputManagement.Inputs.PaddleRight ||
-                                    Mathf.Abs(inputManagement.Inputs.RotateLeft) > 0.1f || Mathf.Abs(inputManagement.Inputs.RotateRight) > 0.1f;
-                    kayakController.transform.rotation = Quaternion.Lerp(currentRotation,targetRotation, 
-                        isMoving ? _rotationLerpWhenMoving : isFacingFlow ? _rotationLerpWhenInDirection : _rotationLerpWhenNotInDirection);
+                                    Mathf.Abs(inputManagement.Inputs.RotateLeft) > 0.1f ||
+                                    Mathf.Abs(inputManagement.Inputs.RotateRight) > 0.1f;
+                    kayakController.transform.rotation = Quaternion.Lerp(currentRotation, targetRotation,
+                        isMoving ? _rotationLerpWhenMoving :
+                        isFacingFlow ? _rotationLerpWhenInDirection : _rotationLerpWhenNotInDirection);
 
                     //apply velocity by multiplying current by speed
                     Vector3 velocity = kayakController.Rigidbody.velocity;
                     float speed = _speed * (isFacingFlow ? _speed : _speed * _speedNotFacingMultiplier);
-                    
+
                     kayakController.Rigidbody.velocity = new Vector3(
-                        velocity.x + speed * Mathf.Sign(velocity.x), 
-                        velocity.y, 
+                        velocity.x + speed * Mathf.Sign(velocity.x),
+                        velocity.y,
                         velocity.z + speed * Mathf.Sign(velocity.z));
                 }
             }
