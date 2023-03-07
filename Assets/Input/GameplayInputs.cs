@@ -182,21 +182,10 @@ public partial class @GameplayInputs : IInputActionCollection2, IDisposable
                 },
                 {
                     ""name"": """",
-                    ""id"": ""18d35e25-5cdb-4bf6-9f72-6016e5884a9a"",
-                    ""path"": ""<Mouse>/delta"",
-                    ""interactions"": """",
-                    ""processors"": ""ScaleVector2(x=0.2,y=0.2),InvertVector2(invertX=false)"",
-                    ""groups"": ""KeyboardMouse"",
-                    ""action"": ""RotateCamera"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": false
-                },
-                {
-                    ""name"": """",
                     ""id"": ""0e987401-15f1-4c58-8252-74271067c81b"",
                     ""path"": ""<Gamepad>/rightStick"",
                     ""interactions"": """",
-                    ""processors"": """",
+                    ""processors"": ""InvertVector2(invertY=false)"",
                     ""groups"": ""GamePad"",
                     ""action"": ""RotateCamera"",
                     ""isComposite"": false,
