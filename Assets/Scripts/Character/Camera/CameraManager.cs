@@ -30,7 +30,7 @@ public class CameraManager : MonoBehaviour
     [Range(0, 0.1f)] public float BalanceRotationZLerp = 0.01f;
 
     [Header("Camera")]
-    [Range(-10, 10)] public float MultiplierValueRotation = 20.0f;
+    [Range(0, 10)] public float MultiplierValueRotation = 20.0f;
     [Range(0, 0.1f), Tooltip("The lerp value applied to the rotation of the camera when the player moves")]
     public float LerpLocalRotationMove = 0.005f;
     [Range(0, 10)] public float MultiplierValuePosition = 2;
