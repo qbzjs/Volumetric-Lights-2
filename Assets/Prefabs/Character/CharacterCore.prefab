@@ -942,10 +942,10 @@ MonoBehaviour:
   balanceLerpTo0Value: 0.01
   LerpBalanceTo0: 1
   Balance: 0
-  BalanceLimit: 9.5
-  BalanceDeathLimit: 15.5
+  BalanceLimit: 8.5
+  BalanceDeathLimit: 12
   RebalanceAngle: 5
-  MinimumTimeUnbalanced: 2
+  MinimumTimeUnbalanced: 7.71
 --- !u!114 &7217796708653836311
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -982,8 +982,10 @@ MonoBehaviour:
   Input: {fileID: 5885439514833416252}
   BalanceRotationMultiplier: 0
   BalanceRotationZLerp: 0.01
-  MultiplierValueRotation: 0
-  MultiplierValuePosition: 0
+  MultiplierValueRotation: 0.5
+  LerpLocalRotationMove: 0.01
+  MultiplierValuePosition: 0.5
+  LerpLocalPositionMove: 0.01
   CanMoveCameraManually: 1
   Brain: {fileID: 1967899735}
   VirtualCamera: {fileID: 4192299973026284776}
@@ -991,9 +993,8 @@ MonoBehaviour:
   LerpTimeX: 0.0347
   LerpTimeY: 0.0477
   TimerCameraReturnBehindBoat: 0
+  JoystickMultiplierFreeRotationForce: 20
   LerpFOV: 0.01
-  LerpLocalRotationMove: 0.005
-  LerpLocalPositionMove: 0.005
   LerpLocalPositionNotMoving: 0.01
   LerpLocalRotationNotMoving: 0.01
   PendulumFirstAngle: 0
