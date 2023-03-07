@@ -30,7 +30,7 @@ public class CameraManager : MonoBehaviour
     [Range(0, 0.1f)] public float BalanceRotationZLerp = 0.01f;
 
     [Header("Camera")]
-    [Range(10, 100)] public float MultiplierValueRotation = 20.0f;
+    [Range(0, 100)] public float MultiplierValueRotation = 20.0f;
     [Range(0, 10)] public float MultiplierValuePosition = 2;
     [ReadOnly] public bool CanMoveCameraManually = true;
 
