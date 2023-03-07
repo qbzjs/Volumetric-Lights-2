@@ -268,25 +268,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: daab302c57287994a9dad048de96aebb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _action:
-    m_Name: Action
-    m_Type: 1
-    m_ExpectedControlType: Button
-    m_Id: f3d524b6-ee0c-45cc-be79-522e675fb4c6
-    m_Processors: 
-    m_Interactions: 
-    m_SingletonActionBindings:
-    - m_Name: 
-      m_Id: b07ec19f-c13f-4721-9e69-336e0aa4c3fc
-      m_Path: <Keyboard>/k
-      m_Interactions: 
-      m_Processors: 
-      m_Groups: 
-      m_Action: Action
-      m_Flags: 0
-    m_Flags: 0
-  _animator: {fileID: 0}
-  _freeLookCamera: 1
 --- !u!95 &282231899
 Animator:
   serializedVersion: 4
@@ -412,7 +393,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &335569930
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -425,11 +406,22 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: eae858f39de08464aba28f0db96b2d85, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _triggerSize: {x: 7.76, y: 3.49, z: 7.87}
-  _triggerPosition: {x: 0, y: 0, z: 0}
-  _playerLayerMask:
-    serializedVersion: 2
-    m_Bits: 2147483647
+  BoxPositions:
+  - TriggerSize: {x: 5.93, y: 5.41, z: 5.84}
+    TriggerPosition: {x: 0, y: 0, z: 0}
+    PlayerLayerMask:
+      serializedVersion: 2
+      m_Bits: 2147483647
+    IsTrigger: 0
+  - TriggerSize: {x: -3.87, y: 13.34, z: 21.86}
+    TriggerPosition: {x: 5.92, y: 0, z: 0}
+    PlayerLayerMask:
+      serializedVersion: 2
+      m_Bits: 2147483647
+    IsTrigger: 0
+  _cameraManager: {fileID: 1739635749}
+  _nameOfCamera: 
+  _isTrigger: 0
 --- !u!4 &335569931
 Transform:
   m_ObjectHideFlags: 0
@@ -785,10 +777,9 @@ MonoBehaviour:
   _UVScale: 2
   _waterPosition: {fileID: 1383893021}
   _octaves:
-  - speed: {x: 15, y: 15}
-    scale: {x: 8, y: 8}
-    height: 5
-    alternate: 0
+  - Speed: {x: 0, y: 0}
+    Scale: {x: 0, y: 0}
+    Height: 0
 --- !u!1001 &523961782
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1987,6 +1978,18 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: c65dbc6e6a13448468e3141d768ce52b, type: 3}
+--- !u!114 &1739635749 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 7611706348771366613, guid: 36e32e7372e41e346abb29f843dd75b3,
+    type: 3}
+  m_PrefabInstance: {fileID: 7217796708188491343}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7d49cd67baff6c54aa5d47073fe1fc45, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!4 &1826803700 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 4616244911090478533, guid: 1234adbd798f2fe449590ea419456881,
@@ -2395,18 +2398,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 8
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &2106243266 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 1967899735, guid: 36e32e7372e41e346abb29f843dd75b3,
-    type: 3}
-  m_PrefabInstance: {fileID: 7217796708188491343}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 72ece51f2901e7445ab60da3685d6b5f, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1001 &223048470903394161
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -3030,6 +3021,11 @@ PrefabInstance:
       propertyPath: m_LocalPosition.z
       value: -61.5
       objectReference: {fileID: 0}
+    - target: {fileID: 5260819280088567336, guid: 36e32e7372e41e346abb29f843dd75b3,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 5271517075203179560, guid: 36e32e7372e41e346abb29f843dd75b3,
         type: 3}
       propertyPath: CameraDistance
@@ -3247,14 +3243,224 @@ PrefabInstance:
       objectReference: {fileID: 419315132}
     - target: {fileID: 7611706348771366613, guid: 36e32e7372e41e346abb29f843dd75b3,
         type: 3}
-      propertyPath: Brain
-      value: 
-      objectReference: {fileID: 2106243266}
+      propertyPath: test
+      value: 20
+      objectReference: {fileID: 0}
     - target: {fileID: 7611706348771366613, guid: 36e32e7372e41e346abb29f843dd75b3,
         type: 3}
-      propertyPath: AnimatorRef
-      value: 
-      objectReference: {fileID: 282231899}
+      propertyPath: testbis
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 7611706348771366613, guid: 36e32e7372e41e346abb29f843dd75b3,
+        type: 3}
+      propertyPath: testThird
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7611706348771366613, guid: 36e32e7372e41e346abb29f843dd75b3,
+        type: 3}
+      propertyPath: LerpLocalPositionMove
+      value: 0.01
+      objectReference: {fileID: 0}
+    - target: {fileID: 7611706348771366613, guid: 36e32e7372e41e346abb29f843dd75b3,
+        type: 3}
+      propertyPath: LerpLocalRotationMove
+      value: 0.01
+      objectReference: {fileID: 0}
+    - target: {fileID: 7611706348771366613, guid: 36e32e7372e41e346abb29f843dd75b3,
+        type: 3}
+      propertyPath: TimerCameraReturnBehindBoat
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 7611706348771366613, guid: 36e32e7372e41e346abb29f843dd75b3,
+        type: 3}
+      propertyPath: JoystickMultiplierFreeRotationForce
+      value: 37.2
+      objectReference: {fileID: 0}
+    - target: {fileID: 7611706348771366613, guid: 36e32e7372e41e346abb29f843dd75b3,
+        type: 3}
+      propertyPath: JoystickFreeRotation.m_Curve.Array.size
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 7611706348771366613, guid: 36e32e7372e41e346abb29f843dd75b3,
+        type: 3}
+      propertyPath: JoystickFreeRotationX.m_Curve.Array.size
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 7611706348771366613, guid: 36e32e7372e41e346abb29f843dd75b3,
+        type: 3}
+      propertyPath: JoystickFreeRotationY.m_Curve.Array.size
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 7611706348771366613, guid: 36e32e7372e41e346abb29f843dd75b3,
+        type: 3}
+      propertyPath: JoystickFreeRotation.m_Curve.Array.data[1].time
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7611706348771366613, guid: 36e32e7372e41e346abb29f843dd75b3,
+        type: 3}
+      propertyPath: JoystickFreeRotation.m_Curve.Array.data[1].value
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7611706348771366613, guid: 36e32e7372e41e346abb29f843dd75b3,
+        type: 3}
+      propertyPath: JoystickFreeRotationX.m_Curve.Array.data[0].time
+      value: -0.99884033
+      objectReference: {fileID: 0}
+    - target: {fileID: 7611706348771366613, guid: 36e32e7372e41e346abb29f843dd75b3,
+        type: 3}
+      propertyPath: JoystickFreeRotationX.m_Curve.Array.data[1].time
+      value: 0.0073486823
+      objectReference: {fileID: 0}
+    - target: {fileID: 7611706348771366613, guid: 36e32e7372e41e346abb29f843dd75b3,
+        type: 3}
+      propertyPath: JoystickFreeRotationX.m_Curve.Array.data[2].time
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7611706348771366613, guid: 36e32e7372e41e346abb29f843dd75b3,
+        type: 3}
+      propertyPath: JoystickFreeRotationY.m_Curve.Array.data[0].time
+      value: -0.99884033
+      objectReference: {fileID: 0}
+    - target: {fileID: 7611706348771366613, guid: 36e32e7372e41e346abb29f843dd75b3,
+        type: 3}
+      propertyPath: JoystickFreeRotationY.m_Curve.Array.data[1].time
+      value: 0.0073486823
+      objectReference: {fileID: 0}
+    - target: {fileID: 7611706348771366613, guid: 36e32e7372e41e346abb29f843dd75b3,
+        type: 3}
+      propertyPath: JoystickFreeRotationY.m_Curve.Array.data[2].time
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7611706348771366613, guid: 36e32e7372e41e346abb29f843dd75b3,
+        type: 3}
+      propertyPath: JoystickFreeRotationX.m_Curve.Array.data[0].value
+      value: -0.9999542
+      objectReference: {fileID: 0}
+    - target: {fileID: 7611706348771366613, guid: 36e32e7372e41e346abb29f843dd75b3,
+        type: 3}
+      propertyPath: JoystickFreeRotationX.m_Curve.Array.data[1].value
+      value: -0.0041665044
+      objectReference: {fileID: 0}
+    - target: {fileID: 7611706348771366613, guid: 36e32e7372e41e346abb29f843dd75b3,
+        type: 3}
+      propertyPath: JoystickFreeRotationX.m_Curve.Array.data[2].value
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7611706348771366613, guid: 36e32e7372e41e346abb29f843dd75b3,
+        type: 3}
+      propertyPath: JoystickFreeRotationY.m_Curve.Array.data[0].value
+      value: -0.9999542
+      objectReference: {fileID: 0}
+    - target: {fileID: 7611706348771366613, guid: 36e32e7372e41e346abb29f843dd75b3,
+        type: 3}
+      propertyPath: JoystickFreeRotationY.m_Curve.Array.data[1].value
+      value: -0.0041665044
+      objectReference: {fileID: 0}
+    - target: {fileID: 7611706348771366613, guid: 36e32e7372e41e346abb29f843dd75b3,
+        type: 3}
+      propertyPath: JoystickFreeRotationY.m_Curve.Array.data[2].value
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7611706348771366613, guid: 36e32e7372e41e346abb29f843dd75b3,
+        type: 3}
+      propertyPath: JoystickFreeRotationX.m_Curve.Array.data[0].inSlope
+      value: 2.6116352
+      objectReference: {fileID: 0}
+    - target: {fileID: 7611706348771366613, guid: 36e32e7372e41e346abb29f843dd75b3,
+        type: 3}
+      propertyPath: JoystickFreeRotationX.m_Curve.Array.data[1].inSlope
+      value: -0.0014922837
+      objectReference: {fileID: 0}
+    - target: {fileID: 7611706348771366613, guid: 36e32e7372e41e346abb29f843dd75b3,
+        type: 3}
+      propertyPath: JoystickFreeRotationX.m_Curve.Array.data[2].inSlope
+      value: 3.0533154
+      objectReference: {fileID: 0}
+    - target: {fileID: 7611706348771366613, guid: 36e32e7372e41e346abb29f843dd75b3,
+        type: 3}
+      propertyPath: JoystickFreeRotationY.m_Curve.Array.data[0].inSlope
+      value: 2.6116352
+      objectReference: {fileID: 0}
+    - target: {fileID: 7611706348771366613, guid: 36e32e7372e41e346abb29f843dd75b3,
+        type: 3}
+      propertyPath: JoystickFreeRotationY.m_Curve.Array.data[1].inSlope
+      value: -0.0014922837
+      objectReference: {fileID: 0}
+    - target: {fileID: 7611706348771366613, guid: 36e32e7372e41e346abb29f843dd75b3,
+        type: 3}
+      propertyPath: JoystickFreeRotationY.m_Curve.Array.data[2].inSlope
+      value: 3.0533154
+      objectReference: {fileID: 0}
+    - target: {fileID: 7611706348771366613, guid: 36e32e7372e41e346abb29f843dd75b3,
+        type: 3}
+      propertyPath: JoystickFreeRotationX.m_Curve.Array.data[0].outSlope
+      value: 2.6116352
+      objectReference: {fileID: 0}
+    - target: {fileID: 7611706348771366613, guid: 36e32e7372e41e346abb29f843dd75b3,
+        type: 3}
+      propertyPath: JoystickFreeRotationX.m_Curve.Array.data[1].inWeight
+      value: 0.33333334
+      objectReference: {fileID: 0}
+    - target: {fileID: 7611706348771366613, guid: 36e32e7372e41e346abb29f843dd75b3,
+        type: 3}
+      propertyPath: JoystickFreeRotationX.m_Curve.Array.data[1].outSlope
+      value: -0.0014922837
+      objectReference: {fileID: 0}
+    - target: {fileID: 7611706348771366613, guid: 36e32e7372e41e346abb29f843dd75b3,
+        type: 3}
+      propertyPath: JoystickFreeRotationX.m_Curve.Array.data[2].inWeight
+      value: 0.11205166
+      objectReference: {fileID: 0}
+    - target: {fileID: 7611706348771366613, guid: 36e32e7372e41e346abb29f843dd75b3,
+        type: 3}
+      propertyPath: JoystickFreeRotationX.m_Curve.Array.data[2].outSlope
+      value: 3.0533154
+      objectReference: {fileID: 0}
+    - target: {fileID: 7611706348771366613, guid: 36e32e7372e41e346abb29f843dd75b3,
+        type: 3}
+      propertyPath: JoystickFreeRotationY.m_Curve.Array.data[0].outSlope
+      value: 2.6116352
+      objectReference: {fileID: 0}
+    - target: {fileID: 7611706348771366613, guid: 36e32e7372e41e346abb29f843dd75b3,
+        type: 3}
+      propertyPath: JoystickFreeRotationY.m_Curve.Array.data[1].inWeight
+      value: 0.33333334
+      objectReference: {fileID: 0}
+    - target: {fileID: 7611706348771366613, guid: 36e32e7372e41e346abb29f843dd75b3,
+        type: 3}
+      propertyPath: JoystickFreeRotationY.m_Curve.Array.data[1].outSlope
+      value: -0.0014922837
+      objectReference: {fileID: 0}
+    - target: {fileID: 7611706348771366613, guid: 36e32e7372e41e346abb29f843dd75b3,
+        type: 3}
+      propertyPath: JoystickFreeRotationY.m_Curve.Array.data[2].inWeight
+      value: 0.11205166
+      objectReference: {fileID: 0}
+    - target: {fileID: 7611706348771366613, guid: 36e32e7372e41e346abb29f843dd75b3,
+        type: 3}
+      propertyPath: JoystickFreeRotationY.m_Curve.Array.data[2].outSlope
+      value: 3.0533154
+      objectReference: {fileID: 0}
+    - target: {fileID: 7611706348771366613, guid: 36e32e7372e41e346abb29f843dd75b3,
+        type: 3}
+      propertyPath: JoystickFreeRotationX.m_Curve.Array.data[0].outWeight
+      value: 0.17231908
+      objectReference: {fileID: 0}
+    - target: {fileID: 7611706348771366613, guid: 36e32e7372e41e346abb29f843dd75b3,
+        type: 3}
+      propertyPath: JoystickFreeRotationX.m_Curve.Array.data[1].outWeight
+      value: 0.34017646
+      objectReference: {fileID: 0}
+    - target: {fileID: 7611706348771366613, guid: 36e32e7372e41e346abb29f843dd75b3,
+        type: 3}
+      propertyPath: JoystickFreeRotationY.m_Curve.Array.data[0].outWeight
+      value: 0.17231908
+      objectReference: {fileID: 0}
+    - target: {fileID: 7611706348771366613, guid: 36e32e7372e41e346abb29f843dd75b3,
+        type: 3}
+      propertyPath: JoystickFreeRotationY.m_Curve.Array.data[1].outWeight
+      value: 0.34017646
+      objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 5480866633708966426, guid: 36e32e7372e41e346abb29f843dd75b3, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: 36e32e7372e41e346abb29f843dd75b3, type: 3}
