@@ -50,8 +50,10 @@ public class CameraManager : MonoBehaviour
     public float LerpTimeY = 0.06f;
     [Range(0, 10), Tooltip("The time it takes the camera to move back behind the boat after the last input")]
     public float TimerCameraReturnBehindBoat = 3.0f;
-    [Range(0,50), Tooltip("Multiply the basic value of the joystick input")]
-    public float JoystickMultiplierFreeRotationForce = 20;
+    [Tooltip("The curve of force in function of the joystick position X")]
+    public AnimationCurve JoystickFreeRotationX;
+    [Tooltip("The curve of force in function of the joystick position Y")]
+    public AnimationCurve JoystickFreeRotationY;
 
 
     [Header("Lerp")]
@@ -77,7 +79,7 @@ public class CameraManager : MonoBehaviour
     [Tooltip("Division of the position in Y according to the angle")]
     public float _divisionMoveForceY = 50;
 
-    
+
 
     //camera
     [HideInInspector]
@@ -156,7 +158,7 @@ public class CameraManager : MonoBehaviour
         CinemachineCameraTarget.transform.rotation = Quaternion.Euler(
         CinemachineTargetPitch, //pitch
         CinemachineTargetYaw, //yaw
-        RotationZ) ; //z rotation
+        RotationZ); //z rotation
     }
     public void ApplyRotationCameraWhenCharacterDeath()
     {
@@ -210,7 +212,7 @@ public class CameraManager : MonoBehaviour
     }
 
 
-    public void MakeTargetFolloRotationWithKayak()
+    public void MakeTargetFollowRotationWithKayak()
     {
         Vector3 rotation = CinemachineCameraTargetFollow.transform.rotation.eulerAngles;
         Vector3 kayakRotation = RigidbodyKayak.gameObject.transform.eulerAngles;
