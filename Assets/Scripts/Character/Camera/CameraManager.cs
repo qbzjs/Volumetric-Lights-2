@@ -30,8 +30,12 @@ public class CameraManager : MonoBehaviour
     [Range(0, 0.1f)] public float BalanceRotationZLerp = 0.01f;
 
     [Header("Camera")]
-    [Range(0, 100)] public float MultiplierValueRotation = 20.0f;
+    [Range(-10, 10)] public float MultiplierValueRotation = 20.0f;
+    [Range(0, 0.1f), Tooltip("The lerp value applied to the rotation of the camera when the player moves")]
+    public float LerpLocalRotationMove = 0.005f;
     [Range(0, 10)] public float MultiplierValuePosition = 2;
+    [Range(0, 0.1f), Tooltip("The lerp value applied to the position of the camera when the player moves")]
+    public float LerpLocalPositionMove = .005f;
     [ReadOnly] public bool CanMoveCameraManually = true;
 
     [Header("Virtual Camera")]
@@ -46,15 +50,13 @@ public class CameraManager : MonoBehaviour
     public float LerpTimeY = 0.06f;
     [Range(0, 10), Tooltip("The time it takes the camera to move back behind the boat after the last input")]
     public float TimerCameraReturnBehindBoat = 3.0f;
+    [Range(0,50), Tooltip("Multiply the basic value of the joystick input")]
+    public float JoystickMultiplierFreeRotationForce = 20;
 
 
     [Header("Lerp")]
     [Range(0, 0.1f), Tooltip("The lerp value applied to the field of view of camera depending on the speed of the player")]
     public float LerpFOV = .01f;
-    [Range(0, 0.1f), Tooltip("The lerp value applied to the rotation of the camera when the player moves")]
-    public float LerpLocalRotationMove = 0.005f;
-    [Range(0, 0.1f), Tooltip("The lerp value applied to the position of the camera when the player moves")]
-    public float LerpLocalPositionMove = .005f;
     [Range(0, 0.1f), Tooltip("The lerp value applied to the position of the camera when the player is not moving")]
     public float LerpLocalPositionNotMoving = 0.01f;
     [Range(0, 0.1f), Tooltip("The lerp value applied to the position of the camera when the player is not moving")]
@@ -74,6 +76,8 @@ public class CameraManager : MonoBehaviour
     public float _divisionMoveForceX = 10;
     [Tooltip("Division of the position in Y according to the angle")]
     public float _divisionMoveForceY = 50;
+
+    
 
     //camera
     [HideInInspector]
