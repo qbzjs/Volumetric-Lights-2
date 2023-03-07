@@ -279,7 +279,7 @@ MonoBehaviour:
     MaximumFrontVelocity: 12
     CollisionToBalanceMagnitudeDivider: 1.4
     PaddleSideRotationForce: 0.254
-    PaddleCooldown: 2
+    PaddleCooldown: 1
     PaddleRotationDeceleration: 0.008
     PaddleForce: 52.6
     NumberOfForceAppliance: 9

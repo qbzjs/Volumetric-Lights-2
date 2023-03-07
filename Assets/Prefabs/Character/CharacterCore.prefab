@@ -943,7 +943,7 @@ MonoBehaviour:
   LerpBalanceTo0: 1
   Balance: 0
   BalanceLimit: 8.5
-  BalanceDeathLimit: 12
+  BalanceDeathLimit: 14
   RebalanceAngle: 5
   MinimumTimeUnbalanced: 2
 --- !u!114 &7217796708653836311
@@ -1112,11 +1112,6 @@ PrefabInstance:
     - target: {fileID: 4950148468892883501, guid: bc06d1e844ba3694bbdecce4a99ba863,
         type: 3}
       propertyPath: CharacterManager
-      value: 
-      objectReference: {fileID: 7217796708653836310}
-    - target: {fileID: 4950148468892883501, guid: bc06d1e844ba3694bbdecce4a99ba863,
-        type: 3}
-      propertyPath: _characterManager
       value: 
       objectReference: {fileID: 7217796708653836310}
     m_RemovedComponents: []

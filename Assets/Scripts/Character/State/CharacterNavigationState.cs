@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using Character.Camera;
 using Kayak;
@@ -52,9 +53,6 @@ namespace Character.State
 
         public override void EnterState(CharacterManager character)
         {
-            Debug.Log("naviguation");
-
-
             //values
             _rightPaddleCooldown = _kayakValues.PaddleCooldown;
             _leftPaddleCooldown = _kayakValues.PaddleCooldown;
@@ -119,7 +117,7 @@ namespace Character.State
         #region Methods
 
         /// <summary>
-        /// Handle the boat y rotation depending on the force applied from each side
+        /// manages the rotation of the kayak based on the input rotation type and updates the relevant rotation force values.
         /// </summary>
         private void KayakRotationManager(RotationType rotationType)
         {
@@ -209,17 +207,18 @@ namespace Character.State
         /// </summary>
         private void HandlePaddleMovement()
         {
+            Debug.Log(Math.Round(_rightPaddleCooldown,2));
             //input -> paddleMovement
-            if (_inputs.Inputs.PaddleLeft && _rightPaddleCooldown <= 0 && _inputs.Inputs.PaddleRight == false)
+            if (_inputs.Inputs.PaddleLeft && _leftPaddleCooldown <= 0 && _inputs.Inputs.PaddleRight == false)
             {
-                _rightPaddleCooldown = _kayakValues.PaddleCooldown;
+                _leftPaddleCooldown = _kayakValues.PaddleCooldown;
                 _rightPaddleCooldown = _kayakValues.PaddleCooldown / 2;
                 Paddle(Direction.Left);
             }
             
-            if (_inputs.Inputs.PaddleRight && _leftPaddleCooldown <= 0 && _inputs.Inputs.PaddleLeft == false)
+            if (_inputs.Inputs.PaddleRight && _rightPaddleCooldown <= 0 && _inputs.Inputs.PaddleLeft == false)
             {
-                _leftPaddleCooldown = _kayakValues.PaddleCooldown;
+                _rightPaddleCooldown = _kayakValues.PaddleCooldown;
                 _leftPaddleCooldown = _kayakValues.PaddleCooldown / 2;
                 Paddle(Direction.Right);
             }
