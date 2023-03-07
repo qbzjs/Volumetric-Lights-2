@@ -277,7 +277,7 @@ MonoBehaviour:
   DragReducingTimer: 0
   KayakValues:
     MaximumFrontVelocity: 12
-    CollisionToBalanceMagnitudeDivider: 5
+    CollisionToBalanceMagnitudeDivider: 1.4
     PaddleSideRotationForce: 0.254
     PaddleCooldown: 2
     PaddleRotationDeceleration: 0.008
@@ -318,7 +318,7 @@ MonoBehaviour:
   CanReduceDrag: 1
   _frontParticles:
   - {fileID: 4919407605512908475}
-  _characterManager: {fileID: 0}
+  CharacterManager: {fileID: 0}
   Rigidbody: {fileID: 333907971529626019}
   Mesh: {fileID: 6105224612437298787}
   PaddlingAudioClip: {fileID: 8300000, guid: cc79f0cc1ba16294cb28181e5ed1db4e, type: 3}

@@ -942,7 +942,7 @@ MonoBehaviour:
   balanceLerpTo0Value: 0.01
   LerpBalanceTo0: 1
   Balance: 0
-  BalanceLimit: 11.3
+  BalanceLimit: 9.5
   BalanceDeathLimit: 15.5
   RebalanceAngle: 5
   MinimumTimeUnbalanced: 2
