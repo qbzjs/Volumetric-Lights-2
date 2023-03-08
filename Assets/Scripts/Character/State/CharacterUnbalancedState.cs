@@ -84,9 +84,6 @@ namespace Character.State
             {
                 CharacterDeathState characterDeathState = new CharacterDeathState(CharacterManagerRef, _kayakController, _inputs, MonoBehaviourRef, CameraManagerRef);
                 CharacterManagerRef.SwitchState(characterDeathState);
-
-                CameraDeathState cameraDeathState = new CameraDeathState(CameraManagerRef, MonoBehaviourRef);
-                CameraManagerRef.SwitchState(cameraDeathState);
             }
             else if (Mathf.Abs(CharacterManagerRef.Balance) < CharacterManagerRef.RebalanceAngle)
             {
