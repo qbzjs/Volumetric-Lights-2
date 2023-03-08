@@ -3198,6 +3198,16 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7217796708653836310, guid: 36e32e7372e41e346abb29f843dd75b3,
         type: 3}
+      propertyPath: BalanceLimit
+      value: 4.3
+      objectReference: {fileID: 0}
+    - target: {fileID: 7217796708653836310, guid: 36e32e7372e41e346abb29f843dd75b3,
+        type: 3}
+      propertyPath: RebalanceAngle
+      value: 1.1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7217796708653836310, guid: 36e32e7372e41e346abb29f843dd75b3,
+        type: 3}
       propertyPath: TransitionType
       value: 
       objectReference: {fileID: 281813503}
@@ -3205,6 +3215,11 @@ PrefabInstance:
         type: 3}
       propertyPath: TimeFadeInEnded
       value: 0.53
+      objectReference: {fileID: 0}
+    - target: {fileID: 7217796708653836310, guid: 36e32e7372e41e346abb29f843dd75b3,
+        type: 3}
+      propertyPath: BalanceDeathLimit
+      value: 7.7
       objectReference: {fileID: 0}
     - target: {fileID: 7217796708653836310, guid: 36e32e7372e41e346abb29f843dd75b3,
         type: 3}
@@ -3216,6 +3231,11 @@ PrefabInstance:
       propertyPath: TransitionManager
       value: 
       objectReference: {fileID: 281813503}
+    - target: {fileID: 7217796708653836310, guid: 36e32e7372e41e346abb29f843dd75b3,
+        type: 3}
+      propertyPath: MinimumTimeUnbalanced
+      value: 1.34
+      objectReference: {fileID: 0}
     - target: {fileID: 7217796708653836310, guid: 36e32e7372e41e346abb29f843dd75b3,
         type: 3}
       propertyPath: TimeToRespawnCheckPoint
@@ -3255,6 +3275,11 @@ PrefabInstance:
         type: 3}
       propertyPath: testThird
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7611706348771366613, guid: 36e32e7372e41e346abb29f843dd75b3,
+        type: 3}
+      propertyPath: CameraAngleOverride
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 7611706348771366613, guid: 36e32e7372e41e346abb29f843dd75b3,
         type: 3}

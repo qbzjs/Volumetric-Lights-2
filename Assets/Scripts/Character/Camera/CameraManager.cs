@@ -17,8 +17,6 @@ public class CameraManager : MonoBehaviour
     public float TopClamp = 70.0f;
     [Tooltip("How far in degrees can you move the camera down")]
     public float BottomClamp = -30.0f;
-    [Tooltip("Additional degrees to override the camera. Useful for fine tuning camera position when locked")]
-    public float CameraAngleOverride = 0.0f;
 
     [Header("References")]
     public Rigidbody RigidbodyKayak;
@@ -75,32 +73,31 @@ public class CameraManager : MonoBehaviour
     [Tooltip("The speed you take away from the speed with each pendulum")]
     public float PendulumRemoveSpeed = 0.1f;
     [Tooltip("Division of the position in X according to the angle")]
-    public float _divisionMoveForceX = 10;
+    public float DivisionMoveForceX = 10;
     [Tooltip("Division of the position in Y according to the angle")]
-    public float _divisionMoveForceY = 50;
+    public float DivisionMoveForceY = 50;
 
-
+    [Header("Death")]
+    [Tooltip("Additional degrees to override the camera. Useful for fine tuning camera position when locked")]
+    public float ValueAddForTopDownWhenDeath = 0.1f;
+    [Tooltip("The value to add for the camera to move backwards")]
+    public float ValueAddForDistanceWhenDeath = 0.05f;
+    [Tooltip("The value that the camera distance should reach")]
+    public float MaxValueDistanceToStartDeath = 10f;
 
     //camera
-    [HideInInspector]
-    public float CameraBaseFov;
-    [HideInInspector]
-    public Vector3 CameraTargetBasePos;
-    [HideInInspector]
-    public float RotationZ = 0;
+    [HideInInspector] public float CameraAngleOverride = 0.0f;
+    [HideInInspector] public float CameraBaseFov;
+    [HideInInspector] public Vector3 CameraTargetBasePos;
+    [HideInInspector] public float RotationZ = 0;
     //cinemachine yaw&pitch
-    [HideInInspector]
-    public float CinemachineTargetYaw;
-    [HideInInspector]
-    public float CinemachineTargetPitch;
+    [HideInInspector] public float CinemachineTargetYaw;
+    [HideInInspector] public float CinemachineTargetPitch;
     //inputs
-    [HideInInspector]
-    public float LastInputX;
-    [HideInInspector]
-    public float LastInputY;
+    [HideInInspector] public float LastInputX;
+    [HideInInspector] public float LastInputY;
     //other
-    [HideInInspector]
-    public bool StartTimerDeath = false;
+    [HideInInspector] public bool StartDeath = false;
 
     /* //pendulum //pas tej jsp si on le garde
      public float PendulumValue;
@@ -162,7 +159,7 @@ public class CameraManager : MonoBehaviour
     }
     public void ApplyRotationCameraWhenCharacterDeath()
     {
-        CinemachineCameraTarget.transform.localRotation = Quaternion.Euler(
+        CinemachineCameraTarget.transform.rotation = Quaternion.Euler(
         CinemachineTargetPitch + CameraAngleOverride, //pitch
         CinemachineTargetYaw, //yaw
         RotationZ); //z rotation
@@ -175,7 +172,7 @@ public class CameraManager : MonoBehaviour
     public void ResetNavigationValue()
     {
         VirtualCamera.GetCinemachineComponent<Cinemachine3rdPersonFollow>().CameraDistance = 7;
-        StartTimerDeath = false;
+        StartDeath = false;
 
         #region pendulum
         //_pendulumValue = PendulumFirstAngle;
@@ -211,11 +208,43 @@ public class CameraManager : MonoBehaviour
 
     }
 
-
     public void MakeTargetFollowRotationWithKayak()
     {
         Vector3 rotation = CinemachineCameraTargetFollow.transform.rotation.eulerAngles;
         Vector3 kayakRotation = RigidbodyKayak.gameObject.transform.eulerAngles;
         CinemachineCameraTargetFollow.transform.rotation = Quaternion.Euler(new Vector3(rotation.x, kayakRotation.y, rotation.z));
+    }
+
+    public void MakeSmoothCameraBehindBoat()
+    {
+        Quaternion localRotation = CinemachineCameraTarget.transform.localRotation;
+        Vector3 cameraTargetLocalPosition = CinemachineCameraTarget.transform.localPosition;
+
+        CinemachineCameraTarget.transform.localRotation = Quaternion.Slerp(localRotation, Quaternion.Euler(new Vector3(0, 0, localRotation.z)), LerpLocalRotationNotMoving);
+        cameraTargetLocalPosition.x = Mathf.Lerp(cameraTargetLocalPosition.x, 0, LerpLocalPositionNotMoving);
+        CinemachineTargetEulerAnglesToRotation(cameraTargetLocalPosition);
+    }
+    public void ResetCameraBehindBoat()
+    {
+        Quaternion localRotation = CinemachineCameraTarget.transform.localRotation;
+        Vector3 cameraTargetLocalPosition = CinemachineCameraTarget.transform.localPosition;
+
+        CinemachineCameraTarget.transform.localRotation = Quaternion.Slerp(localRotation, Quaternion.Euler(new Vector3(0, 0, localRotation.z)), 1f);
+        cameraTargetLocalPosition.x = Mathf.Lerp(cameraTargetLocalPosition.x, 0, LerpLocalPositionNotMoving);
+        CinemachineTargetEulerAnglesToRotation(cameraTargetLocalPosition);
+    }
+    public void CinemachineTargetEulerAnglesToRotation(Vector3 targetLocalPosition)
+    {
+        CinemachineCameraTarget.transform.localPosition = targetLocalPosition;
+        CinemachineTargetYaw = CinemachineCameraTarget.transform.rotation.eulerAngles.y;
+
+        if (CinemachineCameraTarget.transform.rotation.eulerAngles.x > 180)
+        {
+            CinemachineTargetPitch = CinemachineCameraTarget.transform.rotation.eulerAngles.x - 360;
+        }
+        else
+        {
+            CinemachineTargetPitch = CinemachineCameraTarget.transform.rotation.eulerAngles.x;
+        }
     }
 }

@@ -6,7 +6,7 @@ using UnityEngine;
 public class CameraDeathState : CameraStateBase
 {
 
-
+    private float _rotationZ;
 
     public CameraDeathState(CameraManager cameraManagerRef, MonoBehaviour monoBehaviour) :
       base(cameraManagerRef, monoBehaviour)
@@ -15,10 +15,18 @@ public class CameraDeathState : CameraStateBase
 
     public override void EnterState(CameraManager camera)
     {
+        Debug.Log("cam death");
+        CameraManagerRef.CameraAngleOverride = 0;
+        _rotationZ = CameraManagerRef.RotationZ;
     }
     public override void UpdateState(CameraManager camera)
     {
-        Isdead();
+        CameraManagerRef.SmoothResetRotateZ();
+        if (Mathf.Abs(CameraManagerRef.RotationZ) <= 5)
+        {
+            Isdead();
+        }
+        CameraManagerRef.ApplyRotationCameraWhenCharacterDeath();
     }
     public override void FixedUpdate(CameraManager camera)
     {
@@ -32,12 +40,14 @@ public class CameraDeathState : CameraStateBase
 
     private void Isdead()
     {
-        CameraManagerRef.SmoothResetRotateZ();
-        CameraManagerRef.VirtualCamera.GetCinemachineComponent<Cinemachine3rdPersonFollow>().CameraDistance += 0.05f;
 
-        if (CameraManagerRef.VirtualCamera.GetCinemachineComponent<Cinemachine3rdPersonFollow>().CameraDistance > 10)
+        CameraManagerRef.VirtualCamera.GetCinemachineComponent<Cinemachine3rdPersonFollow>().CameraDistance += CameraManagerRef.ValueAddForDistanceWhenDeath;
+
+        if (CameraManagerRef.VirtualCamera.GetCinemachineComponent<Cinemachine3rdPersonFollow>().CameraDistance > CameraManagerRef.MaxValueDistanceToStartDeath)
         {
-            CameraManagerRef.StartTimerDeath = true;
+            CameraManagerRef.StartDeath = true;
         }
+        CameraManagerRef.CameraAngleOverride += CameraManagerRef.ValueAddForTopDownWhenDeath;
     }
+
 }

@@ -11,11 +11,10 @@ namespace Character.State
 
         private bool _transitionIn = false;
         private bool _respawned = false;
-
+        private bool _cameraSwitchState = false;
         private float _timerToRespawnCheckpoint = 0;
         private float _timerFadeOutStart = 0;
-        private float _timerFadeInEnded = 0;
-
+            
         public CharacterDeathState(CharacterManager characterManagerRef, KayakController kayakController, InputManagement inputs, MonoBehaviour monoBehaviour, CameraManager cameraManagerRef) :
             base(characterManagerRef, monoBehaviour, cameraManagerRef)
         {
@@ -34,21 +33,28 @@ namespace Character.State
 
             //Rotate kayak at 180 in z with balance
             if (CharacterManagerRef.Balance > 0 && CharacterManagerRef.Balance < 60)
-                CharacterManagerRef.Balance += 0.5f;
-            else if (CharacterManagerRef.Balance < 0 && CharacterManagerRef.Balance > -60)
-                CharacterManagerRef.Balance -= 0.5f;
-
-            //Timer Start Fade
-            if (CameraManagerRef.StartTimerDeath == true)
             {
-                _timerFadeInEnded += Time.deltaTime;
+                CharacterManagerRef.Balance += 0.5f;
+            }
+            else if (CharacterManagerRef.Balance < 0 && CharacterManagerRef.Balance > -60)
+            {
+                CharacterManagerRef.Balance -= 0.5f;
             }
 
-            //Transition In
-            if (_timerFadeInEnded > CharacterManagerRef.TimeFadeInAfterDeath && _transitionIn == false)
+            //Switch camera
+            if (Mathf.Abs(CharacterManagerRef.Balance) > 60 && _cameraSwitchState == false)
             {
-                _transitionIn = true;
+                _cameraSwitchState = true;
+                CameraDeathState cameraDeathState = new CameraDeathState(CameraManagerRef, MonoBehaviourRef);
+                CameraManagerRef.SwitchState(cameraDeathState);
+            }
+            MakeBoatRotationWithBalance(_kayakController.transform, 1);
+
+            //Transition In
+            if (CameraManagerRef.StartDeath == true && _transitionIn == false)
+            {
                 CharacterManagerRef.TransitionManager.LaunchTransitionIn(SceneTransition.TransitionType.Fade);
+                _transitionIn = true;
             }
 
             //Timer transition In
@@ -57,34 +63,14 @@ namespace Character.State
                 _timerToRespawnCheckpoint += Time.deltaTime;
             }
 
-
-            if (_timerToRespawnCheckpoint >= CharacterManagerRef.TimeToRespawnCheckPoint)
+            if (_timerToRespawnCheckpoint >= 1.5f)
             {
-                if (_respawned == true)
-                {
-                    _timerFadeOutStart += Time.deltaTime;
-                }
-
-                if (_respawned == false)
-                {
-                    //put kayak in checkpoint position & rotation
-                    _kayakController.transform.position = checkpoint.position;
-                    _kayakController.transform.rotation = checkpoint.rotation;
-
-                    //Switch state camera
-                    CameraNavigationState cameraNavigationState = new CameraNavigationState(CameraManagerRef, MonoBehaviourRef);
-                    CameraManagerRef.SwitchState(cameraNavigationState);
-                    //Reset value
-                    _kayakController.CanReduceDrag = true;
-                    CameraManagerRef.CanMoveCameraManually = true;
-                    CharacterManagerRef.Balance = 0;
-                    _respawned = true;
-                }
-
+                RespawnCheckpoint(checkpoint);
             }
-            if (_timerFadeOutStart > CharacterManagerRef.TimeToPlayFadeOutAfterRespawn && _respawned == true)
+
+            if (_timerFadeOutStart > 1.5f && _respawned == true)
                 this.SwitchState(character);
-            MakeBoatRotationWithBalance(_kayakController.transform, 1);
+
         }
 
         public override void FixedUpdate(CharacterManager character)
@@ -101,5 +87,31 @@ namespace Character.State
             CharacterManagerRef.SwitchState(characterNavigationState);
 
         }
+
+        private void RespawnCheckpoint(Transform checkpoint)
+        {
+            if (_respawned == true)
+            {
+                _timerFadeOutStart += Time.deltaTime;
+            }
+            else
+            {
+                //put kayak in checkpoint position & rotation
+                _kayakController.transform.position = checkpoint.position;
+                _kayakController.transform.rotation = checkpoint.rotation;
+
+                //Reset value
+                _kayakController.CanReduceDrag = true;
+                CameraManagerRef.CanMoveCameraManually = true;
+                CharacterManagerRef.Balance = 0;
+                _respawned = true;
+
+                //Switch state camera
+                CameraNavigationState cameraNavigationState = new CameraNavigationState(CameraManagerRef, MonoBehaviourRef);
+                CameraManagerRef.SwitchState(cameraNavigationState);
+            }
+        }
     }
+
+
 }
