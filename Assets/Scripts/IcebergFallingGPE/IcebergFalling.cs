@@ -78,8 +78,15 @@ namespace IcebergFallingGPE
             Gizmos.color = Color.cyan;
             Vector3 startPosition = HasFallen ? _beginPosition : transform.position;
             Vector3 endPosition = HasFallen ?  _targetPosition : transform.position + _endPosition;
+            
+            //line
             Gizmos.DrawSphere(endPosition, 0.2f);
             Handles.DrawDottedLine(startPosition, startPosition + _endPosition, 0.5f);
+            
+            //wave
+            Gizmos.color = Color.red;
+            Handles.DrawWireDisc(endPosition, Vector3.up, _circularWaveData.Distance);
+            Handles.DrawWireDisc(endPosition + Vector3.up*_circularWaveData.Amplitude, Vector3.up, _circularWaveData.Distance);
         }
 #endif
     }

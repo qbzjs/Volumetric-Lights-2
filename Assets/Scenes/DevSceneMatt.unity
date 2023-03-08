@@ -509,7 +509,7 @@ PrefabInstance:
     - target: {fileID: 4616244911090478533, guid: 1234adbd798f2fe449590ea419456881,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: 5.09
+      value: 12.63
       objectReference: {fileID: 0}
     - target: {fileID: 4616244911090478533, guid: 1234adbd798f2fe449590ea419456881,
         type: 3}
@@ -904,7 +904,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ad47bb5931a68a34d906b6e2237913f7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _dimension: 50
+  _dimension: 100
   _UVScale: 2
   _waterPosition: {fileID: 1383893021}
   _octaves:
@@ -1513,7 +1513,7 @@ Transform:
   m_GameObject: {fileID: 1383893020}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: -69.2, y: 0, z: -77.2}
-  m_LocalScale: {x: 4, y: 1, z: 4}
+  m_LocalScale: {x: 2, y: 1, z: 2}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 2065750087}
@@ -2916,7 +2916,7 @@ PrefabInstance:
     - target: {fileID: 6829306435168865602, guid: 5a2f9c611eacb0946acca616026730c6,
         type: 3}
       propertyPath: _circularWaveData.Distance
-      value: 5
+      value: 20.64
       objectReference: {fileID: 0}
     - target: {fileID: 6829306435168865602, guid: 5a2f9c611eacb0946acca616026730c6,
         type: 3}
@@ -2933,6 +2933,11 @@ PrefabInstance:
       propertyPath: <WavesManager>k__BackingField
       value: 
       objectReference: {fileID: 419315132}
+    - target: {fileID: 6829306435168865602, guid: 5a2f9c611eacb0946acca616026730c6,
+        type: 3}
+      propertyPath: _circularWaveData.NumberOfPoints
+      value: 20
+      objectReference: {fileID: 0}
     - target: {fileID: 6829306437002386994, guid: 5a2f9c611eacb0946acca616026730c6,
         type: 3}
       propertyPath: _triggerSize.y
@@ -3306,6 +3311,21 @@ PrefabInstance:
       propertyPath: _waves
       value: 
       objectReference: {fileID: 419315132}
+    - target: {fileID: 7157826216019152109, guid: 861d686e52159004785179dd987b140f,
+        type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 41.4
+      objectReference: {fileID: 0}
+    - target: {fileID: 7157826216019152109, guid: 861d686e52159004785179dd987b140f,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0.9
+      objectReference: {fileID: 0}
+    - target: {fileID: 7157826216019152109, guid: 861d686e52159004785179dd987b140f,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -16.6
+      objectReference: {fileID: 0}
     - target: {fileID: 9171828476220836105, guid: 861d686e52159004785179dd987b140f,
         type: 3}
       propertyPath: m_RootOrder

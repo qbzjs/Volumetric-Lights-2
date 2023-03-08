@@ -49,14 +49,14 @@ public class Waves : MonoBehaviour
     public float GetHeight(Vector3 position)
     {
         //scale factor and position in local space
-        var scale = new Vector3(1 / transform.lossyScale.x, 0, 1 / transform.lossyScale.z);
-        var localPos = Vector3.Scale((position - transform.position), scale);
+        Vector3 scale = new Vector3(1 / transform.lossyScale.x, 0, 1 / transform.lossyScale.z);
+        Vector3 localPos = Vector3.Scale((position - transform.position), scale);
 
         //get edge points
-        var p1 = new Vector3(Mathf.Floor(localPos.x), 0, Mathf.Floor(localPos.z));
-        var p2 = new Vector3(Mathf.Floor(localPos.x), 0, Mathf.Ceil(localPos.z));
-        var p3 = new Vector3(Mathf.Ceil(localPos.x), 0, Mathf.Floor(localPos.z));
-        var p4 = new Vector3(Mathf.Ceil(localPos.x), 0, Mathf.Ceil(localPos.z));
+        Vector3 p1 = new Vector3(Mathf.Floor(localPos.x), 0, Mathf.Floor(localPos.z));
+        Vector3 p2 = new Vector3(Mathf.Floor(localPos.x), 0, Mathf.Ceil(localPos.z));
+        Vector3 p3 = new Vector3(Mathf.Ceil(localPos.x), 0, Mathf.Floor(localPos.z));
+        Vector3 p4 = new Vector3(Mathf.Ceil(localPos.x), 0, Mathf.Ceil(localPos.z));
 
         //clamp if the position is outside the plane
         p1.x = Mathf.Clamp(p1.x, 0, _dimension);
@@ -69,19 +69,19 @@ public class Waves : MonoBehaviour
         p4.z = Mathf.Clamp(p4.z, 0, _dimension);
 
         //get the max distance to one of the edges and take that to compute max - dist
-        var max = Mathf.Max(Vector3.Distance(p1, localPos), Vector3.Distance(p2, localPos),
+        float max = Mathf.Max(Vector3.Distance(p1, localPos), Vector3.Distance(p2, localPos),
             Vector3.Distance(p3, localPos), Vector3.Distance(p4, localPos) + Mathf.Epsilon);
-        var dist = (max - Vector3.Distance(p1, localPos))
+        float dist = (max - Vector3.Distance(p1, localPos))
                    + (max - Vector3.Distance(p2, localPos))
                    + (max - Vector3.Distance(p3, localPos))
                    + (max - Vector3.Distance(p4, localPos) + Mathf.Epsilon);
         //weighted sum
 
 
-        var height = _vertices[Index(p1.x, p1.z)].y * (max - Vector3.Distance(p1, localPos))
-                     + _vertices[Index(p2.x, p2.z)].y * (max - Vector3.Distance(p2, localPos))
-                     + _vertices[Index(p3.x, p3.z)].y * (max - Vector3.Distance(p3, localPos))
-                     + _vertices[Index(p4.x, p4.z)].y * (max - Vector3.Distance(p4, localPos));
+        float height = _vertices[Index(p1.x, p1.z)].y * (max - Vector3.Distance(p1, localPos))
+                       + _vertices[Index(p2.x, p2.z)].y * (max - Vector3.Distance(p2, localPos))
+                       + _vertices[Index(p3.x, p3.z)].y * (max - Vector3.Distance(p3, localPos))
+                       + _vertices[Index(p4.x, p4.z)].y * (max - Vector3.Distance(p4, localPos));
 
         //scale
         return height * transform.lossyScale.y / dist;
@@ -183,7 +183,7 @@ public class Waves : MonoBehaviour
         }
         
         ManageCircularWaves();
-
+        
         Mesh.SetVertices(_vertices);
         Mesh.RecalculateNormals();
     }
@@ -205,17 +205,21 @@ public class Waves : MonoBehaviour
         {
             //calculate the values
             CircularWave waveData = _circularWavesList[i];
+            Vector3 center = new Vector3(waveData.Center.x, 0, waveData.Center.y);
             float currentTime = _circularWavesDurationList[i];
             float percent = currentTime / waveData.Duration;
-            float distance = percent * waveData.Distance;
+            float distance = (1 - percent) * waveData.Distance;
             float amplitude = percent * waveData.Amplitude;
-            
+
             //set vertex
-            int index = FindIndexOfClosestVerticeTo(new Vector3(waveData.Center.x,waveData.Center.y));
-            _vertices[index] = new Vector3(_vertices[index].x, amplitude, _vertices[index].z);
-            
-            //Debug.Log($"POS:{Math.Round(waveData.Center.x,2)}|{Math.Round(waveData.Center.y,2)}, INDEX:{index}, INDEX POS :{_vertices[index]}");
-            Debug.Log(_vertices[index]);
+            float angleDifference = 360 / waveData.NumberOfPoints;
+            for (int j = 1; j <= waveData.NumberOfPoints; j++)
+            {
+                float angle = j * angleDifference;
+                Vector3 point = GetPointFromAngleAndDistance(center, angle, distance);
+                int index = FindIndexOfClosestVerticeTo(new Vector2(point.x,point.z));
+                _vertices[index] = new Vector3(_vertices[index].x, amplitude, _vertices[index].z);
+            }
         }
     }
 
@@ -235,14 +239,18 @@ public class Waves : MonoBehaviour
 
     private int FindIndexOfClosestVerticeTo(Vector2 position)
     {
-        Vector2 closestVector = new Vector2(_vertices[0].x,_vertices[0].z);
-        position = new Vector2(position.x,position.y);
-        float closestDistance = Vector2.Distance(position, closestVector);
-        int closestIndex = 0;
+        Vector2 positionDifference = new Vector2(transform.position.x, transform.position.z);
+        Vector2 scaleDifference = new Vector2(transform.localScale.x, transform.localScale.z);
         
+        float closestDistance = Vector2.Distance(position, 
+            new Vector2((_vertices[0].x*scaleDifference.x)+positionDifference.x, (_vertices[0].z*scaleDifference.y)+positionDifference.y));
+        int closestIndex = 0;
+
         for (int i = 0; i < _vertices.Count; i++)
         {
-            Vector2 vertice = new Vector2(_vertices[i].x, _vertices[i].z);
+            Vector2 vertice = new Vector2((_vertices[i].x*scaleDifference.x)+positionDifference.x, 
+                                          (_vertices[i].z*scaleDifference.y)+positionDifference.y);
+            
             float distance = Vector2.Distance(position, vertice);
             if (distance < closestDistance)
             {
@@ -252,6 +260,21 @@ public class Waves : MonoBehaviour
         }
 
         return closestIndex;
+    }
+    
+    public Vector3 GetPointFromAngleAndDistance(Vector3 startingPoint, float yAngleDegrees, float distance)
+    {
+        // Convert the Y angle to radians
+        float yAngleRadians = yAngleDegrees * Mathf.Deg2Rad;
+
+        // Calculate the X and Z offsets using trigonometry
+        float xOffset = distance * Mathf.Sin(yAngleRadians);
+        float zOffset = distance * Mathf.Cos(yAngleRadians);
+
+        // Create a new Vector3 with the calculated offsets and the same Y position as the starting point
+        Vector3 newPoint = new Vector3(startingPoint.x + xOffset, startingPoint.y, startingPoint.z + zOffset);
+
+        return newPoint;
     }
 
     #endregion
@@ -270,9 +293,13 @@ public struct CircularWave
 
     [Tooltip("The height of the waves")]
     public float Amplitude;
+    public float CurrentAmplitude { get; set; }
 
     [Tooltip("The distance it runs")]
     public float Distance;
+
+    [Tooltip("Number of circular vertices points the wave will manage")]
+    public int NumberOfPoints;
 }
 
 [Serializable]
