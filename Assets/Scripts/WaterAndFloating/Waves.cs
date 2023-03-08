@@ -38,8 +38,6 @@ public class Waves : MonoBehaviour
 
         Mesh.GetVertices(_vertices);
         WaveGeneration();
-
-        SetupVerticesAmplitudeDictionary();
     }
 
     private void Update()
@@ -185,7 +183,8 @@ public class Waves : MonoBehaviour
         }
         
         ManageCircularWaves();
-        ManageVerticesAmplitude();
+        ManageVerticesGrowingAmplitude();
+        ManageVerticesReducingAmplitude();
 
         Mesh.SetVertices(_vertices);
         Mesh.RecalculateNormals();
@@ -220,16 +219,15 @@ public class Waves : MonoBehaviour
             {
                 float angle = j * angleDifference;
                 Vector3 point = GetPointFromAngleAndDistance(center, angle, distance);
-                int index = FindIndexOfClosestVerticeTo(new Vector2(point.x,point.z));
-                
-                _verticesAmplitudeDictionary[new Vector2(_vertices[index].x, _vertices[index].z)] = amplitude;
+                int index = FindIndexOfVerticeAt(new Vector2(point.x,point.z), true);
+                SetupVerticesAmplitudeDictionary(new Vector2(_vertices[index].x,_vertices[index].z), amplitude);
             }
         }
     }
 
     private void ManageCircularWavesTimer()
     {
-        for (int i = 0; i < _circularWavesList.Count; i++)
+        for (int i = 0; i < _circularWavesDurationList.Count; i++)
         {
             _circularWavesDurationList[i] -= Time.deltaTime;
             
@@ -241,20 +239,28 @@ public class Waves : MonoBehaviour
         }
     }
 
-    private int FindIndexOfClosestVerticeTo(Vector2 position)
+    private int FindIndexOfVerticeAt(Vector2 position, bool applyWaveTransform)
     {
         Vector2 positionDifference = new Vector2(transform.position.x, transform.position.z);
         Vector2 scaleDifference = new Vector2(transform.localScale.x, transform.localScale.z);
-        
-        float closestDistance = Vector2.Distance(position, 
-            new Vector2((_vertices[0].x*scaleDifference.x)+positionDifference.x, (_vertices[0].z*scaleDifference.y)+positionDifference.y));
+
+        float closestDistance = Vector2.Distance(position, new Vector2(_vertices[0].x, _vertices[0].z));
+        if (applyWaveTransform)
+        {
+            closestDistance = Vector2.Distance(position, 
+                new Vector2((_vertices[0].x*scaleDifference.x)+positionDifference.x, (_vertices[0].z*scaleDifference.y)+positionDifference.y));
+        }
         int closestIndex = 0;
 
         for (int i = 0; i < _vertices.Count; i++)
         {
-            Vector2 vertice = new Vector2((_vertices[i].x*scaleDifference.x)+positionDifference.x, 
-                                          (_vertices[i].z*scaleDifference.y)+positionDifference.y);
-            
+            Vector2 vertice = new Vector2(_vertices[i].x, _vertices[i].z);
+            if (applyWaveTransform)
+            {
+                vertice = new Vector2((_vertices[i].x*scaleDifference.x)+positionDifference.x, 
+                    (_vertices[i].z*scaleDifference.y)+positionDifference.y);
+            }
+
             float distance = Vector2.Distance(position, vertice);
             if (distance < closestDistance)
             {
@@ -285,31 +291,88 @@ public class Waves : MonoBehaviour
 
     #region Amplitude
     
-    private Dictionary<Vector2, float> _verticesAmplitudeDictionary = new Dictionary<Vector2, float>();
+    private Dictionary<Vector2, float> _verticesAmplitudeGrowingDictionary = new Dictionary<Vector2, float>();
+    private Dictionary<Vector2, float> _verticesAmplitudeCurrentGrowingDictionary = new Dictionary<Vector2, float>();
+    
+    private Dictionary<Vector2, float> _verticesAmplitudeReducingDictionary = new Dictionary<Vector2, float>();
 
-    private void SetupVerticesAmplitudeDictionary()
+    private void SetupVerticesAmplitudeDictionary(Vector2 vertice, float amplitude)
     {
-        foreach (Vector3 vertice in _vertices)
+        Vector2 coordinate = new Vector2(vertice.x, vertice.y);
+        if (_verticesAmplitudeGrowingDictionary.ContainsKey(coordinate) == false &&
+            _verticesAmplitudeCurrentGrowingDictionary.ContainsKey(coordinate) == false)
         {
-            _verticesAmplitudeDictionary.Add(new Vector2(vertice.x,vertice.z),0);
+            _verticesAmplitudeGrowingDictionary.Add(coordinate,amplitude);
+            _verticesAmplitudeCurrentGrowingDictionary.Add(coordinate,0);
         }
     }
 
-    private void ManageVerticesAmplitude()
+    private void ManageVerticesGrowingAmplitude()
     {
-        List<KeyValuePair<Vector2, float>> list = _verticesAmplitudeDictionary.ToList();
-        for(int i = 0; i < list.Count; i++)
+        //create lists from dictionaries
+        List<KeyValuePair<Vector2, float>> amplitudeList =        _verticesAmplitudeGrowingDictionary.ToList();
+        List<KeyValuePair<Vector2, float>> currentAmplitudeList = _verticesAmplitudeCurrentGrowingDictionary.ToList();
+        
+        //apply amplitude to vertices
+        for(int i = 0; i < currentAmplitudeList.Count; i++)
         {
-            if (list[i].Value <= 0)
-            {
-                continue;
-            }
-            _vertices[i] = new Vector3(_vertices[i].x, list[i].Value, _vertices[i].z);
-            const float waveReducingAmplitudeMultiplier = 3;
-            float newValue = list[i].Value - Time.deltaTime * waveReducingAmplitudeMultiplier;
-            list[i] = new KeyValuePair<Vector2, float>(new Vector2(list[i].Key.x, list[i].Key.y), newValue);
+            int index = FindIndexOfVerticeAt(currentAmplitudeList[i].Key, false);
+            
+            float amplitude = Mathf.Lerp(currentAmplitudeList[i].Value, amplitudeList[i].Value, 0.2f);
+            _vertices[index] = new Vector3(_vertices[index].x, amplitude, _vertices[index].z);
+            
+            currentAmplitudeList[i] = new KeyValuePair<Vector2, float>(currentAmplitudeList[i].Key, amplitude);
         }
-        _verticesAmplitudeDictionary = list.ToDictionary(pair => pair.Key, pair => pair.Value);
+        //Debug.Log($"{currentAmplitudeList.Count} | {amplitudeList.Count}");
+
+        //check for vertices on max amplitude 
+        for (int i = 0; i < currentAmplitudeList.Count; i++)
+        {
+            if (currentAmplitudeList[i].Value >= amplitudeList[i].Value - 0.3f)
+            {
+                Vector2 key = new Vector2(currentAmplitudeList[i].Key.x, currentAmplitudeList[i].Key.y);
+                if (_verticesAmplitudeReducingDictionary.ContainsKey(key) == false)
+                {
+                    _verticesAmplitudeReducingDictionary.Add(key,amplitudeList[i].Value);
+                } 
+                
+                currentAmplitudeList.Remove(currentAmplitudeList[i]);
+                amplitudeList.Remove(amplitudeList[i]);
+            }
+        }
+        
+        //apply list to dictionaries
+        _verticesAmplitudeGrowingDictionary = amplitudeList.ToDictionary(pair => pair.Key, pair => pair.Value);
+        _verticesAmplitudeCurrentGrowingDictionary = currentAmplitudeList.ToDictionary(pair => pair.Key, pair => pair.Value);
+    }
+    
+    private void ManageVerticesReducingAmplitude() 
+    {
+        //create lists from dictionaries
+        List<KeyValuePair<Vector2, float>> amplitudeList = _verticesAmplitudeReducingDictionary.ToList();
+
+        //apply amplitude to vertices
+        for(int i = 0; i < amplitudeList.Count; i++)
+        {
+            int index = FindIndexOfVerticeAt(amplitudeList[i].Key, false);
+            
+            float amplitude = Mathf.Lerp(amplitudeList[i].Value, _vertices[index].y, 0.2f);
+            _vertices[index] = new Vector3(_vertices[index].x, amplitude, _vertices[index].z);
+            
+            amplitudeList[i] = new KeyValuePair<Vector2, float>(amplitudeList[i].Key, amplitude);
+        }
+
+        //check for vertices below 0
+        for (int i = 0; i < amplitudeList.Count; i++)
+        {
+            if (amplitudeList[i].Value <= 0.2f)
+            {
+                amplitudeList.Remove(amplitudeList[i]);
+            }
+        }
+        
+        //apply list to dictionaries
+        _verticesAmplitudeReducingDictionary = amplitudeList.ToDictionary(pair => pair.Key, pair => pair.Value);
     }
 
     #endregion
@@ -335,9 +398,6 @@ public struct CircularWave
 
     [Tooltip("Number of circular vertices points the wave will manage")]
     public int NumberOfPoints;
-
-    [Tooltip("The time it takes to the waves to reach the amplitude and then decrease")]
-    public float TimeToAttainMaxAmplitude;
 }
 
 [Serializable]
