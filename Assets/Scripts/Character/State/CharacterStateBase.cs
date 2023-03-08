@@ -1,5 +1,6 @@
 using DG.Tweening;
 using UnityEngine;
+using UnityEngine.Events;
 
 namespace Character.State
 {
@@ -16,12 +17,16 @@ namespace Character.State
         protected CameraManager CameraManagerRef;
         protected MonoBehaviour MonoBehaviourRef;
         
+        [Header("Booleans")] 
         public bool CanBeMoved = true;
         public bool CanCharacterMove = true;
         public bool CanCharacterMakeActions = true;
         public float RotationStaticForceY = 0f;
         public float RotationPaddleForceY = 0f;
-        [Header("Booleans")] 
+        
+        //events
+        public UnityEvent OnPaddleLeft = new UnityEvent();
+        public UnityEvent OnPaddleRight = new UnityEvent();
         
         protected Transform PlayerPosition;
 

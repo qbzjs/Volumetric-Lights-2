@@ -22,7 +22,7 @@ namespace Character
         public Animator PaddleAnimator;
         [Tooltip("Reference of the TransitionManager script")]
         public TransitionManager TransitionManager;
-        
+
         [Header("Transition death")]
         [Range(0, 5), Tooltip("The duration of the fade in transition at spawn")] 
         public float TimeFadeInAfterDeath = 0.5f;
@@ -47,6 +47,10 @@ namespace Character
         [Range(0, 10), Tooltip("Minimum Time/Balance the player has to react when unbalanced")]
         public float MinimumTimeUnbalanced = 2f;
 
+        [Header("VFX")] 
+        [SerializeField] private ParticleSystem _paddleLeftParticle;
+        [SerializeField] private ParticleSystem _paddleRightParticle;
+
 
         private void Awake()
         {
@@ -58,6 +62,8 @@ namespace Character
         private void Start()
         {
             CurrentStateBase.EnterState(this);
+            CurrentStateBase.OnPaddleRight.AddListener(PlayPaddleRightParticle);
+            CurrentStateBase.OnPaddleLeft.AddListener(PlayPaddleLeftParticle);
         }
         private void Update()
         {
@@ -85,6 +91,20 @@ namespace Character
                 Balance = Mathf.Lerp(Balance, 0, balanceLerpTo0Value);
             }
         }
+
+        #region VFX
+
+        private void PlayPaddleLeftParticle()
+        {
+            _paddleLeftParticle.Play();
+        }
+
+        private void PlayPaddleRightParticle()
+        {
+            _paddleRightParticle.Play();
+        }
+
+        #endregion
 
         #region GUI
 

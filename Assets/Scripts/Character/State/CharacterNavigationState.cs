@@ -3,13 +3,14 @@ using System.Collections;
 using Character.Camera;
 using Kayak;
 using UnityEngine;
+using UnityEngine.Events;
 
 namespace Character.State
 {
     public class CharacterNavigationState : CharacterStateBase
     {
         //enum
-        private enum Direction
+        public enum Direction
         {
             Left = 0,
             Right = 1
@@ -201,6 +202,17 @@ namespace Character.State
             
             //animation
             CharacterManagerRef.PaddleAnimator.SetTrigger(direction == Direction.Left ? "PaddleLeft" : "PaddleRight");
+
+            //events
+            switch (direction)
+            {
+                case Direction.Left:
+                    OnPaddleLeft.Invoke();
+                    break;
+                case Direction.Right:
+                    OnPaddleRight.Invoke();
+                    break;
+            }
         }
 
         /// <summary>
