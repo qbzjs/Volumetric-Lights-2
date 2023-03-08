@@ -2916,17 +2916,17 @@ PrefabInstance:
     - target: {fileID: 6829306435168865602, guid: 5a2f9c611eacb0946acca616026730c6,
         type: 3}
       propertyPath: _circularWaveData.Distance
-      value: 20.64
+      value: 20
       objectReference: {fileID: 0}
     - target: {fileID: 6829306435168865602, guid: 5a2f9c611eacb0946acca616026730c6,
         type: 3}
       propertyPath: _circularWaveData.Duration
-      value: 5
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 6829306435168865602, guid: 5a2f9c611eacb0946acca616026730c6,
         type: 3}
       propertyPath: _circularWaveData.Amplitude
-      value: 5
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 6829306435168865602, guid: 5a2f9c611eacb0946acca616026730c6,
         type: 3}
@@ -2937,6 +2937,11 @@ PrefabInstance:
         type: 3}
       propertyPath: _circularWaveData.NumberOfPoints
       value: 20
+      objectReference: {fileID: 0}
+    - target: {fileID: 6829306435168865602, guid: 5a2f9c611eacb0946acca616026730c6,
+        type: 3}
+      propertyPath: _circularWaveData.TimeToAttainMaxAmplitude
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 6829306437002386994, guid: 5a2f9c611eacb0946acca616026730c6,
         type: 3}

@@ -38,6 +38,8 @@ public class Waves : MonoBehaviour
 
         Mesh.GetVertices(_vertices);
         WaveGeneration();
+
+        SetupVerticesAmplitudeDictionary();
     }
 
     private void Update()
@@ -183,7 +185,8 @@ public class Waves : MonoBehaviour
         }
         
         ManageCircularWaves();
-        
+        ManageVerticesAmplitude();
+
         Mesh.SetVertices(_vertices);
         Mesh.RecalculateNormals();
     }
@@ -192,7 +195,7 @@ public class Waves : MonoBehaviour
 
     private List<CircularWave> _circularWavesList = new List<CircularWave>();
     private List<float> _circularWavesDurationList = new List<float>();
-    
+
     public void LaunchCircularWave(CircularWave circularWave)
     {
         _circularWavesList.Add(circularWave);
@@ -218,7 +221,8 @@ public class Waves : MonoBehaviour
                 float angle = j * angleDifference;
                 Vector3 point = GetPointFromAngleAndDistance(center, angle, distance);
                 int index = FindIndexOfClosestVerticeTo(new Vector2(point.x,point.z));
-                _vertices[index] = new Vector3(_vertices[index].x, amplitude, _vertices[index].z);
+                
+                _verticesAmplitudeDictionary[new Vector2(_vertices[index].x, _vertices[index].z)] = amplitude;
             }
         }
     }
@@ -279,6 +283,37 @@ public class Waves : MonoBehaviour
 
     #endregion
 
+    #region Amplitude
+    
+    private Dictionary<Vector2, float> _verticesAmplitudeDictionary = new Dictionary<Vector2, float>();
+
+    private void SetupVerticesAmplitudeDictionary()
+    {
+        foreach (Vector3 vertice in _vertices)
+        {
+            _verticesAmplitudeDictionary.Add(new Vector2(vertice.x,vertice.z),0);
+        }
+    }
+
+    private void ManageVerticesAmplitude()
+    {
+        List<KeyValuePair<Vector2, float>> list = _verticesAmplitudeDictionary.ToList();
+        for(int i = 0; i < list.Count; i++)
+        {
+            if (list[i].Value <= 0)
+            {
+                continue;
+            }
+            _vertices[i] = new Vector3(_vertices[i].x, list[i].Value, _vertices[i].z);
+            const float waveReducingAmplitudeMultiplier = 3;
+            float newValue = list[i].Value - Time.deltaTime * waveReducingAmplitudeMultiplier;
+            list[i] = new KeyValuePair<Vector2, float>(new Vector2(list[i].Key.x, list[i].Key.y), newValue);
+        }
+        _verticesAmplitudeDictionary = list.ToDictionary(pair => pair.Key, pair => pair.Value);
+    }
+
+    #endregion
+
     
 }
 
@@ -300,6 +335,9 @@ public struct CircularWave
 
     [Tooltip("Number of circular vertices points the wave will manage")]
     public int NumberOfPoints;
+
+    [Tooltip("The time it takes to the waves to reach the amplitude and then decrease")]
+    public float TimeToAttainMaxAmplitude;
 }
 
 [Serializable]
