@@ -14,15 +14,18 @@ public class CameraNavigationState : CameraStateBase
 
     public override void EnterState(CameraManager camera)
     {
+
         Debug.Log("cam nav");
         CameraManagerRef.AnimatorRef.Play("VCam FreeLook");
-
         CameraManagerRef.Brain.m_BlendUpdateMethod = Cinemachine.CinemachineBrain.BrainUpdateMethod.LateUpdate;
+
+        ResetCameraBehindBoat();
 
         CameraManagerRef.ResetNavigationValue();
     }
     public override void UpdateState(CameraManager camera)
     {
+
         if (Mathf.Abs(CameraManagerRef.RotationZ) > 0)
         {
             CameraManagerRef.SmoothResetRotateZ();
@@ -107,7 +110,7 @@ public class CameraNavigationState : CameraStateBase
                 Mathf.Abs(rotationPaddleY) > rotationThreshold) //if kayak moving
             {
                 //rotation
-                CameraManagerRef.CinemachineCameraTarget.transform.localRotation = Quaternion.Slerp(localRotation, targetQuaternion, CameraManagerRef.LerpLocalRotationMove); 
+                CameraManagerRef.CinemachineCameraTarget.transform.localRotation = Quaternion.Slerp(localRotation, targetQuaternion, CameraManagerRef.LerpLocalRotationMove);
 
                 //position
                 if (Mathf.Abs(rotationStaticY) > rotationThreshold / 2)// if kayak is rotating
@@ -130,7 +133,7 @@ public class CameraNavigationState : CameraStateBase
 
 
             //apply camera rotation & position
-            CinemachineTargetEulerAnglesToRotation(cameraTargetLocalPosition);
+            CameraManagerRef.CinemachineTargetEulerAnglesToRotation(cameraTargetLocalPosition);
 
             //camera target to kayak rotation and position
             CameraManagerRef.MakeTargetFollowRotationWithKayak();
@@ -142,18 +145,20 @@ public class CameraNavigationState : CameraStateBase
         }*/
         #endregion
     }
-    private void CinemachineTargetEulerAnglesToRotation(Vector3 targetLocalPosition)
+    private void ResetCameraBehindBoat()
     {
-        CameraManagerRef.CinemachineCameraTarget.transform.localPosition = targetLocalPosition;
-        CameraManagerRef.CinemachineTargetYaw = CameraManagerRef.CinemachineCameraTarget.transform.rotation.eulerAngles.y;
+        //Start
+        CameraManagerRef.MakeTargetFollowRotationWithKayak();
 
-        if (CameraManagerRef.CinemachineCameraTarget.transform.rotation.eulerAngles.x > 180)
-        {
-            CameraManagerRef.CinemachineTargetPitch = CameraManagerRef.CinemachineCameraTarget.transform.rotation.eulerAngles.x - 360;
-        }
-        else
-        {
-            CameraManagerRef.CinemachineTargetPitch = CameraManagerRef.CinemachineCameraTarget.transform.rotation.eulerAngles.x;
-        }
+        //Middle
+        Quaternion localRotation = CameraManagerRef.CinemachineCameraTarget.transform.localRotation;
+        Vector3 cameraTargetLocalPosition = CameraManagerRef.CinemachineCameraTarget.transform.localPosition;
+
+        CameraManagerRef.CinemachineCameraTarget.transform.localRotation = Quaternion.Slerp(localRotation, Quaternion.Euler(new Vector3(0, 0, localRotation.z)), 1f);
+        cameraTargetLocalPosition.x = Mathf.Lerp(cameraTargetLocalPosition.x, 0, 1f);
+        CameraManagerRef.CinemachineTargetEulerAnglesToRotation(cameraTargetLocalPosition);
+
+        //End
+        CameraManagerRef.ApplyRotationCamera();
     }
 }

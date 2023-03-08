@@ -14,7 +14,13 @@ public class CameraUnbalancedState : CameraStateBase
     }
     public override void UpdateState(CameraManager camera)
     {
-        RotateCameraInZ();
+        CameraManagerRef.MakeSmoothCameraBehindBoat();
+        CameraManagerRef.MakeTargetFollowRotationWithKayak();
+        if (Mathf.Abs(CameraManagerRef.CharacterManager.Balance) < CameraManagerRef.CharacterManager.BalanceDeathLimit)
+            RotateCameraInZ();
+        else
+            CameraManagerRef.SmoothResetRotateZ();
+
         CameraManagerRef.ApplyRotationCamera();
 
     }
@@ -24,11 +30,11 @@ public class CameraUnbalancedState : CameraStateBase
     }
     public override void SwitchState(CameraManager camera)
     {
-       
+
     }
 
 
-    protected void RotateCameraInZ()
+    private void RotateCameraInZ()
     {
         if (CameraManagerRef.CharacterManager.Balance > 0)
         {
@@ -39,4 +45,15 @@ public class CameraUnbalancedState : CameraStateBase
             CameraManagerRef.RotationZ = Mathf.Lerp(CameraManagerRef.RotationZ, CameraManagerRef.CharacterManager.Balance - 10, 0.01f);
         }
     }
+
+    //private void MakeCameraBehindBoat()
+    //{
+    //    Quaternion localRotation = CameraManagerRef.CinemachineCameraTarget.transform.localRotation;
+    //    Vector3 cameraTargetLocalPosition = CameraManagerRef.CinemachineCameraTarget.transform.localPosition;
+
+    //    CameraManagerRef.CinemachineCameraTarget.transform.localRotation = Quaternion.Slerp(localRotation, Quaternion.Euler(new Vector3(0, 0, localRotation.z)), CameraManagerRef.LerpLocalRotationNotMoving);
+    //    cameraTargetLocalPosition.x = Mathf.Lerp(cameraTargetLocalPosition.x, 0, CameraManagerRef.LerpLocalPositionNotMoving);
+    //    CameraManagerRef.CinemachineTargetEulerAnglesToRotation(cameraTargetLocalPosition);
+    //}
+
 }
