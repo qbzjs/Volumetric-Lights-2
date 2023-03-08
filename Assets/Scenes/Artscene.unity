@@ -163,7 +163,7 @@ PrefabInstance:
     - target: {fileID: 1868023511370814829, guid: 36e32e7372e41e346abb29f843dd75b3,
         type: 3}
       propertyPath: m_LocalRotation.x
-      value: 0.23933394
+      value: 0.23933391
       objectReference: {fileID: 0}
     - target: {fileID: 1868023511370814829, guid: 36e32e7372e41e346abb29f843dd75b3,
         type: 3}
@@ -300,11 +300,31 @@ PrefabInstance:
       propertyPath: TransitionManager
       value: 
       objectReference: {fileID: 1132801420}
+    - target: {fileID: 7217796708653836310, guid: 36e32e7372e41e346abb29f843dd75b3,
+        type: 3}
+      propertyPath: _paddleLeftParticle
+      value: 
+      objectReference: {fileID: 1338356848}
+    - target: {fileID: 7217796708653836310, guid: 36e32e7372e41e346abb29f843dd75b3,
+        type: 3}
+      propertyPath: _paddleRightParticle
+      value: 
+      objectReference: {fileID: 1584940056}
     - target: {fileID: 7609300824562711772, guid: 36e32e7372e41e346abb29f843dd75b3,
         type: 3}
       propertyPath: _waves
       value: 
       objectReference: {fileID: 727952268}
+    - target: {fileID: 9091515125046637748, guid: 36e32e7372e41e346abb29f843dd75b3,
+        type: 3}
+      propertyPath: m_LocalScale.x
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 9091515125046637748, guid: 36e32e7372e41e346abb29f843dd75b3,
+        type: 3}
+      propertyPath: m_LocalScale.z
+      value: 2
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 36e32e7372e41e346abb29f843dd75b3, type: 3}
 --- !u!1001 &238688196
@@ -14138,6 +14158,12 @@ PrefabInstance:
       objectReference: {fileID: 2100000, guid: ab59b8c67f7d50f498581c465e895443, type: 2}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: efc26da94a68ae24fb3928994ffd2aaa, type: 3}
+--- !u!198 &1338356848 stripped
+ParticleSystem:
+  m_CorrespondingSourceObject: {fileID: 2106322291129329359, guid: 36e32e7372e41e346abb29f843dd75b3,
+    type: 3}
+  m_PrefabInstance: {fileID: 41504782}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &1563762717
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -14274,6 +14300,12 @@ LightingSettings:
   m_PVRFilteringAtrousPositionSigmaIndirect: 2
   m_PVRFilteringAtrousPositionSigmaAO: 1
   m_PVRTiledBaking: 0
+--- !u!198 &1584940056 stripped
+ParticleSystem:
+  m_CorrespondingSourceObject: {fileID: 6288001926579213254, guid: 36e32e7372e41e346abb29f843dd75b3,
+    type: 3}
+  m_PrefabInstance: {fileID: 41504782}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1635252321
 GameObject:
   m_ObjectHideFlags: 0
