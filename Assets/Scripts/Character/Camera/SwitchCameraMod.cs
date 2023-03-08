@@ -11,6 +11,8 @@ public class SwitchCameraMod : MonoBehaviour
     [SerializeField] private string _nameOfCamera;
     [ReadOnly, SerializeField] private bool _isTrigger = false;
 
+    private bool _cameraTrack = false;
+
     private void Update()
     {
         CheckRaycast();
@@ -18,15 +20,17 @@ public class SwitchCameraMod : MonoBehaviour
         _isTrigger = BoxPositions.ToList().OrderByDescending(x => x.IsTrigger).FirstOrDefault().IsTrigger;
 
 
-        if (_isTrigger)
+        if (_isTrigger && _cameraTrack == false)
         {
             CameraTrackState cameraTrackState = new CameraTrackState(_cameraManager, this, _nameOfCamera);
             _cameraManager.SwitchState(cameraTrackState);
+            _cameraTrack = true;
         }
-        else
+        else if(_isTrigger == false && _cameraTrack)
         {
             CameraNavigationState cameraNavigationState = new CameraNavigationState(_cameraManager, this);
             _cameraManager.SwitchState(cameraNavigationState);
+            _cameraTrack = false;
         }
     }
 
