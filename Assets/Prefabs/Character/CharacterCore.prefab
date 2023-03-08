@@ -946,6 +946,8 @@ MonoBehaviour:
   BalanceDeathLimit: 14
   RebalanceAngle: 5
   MinimumTimeUnbalanced: 2
+  _paddleLeftParticle: {fileID: 0}
+  _paddleRightParticle: {fileID: 0}
 --- !u!114 &7217796708653836311
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -992,8 +994,91 @@ MonoBehaviour:
   MultiplierFovCamera: 2.03
   LerpTimeX: 0.0347
   LerpTimeY: 0.0477
-  TimerCameraReturnBehindBoat: 0
-  JoystickMultiplierFreeRotationForce: 20
+  TimerCameraReturnBehindBoat: 2
+  JoystickFreeRotationX:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: -1.0211029
+      value: -1.0098114
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    - serializedVersion: 3
+      time: 0.021497115
+      value: 0.000714615
+      inSlope: 0.009042693
+      outSlope: 0.009042693
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.59614134
+      outWeight: 0.4836236
+    - serializedVersion: 3
+      time: 0.39382175
+      value: 0.008594304
+      inSlope: 0.023090595
+      outSlope: 0.023090595
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.5387718
+    - serializedVersion: 3
+      time: 1
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  JoystickFreeRotationY:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: -1.0211029
+      value: -1.0098114
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    - serializedVersion: 3
+      time: 0.021497115
+      value: 0.000714615
+      inSlope: 0.009042693
+      outSlope: 0.009042693
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.59614134
+      outWeight: 0.4836236
+    - serializedVersion: 3
+      time: 0.39382175
+      value: 0.008594304
+      inSlope: 0.023090595
+      outSlope: 0.023090595
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.5387718
+    - serializedVersion: 3
+      time: 1
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
   LerpFOV: 0.01
   LerpLocalPositionNotMoving: 0.01
   LerpLocalRotationNotMoving: 0.01
