@@ -96,11 +96,19 @@ namespace Character
 
         private void PlayPaddleLeftParticle()
         {
+            if (_paddleLeftParticle == null)
+            {
+                return;
+            }
             _paddleLeftParticle.Play();
         }
 
         private void PlayPaddleRightParticle()
         {
+            if (_paddleRightParticle == null)
+            {
+                return;
+            }
             _paddleRightParticle.Play();
         }
 
