@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Cinemachine;
 
 public class CameraUnbalancedState : CameraStateBase
 {
@@ -46,14 +47,10 @@ public class CameraUnbalancedState : CameraStateBase
         }
     }
 
-    //private void MakeCameraBehindBoat()
-    //{
-    //    Quaternion localRotation = CameraManagerRef.CinemachineCameraTarget.transform.localRotation;
-    //    Vector3 cameraTargetLocalPosition = CameraManagerRef.CinemachineCameraTarget.transform.localPosition;
-
-    //    CameraManagerRef.CinemachineCameraTarget.transform.localRotation = Quaternion.Slerp(localRotation, Quaternion.Euler(new Vector3(0, 0, localRotation.z)), CameraManagerRef.LerpLocalRotationNotMoving);
-    //    cameraTargetLocalPosition.x = Mathf.Lerp(cameraTargetLocalPosition.x, 0, CameraManagerRef.LerpLocalPositionNotMoving);
-    //    CameraManagerRef.CinemachineTargetEulerAnglesToRotation(cameraTargetLocalPosition);
-    //}
+    private void ShakeCamera(float intensity)
+    {
+        CinemachineBasicMultiChannelPerlin cinemachineBasicMultiChannelPerlin = CameraManagerRef.VirtualCamera.GetCinemachineComponent<CinemachineBasicMultiChannelPerlin>();
+        cinemachineBasicMultiChannelPerlin.m_AmplitudeGain = intensity;
+    }
 
 }
