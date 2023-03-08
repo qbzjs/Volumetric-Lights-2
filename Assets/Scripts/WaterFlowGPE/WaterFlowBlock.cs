@@ -1,32 +1,58 @@
 ﻿using System;
+using System.Collections.Generic;
 using Character;
 using Kayak;
 using UnityEngine;
 using UnityEngine.UI;
+using Random = System.Random;
 
 namespace WaterFlowGPE
 {
     public class WaterFlowBlock : MonoBehaviour
     {
-        [SerializeField] 
-        private float _speed;
+        [SerializeField] private float _speed;
 
-        [SerializeField, Range(0, 1), Tooltip("Multiplier applied to the speed when the boat isn't facing the direction")]
+        [SerializeField, Range(0, 1),
+         Tooltip("Multiplier applied to the speed when the boat isn't facing the direction")]
         private float _speedNotFacingMultiplier = 0.5f;
-        
-        [SerializeField, Range(0,0.1f), Tooltip("The lerp applied to the boat rotation to match the flow direction when the boat is already facing the flow direction")] 
+
+        [SerializeField, Range(0, 0.1f),
+         Tooltip(
+             "The lerp applied to the boat rotation to match the flow direction when the boat is already facing the flow direction")]
         private float _rotationLerpWhenInDirection = 0.05f;
-        
-        [SerializeField, Range(0,0.05f), Tooltip("The lerp applied to the boat rotation to match the flow direction when the boat is not facing the flow direction")] 
+
+        [SerializeField, Range(0, 0.05f),
+         Tooltip(
+             "The lerp applied to the boat rotation to match the flow direction when the boat is not facing the flow direction")]
         private float _rotationLerpWhenNotInDirection = 0.005f;
-        
-        [SerializeField, Range(0,0.05f), Tooltip("The lerp applied to the boat rotation to match the flow direction when the player is trying to move away")] 
+
+        [SerializeField, Range(0, 0.05f),
+         Tooltip(
+             "The lerp applied to the boat rotation to match the flow direction when the player is trying to move away")]
         private float _rotationLerpWhenMoving = 0.005f;
-        
+
+        [Header("Particles"), SerializeField] private List<ParticleSystem> _particlesList;
+
+        [SerializeField, Tooltip("One of the particles will play at a random time between those two values")]
+        private Vector2 _randomPlayOfParticleTime;
+
+
+        [Header("Infos")]
         [ReadOnly] public Vector3 Direction;
         [ReadOnly] public bool IsActive = true;
         [HideInInspector] public WaterFlowManager WaterFlowManager;
-        
+        [ReadOnly, SerializeField] private float _playParticleTime;
+
+        private void Start()
+        {
+            _playParticleTime = UnityEngine.Random.Range(_randomPlayOfParticleTime.x, _randomPlayOfParticleTime.y);
+        }
+
+        private void Update()
+        {
+            ManageParticles();
+        }
+
         private void OnTriggerStay(Collider other)
         {
             CheckForKayak(other);
@@ -98,6 +124,17 @@ namespace WaterFlowGPE
             transform.localScale = new Vector3(transform.localScale.x, transform.localScale.y, width);
             transform.rotation = Quaternion.LookRotation(Direction);
             transform.rotation = Quaternion.Euler(new Vector3(transform.rotation.eulerAngles.x, transform.rotation.eulerAngles.y + 90, transform.rotation.eulerAngles.z));
+        }
+
+        private void ManageParticles()
+        {
+            _playParticleTime -= Time.deltaTime;
+            if (_playParticleTime <= 0)
+            {
+                int particleIndex = new Random().Next(0, _particlesList.Count);
+                _particlesList[particleIndex].Emit(new ParticleSystem.EmitParams(),1);
+                _playParticleTime = UnityEngine.Random.Range(_randomPlayOfParticleTime.x, _randomPlayOfParticleTime.y);
+            }
         }
         
         #if UNITY_EDITOR

@@ -211,9 +211,11 @@ public class Waves : MonoBehaviour
             float amplitude = percent * waveData.Amplitude;
             
             //set vertex
-            int index = FindIndexOfClosestVerticeTo(new Vector3(waveData.Center.x,amplitude,waveData.Center.y));
+            int index = FindIndexOfClosestVerticeTo(new Vector3(waveData.Center.x,waveData.Center.y));
             _vertices[index] = new Vector3(_vertices[index].x, amplitude, _vertices[index].z);
-            Debug.Log($"POS:{Math.Round(waveData.Center.x,2)}|{Math.Round(waveData.Center.y,2)}, INDEX:{index}, INDEX POS :{_vertices[index]}");
+            
+            //Debug.Log($"POS:{Math.Round(waveData.Center.x,2)}|{Math.Round(waveData.Center.y,2)}, INDEX:{index}, INDEX POS :{_vertices[index]}");
+            Debug.Log(_vertices[index]);
         }
     }
 
@@ -231,15 +233,17 @@ public class Waves : MonoBehaviour
         }
     }
 
-    private int FindIndexOfClosestVerticeTo(Vector3 position)
+    private int FindIndexOfClosestVerticeTo(Vector2 position)
     {
-        Vector3 closestVector = _vertices[0];
-        float closestDistance = Vector3.Distance(position, closestVector);
+        Vector2 closestVector = new Vector2(_vertices[0].x,_vertices[0].z);
+        position = new Vector2(position.x,position.y);
+        float closestDistance = Vector2.Distance(position, closestVector);
         int closestIndex = 0;
         
         for (int i = 0; i < _vertices.Count; i++)
         {
-            float distance = Vector3.Distance(position, _vertices[i]);
+            Vector2 vertice = new Vector2(_vertices[i].x, _vertices[i].z);
+            float distance = Vector2.Distance(position, vertice);
             if (distance < closestDistance)
             {
                 closestDistance = distance;
