@@ -16,6 +16,7 @@ public class CameraDeathState : CameraStateBase
     public override void EnterState(CameraManager camera)
     {
         Debug.Log("cam death");
+        CameraManagerRef.ShakeCamera(0);
         CameraManagerRef.CameraAngleOverride = 0;
         _rotationZ = CameraManagerRef.RotationZ;
     }

@@ -24,6 +24,10 @@ public class CameraUnbalancedState : CameraStateBase
 
         CameraManagerRef.ApplyRotationCamera();
 
+
+
+        CameraManagerRef.ShakeCamera(1.0f);
+
     }
     public override void FixedUpdate(CameraManager camera)
     {
@@ -47,10 +51,6 @@ public class CameraUnbalancedState : CameraStateBase
         }
     }
 
-    private void ShakeCamera(float intensity)
-    {
-        CinemachineBasicMultiChannelPerlin cinemachineBasicMultiChannelPerlin = CameraManagerRef.VirtualCamera.GetCinemachineComponent<CinemachineBasicMultiChannelPerlin>();
-        cinemachineBasicMultiChannelPerlin.m_AmplitudeGain = intensity;
-    }
+
 
 }

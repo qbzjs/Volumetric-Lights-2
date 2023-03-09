@@ -247,4 +247,10 @@ public class CameraManager : MonoBehaviour
             CinemachineTargetPitch = CinemachineCameraTarget.transform.rotation.eulerAngles.x;
         }
     }
+    public void ShakeCamera(float intensity)
+    {
+        CinemachineBasicMultiChannelPerlin cinemachineBasicMultiChannelPerlin = VirtualCamera.GetCinemachineComponent<CinemachineBasicMultiChannelPerlin>();
+        cinemachineBasicMultiChannelPerlin.m_AmplitudeGain = intensity;
+
+    }
 }

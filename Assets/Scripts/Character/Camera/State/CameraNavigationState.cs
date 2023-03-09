@@ -16,6 +16,7 @@ public class CameraNavigationState : CameraStateBase
     {
 
         Debug.Log("cam nav");
+        CameraManagerRef.ShakeCamera(0);
         CameraManagerRef.AnimatorRef.Play("VCam FreeLook");
         CameraManagerRef.Brain.m_BlendUpdateMethod = Cinemachine.CinemachineBrain.BrainUpdateMethod.LateUpdate;
 
