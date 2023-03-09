@@ -3,7 +3,7 @@ using System;
 using System.Linq;
 using UnityEngine;
 
-public class SwitchCameraMod : MonoBehaviour
+public class SwitchToCameraTrackAndNormal : MonoBehaviour
 {
 
     public BoxPosition[] BoxPositions;
