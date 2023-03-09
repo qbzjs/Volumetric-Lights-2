@@ -15,6 +15,8 @@ public class Waves : MonoBehaviour
     [SerializeField] private Transform _waterPosition;
     [SerializeField] private Octave[] _octaves;
 
+    [Header("VFX"), SerializeField] private ParticleSystem _waveBurstParticlePrefab;
+
     //Mesh
     protected MeshFilter MeshFilter;
     protected Mesh Mesh;
@@ -236,6 +238,11 @@ public class Waves : MonoBehaviour
                 Vector3 point = GetPointFromAngleAndDistance(center, angle, distance);
                 int index = FindIndexOfVerticeAt(new Vector2(point.x,point.z), true);
                 SetupVerticesAmplitudeDictionary(new Vector2(_vertices[index].x,_vertices[index].z), amplitude);
+
+                if (j % 3 == 0)
+                {
+                    Instantiate(_waveBurstParticlePrefab, point+new Vector3(0,amplitude/2,0), Quaternion.identity);
+                }
             }
         }
     }

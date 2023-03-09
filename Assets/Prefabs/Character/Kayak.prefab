@@ -48,6 +48,7 @@ MonoBehaviour:
   _rigidbody: {fileID: 333907971529626019}
   _depthBeforeSubmerged: 1
   _displacementAmount: 3
+  _displacementDownAmount: 1
   _floaterCount: 4
   _waterDrag: 0.99
   _waterAngularDrag: 15
@@ -99,6 +100,7 @@ MonoBehaviour:
   _rigidbody: {fileID: 333907971529626019}
   _depthBeforeSubmerged: 1
   _displacementAmount: 3
+  _displacementDownAmount: 6
   _floaterCount: 4
   _waterDrag: 0.99
   _waterAngularDrag: 15
@@ -150,6 +152,7 @@ MonoBehaviour:
   _rigidbody: {fileID: 333907971529626019}
   _depthBeforeSubmerged: 1
   _displacementAmount: 3
+  _displacementDownAmount: 6
   _floaterCount: 4
   _waterDrag: 0.99
   _waterAngularDrag: 15
@@ -201,6 +204,7 @@ MonoBehaviour:
   _rigidbody: {fileID: 333907971529626019}
   _depthBeforeSubmerged: 1
   _displacementAmount: 3
+  _displacementDownAmount: 6
   _floaterCount: 4
   _waterDrag: 0.99
   _waterAngularDrag: 15
@@ -430,7 +434,7 @@ PrefabInstance:
     - target: {fileID: 6475471068446741630, guid: d34d48d0e10077e42acc36e4aee97016,
         type: 3}
       propertyPath: m_LocalScale.x
-      value: 1.5329846
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 6475471068446741630, guid: d34d48d0e10077e42acc36e4aee97016,
         type: 3}
@@ -440,7 +444,7 @@ PrefabInstance:
     - target: {fileID: 6475471068446741630, guid: d34d48d0e10077e42acc36e4aee97016,
         type: 3}
       propertyPath: m_LocalScale.z
-      value: 2.2654717
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 6475471068446741630, guid: d34d48d0e10077e42acc36e4aee97016,
         type: 3}

@@ -911,6 +911,8 @@ MonoBehaviour:
   - Speed: {x: 10, y: 10}
     Scale: {x: 20, y: 20}
     Height: 1
+  _waveBurstParticlePrefab: {fileID: 8015601896177496385, guid: 07c7cb5b0ab20784487a9d3849c2e7cf,
+    type: 3}
 --- !u!1 &640811324
 GameObject:
   m_ObjectHideFlags: 0
@@ -2441,36 +2443,6 @@ PrefabInstance:
       propertyPath: m_ChildCameras.Array.size
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 1868023511370814829, guid: 36e32e7372e41e346abb29f843dd75b3,
-        type: 3}
-      propertyPath: m_LocalPosition.x
-      value: 10.418288
-      objectReference: {fileID: 0}
-    - target: {fileID: 1868023511370814829, guid: 36e32e7372e41e346abb29f843dd75b3,
-        type: 3}
-      propertyPath: m_LocalPosition.z
-      value: 8.507887
-      objectReference: {fileID: 0}
-    - target: {fileID: 1868023511370814829, guid: 36e32e7372e41e346abb29f843dd75b3,
-        type: 3}
-      propertyPath: m_LocalRotation.w
-      value: 0.6653719
-      objectReference: {fileID: 0}
-    - target: {fileID: 1868023511370814829, guid: 36e32e7372e41e346abb29f843dd75b3,
-        type: 3}
-      propertyPath: m_LocalRotation.x
-      value: 0.239334
-      objectReference: {fileID: 0}
-    - target: {fileID: 1868023511370814829, guid: 36e32e7372e41e346abb29f843dd75b3,
-        type: 3}
-      propertyPath: m_LocalRotation.y
-      value: -0.6653712
-      objectReference: {fileID: 0}
-    - target: {fileID: 1868023511370814829, guid: 36e32e7372e41e346abb29f843dd75b3,
-        type: 3}
-      propertyPath: m_LocalRotation.z
-      value: 0.23933375
-      objectReference: {fileID: 0}
     - target: {fileID: 2610664554247681292, guid: 36e32e7372e41e346abb29f843dd75b3,
         type: 3}
       propertyPath: _waves
@@ -2491,16 +2463,6 @@ PrefabInstance:
       propertyPath: _waves
       value: 
       objectReference: {fileID: 419315132}
-    - target: {fileID: 3387405727807608120, guid: 36e32e7372e41e346abb29f843dd75b3,
-        type: 3}
-      propertyPath: m_LocalPosition.z
-      value: -7.291048
-      objectReference: {fileID: 0}
-    - target: {fileID: 6731779359497347653, guid: 36e32e7372e41e346abb29f843dd75b3,
-        type: 3}
-      propertyPath: m_LocalPosition.z
-      value: 1.2501503
-      objectReference: {fileID: 0}
     - target: {fileID: 7217796707971164476, guid: 36e32e7372e41e346abb29f843dd75b3,
         type: 3}
       propertyPath: m_RootOrder
@@ -2976,7 +2938,7 @@ PrefabInstance:
     - target: {fileID: 6829306435168865602, guid: 5a2f9c611eacb0946acca616026730c6,
         type: 3}
       propertyPath: _circularWaveData.NumberOfPoints
-      value: 40
+      value: 80
       objectReference: {fileID: 0}
     - target: {fileID: 6829306435168865602, guid: 5a2f9c611eacb0946acca616026730c6,
         type: 3}
