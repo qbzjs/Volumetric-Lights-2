@@ -81,12 +81,22 @@ namespace IcebergFallingGPE
             
             //line
             Gizmos.DrawSphere(endPosition, 0.2f);
-            Handles.DrawDottedLine(startPosition, startPosition + _endPosition, 0.5f);
+            Handles.DrawDottedLine(startPosition, endPosition, 0.5f);
             
             //wave
             Gizmos.color = Color.red;
             Handles.DrawWireDisc(endPosition, Vector3.up, _circularWaveData.Distance);
             Handles.DrawWireDisc(endPosition + Vector3.up*_circularWaveData.Amplitude, Vector3.up, _circularWaveData.Distance);
+            
+            //points
+            Gizmos.color = Color.white;
+            float angleDifference = 360 / (float)_circularWaveData.NumberOfPoints;
+            for (int i = 1; i <= _circularWaveData.NumberOfPoints; i++)
+            {
+                float angle = i * angleDifference;
+                Vector3 endPoint = Waves.GetPointFromAngleAndDistance(endPosition, angle, _circularWaveData.Distance);
+                Gizmos.DrawLine(endPosition,endPoint);
+            }
         }
 #endif
     }
