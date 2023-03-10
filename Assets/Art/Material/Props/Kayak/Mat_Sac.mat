@@ -26,11 +26,11 @@ Material:
     serializedVersion: 3
     m_TexEnvs:
     - _BaseMap:
-        m_Texture: {fileID: 2800000, guid: 11e072abff0d3af4ca94414357ad4805, type: 3}
+        m_Texture: {fileID: 2800000, guid: 57de2d0ed3caf88468f83d636c805fdb, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _BumpMap:
-        m_Texture: {fileID: 2800000, guid: 90d378d3851b92242a6e015723273439, type: 3}
+        m_Texture: {fileID: 2800000, guid: 0bdfc1046cc5ef748943dd60873fab76, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _DetailAlbedoMap:
@@ -158,7 +158,7 @@ Material:
     - _SmoothnessTextureChannel: 0
     - _SpecularHighlights: 1
     - _SpecularMapType: 0
-    - _SpecularRoughness: 0.5
+    - _SpecularRoughness: 1
     - _SpecularToonSize: 0.25
     - _SpecularToonSmoothness: 0.05
     - _SpecularType: 0
