@@ -29,7 +29,7 @@ Transform:
   m_GameObject: {fileID: 6934200740305937102}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1.0875, y: 8.68, z: 6}
+  m_LocalScale: {x: 4, y: 20, z: 20}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 7595390132793421724}
@@ -57,7 +57,7 @@ MonoBehaviour:
   _particlesList:
   - {fileID: 1923397359820716286}
   - {fileID: 2194639012756001884}
-  _randomPlayOfParticleTime: {x: 5, y: 20}
+  _randomPlayOfParticleTime: {x: 3, y: 15}
   Direction: {x: 0, y: 0, z: 0}
   IsActive: 1
   WaterFlowManager: {fileID: 0}
@@ -140,12 +140,12 @@ PrefabInstance:
     - target: {fileID: 2366793369473603817, guid: 4786a665a12c65846a9aba9ac0040c13,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: 6.22
+      value: 4.16
       objectReference: {fileID: 0}
     - target: {fileID: 2366793369473603817, guid: 4786a665a12c65846a9aba9ac0040c13,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0
+      value: -0.03
       objectReference: {fileID: 0}
     - target: {fileID: 2366793369473603817, guid: 4786a665a12c65846a9aba9ac0040c13,
         type: 3}
@@ -187,6 +187,16 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 5981328582379065227, guid: 4786a665a12c65846a9aba9ac0040c13,
+        type: 3}
+      propertyPath: ShapeModule.m_Scale.y
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 5981328582379065227, guid: 4786a665a12c65846a9aba9ac0040c13,
+        type: 3}
+      propertyPath: ShapeModule.m_Scale.z
+      value: 19.64
+      objectReference: {fileID: 0}
     - target: {fileID: 6071827046755180684, guid: 4786a665a12c65846a9aba9ac0040c13,
         type: 3}
       propertyPath: m_Name
@@ -221,12 +231,12 @@ PrefabInstance:
     - target: {fileID: 2366793369473603817, guid: efc26da94a68ae24fb3928994ffd2aaa,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: 4.53
+      value: 4.31
       objectReference: {fileID: 0}
     - target: {fileID: 2366793369473603817, guid: efc26da94a68ae24fb3928994ffd2aaa,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0
+      value: -0.017000005
       objectReference: {fileID: 0}
     - target: {fileID: 2366793369473603817, guid: efc26da94a68ae24fb3928994ffd2aaa,
         type: 3}
@@ -267,6 +277,16 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5981328582379065227, guid: efc26da94a68ae24fb3928994ffd2aaa,
+        type: 3}
+      propertyPath: ShapeModule.m_Scale.y
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 5981328582379065227, guid: efc26da94a68ae24fb3928994ffd2aaa,
+        type: 3}
+      propertyPath: ShapeModule.m_Scale.z
+      value: 20
       objectReference: {fileID: 0}
     - target: {fileID: 6071827046755180684, guid: efc26da94a68ae24fb3928994ffd2aaa,
         type: 3}

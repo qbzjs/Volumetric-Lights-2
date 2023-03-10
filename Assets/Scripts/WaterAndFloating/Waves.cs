@@ -13,7 +13,7 @@ public class Waves : MonoBehaviour
     [SerializeField] private int _dimension = 10;
     [SerializeField] private float _UVScale = 2f;
     [SerializeField] private Transform _waterPosition;
-    [SerializeField] private Octave[] _octaves;
+    [SerializeField] private Octave _octave;
 
     [Header("VFX"), SerializeField] private ParticleSystem _waveBurstParticlePrefab;
 
@@ -171,7 +171,7 @@ public class Waves : MonoBehaviour
     private void WaveGeneration()
     {
         float time = Time.time;
-        Octave octave = _octaves[0];
+        Octave octave = _octave;
         float octaveScaleX = octave.Scale.x;
         float octaveScaleY = octave.Scale.y;
         float octaveSpeedX = octave.Speed.x * time;
@@ -183,7 +183,13 @@ public class Waves : MonoBehaviour
             for (int z = 0; z <= _dimension; z++)
             {
                 float y = 0f;
-     
+
+                if (octave.Height == 0)
+                {
+                    _vertices[ x * (_dimension + 1) + z] = new Vector3(x, y, z);
+                    continue;
+                }
+                
                 float perlinNoiseValue = Mathf.PerlinNoise(
                     (x * octaveScaleX +  octaveSpeedX) / _dimension, 
                     (z * octaveScaleY +  octaveSpeedY) / _dimension) 

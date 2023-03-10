@@ -117,11 +117,11 @@ namespace WaterFlowGPE
         /// <param name="direction">the direction the block has to face</param>
         /// <param name="waterFlowManager">the waterFlowManager script managing the block</param>
         /// <param name="width">the width of the block</param>
-        public void SetupBlock(Vector3 direction, WaterFlowManager waterFlowManager, float width)
+        public void SetupBlock(Vector3 direction, WaterFlowManager waterFlowManager, float width, float height, float depth)
         {
             WaterFlowManager = waterFlowManager;
             Direction = direction;
-            transform.localScale = new Vector3(transform.localScale.x, transform.localScale.y, width);
+            transform.localScale = new Vector3(depth, height, width);
             transform.rotation = Quaternion.LookRotation(Direction);
             transform.rotation = Quaternion.Euler(new Vector3(transform.rotation.eulerAngles.x, transform.rotation.eulerAngles.y + 90, transform.rotation.eulerAngles.z));
         }

@@ -11,6 +11,8 @@ namespace WaterFlowGPE
         [SerializeField, Range(0,100)] private int _numberOfBlocks = 10;
         [SerializeField] private WaterFlowBlock _waterFlowBlockPrefab;
         [SerializeField] private float _waterFlowBlockWidth = 6f;
+        [SerializeField] private float _waterFlowBlockHeight = 4f;
+        [SerializeField] private float _waterFlowBlockDepth = 2f;
         [SerializeField, ReadOnly] private WaterFlowBlock[] _waterFlowBlocks;
         [SerializeField] private Transform _blockParent;
         
@@ -51,7 +53,7 @@ namespace WaterFlowGPE
 
                 //instantiate
                 _waterFlowBlocks[index] = Instantiate(_waterFlowBlockPrefab, _spline.GetPoint(i), Quaternion.identity, _blockParent);
-                _waterFlowBlocks[index].SetupBlock(direction, this, _waterFlowBlockWidth);
+                _waterFlowBlocks[index].SetupBlock(direction, this, _waterFlowBlockWidth, _waterFlowBlockHeight, _waterFlowBlockDepth);
                 _waterFlowBlocks[index].name = Math.Round(i,2).ToString();
 
                 index++;
