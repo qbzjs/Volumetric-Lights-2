@@ -1880,7 +1880,7 @@ PrefabInstance:
     - target: {fileID: 4285338905635752385, guid: c65dbc6e6a13448468e3141d768ce52b,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: -2.23
+      value: 11.7
       objectReference: {fileID: 0}
     - target: {fileID: 4285338905635752385, guid: c65dbc6e6a13448468e3141d768ce52b,
         type: 3}
@@ -1890,7 +1890,7 @@ PrefabInstance:
     - target: {fileID: 4285338905635752385, guid: c65dbc6e6a13448468e3141d768ce52b,
         type: 3}
       propertyPath: m_LocalPosition.z
-      value: 21.83
+      value: 17.2
       objectReference: {fileID: 0}
     - target: {fileID: 4285338905635752385, guid: c65dbc6e6a13448468e3141d768ce52b,
         type: 3}
@@ -2912,64 +2912,9 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 6829306435168865602, guid: 5a2f9c611eacb0946acca616026730c6,
         type: 3}
-      propertyPath: _timeToHitWater
-      value: 0.8
-      objectReference: {fileID: 0}
-    - target: {fileID: 6829306435168865602, guid: 5a2f9c611eacb0946acca616026730c6,
-        type: 3}
-      propertyPath: _circularWaveData.Distance
-      value: 30
-      objectReference: {fileID: 0}
-    - target: {fileID: 6829306435168865602, guid: 5a2f9c611eacb0946acca616026730c6,
-        type: 3}
-      propertyPath: _circularWaveData.Duration
-      value: 5
-      objectReference: {fileID: 0}
-    - target: {fileID: 6829306435168865602, guid: 5a2f9c611eacb0946acca616026730c6,
-        type: 3}
-      propertyPath: _circularWaveData.Amplitude
-      value: 4
-      objectReference: {fileID: 0}
-    - target: {fileID: 6829306435168865602, guid: 5a2f9c611eacb0946acca616026730c6,
-        type: 3}
       propertyPath: <WavesManager>k__BackingField
       value: 
       objectReference: {fileID: 419315132}
-    - target: {fileID: 6829306435168865602, guid: 5a2f9c611eacb0946acca616026730c6,
-        type: 3}
-      propertyPath: _circularWaveData.NumberOfPoints
-      value: 80
-      objectReference: {fileID: 0}
-    - target: {fileID: 6829306435168865602, guid: 5a2f9c611eacb0946acca616026730c6,
-        type: 3}
-      propertyPath: _circularWaveData.TimeToAttainMaxAmplitude
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 6829306437002386994, guid: 5a2f9c611eacb0946acca616026730c6,
-        type: 3}
-      propertyPath: _triggerSize.x
-      value: 41
-      objectReference: {fileID: 0}
-    - target: {fileID: 6829306437002386994, guid: 5a2f9c611eacb0946acca616026730c6,
-        type: 3}
-      propertyPath: _triggerSize.y
-      value: 11.3
-      objectReference: {fileID: 0}
-    - target: {fileID: 6829306437002386994, guid: 5a2f9c611eacb0946acca616026730c6,
-        type: 3}
-      propertyPath: _triggerSize.z
-      value: 40.48
-      objectReference: {fileID: 0}
-    - target: {fileID: 6829306437002386994, guid: 5a2f9c611eacb0946acca616026730c6,
-        type: 3}
-      propertyPath: _triggerOffsetPosition.x
-      value: 3.23
-      objectReference: {fileID: 0}
-    - target: {fileID: 6829306437002386994, guid: 5a2f9c611eacb0946acca616026730c6,
-        type: 3}
-      propertyPath: _triggerOffsetPosition.z
-      value: 9.63
-      objectReference: {fileID: 0}
     - target: {fileID: 6829306437002386996, guid: 5a2f9c611eacb0946acca616026730c6,
         type: 3}
       propertyPath: m_Name
@@ -2983,7 +2928,7 @@ PrefabInstance:
     - target: {fileID: 6829306437002386997, guid: 5a2f9c611eacb0946acca616026730c6,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: 8.16527
+      value: -29.3
       objectReference: {fileID: 0}
     - target: {fileID: 6829306437002386997, guid: 5a2f9c611eacb0946acca616026730c6,
         type: 3}
@@ -2993,7 +2938,7 @@ PrefabInstance:
     - target: {fileID: 6829306437002386997, guid: 5a2f9c611eacb0946acca616026730c6,
         type: 3}
       propertyPath: m_LocalPosition.z
-      value: 29.082397
+      value: 30.5
       objectReference: {fileID: 0}
     - target: {fileID: 6829306437002386997, guid: 5a2f9c611eacb0946acca616026730c6,
         type: 3}

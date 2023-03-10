@@ -38,15 +38,26 @@ namespace IcebergFallingGPE
 
             if (Fall && _timeToHitWater > 0)
             {
-                _timeToHitWater -= Time.deltaTime;
-                if (_timeToHitWater <= 0)
-                {
-                    _circularWaveData.Center = new Vector2(transform.position.x,transform.position.z);
-                    WavesManager.LaunchCircularWave(_circularWaveData);
-                }
+                ManageWaveLaunch();
             }
         }
 
+        /// <summary>
+        /// manage and check the moment to launch the wave
+        /// </summary>
+        private void ManageWaveLaunch()
+        {
+            _timeToHitWater -= Time.deltaTime;
+            if (_timeToHitWater <= 0)
+            {
+                _circularWaveData.Center = new Vector2(transform.position.x, transform.position.z);
+                WavesManager.LaunchCircularWave(_circularWaveData);
+            }
+        }
+
+        /// <summary>
+        /// Start the fall
+        /// </summary>
         public void SetFall()
         {
             if (Fall == false && _timer < 1)
@@ -57,6 +68,9 @@ namespace IcebergFallingGPE
             }
         }
 
+        /// <summary>
+        /// Manage the iceberg fall
+        /// </summary>
         private void HandleFall()
         {
             _timer += Time.deltaTime;

@@ -46,8 +46,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2e5bcccd9b12b00408e41f15d5a7eb27, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _triggerSize: {x: 21.58, y: 6.85, z: 17.53}
-  _triggerOffsetPosition: {x: -8.67, y: -3.77, z: -2.9}
+  _triggerSize: {x: 41, y: 11.3, z: 40.48}
+  _triggerOffsetPosition: {x: 3.23, y: -3.77, z: 9.63}
   _playerLayerMask:
     serializedVersion: 2
     m_Bits: 2147483647
@@ -222,6 +222,31 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: IcebergFalling
+      objectReference: {fileID: 0}
+    - target: {fileID: 2453446874202040153, guid: 81bd7ce35f9b3c4419b0fb054e23afbb,
+        type: 3}
+      propertyPath: _timeToHitWater
+      value: 0.8
+      objectReference: {fileID: 0}
+    - target: {fileID: 2453446874202040153, guid: 81bd7ce35f9b3c4419b0fb054e23afbb,
+        type: 3}
+      propertyPath: _circularWaveData.Distance
+      value: 30
+      objectReference: {fileID: 0}
+    - target: {fileID: 2453446874202040153, guid: 81bd7ce35f9b3c4419b0fb054e23afbb,
+        type: 3}
+      propertyPath: _circularWaveData.Duration
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 2453446874202040153, guid: 81bd7ce35f9b3c4419b0fb054e23afbb,
+        type: 3}
+      propertyPath: _circularWaveData.Amplitude
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 2453446874202040153, guid: 81bd7ce35f9b3c4419b0fb054e23afbb,
+        type: 3}
+      propertyPath: _circularWaveData.NumberOfPoints
+      value: 80
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 81bd7ce35f9b3c4419b0fb054e23afbb, type: 3}

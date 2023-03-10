@@ -40,7 +40,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4285338905635752385}
-  - component: {fileID: 864670144467322631}
   - component: {fileID: 2201067951344081947}
   - component: {fileID: 1158828331}
   m_Layer: 0
@@ -69,19 +68,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!135 &864670144467322631
-SphereCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4285338905635752386}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 1
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Radius: 8.36
-  m_Center: {x: 0, y: 0, z: 0}
 --- !u!65 &2201067951344081947
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -107,6 +93,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a80ac52b023f917488fcc26e5862f92d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _triggerSize: {x: 21.51, y: 6.7, z: 23.02}
+  _triggerOffsetPosition: {x: 0, y: 0.43, z: 0}
+  _playerLayerMask:
+    serializedVersion: 2
+    m_Bits: 2147483647
+  OnPlayerDetected:
+    m_PersistentCalls:
+      m_Calls: []
   _zoneName: 
   TargetRespawnTransform: {fileID: 5824427334280982204}
   _zoneManager: {fileID: 0}

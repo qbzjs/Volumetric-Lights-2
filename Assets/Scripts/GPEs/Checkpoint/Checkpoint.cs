@@ -1,31 +1,53 @@
-using Kayak;
-using System.Collections;
-using System.Collections.Generic;
 using UI;
 using UnityEngine;
 
-public class Checkpoint : MonoBehaviour
+namespace GPEs.Checkpoint
 {
-    [SerializeField] private string _zoneName;
-    public Transform TargetRespawnTransform;
-    
-    [Header("References"), SerializeField] private ZoneManager _zoneManager;
-    [SerializeField] private ParticleSystem _activationParticles;
-    [SerializeField] private AudioClip _activationClip;
-    
-    private bool _hasBeenUsed;
-
-    private void OnTriggerEnter(Collider other)
+    public class Checkpoint : PlayerTriggerManager
     {
-        KayakController kayakController = other.gameObject.GetComponent<KayakController>();
-        if (kayakController != null && _hasBeenUsed == false)
+        [SerializeField] private string _zoneName;
+        public Transform TargetRespawnTransform;
+    
+        [Header("References"), SerializeField] private ZoneManager _zoneManager;
+        [SerializeField] private ParticleSystem _activationParticles;
+        [SerializeField] private AudioClip _activationClip;
+    
+        private bool _hasBeenUsed;
+
+        private void Start()
         {
-            CheckpointManager.Instance.CurrentCheckpoint = this;
-            _hasBeenUsed = true;
-            
-            _activationParticles.Play();
-            SoundManager.Instance.PlaySound(_activationClip);
-            _zoneManager.ShowZone(_zoneName);
+            OnPlayerDetected.AddListener(SetCheckPoint);
         }
+        private void OnDestroy()
+        {
+            OnPlayerDetected.RemoveListener(SetCheckPoint);
+        }
+
+        public void SetCheckPoint()
+        {
+            if (_hasBeenUsed == false)
+            {
+                CheckpointManager.Instance.CurrentCheckpoint = this;
+                _hasBeenUsed = true;
+            
+                _activationParticles.Play();
+                SoundManager.Instance.PlaySound(_activationClip);
+                _zoneManager.ShowZone(_zoneName);
+            }
+        }
+    
+#if UNITY_EDITOR
+
+        public override void OnDrawGizmos()
+        {
+            base.OnDrawGizmos();
+            if (TargetRespawnTransform != null)
+            {
+                Gizmos.color = Color.cyan;
+                Gizmos.DrawCube(TargetRespawnTransform.position,Vector3.one*0.5f);
+            }
+        }
+
+#endif
     }
 }
