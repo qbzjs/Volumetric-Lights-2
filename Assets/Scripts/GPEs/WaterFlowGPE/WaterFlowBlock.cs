@@ -64,8 +64,6 @@ namespace WaterFlowGPE
             ResetCameraShake(other);
         }
 
-
-
         /// <summary>
         /// This method checks if a collider contains a KayakController component, and if so, applies rotation and
         /// velocity to the kayak based on its facing direction and movement. It also sets the closest block to the
@@ -144,14 +142,13 @@ namespace WaterFlowGPE
             }
         }
 
+        #region Camera
         private void CheckForCameraShake(Collider collider)
         {
             CameraManager _tempoCameraManager = collider.GetComponentInParent<CameraManager>();
             if (_tempoCameraManager != null && WaterFlowManager != null)
             {
-                //Debug.Log(collider);
                 _tempoCameraManager.WaterFlow = true;
-                //cameraManager.ShakeCamera(cameraManager.AmplitudShakeWhenWaterFlow);
             }
         }
         private void ResetCameraShake(Collider other)
@@ -160,9 +157,9 @@ namespace WaterFlowGPE
             if (_tempoCameraManager != null)
             {
                 _tempoCameraManager.WaterFlow = false;
-                _tempoCameraManager = null;
             }
         }
+        #endregion
 
 #if UNITY_EDITOR
 
