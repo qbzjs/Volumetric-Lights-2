@@ -2,6 +2,7 @@
 using UnityEditor;
 using UnityEngine;
 using UnityEngine.Serialization;
+using WaterAndFloating;
 
 namespace IcebergFallingGPE
 {
@@ -94,7 +95,7 @@ namespace IcebergFallingGPE
             Vector3 endPosition = HasFallen ?  _targetPosition : transform.position + _endPosition;
             
             //line
-            Gizmos.DrawSphere(endPosition, 0.2f);
+            Gizmos.DrawSphere(endPosition, 1f);
             Handles.DrawDottedLine(startPosition, endPosition, 0.5f);
             
             //wave
