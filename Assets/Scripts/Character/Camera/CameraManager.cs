@@ -88,8 +88,8 @@ public class CameraManager : MonoBehaviour
     [HideInInspector] public float LastInputY;
     //other
     [HideInInspector] public bool StartDeath = false;
-
-     //pas tej jsp si on le garde
+    [HideInInspector] public bool WaterFlow = false;
+    //pas tej jsp si on le garde
 
     //[Header("Pendulum")]
     //[Tooltip("The angle you have on the first pendulum")]
@@ -105,18 +105,18 @@ public class CameraManager : MonoBehaviour
     //[Tooltip("Division of the position in Y according to the angle")]
     //public float DivisionMoveForceY = 50;
 
-     //pendulum 
-     //public float PendulumValue;
-     //public float SpeedPendulum;
-     //public float PendulumValueMoins;
-     //public float SpeedPendulumMoins;
-     //public bool PlayOnce = false;
-     //public bool Left;
-    
+    //pendulum 
+    //public float PendulumValue;
+    //public float SpeedPendulum;
+    //public float PendulumValueMoins;
+    //public float SpeedPendulumMoins;
+    //public bool PlayOnce = false;
+    //public bool Left;
+
 
     private void Awake()
     {
-        if(Waves == null)
+        if (Waves == null)
         {
             Debug.Log("Ta oublier de ref les waves chef");
             Waves = FindObjectOfType<Waves>();
@@ -140,7 +140,7 @@ public class CameraManager : MonoBehaviour
     {
         CurrentStateBase.UpdateState(this);
 
-        
+
 
         FieldOfView();
     }
