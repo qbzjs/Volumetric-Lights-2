@@ -7,6 +7,7 @@ public class Floater : MonoBehaviour
      [SerializeField] private Rigidbody _rigidbody;
      [SerializeField] private float _depthBeforeSubmerged = 1f;
      [SerializeField] private float _displacementAmount = 3f;
+     [SerializeField] private float _displacementDownAmount = 3f;
      [SerializeField] private int _floaterCount = 1;
      [SerializeField] private float _waterDrag = 0.99f;
      [SerializeField] private float _waterAngularDrag = 0.5f;
@@ -32,6 +33,13 @@ public class Floater : MonoBehaviour
                //angularVelocity * waterAngularDrag
                _rigidbody.AddTorque(
                     -_rigidbody.angularVelocity * (displacementMultiplier * _waterAngularDrag * Time.fixedDeltaTime),
+                    ForceMode.VelocityChange);
+          }
+          else
+          {
+               float displacementMultiplier = Mathf.Clamp(Mathf.Abs(waveHeight - transform.position.y) * _displacementDownAmount,0,5);
+               _rigidbody.AddForce(
+                    new Vector3(0,-displacementMultiplier * _waterDrag * Time.fixedDeltaTime,0),
                     ForceMode.VelocityChange);
           }
      }

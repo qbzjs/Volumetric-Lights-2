@@ -13,7 +13,9 @@ public class Waves : MonoBehaviour
     [SerializeField] private int _dimension = 10;
     [SerializeField] private float _UVScale = 2f;
     [SerializeField] private Transform _waterPosition;
-    [SerializeField] private Octave[] _octaves;
+    [SerializeField] private Octave _octave;
+
+    [Header("VFX"), SerializeField] private ParticleSystem _waveBurstParticlePrefab;
 
     //Mesh
     protected MeshFilter MeshFilter;
@@ -38,6 +40,17 @@ public class Waves : MonoBehaviour
 
         Mesh.GetVertices(_vertices);
         WaveGeneration();
+
+        //index wave values setup
+        _verticeCount = _vertices.Count;
+        Vector3 pos = _waterPosition.position;
+        _positionDifference = new Vector2(pos.x, pos.z);
+        Vector3 scale = _waterPosition.localScale;
+        _scaleDifference = new Vector2(scale.x, scale.z);
+        for (int i = 0; i < _vertices.Count; i++)
+        {
+            _indexVerticesDictionary.Add(new Vector2(_vertices[i].x,_vertices[i].z),i);
+        }
     }
 
     private void Update()
@@ -158,7 +171,7 @@ public class Waves : MonoBehaviour
     private void WaveGeneration()
     {
         float time = Time.time;
-        Octave octave = _octaves[0];
+        Octave octave = _octave;
         float octaveScaleX = octave.Scale.x;
         float octaveScaleY = octave.Scale.y;
         float octaveSpeedX = octave.Speed.x * time;
@@ -170,7 +183,13 @@ public class Waves : MonoBehaviour
             for (int z = 0; z <= _dimension; z++)
             {
                 float y = 0f;
-     
+
+                if (octave.Height == 0)
+                {
+                    _vertices[ x * (_dimension + 1) + z] = new Vector3(x, y, z);
+                    continue;
+                }
+                
                 float perlinNoiseValue = Mathf.PerlinNoise(
                     (x * octaveScaleX +  octaveSpeedX) / _dimension, 
                     (z * octaveScaleY +  octaveSpeedY) / _dimension) 
@@ -194,7 +213,14 @@ public class Waves : MonoBehaviour
 
     private List<CircularWave> _circularWavesList = new List<CircularWave>();
     private List<float> _circularWavesDurationList = new List<float>();
+<<<<<<< HEAD
     public List<float> CircularWavesDurationList => _circularWavesDurationList;
+=======
+    private int _verticeCount;
+    private Vector2 _positionDifference;
+    private Vector2 _scaleDifference;
+    private Dictionary<Vector2, int> _indexVerticesDictionary = new Dictionary<Vector2, int>();
+>>>>>>> 89466ff0f0b8a2dfb7a96585b54385e20cfaa398
 
     public void LaunchCircularWave(CircularWave circularWave)
     {
@@ -215,13 +241,18 @@ public class Waves : MonoBehaviour
             float amplitude = percent * waveData.Amplitude;
 
             //set vertex
-            float angleDifference = 360 / waveData.NumberOfPoints;
+            float angleDifference = 360 / (float)waveData.NumberOfPoints;
             for (int j = 1; j <= waveData.NumberOfPoints; j++)
             {
                 float angle = j * angleDifference;
                 Vector3 point = GetPointFromAngleAndDistance(center, angle, distance);
                 int index = FindIndexOfVerticeAt(new Vector2(point.x,point.z), true);
                 SetupVerticesAmplitudeDictionary(new Vector2(_vertices[index].x,_vertices[index].z), amplitude);
+
+                if (j % 3 == 0)
+                {
+                    Instantiate(_waveBurstParticlePrefab, point+new Vector3(0,amplitude/2,0), Quaternion.identity);
+                }
             }
         }
     }
@@ -239,41 +270,21 @@ public class Waves : MonoBehaviour
             }
         }
     }
-
-    private int FindIndexOfVerticeAt(Vector2 position, bool applyWaveTransform)
+    
+    private int FindIndexOfVerticeAt(Vector2 worldPosition, bool applyWaveTransform)
     {
-        Vector2 positionDifference = new Vector2(transform.position.x, transform.position.z);
-        Vector2 scaleDifference = new Vector2(transform.localScale.x, transform.localScale.z);
-
-        float closestDistance = Vector2.Distance(position, new Vector2(_vertices[0].x, _vertices[0].z));
+        Vector2 rounded = new Vector2(Mathf.Round(worldPosition.x), Mathf.Round(worldPosition.y));
         if (applyWaveTransform)
         {
-            closestDistance = Vector2.Distance(position, 
-                new Vector2((_vertices[0].x*scaleDifference.x)+positionDifference.x, (_vertices[0].z*scaleDifference.y)+positionDifference.y));
+            rounded = new Vector2(Mathf.Round((worldPosition.x-_positionDifference.x)/_scaleDifference.x), 
+                                  Mathf.Round((worldPosition.y-_positionDifference.y)/_scaleDifference.y));
         }
-        int closestIndex = 0;
-
-        for (int i = 0; i < _vertices.Count; i++)
-        {
-            Vector2 vertice = new Vector2(_vertices[i].x, _vertices[i].z);
-            if (applyWaveTransform)
-            {
-                vertice = new Vector2((_vertices[i].x*scaleDifference.x)+positionDifference.x, 
-                    (_vertices[i].z*scaleDifference.y)+positionDifference.y);
-            }
-
-            float distance = Vector2.Distance(position, vertice);
-            if (distance < closestDistance)
-            {
-                closestDistance = distance;
-                closestIndex = i;
-            }
-        }
-
+        int closestIndex = _indexVerticesDictionary[rounded];
+        
         return closestIndex;
     }
     
-    public Vector3 GetPointFromAngleAndDistance(Vector3 startingPoint, float yAngleDegrees, float distance)
+    public static Vector3 GetPointFromAngleAndDistance(Vector3 startingPoint, float yAngleDegrees, float distance)
     {
         // Convert the Y angle to radians
         float yAngleRadians = yAngleDegrees * Mathf.Deg2Rad;
@@ -324,7 +335,6 @@ public class Waves : MonoBehaviour
             
             currentAmplitudeList[i] = new KeyValuePair<Vector2, float>(currentAmplitudeList[i].Key, amplitude);
         }
-        //Debug.Log($"{currentAmplitudeList.Count} | {amplitudeList.Count}");
 
         //check for vertices on max amplitude 
         for (int i = 0; i < currentAmplitudeList.Count; i++)
@@ -378,7 +388,27 @@ public class Waves : MonoBehaviour
 
     #endregion
 
+    #region GUI
     
+    #if UNITY_EDITOR
+
+    private void OnDrawGizmos()
+    {
+        Gizmos.color = Color.red;
+        foreach (KeyValuePair<Vector2,float> vertice in _verticesAmplitudeGrowingDictionary)
+        {
+            Gizmos.DrawSphere(new Vector3(vertice.Key.x*_scaleDifference.x+_positionDifference.x,0,vertice.Key.y*_scaleDifference.y+_positionDifference.y), 0.5f);
+        }
+        Gizmos.color = Color.green;
+        foreach (KeyValuePair<Vector2,float> vertice in _verticesAmplitudeReducingDictionary)
+        {
+            Gizmos.DrawSphere(new Vector3(vertice.Key.x*_scaleDifference.x+_positionDifference.x,0,vertice.Key.y*_scaleDifference.y+_positionDifference.y), 0.5f);
+        }
+    }
+
+#endif
+
+    #endregion
 }
 
 [Serializable]
