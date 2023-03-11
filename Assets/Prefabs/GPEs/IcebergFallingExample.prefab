@@ -46,16 +46,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2e5bcccd9b12b00408e41f15d5a7eb27, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _triggerSize: {x: 1, y: 1, z: 1}
-  _triggerOffsetPosition: {x: 0, y: 0, z: 0}
+  _triggerSize: {x: 47.19, y: 12.37, z: 50.7}
+  _triggerOffsetPosition: {x: -0.7, y: -2.95, z: 10.33}
   _playerLayerMask:
     serializedVersion: 2
     m_Bits: 2147483647
   OnPlayerDetected:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 2453446874202040153, guid: 81bd7ce35f9b3c4419b0fb054e23afbb,
-          type: 3}
+      - m_Target: {fileID: 6829306435168865602}
         m_TargetAssemblyTypeName: IcebergFallingGPE.IcebergFalling, Assembly-CSharp
         m_MethodName: SetFall
         m_Mode: 1
@@ -226,6 +225,16 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2453446874202040153, guid: 81bd7ce35f9b3c4419b0fb054e23afbb,
         type: 3}
+      propertyPath: Fall
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2453446874202040153, guid: 81bd7ce35f9b3c4419b0fb054e23afbb,
+        type: 3}
+      propertyPath: HasFallen
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2453446874202040153, guid: 81bd7ce35f9b3c4419b0fb054e23afbb,
+        type: 3}
       propertyPath: _timeToHitWater
       value: 0.8
       objectReference: {fileID: 0}
@@ -251,6 +260,18 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 81bd7ce35f9b3c4419b0fb054e23afbb, type: 3}
+--- !u!114 &6829306435168865602 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 2453446874202040153, guid: 81bd7ce35f9b3c4419b0fb054e23afbb,
+    type: 3}
+  m_PrefabInstance: {fileID: 8992271099045440027}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f945c15673834c82b71434b7d74d4964, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!4 &6829306435168865609 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 2453446874202040146, guid: 81bd7ce35f9b3c4419b0fb054e23afbb,
