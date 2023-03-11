@@ -212,15 +212,13 @@ public class Waves : MonoBehaviour
     #region CircularWaves
 
     private List<CircularWave> _circularWavesList = new List<CircularWave>();
-    private List<float> _circularWavesDurationList = new List<float>();
-<<<<<<< HEAD
-    public List<float> CircularWavesDurationList => _circularWavesDurationList;
-=======
+    private List<float> _circularWavesDurationList = new List<float>(); 
     private int _verticeCount;
     private Vector2 _positionDifference;
     private Vector2 _scaleDifference;
     private Dictionary<Vector2, int> _indexVerticesDictionary = new Dictionary<Vector2, int>();
->>>>>>> 89466ff0f0b8a2dfb7a96585b54385e20cfaa398
+    //prop
+    public List<float> CircularWavesDurationList => _circularWavesDurationList;
 
     public void LaunchCircularWave(CircularWave circularWave)
     {
