@@ -53,7 +53,6 @@ public class CameraManager : MonoBehaviour
     [Tooltip("The curve of force in function of the joystick position Y")]
     public AnimationCurve JoystickFreeRotationY;
 
-
     [Header("Lerp")]
     [Range(0, 0.1f), Tooltip("The lerp value applied to the field of view of camera depending on the speed of the player")]
     public float LerpFOV = .01f;
@@ -62,21 +61,6 @@ public class CameraManager : MonoBehaviour
     [Range(0, 0.1f), Tooltip("The lerp value applied to the position of the camera when the player is not moving")]
     public float LerpLocalRotationNotMoving = 0.01f;
 
-
-    [Header("Pendulum")]
-    [Tooltip("The angle you have on the first pendulum")]
-    public float PendulumFirstAngle = 10;
-    [Tooltip("The speed you have in the first pendulum")]
-    public float PendulumFirstSpeed = 1;
-    [Tooltip("The degree of angle you remove from the pendulum at each pendulum")]
-    public float PendulumRemoveAngle = 1;
-    [Tooltip("The speed you take away from the speed with each pendulum")]
-    public float PendulumRemoveSpeed = 0.1f;
-    [Tooltip("Division of the position in X according to the angle")]
-    public float DivisionMoveForceX = 10;
-    [Tooltip("Division of the position in Y according to the angle")]
-    public float DivisionMoveForceY = 50;
-
     [Header("Death")]
     [Tooltip("Additional degrees to override the camera. Useful for fine tuning camera position when locked")]
     public float ValueAddForTopDownWhenDeath = 0.1f;
@@ -84,6 +68,12 @@ public class CameraManager : MonoBehaviour
     public float ValueAddForDistanceWhenDeath = 0.05f;
     [Tooltip("The value that the camera distance should reach")]
     public float MaxValueDistanceToStartDeath = 10f;
+
+    [Header("Shake Camera")]
+    public float AmplitudShakeWhenUnbalanced = 0.5f;
+    public float AmplitudShakeWhenWaterFlow = 0.2f;
+    public float AmplitudShakeWhenWaterWave = 0.2f;
+    public Waves Waves;
 
     //camera
     [HideInInspector] public float CameraAngleOverride = 0.0f;
@@ -98,18 +88,40 @@ public class CameraManager : MonoBehaviour
     [HideInInspector] public float LastInputY;
     //other
     [HideInInspector] public bool StartDeath = false;
+    [HideInInspector] public bool WaterFlow = false;
+    //pas tej jsp si on le garde
 
-    /* //pendulum //pas tej jsp si on le garde
-     public float PendulumValue;
-     public float SpeedPendulum;
-     public float PendulumValueMoins;
-     public float SpeedPendulumMoins;
-     public bool PlayOnce = false;
-     public bool Left;
-    */
+    //[Header("Pendulum")]
+    //[Tooltip("The angle you have on the first pendulum")]
+    //public float PendulumFirstAngle = 10;
+    //[Tooltip("The speed you have in the first pendulum")]
+    //public float PendulumFirstSpeed = 1;
+    //[Tooltip("The degree of angle you remove from the pendulum at each pendulum")]
+    //public float PendulumRemoveAngle = 1;
+    //[Tooltip("The speed you take away from the speed with each pendulum")]
+    //public float PendulumRemoveSpeed = 0.1f;
+    //[Tooltip("Division of the position in X according to the angle")]
+    //public float DivisionMoveForceX = 10;
+    //[Tooltip("Division of the position in Y according to the angle")]
+    //public float DivisionMoveForceY = 50;
+
+    //pendulum 
+    //public float PendulumValue;
+    //public float SpeedPendulum;
+    //public float PendulumValueMoins;
+    //public float SpeedPendulumMoins;
+    //public bool PlayOnce = false;
+    //public bool Left;
+
 
     private void Awake()
     {
+        if (Waves == null)
+        {
+            Debug.Log("Ta oublier de ref les waves chef");
+            Waves = FindObjectOfType<Waves>();
+        }
+
         CinemachineTargetYaw = CinemachineCameraTarget.transform.rotation.eulerAngles.y;
 
         CameraTargetBasePos = CinemachineCameraTarget.transform.localPosition;
@@ -149,7 +161,7 @@ public class CameraManager : MonoBehaviour
                                             CameraBaseFov + (velocityXZ * MultiplierFovCamera),
                                             LerpFOV);
     }
-
+    #region Methods
     public void ApplyRotationCamera()
     {
         CinemachineCameraTarget.transform.rotation = Quaternion.Euler(
@@ -252,4 +264,5 @@ public class CameraManager : MonoBehaviour
         CinemachineBasicMultiChannelPerlin cinemachineBasicMultiChannelPerlin = VirtualCamera.GetCinemachineComponent<CinemachineBasicMultiChannelPerlin>();
         cinemachineBasicMultiChannelPerlin.m_AmplitudeGain = intensity;
     }
+    #endregion
 }

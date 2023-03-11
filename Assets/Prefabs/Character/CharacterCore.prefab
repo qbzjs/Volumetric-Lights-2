@@ -1096,15 +1096,13 @@ MonoBehaviour:
   LerpFOV: 0.01
   LerpLocalPositionNotMoving: 0.01
   LerpLocalRotationNotMoving: 0.01
-  PendulumFirstAngle: 0
-  PendulumFirstSpeed: 1
-  PendulumRemoveAngle: 1
-  PendulumRemoveSpeed: 0.2
-  DivisionMoveForceX: 10
-  DivisionMoveForceY: 50
   ValueAddForTopDownWhenDeath: 0.1
   ValueAddForDistanceWhenDeath: 0.05
   MaxValueDistanceToStartDeath: 10
+  AmplitudShakeWhenUnbalanced: 0.5
+  AmplitudShakeWhenWaterFlow: 0.2
+  AmplitudShakeWhenWaterWave: 0.5
+  Waves: {fileID: 0}
   CameraAngleOverride: 10
   CameraBaseFov: 0
   CameraTargetBasePos: {x: 0, y: 0, z: 0}
