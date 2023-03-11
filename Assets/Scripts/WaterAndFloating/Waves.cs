@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
+using UnityEngine.Rendering;
 
 namespace WaterAndFloating
 {
@@ -13,6 +14,10 @@ namespace WaterAndFloating
         [Header("Parameters"), SerializeField] private int _dimension = 10;
         [SerializeField] private float _UVScale = 2f;
         [SerializeField] private Transform _waterPlacing;
+
+        [Header("Render"), SerializeField] private int _renderDistance = 20;
+        [SerializeField] private Transform _playerTransform;
+        
         [SerializeField] private Octave _octave;
 
         [Header("VFX"), SerializeField] private ParticleSystem _waveBurstParticlePrefab;
@@ -28,6 +33,7 @@ namespace WaterAndFloating
             _meshFilter = GetComponent<MeshFilter>();
             _mesh = _meshFilter.mesh;
             _mesh.name = gameObject.name;
+            _mesh.indexFormat = IndexFormat.UInt32;
             
             _mesh.vertices = GenerateVertices();
             _mesh.triangles = GenerateTriangles();
@@ -46,14 +52,13 @@ namespace WaterAndFloating
             _positionDifference = new Vector2(position.x, position.z);
             _scaleDifference = new Vector2(scale.x, scale.z);
             
-            WaveGeneration();
-            
             for (int i = 0; i < _vertices.Count; i++)
             {
                 _indexVerticesDictionary.Add(new Vector2(_vertices[i].x,_vertices[i].z),i);
             }
-
             CircularWavesDurationList = new List<float>();
+            
+            WaveGeneration();
         }
 
         private void Update()
@@ -118,7 +123,6 @@ namespace WaterAndFloating
                 }
             }
 
-            Debug.Log($"Generated {vertices.Length} vertices");
             return vertices;
         }
 
@@ -138,14 +142,9 @@ namespace WaterAndFloating
                     triangles[Index(x, z) * 6 + 3] = Index(x, z); 
                     triangles[Index(x, z) * 6 + 4] = Index(x, z + 1); 
                     triangles[Index(x, z) * 6 + 5] = Index(x + 1, z + 1);
-                    if (Index(x, z) == 0)
-                    {
-                        Debug.Log($"({x},{z}) return index {Index(x, z)}");
-                    }
                 }
             }
 
-            Debug.Log($"Generated {triangles.Length} triangles");
             return triangles;
         }
 
@@ -163,7 +162,6 @@ namespace WaterAndFloating
                 }
             }
 
-            Debug.Log($"Generated {uvs.Length} UVs");
             return uvs;
         }
 
@@ -172,10 +170,7 @@ namespace WaterAndFloating
         #region Index
 
         /// <summary>
-        /// Get the index of a vertice based on it's position in the mesh triangles array. 
-        /// Example : position = (1,2), dimension = 250. 
-        /// Index(1,2) = 1 * (250+1) + 2 = 253. 
-        /// in this case the 251 first indexes are for the row 0, and the 251th and 252th are for the row 1 column 1 and 2.
+        /// Get the index of a vertex based on it's position in the mesh triangles array. 
         /// </summary>
         /// <param name="x">the x position of vertex</param>
         /// <param name="z">the z position of vertex</param>
@@ -195,23 +190,32 @@ namespace WaterAndFloating
 
         private void WaveGeneration()
         {
-            float time = Time.time;
+            //octave
             Octave octave = _octave;
+            float time = Time.time;
             float octaveScaleX = octave.Scale.x;
             float octaveScaleY = octave.Scale.y;
             float octaveSpeedX = octave.Speed.x * time;
             float octaveSpeedY = octave.Speed.y * time;
             float octaveHeight = octave.Height;
+            
+            //render values setup
+            Vector3 position = _playerTransform.position;
+            Vector3 renderCenter = _vertices[FindIndexOfVerticeAt(new Vector2(position.x,position.z), true)];
+            int xStart = (int)renderCenter.x - _renderDistance;
+            int xEnd = (int)renderCenter.x + _renderDistance;
+            int yStart = (int)renderCenter.z - _renderDistance;
+            int yEnd = (int)renderCenter.z + _renderDistance;
 
-            for (int x = 0; x <= _dimension; x++)
+            for (int x = xStart; x <= xEnd; x++)
             {
-                for (int z = 0; z <= _dimension; z++)
+                for (int z = yStart; z <= yEnd; z++)
                 {
                     float y = 0f;
 
                     if (octave.Height == 0)
                     {
-                        _vertices[ x * (_dimension + 1) + z] = new Vector3(x, y, z);
+                        _vertices[Index(x,z)] = new Vector3(x, y, z);
                         continue;
                     }
                 
