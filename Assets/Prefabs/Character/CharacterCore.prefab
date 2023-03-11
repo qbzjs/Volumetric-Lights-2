@@ -1112,6 +1112,7 @@ MonoBehaviour:
   LastInputX: 0
   LastInputY: 0
   StartDeath: 0
+  WaterFlow: 0
 --- !u!1 &8337715506076774778
 GameObject:
   m_ObjectHideFlags: 0
@@ -1537,6 +1538,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Sedna
+      objectReference: {fileID: 0}
+    - target: {fileID: 2783859199191875586, guid: 41b89dcb864b1a841a81b0f15bd7c7f7,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 41b89dcb864b1a841a81b0f15bd7c7f7, type: 3}
