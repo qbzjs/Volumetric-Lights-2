@@ -52,6 +52,8 @@ namespace WaterAndFloating
             {
                 _indexVerticesDictionary.Add(new Vector2(_vertices[i].x,_vertices[i].z),i);
             }
+
+            CircularWavesDurationList = new List<float>();
         }
 
         private void Update()
@@ -235,7 +237,7 @@ namespace WaterAndFloating
         #region CircularWaves
 
         private List<CircularWave> _circularWavesList = new List<CircularWave>();
-        private List<float> _circularWavesDurationList = new List<float>();
+        public List<float> CircularWavesDurationList { get; private set; }
         private Vector2 _positionDifference;
         private Vector2 _scaleDifference;
         private Dictionary<Vector2, int> _indexVerticesDictionary = new Dictionary<Vector2, int>();
@@ -243,7 +245,7 @@ namespace WaterAndFloating
         public void LaunchCircularWave(CircularWave circularWave)
         {
             _circularWavesList.Add(circularWave);
-            _circularWavesDurationList.Add(circularWave.Duration);
+            CircularWavesDurationList.Add(circularWave.Duration);
         }
     
         private void ManageCircularWaves()
@@ -253,7 +255,7 @@ namespace WaterAndFloating
                 //calculate the values
                 CircularWave waveData = _circularWavesList[i];
                 Vector3 center = new Vector3(waveData.Center.x, 0, waveData.Center.y);
-                float currentTime = _circularWavesDurationList[i];
+                float currentTime = CircularWavesDurationList[i];
                 float percent = currentTime / waveData.Duration;
                 float distance = (1 - percent) * waveData.Distance;
                 float amplitude = percent * waveData.Amplitude;
@@ -277,14 +279,14 @@ namespace WaterAndFloating
 
         private void ManageCircularWavesTimer()
         {
-            for (int i = 0; i < _circularWavesDurationList.Count; i++)
+            for (int i = 0; i < CircularWavesDurationList.Count; i++)
             {
-                _circularWavesDurationList[i] -= Time.deltaTime;
+                CircularWavesDurationList[i] -= Time.deltaTime;
             
-                if (_circularWavesDurationList[i] <= 0)
+                if (CircularWavesDurationList[i] <= 0)
                 {
                     _circularWavesList.Remove(_circularWavesList[i]);
-                    _circularWavesDurationList.Remove(_circularWavesDurationList[i]);
+                    CircularWavesDurationList.Remove(CircularWavesDurationList[i]);
                 }
             }
         }
