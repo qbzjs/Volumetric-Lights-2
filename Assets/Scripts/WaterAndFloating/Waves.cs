@@ -194,6 +194,7 @@ public class Waves : MonoBehaviour
 
     private List<CircularWave> _circularWavesList = new List<CircularWave>();
     private List<float> _circularWavesDurationList = new List<float>();
+    public List<float> CircularWavesDurationList => _circularWavesDurationList;
 
     public void LaunchCircularWave(CircularWave circularWave)
     {
