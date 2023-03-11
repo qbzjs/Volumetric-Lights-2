@@ -56,6 +56,7 @@ namespace WaterFlowGPE
         private void OnTriggerStay(Collider other)
         {
             CheckForKayak(other);
+            CheckForCameraShake(other);
         }
 
         /// <summary>
@@ -73,14 +74,13 @@ namespace WaterFlowGPE
                 {
                     return;
                 }
-                
+
                 WaterFlowManager.SetClosestBlockToPlayer(kayakController.transform);
                 if (IsActive)
                 {
                     //get rotation
                     Quaternion currentRotation = kayakController.transform.rotation;
                     Vector3 currentRotationEuler = currentRotation.eulerAngles;
-
                     //get target rotation
                     float targetYAngle = Quaternion.LookRotation(Direction).eulerAngles.y;
                     Quaternion targetRotation = Quaternion.Euler(currentRotationEuler.x, targetYAngle, currentRotationEuler.z);
@@ -132,12 +132,22 @@ namespace WaterFlowGPE
             if (_playParticleTime <= 0)
             {
                 int particleIndex = new Random().Next(0, _particlesList.Count);
-                _particlesList[particleIndex].Emit(new ParticleSystem.EmitParams(),1);
+                _particlesList[particleIndex].Emit(new ParticleSystem.EmitParams(), 1);
                 _playParticleTime = UnityEngine.Random.Range(_randomPlayOfParticleTime.x, _randomPlayOfParticleTime.y);
             }
         }
-        
-        #if UNITY_EDITOR
+
+
+        private void CheckForCameraShake(Collider collider)
+        {
+            CameraManager cameraManager = collider.GetComponent<CameraManager>();
+            if (cameraManager != null && WaterFlowManager != null)
+            {
+                cameraManager.ShakeCamera(cameraManager.AmplitudShakeWhenWaterFlow);
+            }
+        }
+
+#if UNITY_EDITOR
 
         private void OnDrawGizmos()
         {
