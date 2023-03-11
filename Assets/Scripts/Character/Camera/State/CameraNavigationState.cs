@@ -43,6 +43,12 @@ public class CameraNavigationState : CameraStateBase
             CameraTrackState cameraTrackState = new CameraTrackState(CameraManagerRef, MonoBehaviourRef, "VCam TrackDolly");
             CameraManagerRef.SwitchState(cameraTrackState);
         }
+
+        //a modif
+        if (CameraManagerRef.Waves.CircularWavesDurationList.Count > 0)
+            CameraManagerRef.ShakeCamera(CameraManagerRef.AmplitudShakeWhenWaterWave);
+        else
+            CameraManagerRef.ShakeCamera(0);
     }
     public override void FixedUpdate(CameraManager camera)
     {

@@ -25,8 +25,8 @@ public class CameraUnbalancedState : CameraStateBase
         CameraManagerRef.ApplyRotationCamera();
 
 
+        CameraManagerRef.ShakeCamera(CameraManagerRef.AmplitudShakeWhenUnbalanced);
 
-        CameraManagerRef.ShakeCamera(1.0f);
 
     }
     public override void FixedUpdate(CameraManager camera)
