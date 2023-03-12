@@ -273,7 +273,7 @@ namespace WaterAndFloating
                     int index = FindIndexOfVerticeAt(new Vector2(point.x,point.z), true);
                     SetupVerticesAmplitudeDictionary(new Vector2(_vertices[index].x,_vertices[index].z), amplitude);
 
-                    if (j % 3 == 0)
+                    if (j % 3 == 0 && _waveBurstParticlePrefab != null)
                     {
                         Instantiate(_waveBurstParticlePrefab, point+new Vector3(0,amplitude/2,0), Quaternion.identity);
                     }
