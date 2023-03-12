@@ -40,8 +40,8 @@ namespace Character
         public float MinimumTimeUnbalanced = 2f;
         [Range(0,20), Tooltip("The multiplier applied to the paddle force to the balance")]
         public float RotationToBalanceMultiplier = 10f;
-        [Range(0, 1), Tooltip("The multiplier to the floaters' level difference added to the balance value")]
-        public float FloatersLevelDifferenceToBalanceMultiplier;
+        [Range(0, 10), Tooltip("The multiplier to the floaters' level difference added to the balance value")]
+        public float FloatersLevelDifferenceToBalanceMultiplier = 1f;
 
         [Header("VFX")]
         [SerializeField] private ParticleSystem _paddleLeftParticle;

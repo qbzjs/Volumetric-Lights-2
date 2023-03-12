@@ -130,7 +130,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f88752b85dab7944686bf733691304fb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _startTransitionType: 2
+  _startTransitionType: 0
   FadeImageAnimator: {fileID: 2539764784288797761}
   SizeImageAnimator: {fileID: 2042349448529434849}
   SlideImageAnimator: {fileID: 6502429583168015596}

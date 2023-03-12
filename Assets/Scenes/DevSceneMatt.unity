@@ -2702,6 +2702,11 @@ PrefabInstance:
       propertyPath: TransitionManager
       value: 
       objectReference: {fileID: 1878337776}
+    - target: {fileID: 7217796708653836310, guid: 36e32e7372e41e346abb29f843dd75b3,
+        type: 3}
+      propertyPath: FloatersLevelDifferenceToBalanceMultiplier
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 7609300824562711772, guid: 36e32e7372e41e346abb29f843dd75b3,
         type: 3}
       propertyPath: _waves
