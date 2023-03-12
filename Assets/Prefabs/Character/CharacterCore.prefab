@@ -1114,8 +1114,8 @@ MonoBehaviour:
     m_PostInfinity: 2
     m_RotationOrder: 4
   LerpFOV: 0.01
-  LerpLocalPositionNotMoving: 0.01
-  LerpLocalRotationNotMoving: 0.01
+  LerpLocalPositionNotMoving: 0.003
+  LerpLocalRotationNotMoving: 0.003
   ValueAddForTopDownWhenDeath: 0.1
   ValueAddForDistanceWhenDeath: 0.05
   MaxValueDistanceToStartDeath: 10
