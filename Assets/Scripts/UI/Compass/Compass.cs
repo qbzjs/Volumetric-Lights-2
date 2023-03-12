@@ -1,91 +1,74 @@
-﻿using UnityEngine.UI;
-using UnityEngine;
+﻿using System.Collections.Generic;
 using TMPro;
-using System.Collections.Generic;
-public class Compass : MonoBehaviour
+using UnityEngine;
+using UnityEngine.UI;
+
+namespace UI.Compass
 {
-    public GameObject PrefabIcon;
-    List<CompassMarker> compassMarkers = new List<CompassMarker>();
-
-    public RawImage CompassImage;
-    public Transform Player;
-    public TextMeshProUGUI CompassDirectionText;
-
-    float _compassUnit;
-    public List<CompassMarker> markers = new List<CompassMarker>();
-
-    Dictionary<int, string> displayAngle = new Dictionary<int, string>();
-
-    private void Start()
+    public class Compass : MonoBehaviour
     {
-        #region test
-        displayAngle.Add(0, "N");
-        displayAngle.Add(360, "N");
-        displayAngle.Add(45, "NE");
-        displayAngle.Add(90, "E");
-        displayAngle.Add(135, "SE");
-        displayAngle.Add(180, "S");
-        displayAngle.Add(225, "SW");
-        displayAngle.Add(270, "W");
-        displayAngle.Add(315, "NW");
-        #endregion
-        _compassUnit = CompassImage.rectTransform.rect.width / 360;
+        [SerializeField] private GameObject _prefabIcon;
+        [SerializeField] private RawImage _compassImage;
+        [SerializeField] private Transform _playerTransform;
+        [SerializeField] private TextMeshProUGUI _compassDirectionText;
+        [SerializeField] private List<CompassMarker> _markers = new List<CompassMarker>();
+        
+        private Dictionary<int, string> _displayAngle = new Dictionary<int, string>();
+        private List<CompassMarker> _compassMarkers = new List<CompassMarker>();
+        private float _compassUnit;
 
-        foreach (CompassMarker item in markers)
+        private void Start()
         {
-            AddCompassMarker(item);
+            _compassUnit = _compassImage.rectTransform.rect.width / 360;
+
+            foreach (CompassMarker item in _markers)
+            {
+                AddCompassMarker(item);
+            }
         }
 
-    }
-
-    public void Update()
-    {
-        CompassImage.uvRect = new Rect(Player.localEulerAngles.y / 360, 0, 1, 1);
-
-        foreach (CompassMarker marker in compassMarkers)
+        public void Update()
         {
-            marker.image.rectTransform.anchoredPosition = GetPosOnCompass(marker);
+            //_compassImage.uvRect = new Rect(_playerTransform.localEulerAngles.y / 360, 0, 1, 1);
+
+            foreach (CompassMarker marker in _compassMarkers)
+            {
+                marker.Image.rectTransform.anchoredPosition = GetPositionOnCompass(marker);
+            }
+        
+            Vector3 forward = _playerTransform.transform.forward;
+            forward.y = 0;
+
+            float headingAngle = Quaternion.LookRotation(forward).eulerAngles.y;
+            headingAngle = 5 * Mathf.RoundToInt((headingAngle / 5)) + 5;
+
+            if (headingAngle > 360)
+            {
+                headingAngle -= 360;
+            }
+        
+            if (_compassDirectionText != null)
+            {
+                _compassDirectionText.text = _displayAngle.ContainsKey((int)headingAngle) ? _displayAngle[(int)headingAngle] : headingAngle.ToString();
+            }
+        }
+        public void AddCompassMarker(CompassMarker marker)
+        {
+            GameObject newMarker = Instantiate(_prefabIcon, _compassImage.transform);
+            marker.Image = newMarker.GetComponent<Image>();
+            marker.Image.sprite = marker.Icon;
+
+            _compassMarkers.Add(marker);
         }
 
-        #region test
-        Vector3 forward = Player.transform.forward;
-
-        forward.y = 0;
-
-        float headingAngle = Quaternion.LookRotation(forward).eulerAngles.y;
-        headingAngle = 5 * Mathf.RoundToInt((headingAngle / 5)) + 5;
-
-        if (headingAngle > 360)
+        Vector2 GetPositionOnCompass(CompassMarker marker)
         {
-            headingAngle -= 360;
+            Vector2 playerPos = new Vector2(_playerTransform.position.x, _playerTransform.position.z);
+            Vector2 playerFwd = new Vector2(_playerTransform.forward.x, _playerTransform.forward.z);
+
+            float angle = Vector2.SignedAngle(marker.Position - playerPos, playerFwd);
+
+            return new Vector2(_compassUnit * angle, 0f);
         }
-
-
-        if (displayAngle.ContainsKey((int)headingAngle))
-            CompassDirectionText.text = displayAngle[(int)headingAngle];
-        else
-            CompassDirectionText.text = headingAngle.ToString();
-
-        #endregion
-
-    }
-    public void AddCompassMarker(CompassMarker marker)
-    {
-        GameObject newMarker = Instantiate(PrefabIcon, CompassImage.transform);
-        marker.image = newMarker.GetComponent<Image>();
-        marker.image.sprite = marker.icon;
-
-        compassMarkers.Add(marker);
-    }
-
-
-    Vector2 GetPosOnCompass(CompassMarker marker)
-    {
-        Vector2 playerPos = new Vector2(Player.position.x, Player.position.z);
-        Vector2 playerFwd = new Vector2(Player.forward.x, Player.forward.z);
-
-        float angle = Vector2.SignedAngle(marker.position - playerPos, playerFwd);
-
-        return new Vector2(_compassUnit * angle, 0f);
     }
 }

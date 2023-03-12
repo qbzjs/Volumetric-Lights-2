@@ -1,10 +1,20 @@
 using UnityEngine;
 using UnityEngine.UI;
 
-public class CompassMarker : MonoBehaviour
+namespace UI.Compass
 {
-    public Sprite icon;
-    public Image image;
+    public class CompassMarker : MonoBehaviour
+    {
+        public Sprite Icon;
+        [ReadOnly] public Image Image;
 
-    public Vector2 position => new Vector2(transform.position.x, transform.position.z);
+        public Vector2 Position
+        {
+            get
+            {
+                Vector3 position = transform.position;
+                return new Vector2(position.x, position.z);
+            }
+        }
+    }
 }
