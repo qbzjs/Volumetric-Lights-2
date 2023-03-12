@@ -44,7 +44,6 @@ public class CameraNavigationState : CameraStateBase
             CameraManagerRef.SwitchState(cameraTrackState);
         }
 
-        //a modif
         if (CameraManagerRef.Waves.CircularWavesDurationList.Count > 0)
             CameraManagerRef.ShakeCamera(CameraManagerRef.AmplitudShakeWhenWaterWave);
         else if (CameraManagerRef.WaterFlow == true)
@@ -83,11 +82,11 @@ public class CameraNavigationState : CameraStateBase
             //KBM
             //CameraManagerRef.CinemachineTargetYaw += CameraManagerRef.Input.Inputs.RotateCamera.x;
             //CameraManagerRef.CinemachineTargetPitch += CameraManagerRef.Input.Inputs.RotateCamera.y;
+            #endregion
 
             //last inputs
-            //CameraManagerRef.LastInputX = CameraManagerRef.Input.Inputs.RotateCamera.x != 0 ? CameraManagerRef.Input.Inputs.RotateCamera.x : CameraManagerRef.LastInputX;
-            //CameraManagerRef.LastInputY = CameraManagerRef.Input.Inputs.RotateCamera.y != 0 ? CameraManagerRef.Input.Inputs.RotateCamera.y : CameraManagerRef.LastInputY;
-            #endregion
+            CameraManagerRef.LastInputX = CameraManagerRef.Input.Inputs.RotateCamera.x != 0 ? CameraManagerRef.Input.Inputs.RotateCamera.x : CameraManagerRef.LastInputX;
+            CameraManagerRef.LastInputY = CameraManagerRef.Input.Inputs.RotateCamera.y != 0 ? CameraManagerRef.Input.Inputs.RotateCamera.y : CameraManagerRef.LastInputY;
 
             _timerCameraReturnBehindBoat = 0;
         }
@@ -97,11 +96,11 @@ public class CameraNavigationState : CameraStateBase
         {
             #region clavier souris
             //avoid last input to be 0
-            //if (CameraManagerRef.LastInputX != 0 || CameraManagerRef.LastInputY != 0)
-            //{
-            //    CameraManagerRef.LastInputX = 0;
-            //    CameraManagerRef.LastInputY = 0;
-            //}
+            if (CameraManagerRef.LastInputX != 0 || CameraManagerRef.LastInputY != 0)
+            {
+                CameraManagerRef.LastInputX = 0;
+                CameraManagerRef.LastInputY = 0;
+            }
             #endregion
 
             #region variable
@@ -151,12 +150,10 @@ public class CameraNavigationState : CameraStateBase
             //camera target to kayak rotation and position
             CameraManagerRef.MakeTargetFollowRotationWithKayak();
         }
-        #region clavier souris
-        /*else
+        else
         {
             CameraManagerRef.LastInputValue();
-        }*/
-        #endregion
+        }
     }
     private void ResetCameraBehindBoat()
     {
