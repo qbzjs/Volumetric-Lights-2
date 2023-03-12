@@ -119,8 +119,7 @@ public class CameraManager : MonoBehaviour
     {
         if (Waves == null)
         {
-            Debug.Log("Ta oublier de ref les waves chef");
-            Waves = FindObjectOfType<Waves>();
+            Debug.LogError("Missing wave reference");
         }
 
         CinemachineTargetYaw = CinemachineCameraTarget.transform.rotation.eulerAngles.y;
