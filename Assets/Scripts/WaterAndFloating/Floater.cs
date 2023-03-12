@@ -13,8 +13,16 @@ public class Floater : MonoBehaviour
      [SerializeField] private float _waterDrag = 0.99f;
      [SerializeField] private float _waterAngularDrag = 0.5f;
 
+     [Header("Physic Render Update"), SerializeField] private Transform _playerTransform;
+     [SerializeField] private float _renderDistance;
+
      private void FixedUpdate()
      {
+          if (Vector3.Distance(transform.position, _playerTransform.position) > _renderDistance)
+          {
+               return;
+          }
+          
           _rigidbody.AddForceAtPosition(Physics.gravity / _floaterCount, transform.position, ForceMode.Acceleration);
           
           float waveHeight = _waves.GetHeight(transform.position);
