@@ -21,6 +21,8 @@ namespace IcebergFallingGPE
         [SerializeField] private float _timeToHitWater;
         [SerializeField] private CircularWave _circularWaveData;
 
+        [Header("VFX"), SerializeField] private ParticleSystem _particleWhenHitWater;
+
         private float _timer;
         private Vector3 _beginPosition, _targetPosition;
 
@@ -52,6 +54,8 @@ namespace IcebergFallingGPE
             if (_timeToHitWater <= 0)
             {
                 _circularWaveData.Center = new Vector2(transform.position.x, transform.position.z);
+                _particleWhenHitWater.gameObject.transform.position = transform.position;
+                _particleWhenHitWater.Play();
                 WavesManager.LaunchCircularWave(_circularWaveData);
             }
         }

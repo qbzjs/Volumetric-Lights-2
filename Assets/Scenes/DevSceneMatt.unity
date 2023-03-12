@@ -915,6 +915,12 @@ MonoBehaviour:
     Height: 1
   _waveBurstParticlePrefab: {fileID: 8015601896177496385, guid: 07c7cb5b0ab20784487a9d3849c2e7cf,
     type: 3}
+--- !u!198 &634537758 stripped
+ParticleSystem:
+  m_CorrespondingSourceObject: {fileID: 1431781508082601091, guid: 5a2f9c611eacb0946acca616026730c6,
+    type: 3}
+  m_PrefabInstance: {fileID: 6829306436452561982}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &640811324
 GameObject:
   m_ObjectHideFlags: 0
@@ -2923,6 +2929,11 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 6829306435168865602, guid: 5a2f9c611eacb0946acca616026730c6,
+        type: 3}
+      propertyPath: _particleWhenHitWater
+      value: 
+      objectReference: {fileID: 634537758}
     - target: {fileID: 6829306435168865602, guid: 5a2f9c611eacb0946acca616026730c6,
         type: 3}
       propertyPath: <WavesManager>k__BackingField
