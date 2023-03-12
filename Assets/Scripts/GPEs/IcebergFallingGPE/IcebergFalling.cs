@@ -9,7 +9,6 @@ namespace IcebergFallingGPE
     public class IcebergFalling : MonoBehaviour
     {
         [field: SerializeField] public Rigidbody Rigidbody { get; private set; }
-        [field: SerializeField] public ParticleSystem ParticleSystem { get; private set; }
         [field: SerializeField] public Waves WavesManager { get; private set; }
         [SerializeField, ReadOnly] public bool Fall;
         [SerializeField, ReadOnly] public bool HasFallen;
