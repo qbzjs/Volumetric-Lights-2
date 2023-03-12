@@ -11,7 +11,9 @@ namespace GPEs
         [SerializeField] private LayerMask _playerLayerMask;
         [Header("Event")] public UnityEvent OnPlayerDetected = new UnityEvent();
 
-        private void Update()
+        protected KayakController KayakController;
+
+        protected virtual void Update()
         {
             RaycastHit[] hits = Physics.BoxCastAll(transform.position + _triggerOffsetPosition, _triggerSize / 2, Vector3.forward, Quaternion.identity, 0f, _playerLayerMask);
             foreach (RaycastHit hit in hits)
@@ -19,6 +21,7 @@ namespace GPEs
                 KayakController kayakController = hit.collider.gameObject.GetComponent<KayakController>();
                 if (kayakController != null)
                 {
+                    KayakController = kayakController;
                     OnPlayerDetected.Invoke();
                 }
             }
