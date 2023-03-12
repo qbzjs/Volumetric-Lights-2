@@ -185,7 +185,7 @@ public partial class @GameplayInputs : IInputActionCollection2, IDisposable
                     ""id"": ""0e987401-15f1-4c58-8252-74271067c81b"",
                     ""path"": ""<Gamepad>/rightStick"",
                     ""interactions"": """",
-                    ""processors"": ""InvertVector2(invertY=false)"",
+                    ""processors"": ""InvertVector2(invertX=false)"",
                     ""groups"": ""GamePad"",
                     ""action"": ""RotateCamera"",
                     ""isComposite"": false,
