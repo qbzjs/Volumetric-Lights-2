@@ -466,7 +466,7 @@ MonoBehaviour:
     Speed: {x: 0, y: 0}
     Scale: {x: 0, y: 0}
     Height: 0
-  _waveBurstParticlePrefab: {fileID: 19873706, guid: e2550dae06524a94bbc4bcdf375a88b9,
+  _waveBurstParticlePrefab: {fileID: 8015601896177496385, guid: 07c7cb5b0ab20784487a9d3849c2e7cf,
     type: 3}
 --- !u!4 &855076187 stripped
 Transform:
@@ -13990,6 +13990,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1431781508063294177, guid: 5a2f9c611eacb0946acca616026730c6,
         type: 3}
+      propertyPath: m_LocalPosition.y
+      value: -5.02
+      objectReference: {fileID: 0}
+    - target: {fileID: 1431781508063294177, guid: 5a2f9c611eacb0946acca616026730c6,
+        type: 3}
       propertyPath: m_LocalPosition.z
       value: -3.23
       objectReference: {fileID: 0}
@@ -14020,6 +14025,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6829306435168865602, guid: 5a2f9c611eacb0946acca616026730c6,
         type: 3}
+      propertyPath: _particleWhenHitWater
+      value: 
+      objectReference: {fileID: 1903097931}
+    - target: {fileID: 6829306435168865602, guid: 5a2f9c611eacb0946acca616026730c6,
+        type: 3}
       propertyPath: <WavesManager>k__BackingField
       value: 
       objectReference: {fileID: 727952268}
@@ -14027,7 +14037,8 @@ PrefabInstance:
         type: 3}
       propertyPath: <ParticleSystem>k__BackingField
       value: 
-      objectReference: {fileID: 1903097931}
+      objectReference: {fileID: 8015601896177496385, guid: 07c7cb5b0ab20784487a9d3849c2e7cf,
+        type: 3}
     - target: {fileID: 6829306437002386996, guid: 5a2f9c611eacb0946acca616026730c6,
         type: 3}
       propertyPath: m_Name
