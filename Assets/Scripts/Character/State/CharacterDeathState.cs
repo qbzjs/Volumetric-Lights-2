@@ -103,7 +103,7 @@ namespace Character.State
                 //Reset value
                 _kayakController.CanReduceDrag = true;
                 CameraManagerRef.CanMoveCameraManually = true;
-                CharacterManagerRef.Balance = 0;
+                CharacterManagerRef.SetBalanceValueToCurrentSide(0);
                 _respawned = true;
 
                 //Switch state camera

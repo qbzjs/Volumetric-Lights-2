@@ -35,6 +35,7 @@ namespace Character.State
         private KayakController _kayakController;
         private KayakParameters _kayakValues;
         private Rigidbody _kayakRigidbody;
+        private Floaters _floaters;
 
         #region Constructor
 
@@ -58,6 +59,7 @@ namespace Character.State
             _rightPaddleCooldown = _kayakValues.PaddleCooldown;
             _leftPaddleCooldown = _kayakValues.PaddleCooldown;
             _staticInputTimer = _kayakValues.StaticRotationCooldownAfterPaddle;
+            _floaters = CharacterManagerRef.KayakController.FloatersRef;
                 
             //booleans
             CharacterManagerRef.LerpBalanceTo0 = true;
@@ -68,7 +70,7 @@ namespace Character.State
         {
             PaddleCooldownManagement();
             
-            //check balance 
+            //check balanced -> unbalanced
             if (Mathf.Abs(CharacterManagerRef.Balance) >= CharacterManagerRef.BalanceLimit)
             {
                 CameraManagerRef.CanMoveCameraManually = false;
@@ -108,6 +110,8 @@ namespace Character.State
             KayakRotationManager(RotationType.Static);
             
             VelocityToward();
+
+            CheckRigidbodyFloatersBalance();
         }
 
         public override void SwitchState(CharacterManager character)
@@ -311,6 +315,33 @@ namespace Character.State
             float force = _kayakValues.VelocityDecelerationRotationForce;
             
             RotationStaticForceY += direction == Direction.Left ? -force : force;
+        }
+
+        #endregion
+
+        #region Wave/Floaters and Balance management
+        
+        /// <summary>
+        /// Check the floater's level to see if the boat is unbalanced
+        /// </summary>
+        private void CheckRigidbodyFloatersBalance()
+        {
+            float frontLeftY = _floaters.FrontLeft.transform.position.y;
+            float frontRightY = _floaters.FrontRight.transform.position.y;
+            float backLeftY = _floaters.BackLeft.transform.position.y;
+            float backRightY = _floaters.BackRight.transform.position.y;
+            
+            float frontLevel = (frontLeftY + frontRightY) / 2;
+            float backLevel = (backLeftY + backRightY) / 2;
+            float leftLevel = (frontLeftY + backLeftY) / 2;
+            float rightLevel = (frontRightY + backRightY) / 2;
+
+            float multiplier = CharacterManagerRef.FloatersLevelDifferenceToBalanceMultiplier;
+            float frontBackDifference = Mathf.Abs(frontLevel - backLevel) * multiplier;
+            float leftRightDifference = Mathf.Abs(leftLevel - rightLevel) * multiplier;
+            
+            CharacterManagerRef.AddBalanceValueToCurrentSide(frontBackDifference);
+            CharacterManagerRef.Balance += leftRightDifference;
         }
 
         #endregion

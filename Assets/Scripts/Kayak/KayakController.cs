@@ -32,6 +32,8 @@ namespace Kayak
         public Rigidbody Rigidbody;
         [Tooltip("Reference of the kayak mesh")]
         public Transform Mesh;
+        [SerializeField, Tooltip("The floaters associated to the kayak's rigidbody")] 
+        public Floaters FloatersRef;
         
         [Header("Audio")] 
         [Tooltip("The audio clip of the paddling")]
@@ -59,7 +61,7 @@ namespace Kayak
         {
             float value = collision.relativeVelocity.magnitude / KayakValues.CollisionToBalanceMagnitudeDivider;
             Debug.Log($"collision V.M. :{Math.Round(collision.relativeVelocity.magnitude)} -> {Math.Round(value,2)}");
-            CharacterManager.Balance += value * Mathf.Sign(CharacterManager.Balance);
+            CharacterManager.AddBalanceValueToCurrentSide(value);
             SoundManager.Instance.PlaySound(CollisionAudioClip);
         }
 
@@ -163,5 +165,14 @@ namespace Kayak
         public float UnbalancePaddleCooldown;
         [Range(0, 10), Tooltip("The paddle force on balance when unbalanced")] 
         public float UnbalancePaddleForce;
+    }
+
+    [Serializable]
+    public struct Floaters
+    {
+        public Floater FrontLeft;
+        public Floater FrontRight;
+        public Floater BackLeft;
+        public Floater BackRight;
     }
 }

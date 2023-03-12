@@ -45,8 +45,7 @@ namespace Character.State
             if (Mathf.Abs(CharacterManagerRef.Balance) >
                 CharacterManagerRef.BalanceDeathLimit - CharacterManagerRef.MinimumTimeUnbalanced)
             {
-                CharacterManagerRef.Balance = (CharacterManagerRef.BalanceDeathLimit - CharacterManagerRef.MinimumTimeUnbalanced) *
-                                              Mathf.Sign(CharacterManagerRef.Balance);
+                CharacterManagerRef.SetBalanceValueToCurrentSide(CharacterManagerRef.BalanceDeathLimit - CharacterManagerRef.MinimumTimeUnbalanced);
             }
         }
 
@@ -89,7 +88,7 @@ namespace Character.State
             {
                 _kayakController.CanReduceDrag = true;
                 CameraManagerRef.CanMoveCameraManually = true;
-                CharacterManagerRef.Balance = 0;
+                CharacterManagerRef.SetBalanceValueToCurrentSide(0);
 
 
                 CharacterNavigationState characterNavigationState = new CharacterNavigationState(_kayakController, _inputs, CharacterManagerRef, MonoBehaviourRef, CameraManagerRef);

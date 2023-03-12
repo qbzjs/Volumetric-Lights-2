@@ -38,8 +38,10 @@ namespace Character
         public float RebalanceAngle = 8f;
         [Range(0, 10), Tooltip("Minimum Time/Balance the player has to react when unbalanced")]
         public float MinimumTimeUnbalanced = 2f;
-        [Range(0,20), Tooltip("The Multiplier applied to the paddle force to the balance")]
+        [Range(0,20), Tooltip("The multiplier applied to the paddle force to the balance")]
         public float RotationToBalanceMultiplier = 10f;
+        [Range(0, 1), Tooltip("The multiplier to the floaters' level difference added to the balance value")]
+        public float FloatersLevelDifferenceToBalanceMultiplier;
 
         [Header("VFX")]
         [SerializeField] private ParticleSystem _paddleLeftParticle;
@@ -84,6 +86,26 @@ namespace Character
             {
                 Balance = Mathf.Lerp(Balance, 0, balanceLerpTo0Value);
             }
+        }
+
+        /// <summary>
+        /// Set the current balance value multiplied by the sign of it
+        /// </summary>
+        /// <param name="value">the (float)value to add</param>
+        public void SetBalanceValueToCurrentSide(float value)
+        {
+            float sign = Mathf.Sign(Balance);
+            Balance = value * sign;
+        }
+        
+        /// <summary>
+        /// Add to the current balance value
+        /// </summary>
+        /// <param name="value">the (float)value to add</param>
+        public void AddBalanceValueToCurrentSide(float value)
+        {
+            float sign = Mathf.Sign(Balance);
+            Balance += value * sign;
         }
 
         #region VFX

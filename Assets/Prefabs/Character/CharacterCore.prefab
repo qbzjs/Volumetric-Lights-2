@@ -961,6 +961,8 @@ MonoBehaviour:
   BalanceDeathLimit: 14
   RebalanceAngle: 2
   MinimumTimeUnbalanced: 2
+  RotationToBalanceMultiplier: 10
+  FloatersLevelDifferenceToBalanceMultiplier: 0.1
   _paddleLeftParticle: {fileID: 8176147450691830271}
   _paddleRightParticle: {fileID: 900554225378323000}
 --- !u!114 &7217796708653836311
@@ -1268,6 +1270,26 @@ PrefabInstance:
       propertyPath: m_LocalPosition.z
       value: 1.5
       objectReference: {fileID: 0}
+    - target: {fileID: 333907970047417243, guid: bc06d1e844ba3694bbdecce4a99ba863,
+        type: 3}
+      propertyPath: _renderDistance
+      value: 50
+      objectReference: {fileID: 0}
+    - target: {fileID: 333907970047417243, guid: bc06d1e844ba3694bbdecce4a99ba863,
+        type: 3}
+      propertyPath: _playerTransform
+      value: 
+      objectReference: {fileID: 2610664555048439514}
+    - target: {fileID: 333907970277157176, guid: bc06d1e844ba3694bbdecce4a99ba863,
+        type: 3}
+      propertyPath: _renderDistance
+      value: 50
+      objectReference: {fileID: 0}
+    - target: {fileID: 333907970277157176, guid: bc06d1e844ba3694bbdecce4a99ba863,
+        type: 3}
+      propertyPath: _playerTransform
+      value: 
+      objectReference: {fileID: 2610664555048439514}
     - target: {fileID: 333907970277157177, guid: bc06d1e844ba3694bbdecce4a99ba863,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -1298,6 +1320,26 @@ PrefabInstance:
       propertyPath: m_LocalPosition.z
       value: -1.25
       objectReference: {fileID: 0}
+    - target: {fileID: 333907970869196805, guid: bc06d1e844ba3694bbdecce4a99ba863,
+        type: 3}
+      propertyPath: _renderDistance
+      value: 50
+      objectReference: {fileID: 0}
+    - target: {fileID: 333907970869196805, guid: bc06d1e844ba3694bbdecce4a99ba863,
+        type: 3}
+      propertyPath: _playerTransform
+      value: 
+      objectReference: {fileID: 2610664555048439514}
+    - target: {fileID: 333907971254692470, guid: bc06d1e844ba3694bbdecce4a99ba863,
+        type: 3}
+      propertyPath: _renderDistance
+      value: 50
+      objectReference: {fileID: 0}
+    - target: {fileID: 333907971254692470, guid: bc06d1e844ba3694bbdecce4a99ba863,
+        type: 3}
+      propertyPath: _playerTransform
+      value: 
+      objectReference: {fileID: 2610664555048439514}
     - target: {fileID: 333907971254692471, guid: bc06d1e844ba3694bbdecce4a99ba863,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -1596,6 +1638,16 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 2783859199883586108, guid: 41b89dcb864b1a841a81b0f15bd7c7f7,
+        type: 3}
+      propertyPath: _renderDistance
+      value: 50
+      objectReference: {fileID: 0}
+    - target: {fileID: 2783859199883586108, guid: 41b89dcb864b1a841a81b0f15bd7c7f7,
+        type: 3}
+      propertyPath: _playerTransform
+      value: 
+      objectReference: {fileID: 2610664555048439514}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 41b89dcb864b1a841a81b0f15bd7c7f7, type: 3}
 --- !u!4 &7609300824953394913 stripped

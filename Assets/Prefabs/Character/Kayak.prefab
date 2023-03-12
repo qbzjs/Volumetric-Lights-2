@@ -52,6 +52,8 @@ MonoBehaviour:
   _floaterCount: 4
   _waterDrag: 0.99
   _waterAngularDrag: 15
+  _playerTransform: {fileID: 0}
+  _renderDistance: 0
 --- !u!1 &333907970277157174
 GameObject:
   m_ObjectHideFlags: 0
@@ -104,6 +106,8 @@ MonoBehaviour:
   _floaterCount: 4
   _waterDrag: 0.99
   _waterAngularDrag: 15
+  _playerTransform: {fileID: 0}
+  _renderDistance: 0
 --- !u!1 &333907970869196803
 GameObject:
   m_ObjectHideFlags: 0
@@ -156,6 +160,8 @@ MonoBehaviour:
   _floaterCount: 4
   _waterDrag: 0.99
   _waterAngularDrag: 15
+  _playerTransform: {fileID: 0}
+  _renderDistance: 0
 --- !u!1 &333907971254692468
 GameObject:
   m_ObjectHideFlags: 0
@@ -208,6 +214,8 @@ MonoBehaviour:
   _floaterCount: 4
   _waterDrag: 0.99
   _waterAngularDrag: 15
+  _playerTransform: {fileID: 0}
+  _renderDistance: 0
 --- !u!1 &333907971529626045
 GameObject:
   m_ObjectHideFlags: 0
@@ -325,6 +333,11 @@ MonoBehaviour:
   CharacterManager: {fileID: 0}
   Rigidbody: {fileID: 333907971529626019}
   Mesh: {fileID: 6105224612437298787}
+  FloatersRef:
+    FrontLeft: {fileID: 333907970047417243}
+    FrontRight: {fileID: 333907970277157176}
+    BackLeft: {fileID: 333907971254692470}
+    BackRight: {fileID: 333907970869196805}
   PaddlingAudioClip: {fileID: 8300000, guid: cc79f0cc1ba16294cb28181e5ed1db4e, type: 3}
   CollisionAudioClip: {fileID: 8300000, guid: 6fcbe11d2b48cf540aa7cd7c670420f2, type: 3}
 --- !u!136 &4595948853936165718
