@@ -38,6 +38,8 @@ namespace Character
         public float RebalanceAngle = 8f;
         [Range(0, 10), Tooltip("Minimum Time/Balance the player has to react when unbalanced")]
         public float MinimumTimeUnbalanced = 2f;
+        [Range(0,20), Tooltip("The Multiplier applied to the paddle force to the balance")]
+        public float RotationToBalanceMultiplier = 10f;
 
         [Header("VFX")]
         [SerializeField] private ParticleSystem _paddleLeftParticle;

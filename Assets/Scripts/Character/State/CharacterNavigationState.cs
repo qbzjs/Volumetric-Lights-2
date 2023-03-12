@@ -191,8 +191,7 @@ namespace Character.State
             RotationPaddleForceY += direction == Direction.Right ? -rotation : rotation;
 
             //balance
-            const float rotationToBalanceMultiplier = 10f;
-            CharacterManagerRef.Balance += RotationPaddleForceY * rotationToBalanceMultiplier;
+            CharacterManagerRef.Balance += RotationPaddleForceY * CharacterManagerRef.RotationToBalanceMultiplier;
             
             //force
             MonoBehaviourRef.StartCoroutine(PaddleForceCurve());
