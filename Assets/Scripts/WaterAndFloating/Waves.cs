@@ -213,6 +213,11 @@ namespace WaterAndFloating
                 {
                     float y = 0f;
 
+                    if (Index(x, z) <=0 || Index(x,z) >= _vertices.Count)
+                    {
+                        continue;
+                    }
+
                     if (octave.Height == 0)
                     {
                         _vertices[Index(x,z)] = new Vector3(x, y, z);
@@ -226,7 +231,7 @@ namespace WaterAndFloating
                 
                     y += perlinNoiseValue * octaveHeight;
 
-                    _vertices[ x * (_dimension + 1) + z] = new Vector3(x, y, z);
+                    _vertices[Index(x,z)] = new Vector3(x, y, z);
                 }
             }
         
@@ -275,7 +280,7 @@ namespace WaterAndFloating
 
                     if (j % 3 == 0 && _waveBurstParticlePrefab != null)
                     {
-                        Instantiate(_waveBurstParticlePrefab, point+new Vector3(0,amplitude/2,0), Quaternion.identity);
+                        Instantiate(_waveBurstParticlePrefab, point+new Vector3(0,amplitude-1,0), Quaternion.identity);
                     }
                 }
             }
