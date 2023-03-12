@@ -954,12 +954,12 @@ MonoBehaviour:
   InputManagement: {fileID: 5885439514833416252}
   PaddleAnimator: {fileID: 6793741366818239509}
   TransitionManager: {fileID: 0}
-  balanceLerpTo0Value: 0.01
+  balanceLerpTo0Value: 0.03
   LerpBalanceTo0: 1
   Balance: 0
   BalanceLimit: 8.5
   BalanceDeathLimit: 14
-  RebalanceAngle: 5
+  RebalanceAngle: 2
   MinimumTimeUnbalanced: 2
   _paddleLeftParticle: {fileID: 8176147450691830271}
   _paddleRightParticle: {fileID: 900554225378323000}
