@@ -1008,8 +1008,8 @@ MonoBehaviour:
   Brain: {fileID: 1967899735}
   VirtualCamera: {fileID: 4192299973026284776}
   MultiplierFovCamera: 2.03
-  LerpTimeX: 0.0003
-  LerpTimeY: 0.004
+  LerpTimeX: 0.035
+  LerpTimeY: 0.035
   TimerCameraReturnBehindBoat: 2
   JoystickFreeRotationX:
     serializedVersion: 2
@@ -1017,29 +1017,47 @@ MonoBehaviour:
     - serializedVersion: 3
       time: -1.0005085
       value: -0.9997541
-      inSlope: 3.1406133
-      outSlope: 3.1406133
+      inSlope: 1.6429578
+      outSlope: 1.6429578
       tangentMode: 0
       weightedMode: 0
       inWeight: 0
-      outWeight: 0.035043217
+      outWeight: 0.14086258
+    - serializedVersion: 3
+      time: -0.009878133
+      value: -0.009975115
+      inSlope: 0.0039650975
+      outSlope: 0.0039650975
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.9637195
     - serializedVersion: 3
       time: 0.00005506538
       value: -0.000013513694
-      inSlope: -0.001128428
-      outSlope: -0.001128428
+      inSlope: -0.008547281
+      outSlope: -0.008547281
       tangentMode: 0
       weightedMode: 0
       inWeight: 0.59614134
-      outWeight: 0.01556395
+      outWeight: 0.011789803
+    - serializedVersion: 3
+      time: 0.00996596
+      value: 0.009966732
+      inSlope: 0.0028130584
+      outSlope: 0.0028130584
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.010330245
     - serializedVersion: 3
       time: 1
       value: 1
-      inSlope: 3.1710067
-      outSlope: 3.1710067
+      inSlope: 1.4651144
+      outSlope: 1.4651144
       tangentMode: 0
       weightedMode: 0
-      inWeight: 0.037833508
+      inWeight: 0.09702311
       outWeight: 0
     m_PreInfinity: 2
     m_PostInfinity: 2
@@ -1050,29 +1068,47 @@ MonoBehaviour:
     - serializedVersion: 3
       time: -1.0005085
       value: -0.9997541
-      inSlope: 3.1406133
-      outSlope: 3.1406133
+      inSlope: 1.6429578
+      outSlope: 1.6429578
       tangentMode: 0
       weightedMode: 0
       inWeight: 0
-      outWeight: 0.035043217
+      outWeight: 0.14086258
+    - serializedVersion: 3
+      time: -0.009878133
+      value: -0.009975115
+      inSlope: 0.0039650975
+      outSlope: 0.0039650975
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.9637195
     - serializedVersion: 3
       time: 0.00005506538
       value: -0.000013513694
-      inSlope: -0.001128428
-      outSlope: -0.001128428
+      inSlope: -0.008547281
+      outSlope: -0.008547281
       tangentMode: 0
       weightedMode: 0
       inWeight: 0.59614134
-      outWeight: 0.01556395
+      outWeight: 0.011789803
+    - serializedVersion: 3
+      time: 0.00996596
+      value: 0.009966732
+      inSlope: 0.0028130584
+      outSlope: 0.0028130584
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.010330245
     - serializedVersion: 3
       time: 1
       value: 1
-      inSlope: 3.1710067
-      outSlope: 3.1710067
+      inSlope: 1.4651144
+      outSlope: 1.4651144
       tangentMode: 0
       weightedMode: 0
-      inWeight: 0.037833508
+      inWeight: 0.09702311
       outWeight: 0
     m_PreInfinity: 2
     m_PostInfinity: 2
