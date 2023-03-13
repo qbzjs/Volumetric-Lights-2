@@ -601,7 +601,7 @@ ParticleSystem:
         m_PostInfinity: 2
         m_RotationOrder: 4
     randomizeRotationDirection: 0
-    maxNumParticles: 15
+    maxNumParticles: 1000
     customEmitterVelocity: {x: 0, y: 0, z: 0}
     size3D: 0
     rotation3D: 1
@@ -661,7 +661,7 @@ ParticleSystem:
   ShapeModule:
     serializedVersion: 6
     enabled: 0
-    type: 4
+    type: 5
     angle: 25
     length: 5
     boxThickness: {x: 0, y: 0, z: 0}
@@ -984,7 +984,7 @@ ParticleSystem:
         m_Curve:
         - serializedVersion: 3
           time: 0
-          value: 0.44595337
+          value: 0.19958496
           inSlope: 4.478212
           outSlope: 4.478212
           tangentMode: 0
@@ -993,7 +993,7 @@ ParticleSystem:
           outWeight: 0.4365457
         - serializedVersion: 3
           time: 0.1811032
-          value: 0.9873383
+          value: 0.69023633
           inSlope: -0.7823785
           outSlope: -0.7823785
           tangentMode: 0
@@ -1372,14 +1372,14 @@ ParticleSystem:
         m_NumAlphaKeys: 2
   UVModule:
     serializedVersion: 2
-    enabled: 1
+    enabled: 0
     mode: 0
     timeMode: 0
     fps: 30
     frameOverTime:
       serializedVersion: 2
       minMaxState: 0
-      scalar: 0
+      scalar: 0.22222222
       minScalar: 0.9999
       maxCurve:
         serializedVersion: 2
@@ -1483,13 +1483,13 @@ ParticleSystem:
         m_PostInfinity: 2
         m_RotationOrder: 4
     speedRange: {x: 0, y: 1}
-    tilesX: 4
-    tilesY: 4
+    tilesX: 3
+    tilesY: 3
     animationType: 1
-    rowIndex: 0
+    rowIndex: 2
     cycles: 1
     uvChannelMask: -1
-    rowMode: 1
+    rowMode: 2
     sprites:
     - sprite: {fileID: 0}
     flipU: 0
@@ -4782,7 +4782,7 @@ ParticleSystemRenderer:
   m_RenderingLayerMask: 4294967295
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: d84597acd7ada4ababbf75fc492460d5, type: 2}
+  - {fileID: 2100000, guid: 3819b90a2fb072c468b4aa6d878f7afd, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
