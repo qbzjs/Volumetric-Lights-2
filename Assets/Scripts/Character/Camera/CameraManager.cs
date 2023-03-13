@@ -70,6 +70,12 @@ public class CameraManager : MonoBehaviour
     [Tooltip("The value that the camera distance should reach")]
     public float MaxValueDistanceToStartDeath = 10f;
 
+    [Header("Respawn")]
+    public float CameraDistanceRespawn = 25;
+    public float MultiplyTimeForDistanceWhenRespawn = 5;
+    public float CameraAngleTopDownRespawn = 28;
+    public float MultiplyTimeForTopDownWhenRespawn = 6;
+
     [Header("Shake Camera")]
     public float AmplitudShakeWhenUnbalanced = 0.5f;
     public float AmplitudShakeWhenWaterFlow = 0.2f;
@@ -77,7 +83,7 @@ public class CameraManager : MonoBehaviour
     public Waves Waves;
 
     //camera
-    [HideInInspector] public float CameraAngleOverride = 0.0f;
+    [ReadOnly] public float CameraAngleOverride = 0.0f;
     [HideInInspector] public float CameraBaseFov;
     [HideInInspector] public Vector3 CameraTargetBasePos;
     [HideInInspector] public float RotationZ = 0;

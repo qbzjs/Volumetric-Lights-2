@@ -107,8 +107,10 @@ namespace Character.State
                 _respawned = true;
 
                 //Switch state camera
-                CameraNavigationState cameraNavigationState = new CameraNavigationState(CameraManagerRef, MonoBehaviourRef);
-                CameraManagerRef.SwitchState(cameraNavigationState);
+                CameraRespawnState cameraRespawnState = new CameraRespawnState(CameraManagerRef, MonoBehaviourRef);
+                CameraManagerRef.SwitchState(cameraRespawnState);
+                //CameraNavigationState cameraNavigationState = new CameraNavigationState(CameraManagerRef, MonoBehaviourRef);
+                //CameraManagerRef.SwitchState(cameraNavigationState);
             }
         }
     }
