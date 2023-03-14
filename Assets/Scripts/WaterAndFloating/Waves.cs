@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using GPEs;
 using UnityEngine;
 using UnityEngine.Rendering;
 
@@ -57,6 +58,7 @@ namespace WaterAndFloating
                 _indexVerticesDictionary.Add(new Vector2(_vertices[i].x,_vertices[i].z),i);
             }
             CircularWavesDurationList = new List<float>();
+            LinearWavesDurationList = new List<float>();
             
             WaveGeneration();
         }
@@ -65,6 +67,7 @@ namespace WaterAndFloating
         {
             WaveGeneration();
             ManageCircularWavesTimer();
+            ManageLinearWavesTimer();
         }
 
         public float GetHeight(Vector3 position)
@@ -236,6 +239,8 @@ namespace WaterAndFloating
             }
         
             ManageCircularWaves();
+            ManageLinearWaves();
+            
             ManageVerticesGrowingAmplitude();
             ManageVerticesReducingAmplitude();
 
@@ -243,13 +248,34 @@ namespace WaterAndFloating
             _mesh.RecalculateNormals();
         }
 
+        #region Tools
+
+        private Vector2 _positionDifference;
+        private Vector2 _scaleDifference;
+        private Dictionary<Vector2, int> _indexVerticesDictionary = new Dictionary<Vector2, int>();
+        
+        private int FindIndexOfVerticeAt(Vector2 worldPosition, bool applyWaveTransform)
+        {
+            Vector2 rounded = new Vector2(Mathf.Round(worldPosition.x), Mathf.Round(worldPosition.y));
+            if (applyWaveTransform)
+            {
+                rounded = new Vector2(Mathf.Round((worldPosition.x-_positionDifference.x)/_scaleDifference.x), 
+                    Mathf.Round((worldPosition.y-_positionDifference.y)/_scaleDifference.y));
+            }
+            int closestIndex = _indexVerticesDictionary[rounded];
+        
+            return closestIndex;
+        }
+    
+        
+
+        #endregion
+        
         #region CircularWaves
 
         private List<CircularWave> _circularWavesList = new List<CircularWave>();
         public List<float> CircularWavesDurationList { get; private set; }
-        private Vector2 _positionDifference;
-        private Vector2 _scaleDifference;
-        private Dictionary<Vector2, int> _indexVerticesDictionary = new Dictionary<Vector2, int>();
+        
 
         public void LaunchCircularWave(CircularWave circularWave)
         {
@@ -274,7 +300,7 @@ namespace WaterAndFloating
                 for (int j = 1; j <= waveData.NumberOfPoints; j++)
                 {
                     float angle = j * angleDifference;
-                    Vector3 point = GetPointFromAngleAndDistance(center, angle, distance);
+                    Vector3 point = MathTools.GetPointFromAngleAndDistance(center, angle, distance);
                     int index = FindIndexOfVerticeAt(new Vector2(point.x,point.z), true);
                     SetupVerticesAmplitudeDictionary(new Vector2(_vertices[index].x,_vertices[index].z), amplitude);
 
@@ -299,33 +325,64 @@ namespace WaterAndFloating
                 }
             }
         }
-    
-        private int FindIndexOfVerticeAt(Vector2 worldPosition, bool applyWaveTransform)
-        {
-            Vector2 rounded = new Vector2(Mathf.Round(worldPosition.x), Mathf.Round(worldPosition.y));
-            if (applyWaveTransform)
-            {
-                rounded = new Vector2(Mathf.Round((worldPosition.x-_positionDifference.x)/_scaleDifference.x), 
-                    Mathf.Round((worldPosition.y-_positionDifference.y)/_scaleDifference.y));
-            }
-            int closestIndex = _indexVerticesDictionary[rounded];
+
+        #endregion
+
+        #region LinearWaves
+
+        private List<LinearWave> _linearWavesList = new List<LinearWave>();
+        public List<float> LinearWavesDurationList { get; private set; }
         
-            return closestIndex;
+        public void LaunchLinearWave(LinearWave circularWave)
+        {
+            _linearWavesList.Add(circularWave);
+            LinearWavesDurationList.Add(circularWave.Duration);
         }
     
-        public static Vector3 GetPointFromAngleAndDistance(Vector3 startingPoint, float yAngleDegrees, float distance)
+        private void ManageLinearWaves()
         {
-            // Convert the Y angle to radians
-            float yAngleRadians = yAngleDegrees * Mathf.Deg2Rad;
+            for (int i = 0; i < _linearWavesList.Count; i++)
+            {
+                //calculate the values
+                LinearWave waveData = _linearWavesList[i];
+                Vector3 center = new Vector3(waveData.Center.x - waveData.StartWidth/2, 0, waveData.Center.y);
+                float currentTime = LinearWavesDurationList[i];
+                float percent = currentTime / waveData.Duration;
+                float distance = (1 - percent) * waveData.Distance;
+                float amplitude = percent * waveData.Amplitude;
+                float currentWidth = waveData.StartWidth * percent + waveData.EndWidth * (1-percent);
+                
+                //set vertex
+                float distanceDifference = currentWidth/(float)waveData.NumberOfPoints;
+                for (int j = 1; j <= waveData.NumberOfPoints; j++)
+                {
+                    float x = center.x - currentWidth/4 + j * distanceDifference;
+                    float y = center.z + distance;
+                    Vector3 point = MathTools.RotatePointAroundCenter(center, waveData.Angle, new Vector3(x,0, y));
+                    Vector2 vector2Point = new Vector2(point.x, point.z);
+                    int index = FindIndexOfVerticeAt(vector2Point, true);
+                    SetupVerticesAmplitudeDictionary(new Vector2(_vertices[index].x,_vertices[index].z), amplitude);
 
-            // Calculate the X and Z offsets using trigonometry
-            float xOffset = distance * Mathf.Sin(yAngleRadians);
-            float zOffset = distance * Mathf.Cos(yAngleRadians);
+                    if (j % 3 == 0 && _waveBurstParticlePrefab != null)
+                    {
+                        Instantiate(_waveBurstParticlePrefab,new Vector3(point.x,amplitude-1,point.y), Quaternion.identity);
+                    }
+                }
+            }
+        }
 
-            // Create a new Vector3 with the calculated offsets and the same Y position as the starting point
-            Vector3 newPoint = new Vector3(startingPoint.x + xOffset, startingPoint.y, startingPoint.z + zOffset);
-
-            return newPoint;
+        private void ManageLinearWavesTimer()
+        {
+            for (int i = 0; i < LinearWavesDurationList.Count; i++)
+            {
+                LinearWavesDurationList[i] -= Time.deltaTime;
+            
+                if (LinearWavesDurationList[i] <= 0)
+                {
+                    _linearWavesList.Remove(_linearWavesList[i]);
+                    LinearWavesDurationList.Remove(LinearWavesDurationList[i]);
+                }
+            }
         }
 
         #endregion
