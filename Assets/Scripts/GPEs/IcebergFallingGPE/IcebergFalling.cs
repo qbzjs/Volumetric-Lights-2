@@ -112,7 +112,7 @@ namespace IcebergFallingGPE
             for (int i = 1; i <= _circularWaveData.NumberOfPoints; i++)
             {
                 float angle = i * angleDifference;
-                Vector3 endPoint = Waves.GetPointFromAngleAndDistance(endPosition, angle, _circularWaveData.Distance);
+                Vector3 endPoint = MathTools.GetPointFromAngleAndDistance(endPosition, angle, _circularWaveData.Distance);
                 Gizmos.DrawLine(endPosition,endPoint);
             }
         }

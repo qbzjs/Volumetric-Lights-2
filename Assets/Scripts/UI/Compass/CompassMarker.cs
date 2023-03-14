@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -16,5 +17,15 @@ namespace UI.Compass
                 return new Vector2(position.x, position.z);
             }
         }
+        
+        #if UNITY_EDITOR
+
+        private void OnDrawGizmos()
+        {
+            Gizmos.color = Color.blue;
+            Gizmos.DrawSphere(transform.position,1f);
+        }
+
+#endif
     }
 }
