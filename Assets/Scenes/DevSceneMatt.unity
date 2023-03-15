@@ -3831,6 +3831,31 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7847624547261126131, guid: e7ffe73d6c5ab7449944915d5b332dae,
         type: 3}
+      propertyPath: _triggerType
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7847624547261126131, guid: e7ffe73d6c5ab7449944915d5b332dae,
+        type: 3}
+      propertyPath: _triggerBoxSize.x
+      value: 30
+      objectReference: {fileID: 0}
+    - target: {fileID: 7847624547261126131, guid: e7ffe73d6c5ab7449944915d5b332dae,
+        type: 3}
+      propertyPath: _triggerBoxSize.y
+      value: 20
+      objectReference: {fileID: 0}
+    - target: {fileID: 7847624547261126131, guid: e7ffe73d6c5ab7449944915d5b332dae,
+        type: 3}
+      propertyPath: _triggerBoxSize.z
+      value: 40
+      objectReference: {fileID: 0}
+    - target: {fileID: 7847624547261126131, guid: e7ffe73d6c5ab7449944915d5b332dae,
+        type: 3}
+      propertyPath: _triggerSphereSize
+      value: 21
+      objectReference: {fileID: 0}
+    - target: {fileID: 7847624547261126131, guid: e7ffe73d6c5ab7449944915d5b332dae,
+        type: 3}
       propertyPath: _waveData.Duration
       value: 3
       objectReference: {fileID: 0}

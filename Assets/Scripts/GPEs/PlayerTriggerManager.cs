@@ -1,13 +1,23 @@
 using Kayak;
 using UnityEngine;
 using UnityEngine.Events;
+using UnityEngine.Serialization;
+using UnityEngine.UIElements;
 
 namespace GPEs
 {
     public class PlayerTriggerManager : MonoBehaviour
     {
-        [Header("TriggerBox"), SerializeField] private bool _showTriggerGizmos = true;
-        [SerializeField] private Vector3 _triggerSize = Vector3.one;
+        public enum TriggerType
+        {
+            BoxTrigger = 0,
+            SphereTrigger = 1
+        }
+
+        [Header("Trigger"), SerializeField] private TriggerType _triggerType;
+        [SerializeField] private bool _showTriggerGizmos = true;
+        [SerializeField] private Vector3 _triggerBoxSize = Vector3.one;
+        [SerializeField] private float _triggerSphereSize = 1;
         [SerializeField] private Vector3 _triggerOffsetPosition = Vector3.zero;
         [SerializeField] private LayerMask _playerLayerMask;
         [Header("Event")] public UnityEvent OnPlayerDetected = new UnityEvent();
@@ -16,7 +26,16 @@ namespace GPEs
 
         public virtual void Update()
         {
-            RaycastHit[] hits = Physics.BoxCastAll(transform.position + _triggerOffsetPosition, _triggerSize / 2, Vector3.forward, Quaternion.identity, 0f, _playerLayerMask);
+            RaycastHit[] hits = new RaycastHit[] { };
+            if (_triggerType == TriggerType.BoxTrigger)
+            {
+                hits = Physics.BoxCastAll(transform.position + _triggerOffsetPosition, _triggerBoxSize / 2, Vector3.forward, Quaternion.identity, 0f, _playerLayerMask);
+                
+            }
+            if (_triggerType == TriggerType.SphereTrigger)
+            {
+                hits = Physics.SphereCastAll(transform.position + _triggerOffsetPosition, _triggerSphereSize, Vector3.forward);
+            }
             foreach (RaycastHit hit in hits)
             {
                 KayakController kayakController = hit.collider.gameObject.GetComponent<KayakController>();
@@ -35,7 +54,14 @@ namespace GPEs
             if (_showTriggerGizmos)
             {
                 Gizmos.color = Color.green;
-                Gizmos.DrawWireCube(transform.position + _triggerOffsetPosition, _triggerSize);
+                if (_triggerType == TriggerType.BoxTrigger)
+                {
+                    Gizmos.DrawWireCube(transform.position + _triggerOffsetPosition, _triggerBoxSize);
+                }
+                if (_triggerType == TriggerType.SphereTrigger)
+                {
+                    Gizmos.DrawWireSphere(transform.position + _triggerOffsetPosition, _triggerSphereSize);
+                }
             }
         }
 
