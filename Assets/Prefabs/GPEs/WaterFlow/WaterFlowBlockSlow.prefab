@@ -49,7 +49,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 522d05f301da4a4b9d7aee4b522d2273, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _speed: 0.2
+  _speed: 0.3
+  _balanceValue: 0.13
+  _balanceValueRandomMultiplierRange: {x: 1, y: 2}
   _speedNotFacingMultiplier: 0.5
   _rotationLerpWhenInDirection: 0.1
   _rotationLerpWhenNotInDirection: 0.02
