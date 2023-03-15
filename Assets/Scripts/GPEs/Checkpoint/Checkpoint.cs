@@ -16,11 +16,11 @@ namespace GPEs.Checkpoint
 
         private void Start()
         {
-            OnPlayerDetected.AddListener(SetCheckPoint);
+            OnPlayerEntered.AddListener(SetCheckPoint);
         }
         private void OnDestroy()
         {
-            OnPlayerDetected.RemoveListener(SetCheckPoint);
+            OnPlayerEntered.RemoveListener(SetCheckPoint);
         }
 
         public void SetCheckPoint()

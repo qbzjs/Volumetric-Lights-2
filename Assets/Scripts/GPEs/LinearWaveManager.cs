@@ -13,11 +13,11 @@ namespace GPEs
 
         private void Start()
         {
-            OnPlayerDetected.AddListener(LaunchWave);
+            OnPlayerEntered.AddListener(LaunchWave);
         }
         private void OnDestroy()
         {
-            OnPlayerDetected.RemoveListener(LaunchWave);
+            OnPlayerEntered.RemoveListener(LaunchWave);
         }
 
         private void LaunchWave()

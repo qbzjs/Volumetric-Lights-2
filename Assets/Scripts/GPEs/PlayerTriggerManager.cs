@@ -20,12 +20,17 @@ namespace GPEs
         [SerializeField] private float _triggerSphereSize = 1;
         [SerializeField] private Vector3 _triggerOffsetPosition = Vector3.zero;
         [SerializeField] private LayerMask _playerLayerMask;
-        [Header("Event")] public UnityEvent OnPlayerDetected = new UnityEvent();
+        
+        [Header("Event")] public UnityEvent OnPlayerEntered = new UnityEvent();
+        public UnityEvent OnPlayerStay = new UnityEvent();
+        public UnityEvent OnPlayerExited = new UnityEvent();
 
         protected KayakController KayakController;
 
         public virtual void Update()
         {
+            bool kayak = false;
+            
             RaycastHit[] hits = new RaycastHit[] { };
             if (_triggerType == TriggerType.BoxTrigger)
             {
@@ -41,9 +46,20 @@ namespace GPEs
                 KayakController kayakController = hit.collider.gameObject.GetComponent<KayakController>();
                 if (kayakController != null)
                 {
-                    KayakController = kayakController;
-                    OnPlayerDetected.Invoke();
+                    if (KayakController == null)
+                    {
+                        KayakController = kayakController;
+                        OnPlayerEntered.Invoke();
+                    }
+                    OnPlayerStay.Invoke();
+                    kayak = true;
                 }
+            }
+
+            if (KayakController != null && kayak == false)
+            {
+                KayakController = null;
+                OnPlayerExited.Invoke();
             }
         }
 
