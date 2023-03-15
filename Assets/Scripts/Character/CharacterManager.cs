@@ -107,6 +107,10 @@ namespace Character
             float sign = Mathf.Sign(Balance);
             Balance += value * sign;
         }
+        public void AddBalanceValueToCurrentSide(double value)
+        {
+            AddBalanceValueToCurrentSide((float)value);
+        }
 
         #region VFX
 

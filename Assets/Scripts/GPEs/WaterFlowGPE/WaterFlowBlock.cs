@@ -10,25 +10,27 @@ namespace WaterFlowGPE
 {
     public class WaterFlowBlock : MonoBehaviour
     {
-        [SerializeField] private float _speed;
+        [Header("Parameters"), SerializeField] 
+        private float _speed;
 
-        [SerializeField, Range(0, 1),
-         Tooltip("Multiplier applied to the speed when the boat isn't facing the direction")]
+        [SerializeField, Range(0, 1), Tooltip("Max balance value added to kayak while in water flow")] 
+        private float _balanceValue;
+        
+        [SerializeField, Tooltip("The range in-between which the balance value will be multiplied randomly")] 
+        private Vector2 _balanceValueRandomMultiplierRange;
+        
+        [SerializeField, Range(0, 1), Tooltip("Multiplier applied to the speed when the boat isn't facing the direction")]
         private float _speedNotFacingMultiplier = 0.5f;
 
-        [SerializeField, Range(0, 0.1f),
-         Tooltip(
-             "The lerp applied to the boat rotation to match the flow direction when the boat is already facing the flow direction")]
+        [SerializeField, Range(0, 0.1f), Tooltip("The lerp applied to the boat rotation to match the flow direction when the boat is already facing the flow direction")]
         private float _rotationLerpWhenInDirection = 0.05f;
 
         [SerializeField, Range(0, 0.05f),
-         Tooltip(
-             "The lerp applied to the boat rotation to match the flow direction when the boat is not facing the flow direction")]
+         Tooltip("The lerp applied to the boat rotation to match the flow direction when the boat is not facing the flow direction")]
         private float _rotationLerpWhenNotInDirection = 0.005f;
 
         [SerializeField, Range(0, 0.05f),
-         Tooltip(
-             "The lerp applied to the boat rotation to match the flow direction when the player is trying to move away")]
+         Tooltip("The lerp applied to the boat rotation to match the flow direction when the player is trying to move away")]
         private float _rotationLerpWhenMoving = 0.005f;
 
         [Header("Particles"), SerializeField] private List<ParticleSystem> _particlesList;
@@ -112,6 +114,10 @@ namespace WaterFlowGPE
                         velocity.x + speed * Mathf.Sign(velocity.x),
                         velocity.y,
                         velocity.z + speed * Mathf.Sign(velocity.z));
+                    
+                    //balance
+                    double value = _balanceValue * UnityEngine.Random.Range(_balanceValueRandomMultiplierRange.x, _balanceValueRandomMultiplierRange.y);
+                    kayakController.CharacterManager.AddBalanceValueToCurrentSide(value);
                 }
             }
         }

@@ -50,6 +50,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _speed: 0.8
+  _balanceValue: 0
+  _balanceValueRandomMultiplierRange: {x: 0, y: 0}
   _speedNotFacingMultiplier: 0.5
   _rotationLerpWhenInDirection: 0.1
   _rotationLerpWhenNotInDirection: 0.02
