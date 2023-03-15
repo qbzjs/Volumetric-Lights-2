@@ -69,6 +69,10 @@ namespace WaterFlowGPE
             //loop
             for (int i = 1; i < _waterFlowBlocks.Length; i++)
             {
+                if (_waterFlowBlocks[i] == null)
+                {
+                    continue;
+                }
                 float distance = Vector3.Distance(player.position, _waterFlowBlocks[i].transform.position);
                 if (distance < closestDistance)
                 {
