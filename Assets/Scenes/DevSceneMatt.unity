@@ -3831,8 +3831,28 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7847624547261126131, guid: e7ffe73d6c5ab7449944915d5b332dae,
         type: 3}
+      propertyPath: _waveData.Duration
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 7847624547261126131, guid: e7ffe73d6c5ab7449944915d5b332dae,
+        type: 3}
       propertyPath: <Waves>k__BackingField
       value: 
       objectReference: {fileID: 419315132}
+    - target: {fileID: 7847624547261126131, guid: e7ffe73d6c5ab7449944915d5b332dae,
+        type: 3}
+      propertyPath: _waveData.AmplitudeCurve.m_Curve.Array.data[0].inSlope
+      value: -0.06848136
+      objectReference: {fileID: 0}
+    - target: {fileID: 7847624547261126131, guid: e7ffe73d6c5ab7449944915d5b332dae,
+        type: 3}
+      propertyPath: _waveData.AmplitudeCurve.m_Curve.Array.data[0].outSlope
+      value: -0.06848136
+      objectReference: {fileID: 0}
+    - target: {fileID: 7847624547261126131, guid: e7ffe73d6c5ab7449944915d5b332dae,
+        type: 3}
+      propertyPath: _waveData.AmplitudeCurve.m_Curve.Array.data[0].outWeight
+      value: 0.3
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: e7ffe73d6c5ab7449944915d5b332dae, type: 3}

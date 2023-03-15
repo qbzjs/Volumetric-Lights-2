@@ -365,7 +365,7 @@ namespace WaterAndFloating
 
                     if (j % 3 == 0 && _waveBurstParticlePrefab != null)
                     {
-                        Instantiate(_waveBurstParticlePrefab,new Vector3(point.x,amplitude-1,point.y), Quaternion.identity);
+                        Instantiate(_waveBurstParticlePrefab,new Vector3(vector2Point.x,amplitude-1,vector2Point.y), Quaternion.identity);
                     }
                 }
             }
